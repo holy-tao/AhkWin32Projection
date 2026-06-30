@@ -16,6 +16,8 @@
 #Import "./generator-extensions/StringUtils.test.ahk" { StringUtilExtensionTests }
 #Import "./generator-extensions/NTSTATUSExtensions.test.ahk" { NTSTATUSExtensionTests }
 
+#Import "./HandleOwnership.test.ahk" { HandleOwnershipTests }
+
 #Import "./Vector.test.ahk" { VectorTests }
 
 Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
@@ -29,6 +31,7 @@ Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
     BSTRExtensionTests,
     StringUtilExtensionTests,
     NTSTATUSExtensionTests,
+    HandleOwnershipTests,
     VectorTests
 )
 
