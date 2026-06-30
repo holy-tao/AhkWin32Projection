@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
 #Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
 
 /**
  * Defines a pair of 802.11 authentication and cipher algorithms that can be enabled at the same time on the 802.11 station.

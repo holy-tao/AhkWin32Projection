@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\ObjectIdGroupId.ahk
+#Include .\AlgorithmFlags.ahk
+#Include .\CERTENROLL_OBJECTID.ahk
+#Include .\ObjectIdPublicKeyFlags.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an object identifier (OID).
@@ -328,7 +333,7 @@ class IObjectId extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-get_friendlyname
      */
     get_FriendlyName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -398,7 +403,7 @@ class IObjectId extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-get_value
      */
     get_Value() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -431,7 +436,7 @@ class IObjectId extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-getalgorithmname
      */
     GetAlgorithmName(GroupId, KeyFlags) {
-        pstrAlgorithmName := BSTR()
+        pstrAlgorithmName := BSTR({Value: 0}, True)
         result := ComCall(14, this, "int", GroupId, "int", KeyFlags, "ptr", pstrAlgorithmName, "HRESULT")
         return pstrAlgorithmName
     }

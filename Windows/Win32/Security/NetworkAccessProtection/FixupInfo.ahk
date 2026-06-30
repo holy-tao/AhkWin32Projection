@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FixupState.ahk
 #Include .\ResultCodes.ahk
+#Include .\FixupState.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains fix-up information for the Sysytem Health Agent (SHA).

@@ -9,7 +9,7 @@ class FILE_MEMORY_PARTITION_INFORMATION extends Win32Struct {
 
     static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
+    class _Flags extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -50,12 +50,12 @@ class FILE_MEMORY_PARTITION_INFORMATION extends Win32Struct {
     }
 
     /**
-     * @type {_Flags_e__Union}
+     * @type {_Flags}
      */
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := FILE_MEMORY_PARTITION_INFORMATION._Flags_e__Union(8, this)
+                this.__Flags := FILE_MEMORY_PARTITION_INFORMATION._Flags(8, this)
             return this.__Flags
         }
     }

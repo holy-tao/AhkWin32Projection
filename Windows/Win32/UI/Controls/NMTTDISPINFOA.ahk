@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\TOOLTIP_FLAGS.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\NMHDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information used in handling the TTN_GETDISPINFO notification code. This structure supersedes the TOOLTIPTEXT structure. (ANSI)

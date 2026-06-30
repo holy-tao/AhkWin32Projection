@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumBitsPeerCacheRecords.ahk
-#Include .\IBitsPeerCacheRecord.ahk
 #Include .\IEnumBitsPeers.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IEnumBitsPeerCacheRecords.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IBitsPeerCacheRecord.ahk
 
 /**
  * Use IBitsPeerCacheAdministration to manage the pool of peers from which you can download content.

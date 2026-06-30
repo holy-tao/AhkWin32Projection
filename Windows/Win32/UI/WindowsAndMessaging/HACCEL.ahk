@@ -4,8 +4,6 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * The HACCEL_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
 class HACCEL extends Win32Handle {

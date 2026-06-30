@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEV_QUERY_RESULT_ACTION.ahk
-#Include .\DEV_QUERY_STATE.ahk
 #Include .\DEV_OBJECT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DEV_OBJECT_TYPE.ahk
 #Include ..\Properties\DEVPROPERTY.ahk
+#Include .\DEV_QUERY_STATE.ahk
+#Include .\DEV_QUERY_RESULT_ACTION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFSinkWriterCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IMFSinkWriterCallback interface.

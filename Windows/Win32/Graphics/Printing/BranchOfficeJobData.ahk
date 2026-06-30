@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EBranchOfficeJobEventType.ahk
 #Include .\BranchOfficeJobDataPrinted.ahk
 #Include .\BranchOfficeJobDataRendered.ahk
-#Include .\BranchOfficeJobDataError.ahk
-#Include .\BranchOfficeJobDataPipelineFailed.ahk
 #Include .\BranchOfficeLogOfflineFileFull.ahk
+#Include .\BranchOfficeJobDataPipelineFailed.ahk
+#Include .\BranchOfficeJobDataError.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\EBranchOfficeJobEventType.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -15,7 +16,7 @@ class BranchOfficeJobData extends Win32Struct {
 
     static packingSize => 8
 
-    class _JobInfo_e__Union extends Win32Struct {
+    class _JobInfo extends Win32Struct {
         static sizeof => 88
         static packingSize => 8
 
@@ -92,12 +93,12 @@ class BranchOfficeJobData extends Win32Struct {
     }
 
     /**
-     * @type {_JobInfo_e__Union}
+     * @type {_JobInfo}
      */
     JobInfo {
         get {
             if(!this.HasProp("__JobInfo"))
-                this.__JobInfo := BranchOfficeJobData._JobInfo_e__Union(8, this)
+                this.__JobInfo := BranchOfficeJobData._JobInfo(8, this)
             return this.__JobInfo
         }
     }

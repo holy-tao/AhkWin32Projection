@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
@@ -29,12 +30,9 @@ class IGameInputDispatcher extends IUnknown {
     static VTableNames => ["Dispatch", "OpenWaitHandle"]
 
     /**
-     * Specifies the threading and apartment type for a new DispatcherQueueController.
-     * @remarks
-     * Introduced in Windows 10, version 1709.
+     * 
      * @param {Integer} quotaInMicroseconds 
      * @returns {Boolean} 
-     * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/ns-dispatcherqueue-dispatcherqueueoptions
      */
     Dispatch(quotaInMicroseconds) {
         result := ComCall(3, this, "uint", quotaInMicroseconds, "int")
@@ -46,7 +44,7 @@ class IGameInputDispatcher extends IUnknown {
      * @returns {HANDLE} 
      */
     OpenWaitHandle() {
-        waitHandle := HANDLE()
+        waitHandle := HANDLE({Value: 0}, True)
         result := ComCall(4, this, "ptr", waitHandle, "HRESULT")
         return waitHandle
     }

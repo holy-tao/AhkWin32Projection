@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CDROM_PERFORMANCE_REQUEST_TYPE.ahk
 #Include .\CDROM_PERFORMANCE_TYPE.ahk
+#Include .\CDROM_PERFORMANCE_REQUEST_TYPE.ahk
 #Include .\CDROM_PERFORMANCE_EXCEPTION_TYPE.ahk
 #Include .\CDROM_PERFORMANCE_TOLERANCE_TYPE.ahk
 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Controls\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\IInkRecognitionResult.ahk
+#Include ..\Controls\NMHDR.ahk
 
 /**
  * Contains information about an IInkRecognitionResult Interface object.

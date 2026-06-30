@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFamily1.ahk
 #Include .\IDWriteFontCollection.ahk
 #Include .\IDWriteFontSet.ahk
-#Include .\IDWriteFontFamily1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. (IDWriteFontCollection1)

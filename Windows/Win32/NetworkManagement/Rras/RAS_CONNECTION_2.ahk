@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
 #Include .\PPP_INFO_2.ahk
-#Include .\PPP_NBFCP_INFO.ahk
 #Include .\PPP_IPCP_INFO2.ahk
-#Include .\PPP_IPXCP_INFO.ahk
-#Include .\PPP_ATCP_INFO.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\PPP_NBFCP_INFO.ahk
 #Include .\PPP_CCP_INFO.ahk
+#Include .\PPP_ATCP_INFO.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
 #Include .\PPP_LCP_INFO.ahk
 #Include .\PPP_LCP.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
+#Include .\PPP_IPXCP_INFO.ahk
 
 /**
  * The RAS_CONNECTION_2 structure contains information for a connection, including the Globally Unique Identifier (GUID) that identifies the connection.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
 class RAS_CONNECTION_2 extends Win32Struct {
-    static sizeof => 840
+    static sizeof => 848
 
     static packingSize => 8
 
@@ -54,11 +55,14 @@ class RAS_CONNECTION_2 extends Win32Struct {
 
     /**
      * A GUID  that identifies the connection. For incoming connections, this GUID is valid only as long as the connection is active.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 528, "ptr")
-        set => NumPut("ptr", value, this, 528)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(528, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -69,7 +73,7 @@ class RAS_CONNECTION_2 extends Win32Struct {
     PppInfo2 {
         get {
             if(!this.HasProp("__PppInfo2"))
-                this.__PppInfo2 := PPP_INFO_2(536, this)
+                this.__PppInfo2 := PPP_INFO_2(544, this)
             return this.__PppInfo2
         }
     }

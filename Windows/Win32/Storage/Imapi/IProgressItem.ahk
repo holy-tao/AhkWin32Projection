@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to retrieve block information for one segment of the result file image.
@@ -72,7 +73,7 @@ class IProgressItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitem-get_description
      */
     get_Description() {
-        desc := BSTR()
+        desc := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", desc, "HRESULT")
         return desc
     }

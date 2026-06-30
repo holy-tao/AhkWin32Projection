@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIEW_OBJECT_PROPERTIES_FLAGS.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\OLEUIOBJECTPROPSA.ahk
+#Include .\VIEW_OBJECT_PROPERTIES_FLAGS.ahk
 
 /**
  * Contains information that is used to initialize the View tab of the Object properties dialog box. (ANSI)

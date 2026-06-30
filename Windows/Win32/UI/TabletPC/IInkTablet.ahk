@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\TabletHardwareCapabilities.ahk
+#Include .\TabletPropertyMetricUnit.ahk
 #Include .\IInkRectangle.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the digitizer device of Tablet PC that receives tablet device messages or events.
@@ -79,7 +83,7 @@ class IInkTablet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-get_name
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -95,7 +99,7 @@ class IInkTablet extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-get_plugandplayid
      */
     get_PlugAndPlayId() {
-        Id := BSTR()
+        Id := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", Id, "HRESULT")
         return Id
     }

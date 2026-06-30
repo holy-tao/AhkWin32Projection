@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSURFACEDATA.ahk
 #Include .\DDVIDEOPORTDATA.ahk
+#Include .\DDSURFACEDATA.ahk
 
 /**
  * The DDSETSTATEININFO structure contains the surface and video port extensions (VPE) object information.

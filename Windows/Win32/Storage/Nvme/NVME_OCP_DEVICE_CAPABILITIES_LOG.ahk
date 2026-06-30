@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DSSD_POWER_STATE_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
 class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
-    static sizeof => 4088
+    static sizeof => 4096
 
-    static packingSize => 8
+    static packingSize => 4
 
-    class _OobMgmtSupport_e__Union extends Win32Struct {
+    class _OobMgmtSupport extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -69,7 +70,7 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
         }
     }
 
-    class _WriteZeroesCommand_e__Union extends Win32Struct {
+    class _WriteZeroesCommand extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -146,7 +147,7 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
         }
     }
 
-    class _SanitizeCommand_e__Union extends Win32Struct {
+    class _SanitizeCommand extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -223,7 +224,7 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
         }
     }
 
-    class _DatasetMgmtCommand_e__Union extends Win32Struct {
+    class _DatasetMgmtCommand extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -273,7 +274,7 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
         }
     }
 
-    class _WriteUncorrectableCommand_e__Union extends Win32Struct {
+    class _WriteUncorrectableCommand extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -341,7 +342,7 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
         }
     }
 
-    class _FusedCommand_e__Union extends Win32Struct {
+    class _FusedCommand extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -391,67 +392,67 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
     }
 
     /**
-     * @type {_OobMgmtSupport_e__Union}
+     * @type {_OobMgmtSupport}
      */
     OobMgmtSupport {
         get {
             if(!this.HasProp("__OobMgmtSupport"))
-                this.__OobMgmtSupport := NVME_OCP_DEVICE_CAPABILITIES_LOG._OobMgmtSupport_e__Union(2, this)
+                this.__OobMgmtSupport := NVME_OCP_DEVICE_CAPABILITIES_LOG._OobMgmtSupport(2, this)
             return this.__OobMgmtSupport
         }
     }
 
     /**
-     * @type {_WriteZeroesCommand_e__Union}
+     * @type {_WriteZeroesCommand}
      */
     WriteZeroesCommand {
         get {
             if(!this.HasProp("__WriteZeroesCommand"))
-                this.__WriteZeroesCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteZeroesCommand_e__Union(4, this)
+                this.__WriteZeroesCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteZeroesCommand(4, this)
             return this.__WriteZeroesCommand
         }
     }
 
     /**
-     * @type {_SanitizeCommand_e__Union}
+     * @type {_SanitizeCommand}
      */
     SanitizeCommand {
         get {
             if(!this.HasProp("__SanitizeCommand"))
-                this.__SanitizeCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._SanitizeCommand_e__Union(6, this)
+                this.__SanitizeCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._SanitizeCommand(6, this)
             return this.__SanitizeCommand
         }
     }
 
     /**
-     * @type {_DatasetMgmtCommand_e__Union}
+     * @type {_DatasetMgmtCommand}
      */
     DatasetMgmtCommand {
         get {
             if(!this.HasProp("__DatasetMgmtCommand"))
-                this.__DatasetMgmtCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._DatasetMgmtCommand_e__Union(8, this)
+                this.__DatasetMgmtCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._DatasetMgmtCommand(8, this)
             return this.__DatasetMgmtCommand
         }
     }
 
     /**
-     * @type {_WriteUncorrectableCommand_e__Union}
+     * @type {_WriteUncorrectableCommand}
      */
     WriteUncorrectableCommand {
         get {
             if(!this.HasProp("__WriteUncorrectableCommand"))
-                this.__WriteUncorrectableCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteUncorrectableCommand_e__Union(10, this)
+                this.__WriteUncorrectableCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteUncorrectableCommand(10, this)
             return this.__WriteUncorrectableCommand
         }
     }
 
     /**
-     * @type {_FusedCommand_e__Union}
+     * @type {_FusedCommand}
      */
     FusedCommand {
         get {
             if(!this.HasProp("__FusedCommand"))
-                this.__FusedCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._FusedCommand_e__Union(12, this)
+                this.__FusedCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._FusedCommand(12, this)
             return this.__FusedCommand
         }
     }
@@ -503,10 +504,13 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     LogPageGUID {
-        get => NumGet(this, 4080, "ptr")
-        set => NumPut("ptr", value, this, 4080)
+        get {
+            if(!this.HasProp("__LogPageGUID"))
+                this.__LogPageGUID := Guid(4080, this)
+            return this.__LogPageGUID
+        }
     }
 }

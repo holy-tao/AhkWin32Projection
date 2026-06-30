@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Device.ahk
+#Include .\D2D1_DEVICE_CONTEXT_OPTIONS.ahk
+#Include .\D2D1_RENDERING_PRIORITY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ID2D1DeviceContext1.ahk
+#Include .\ID2D1Device.ahk
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. (ID2D1Device1)

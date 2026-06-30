@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOleInPlaceSiteEx.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\IOleInPlaceSiteEx.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Extends the IOleInPlaceSiteEx interface.

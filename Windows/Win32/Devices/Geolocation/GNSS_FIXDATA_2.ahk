@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\GNSS_FIXDATA_BASIC_2.ahk
-#Include .\GNSS_FIXDATA_ACCURACY_2.ahk
-#Include .\GNSS_FIXDATA_SATELLITE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\GNSS_SATELLITEINFO.ahk
+#Include .\GNSS_FIXDATA_SATELLITE.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\GNSS_FIXDATA_ACCURACY_2.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation

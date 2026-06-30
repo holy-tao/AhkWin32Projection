@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFByteStreamCacheControl.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MF_BYTE_STREAM_CACHE_RANGE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Controls how a network byte stream transfers data to a local cache. (IMFByteStreamCacheControl2)

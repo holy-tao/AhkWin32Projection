@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_EXPORT_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes an export from a state subobject such as a DXIL library or a collection state object.

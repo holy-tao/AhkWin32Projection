@@ -1,9 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontFaceReference.ahk
 #Include .\IDWriteStringList.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\DWRITE_FONT_PROPERTY.ahk
+#Include .\IDWriteLocalizedStrings.ahk
+#Include .\DWRITE_FONT_STRETCH.ahk
+#Include .\DWRITE_FONT_STYLE.ahk
+#Include .\DWRITE_FONT_WEIGHT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IDWriteFontFaceReference.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_FONT_PROPERTY_ID.ahk
 
 /**
  * Represents a font set. (IDWriteFontSet)

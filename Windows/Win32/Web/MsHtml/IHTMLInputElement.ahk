@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLFormElement.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLTxtRange.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IHTMLFormElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -315,7 +317,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -337,7 +339,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_value() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -359,7 +361,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -700,7 +702,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_defaultValue() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", p, "HRESULT")
         return p
     }
@@ -865,7 +867,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_alt() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(45, this, "ptr", p, "HRESULT")
         return p
     }
@@ -887,7 +889,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_src() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(47, this, "ptr", p, "HRESULT")
         return p
     }
@@ -909,7 +911,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_lowsrc() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(49, this, "ptr", p, "HRESULT")
         return p
     }
@@ -931,7 +933,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_vrml() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(51, this, "ptr", p, "HRESULT")
         return p
     }
@@ -953,7 +955,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_dynsrc() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(53, this, "ptr", p, "HRESULT")
         return p
     }
@@ -963,7 +965,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(54, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1014,7 +1016,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(59, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1134,7 +1136,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_start() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(71, this, "ptr", p, "HRESULT")
         return p
     }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Defines metadata specific to each WIM data source hosted on a volume.
@@ -7,7 +9,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class WIM_ENTRY_INFO extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -40,11 +42,14 @@ class WIM_ENTRY_INFO extends Win32Struct {
 
     /**
      * Specifies the GUID which is stored in the WIM file’s header.
-     * @type {Pointer}
+     * @type {Guid}
      */
     WimGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__WimGuid"))
+                this.__WimGuid := Guid(16, this)
+            return this.__WimGuid
+        }
     }
 
     /**
@@ -52,8 +57,8 @@ class WIM_ENTRY_INFO extends Win32Struct {
      * @type {PWSTR}
      */
     WimPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -61,8 +66,8 @@ class WIM_ENTRY_INFO extends Win32Struct {
      * @type {Integer}
      */
     WimIndex {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -70,7 +75,7 @@ class WIM_ENTRY_INFO extends Win32Struct {
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

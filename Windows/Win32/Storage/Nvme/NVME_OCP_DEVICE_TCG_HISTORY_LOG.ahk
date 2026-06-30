@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\TCG_HISTORY_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
 class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct {
-    static sizeof => 4088
+    static sizeof => 4096
 
     static packingSize => 8
 
@@ -68,10 +69,13 @@ class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     LogPageGUID {
-        get => NumGet(this, 4080, "ptr")
-        set => NumPut("ptr", value, this, 4080)
+        get {
+            if(!this.HasProp("__LogPageGUID"))
+                this.__LogPageGUID := Guid(4080, this)
+            return this.__LogPageGUID
+        }
     }
 }

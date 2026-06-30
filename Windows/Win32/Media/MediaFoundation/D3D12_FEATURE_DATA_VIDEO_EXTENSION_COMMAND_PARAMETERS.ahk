@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO.ahk
 
 /**
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The unique identifier for the video extension command for which parameters are retrieved.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CommandId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__CommandId"))
+                this.__CommandId := Guid(0, this)
+            return this.__CommandId
+        }
     }
 
     /**
@@ -27,8 +31,8 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETERS extends Win32Struct 
      * @type {D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE}
      */
     Stage {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -36,8 +40,8 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETERS extends Win32Struct 
      * @type {Integer}
      */
     ParameterCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -45,7 +49,7 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_PARAMETERS extends Win32Struct 
      * @type {Pointer<D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO>}
      */
     pParameterInfos {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

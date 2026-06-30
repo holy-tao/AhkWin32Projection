@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_COMP_PREDICTION_TYPE.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE_FLAGS.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_REFERENCE_WARPED_MOTION_TRANSFORMATION_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_FRAME_TYPE_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_COMP_PREDICTION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

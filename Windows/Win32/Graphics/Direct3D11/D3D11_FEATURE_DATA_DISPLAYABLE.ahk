@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_SHARED_RESOURCE_TIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the level of displayable surfaces supported in the current graphics driver.

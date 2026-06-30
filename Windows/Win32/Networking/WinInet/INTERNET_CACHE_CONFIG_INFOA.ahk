@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\INTERNET_CACHE_CONFIG_PATH_ENTRYA.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about the configuration of the Internet cache. (ANSI)

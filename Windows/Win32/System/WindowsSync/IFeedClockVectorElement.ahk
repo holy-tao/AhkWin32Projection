@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SYNC_TIME.ahk
 #Include .\IClockVectorElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a clock vector element that contains FeedSync information.

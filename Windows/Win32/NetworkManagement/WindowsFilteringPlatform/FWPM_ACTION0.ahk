@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FWP_ACTION_TYPE.ahk
 
 /**
@@ -10,9 +11,9 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_ACTION0 extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Action type as specified by <b>FWP_ACTION_TYPE</b> which maps to a <b>UINT32</b>.
@@ -93,18 +94,24 @@ class FWPM_ACTION0 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     filterType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__filterType"))
+                this.__filterType := Guid(4, this)
+            return this.__filterType
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     calloutKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__calloutKey"))
+                this.__calloutKey := Guid(4, this)
+            return this.__calloutKey
+        }
     }
 }

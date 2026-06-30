@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Represents any collection in the COM+ catalog. ICatalogCollection enables you to enumerate, add, remove, and retrieve items in a collection and to access related collections.
- * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icatalogcollection
  * @namespace Windows.Win32.System.TransactionServer
  */
 class ICatalog extends IDispatch {
@@ -60,10 +60,9 @@ class ICatalog extends IDispatch {
     }
 
     /**
-     * Defines each configuration setting and associates it with a name. The Connection element is optional.
+     * 
      * @param {BSTR} bstrConnectString 
      * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/eaphost/eapconnectionpropertiesv1schema-connection-connections-element
      */
     Connect(bstrConnectString) {
         bstrConnectString := bstrConnectString is String ? BSTR.Alloc(bstrConnectString).Value : bstrConnectString

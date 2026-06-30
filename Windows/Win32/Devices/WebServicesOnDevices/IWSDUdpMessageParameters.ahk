@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWSDMessageParameters.ahk
 #Include .\WSDUdpRetransmitParams.ahk
+#Include .\IWSDMessageParameters.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to specify how often WSD repeats the message transmission.

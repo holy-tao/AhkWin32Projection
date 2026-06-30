@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WRDS_SETTING_TYPE.ahk
-#Include .\WRDS_SETTING_LEVEL.ahk
 #Include .\WRDS_SETTING.ahk
 #Include .\WRDS_SETTINGS_1.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\WRDS_SETTING_TYPE.ahk
 #Include .\WRDS_SETTING_STATUS.ahk
+#Include .\WRDS_SETTING_LEVEL.ahk
 
 /**
  * Contains policy-related setting information for a remote session.

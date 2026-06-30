@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\FsrmActionType.ahk
 #Include .\IFsrmAction.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IFsrmCollection.ahk
+#Include .\IFsrmObject.ahk
 
 /**
  * Base interface for all quota interfaces.

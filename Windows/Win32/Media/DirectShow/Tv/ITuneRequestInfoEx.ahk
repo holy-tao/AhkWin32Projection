@@ -3,6 +3,8 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ITuneRequestInfo.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITuneRequest.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

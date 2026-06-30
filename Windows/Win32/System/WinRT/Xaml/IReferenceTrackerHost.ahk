@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
 #Include .\IReferenceTrackerTarget.ahk
+#Include ..\..\Com\IUnknown.ahk
+#Include .\XAML_REFERENCETRACKER_DISCONNECT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines an interface that provides the global services used by the garbage collection (GC) system used by the XAML framework.

@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellBrowser.ahk
+#Include .\FOLDERFLAGS.ahk
+#Include .\FOLDERVIEWMODE.ahk
 #Include .\IShellView2.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\IShellView.ahk
 
 /**
  * Extends the capabilities of IShellView2 by providing a method to replace IShellView2::CreateViewWindow2.

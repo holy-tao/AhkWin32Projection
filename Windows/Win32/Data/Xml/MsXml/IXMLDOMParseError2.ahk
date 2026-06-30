@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLDOMParseError.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IXMLDOMParseErrorCollection.ahk
+#Include .\IXMLDOMParseError.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -55,7 +56,7 @@ class IXMLDOMParseError2 extends IXMLDOMParseError {
      * @returns {BSTR} 
      */
     get_errorXPath() {
-        xpathexpr := BSTR()
+        xpathexpr := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", xpathexpr, "HRESULT")
         return xpathexpr
     }
@@ -75,7 +76,7 @@ class IXMLDOMParseError2 extends IXMLDOMParseError {
      * @returns {BSTR} 
      */
     errorParameters(index) {
-        param1 := BSTR()
+        param1 := BSTR({Value: 0}, True)
         result := ComCall(16, this, "int", index, "ptr", param1, "HRESULT")
         return param1
     }

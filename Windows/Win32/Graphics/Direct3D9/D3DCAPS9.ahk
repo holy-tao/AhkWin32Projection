@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDEVTYPE.ahk
-#Include .\D3DVSHADERCAPS2_0.ahk
 #Include .\D3DPSHADERCAPS2_0.ahk
+#Include .\D3DVSHADERCAPS2_0.ahk
+#Include .\D3DDEVTYPE.ahk
 
 /**
  * Represents the capabilities of the hardware exposed through the Direct3D object.

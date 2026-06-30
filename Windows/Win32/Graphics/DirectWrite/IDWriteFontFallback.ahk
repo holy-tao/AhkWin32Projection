@@ -1,7 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_FONT_STRETCH.ahk
+#Include .\IDWriteTextAnalysisSource.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DWRITE_FONT_WEIGHT.ahk
+#Include .\IDWriteFontCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_FONT_STYLE.ahk
+#Include .\IDWriteFont.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows you to access fallback fonts from the font list.

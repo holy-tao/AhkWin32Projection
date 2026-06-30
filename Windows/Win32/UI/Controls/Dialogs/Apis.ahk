@@ -1,6 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include .\PAGESETUPDLGW.ahk
+#Include .\COMMON_DLG_ERRORS.ahk
+#Include .\PRINTDLGW.ahk
+#Include .\CHOOSEFONTA.ahk
+#Include .\CHOOSECOLORA.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\PAGESETUPDLGA.ahk
+#Include .\FINDREPLACEW.ahk
+#Include .\CHOOSECOLORW.ahk
+#Include .\PRINTDLGEXW.ahk
+#Include .\OPENFILENAMEA.ahk
+#Include .\PRINTDLGEXA.ahk
+#Include .\CHOOSEFONTW.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\OPENFILENAMEW.ahk
+#Include .\FINDREPLACEA.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\PRINTDLGA.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs

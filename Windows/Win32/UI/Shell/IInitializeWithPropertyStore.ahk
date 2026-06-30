@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method that initializes a handler, such as a property handler, thumbnail handler, or preview handler, with a property store.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_FILE_HEADER.ahk
-#Include ..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk
-#Include .\IMAGE_FILE_CHARACTERISTICS.ahk
-#Include .\IMAGE_OPTIONAL_HEADER32.ahk
-#Include .\IMAGE_OPTIONAL_HEADER_MAGIC.ahk
-#Include .\IMAGE_SUBSYSTEM.ahk
-#Include .\IMAGE_DLL_CHARACTERISTICS.ahk
 #Include .\IMAGE_DATA_DIRECTORY.ahk
+#Include ..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk
+#Include .\IMAGE_SUBSYSTEM.ahk
+#Include .\IMAGE_OPTIONAL_HEADER32.ahk
+#Include .\IMAGE_DLL_CHARACTERISTICS.ahk
+#Include .\IMAGE_FILE_CHARACTERISTICS.ahk
+#Include .\IMAGE_OPTIONAL_HEADER_MAGIC.ahk
+#Include .\IMAGE_FILE_HEADER.ahk
 
 /**
  * Represents the PE header format. (32 bit)

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSD_EVENTING_FILTER_ACTION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents an event filter used in WS-Eventing Subscribe messages.

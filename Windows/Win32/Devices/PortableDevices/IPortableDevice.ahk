@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPortableDeviceValues.ahk
 #Include .\IPortableDeviceContent.ahk
 #Include .\IPortableDeviceCapabilities.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPortableDeviceValues.ahk
+#Include .\IPortableDeviceEventCallback.ahk
 
 /**
  * The IPortableDevice interface provides access to a portable device.

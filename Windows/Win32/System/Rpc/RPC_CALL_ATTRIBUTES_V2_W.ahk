@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\RpcCallClientLocality.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\RpcCallType.ahk
 #Include .\RPC_CALL_LOCAL_ADDRESS_V1.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\RpcCallType.ahk
 
 /**
  * The RPC_CALL_ATTRIBUTES_V2 structure provides parameters to the RpcServerInqCallAttributes function. Version 2 specifies support for local addresses and client process IDs. (Unicode)
@@ -23,7 +25,7 @@
  * @charset Unicode
  */
 class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -294,10 +296,13 @@ class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct {
 
     /**
      * The interface UUID on which the call is made.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InterfaceUuid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get {
+            if(!this.HasProp("__InterfaceUuid"))
+                this.__InterfaceUuid := Guid(92, this)
+            return this.__InterfaceUuid
+        }
     }
 }

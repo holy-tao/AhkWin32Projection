@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BLUETOOTH_AUTHENTICATION_REQUIREMENTS.ahk
 #Include .\BLUETOOTH_DEVICE_INFO.ahk
-#Include .\BLUETOOTH_ADDRESS.ahk
+#Include .\BLUETOOTH_IO_CAPABILITY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\BLUETOOTH_AUTHENTICATION_METHOD.ahk
-#Include .\BLUETOOTH_IO_CAPABILITY.ahk
-#Include .\BLUETOOTH_AUTHENTICATION_REQUIREMENTS.ahk
+#Include .\BLUETOOTH_ADDRESS.ahk
 
 /**
  * BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS structure contains specific configuration information about the Bluetooth device responding to an authentication request.

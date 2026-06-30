@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITAddress.ahk
+#Include .\ADDRESS_EVENT.ahk
 #Include .\ITTerminal.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITAddress.ahk
 
 /**
  * The ITAddressEvent interface contains methods that retrieve the description of address events.

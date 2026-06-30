@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLDocument2.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLEventObj.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLRenderStyle.ahk
+#Include .\IHTMLDocument2.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IHTMLEventObj.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -148,7 +150,7 @@ class IHTMLDocument4 extends IDispatch {
      * @returns {BSTR} 
      */
     get_media() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -213,7 +215,7 @@ class IHTMLDocument4 extends IDispatch {
      * @returns {BSTR} 
      */
     get_URLUnencoded() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }

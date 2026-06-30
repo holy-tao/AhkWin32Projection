@@ -9,7 +9,7 @@ class ARBITER_PARAMETERS extends Win32Struct {
 
     static packingSize => 8
 
-    class _Parameters_e__Union extends Win32Struct {
+    class _Parameters extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -71,12 +71,12 @@ class ARBITER_PARAMETERS extends Win32Struct {
     }
 
     /**
-     * @type {_Parameters_e__Union}
+     * @type {_Parameters}
      */
     Parameters {
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := ARBITER_PARAMETERS._Parameters_e__Union(0, this)
+                this.__Parameters := ARBITER_PARAMETERS._Parameters(0, this)
             return this.__Parameters
         }
     }

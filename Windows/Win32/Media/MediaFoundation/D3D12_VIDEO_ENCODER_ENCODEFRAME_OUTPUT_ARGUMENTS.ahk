@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include .\D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE.ahk
+#Include .\D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM.ahk
 #Include .\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk
+#Include .\D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE.ahk
 
 /**
  * Represents output arguments to ID3D12VideoEncodeCommandList2::EncodeFrame.

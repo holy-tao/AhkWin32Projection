@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11Fence.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ID3D11DeviceContext3.ahk
 
 /**

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmAction.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\FsrmEventType.ahk
+#Include .\IFsrmAction.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to log an event to the Windows Application event log in response to a quota, file screen, or file management job event.
@@ -79,7 +81,7 @@ class IFsrmActionEventLog extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_messagetext
      */
     get_MessageText() {
-        messageText := BSTR()
+        messageText := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", messageText, "HRESULT")
         return messageText
     }

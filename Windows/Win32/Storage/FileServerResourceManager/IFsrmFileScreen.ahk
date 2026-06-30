@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmFileScreenBase.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFsrmFileScreenBase.ahk
 
 /**
  * Used to configure a file screen that blocks groups of files from being saved to the specified directory.
@@ -81,7 +83,7 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_path
      */
     get_Path() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", _path, "HRESULT")
         return _path
     }
@@ -92,7 +94,7 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_sourcetemplatename
      */
     get_SourceTemplateName() {
-        fileScreenTemplateName := BSTR()
+        fileScreenTemplateName := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", fileScreenTemplateName, "HRESULT")
         return fileScreenTemplateName
     }
@@ -113,7 +115,7 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_usersid
      */
     get_UserSid() {
-        userSid := BSTR()
+        userSid := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", userSid, "HRESULT")
         return userSid
     }
@@ -124,7 +126,7 @@ class IFsrmFileScreen extends IFsrmFileScreenBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_useraccount
      */
     get_UserAccount() {
-        userAccount := BSTR()
+        userAccount := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", userAccount, "HRESULT")
         return userAccount
     }

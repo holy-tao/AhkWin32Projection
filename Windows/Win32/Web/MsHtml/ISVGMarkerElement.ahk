@@ -2,9 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISVGAnimatedAngle.ahk
+#Include .\ISVGAngle.ahk
 #Include .\ISVGAnimatedLength.ahk
 #Include .\ISVGAnimatedEnumeration.ahk
-#Include .\ISVGAnimatedAngle.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

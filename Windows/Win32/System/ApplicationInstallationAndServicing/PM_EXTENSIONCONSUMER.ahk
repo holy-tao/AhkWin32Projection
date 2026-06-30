@@ -1,21 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class PM_EXTENSIONCONSUMER extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ConsumerPID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__ConsumerPID"))
+                this.__ConsumerPID := Guid(0, this)
+            return this.__ConsumerPID
+        }
     }
 
     /**
@@ -24,7 +28,7 @@ class PM_EXTENSIONCONSUMER extends Win32Struct {
     ExtensionID {
         get {
             if(!this.HasProp("__ExtensionID"))
-                this.__ExtensionID := BSTR(8, this)
+                this.__ExtensionID := BSTR(16, this)
             return this.__ExtensionID
         }
     }

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk
 #Include ..\Direct3D\D3D_SHADER_VARIABLE_TYPE.ahk
+#Include ..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a shader-variable type. (D3D11_SHADER_TYPE_DESC)

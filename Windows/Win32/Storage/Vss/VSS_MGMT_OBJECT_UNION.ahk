@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VSS_VOLUME_PROP.ahk
-#Include .\VSS_DIFF_VOLUME_PROP.ahk
 #Include .\VSS_DIFF_AREA_PROP.ahk
+#Include .\VSS_DIFF_VOLUME_PROP.ahk
+#Include .\VSS_VOLUME_PROP.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Vss

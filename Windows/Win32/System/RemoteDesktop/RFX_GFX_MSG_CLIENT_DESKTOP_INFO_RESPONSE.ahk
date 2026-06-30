@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RFX_GFX_MSG_HEADER.ahk
 #Include .\RFX_GFX_MONITOR_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop

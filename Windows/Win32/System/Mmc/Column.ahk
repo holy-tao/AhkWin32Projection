@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\_ColumnSortOrder.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Represents a vertical separator (visible or hidden) in custom SizeDefinition layout templates.
- * @remarks
- * Optional.
- * 
- * May occur one or more times for each [**GroupSizeDefinition**](windowsribbon-element-groupsizedefinition.md) element.
- * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-columnbreak
  * @namespace Windows.Win32.System.Mmc
  */
 class Column extends IDispatch {
@@ -70,7 +67,7 @@ class Column extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-name-headerfieldtype-element
      */
     Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Name, "HRESULT")
         return Name
     }

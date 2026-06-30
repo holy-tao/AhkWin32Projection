@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\Uri_PROPERTY.ahk
+#Include .\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -35,7 +38,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetPropertyBSTR(uriProp, dwFlags) {
-        pbstrProperty := BSTR()
+        pbstrProperty := BSTR({Value: 0}, True)
         result := ComCall(3, this, "int", uriProp, "ptr", pbstrProperty, "uint", dwFlags, "HRESULT")
         return pbstrProperty
     }
@@ -77,7 +80,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetAbsoluteUri() {
-        pbstrAbsoluteUri := BSTR()
+        pbstrAbsoluteUri := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrAbsoluteUri, "HRESULT")
         return pbstrAbsoluteUri
     }
@@ -87,7 +90,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetAuthority() {
-        pbstrAuthority := BSTR()
+        pbstrAuthority := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrAuthority, "HRESULT")
         return pbstrAuthority
     }
@@ -97,7 +100,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetDisplayUri() {
-        pbstrDisplayString := BSTR()
+        pbstrDisplayString := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrDisplayString, "HRESULT")
         return pbstrDisplayString
     }
@@ -107,7 +110,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetDomain() {
-        pbstrDomain := BSTR()
+        pbstrDomain := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrDomain, "HRESULT")
         return pbstrDomain
     }
@@ -117,7 +120,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetExtension() {
-        pbstrExtension := BSTR()
+        pbstrExtension := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrExtension, "HRESULT")
         return pbstrExtension
     }
@@ -127,46 +130,17 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetFragment() {
-        pbstrFragment := BSTR()
+        pbstrFragment := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrFragment, "HRESULT")
         return pbstrFragment
     }
 
     /**
-     * The GetHostNameW function retrieves the standard host name for the local computer as a Unicode string.
-     * @remarks
-     * The 
-     * <b>GetHostNameW</b> function returns the name of the local host into the buffer specified by the <i>name</i> parameter in Unicode (UTF-16). The host name is returned as a <b>null</b>-terminated Unicode string. The form of the host name is dependent on the Windows Sockets provider—it can be a simple host name, or it can be a fully qualified domain name. However, it is guaranteed that the name returned will be successfully parsed by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a>.
      * 
-     * With the growth of the Internet, there is a growing need to identify Internet host names for other languages not represented by the ASCII character set. Identifiers which facilitate this need and allow non-ASCII characters (Unicode) to be represented as special ASCII character strings (Punycode) are known as Internationalized Domain Names (IDNs). A  mechanism called
-     *    Internationalizing Domain Names in Applications (IDNA) is used to handle
-     *    IDNs in a standard fashion. The <b>GetHostNameW</b> function does not convert the local hostname between Punycode and Unicode. The <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> function provides support for Internationalized Domain Name (IDN) parsing and performs Punycode/IDN encoding and conversion.  
-     * 
-     * If the 
-     * <b>GetHostNameW</b> function is used on a cluster resource on Windows Server 2012 and the _CLUSTER_NETWORK_NAME_ environment variable is defined, then the value in this environment variable overrides the actual hostname and is returned. On a cluster resource, the _CLUSTER_NETWORK_NAME_ environment variable contains the name of the cluster.
-     * 
-     * The 
-     * <b>GetHostNameW</b> function queries namespace providers to determine the local host name using the SVCID_HOSTNAME GUID defined in the <i>Svgguid.h</i> header file. If no namespace provider responds, then the 
-     * <b>GetHostNameW</b> function returns the NetBIOS name of the local computer in Unicode.
-     * 
-     * The maximum length, in wide characters, of the string returned in the buffer pointed to by the <i>name</i> parameter is dependent on the namespace provider, but this string must be 256 wide characters or less. So if a buffer of 256 wide characters is passed in the <i>name</i> parameter and the <i>namelen</i> parameter is set to 256, the buffer size will always be adequate.
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  If no local host name has been configured, 
-     * <b>GetHostNameW</b> must succeed and return a token host name that 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> can resolve.</div>
-     * <div> </div>
-     * 
-     * 
-     * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
-     * 
-     * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-gethostnamew
      */
     GetHost() {
-        pbstrHost := BSTR()
+        pbstrHost := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrHost, "HRESULT")
         return pbstrHost
     }
@@ -176,7 +150,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetPassword() {
-        pbstrPassword := BSTR()
+        pbstrPassword := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrPassword, "HRESULT")
         return pbstrPassword
     }
@@ -193,7 +167,7 @@ class IUri extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpath
      */
     GetPath() {
-        pbstrPath := BSTR()
+        pbstrPath := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrPath, "HRESULT")
         return pbstrPath
     }
@@ -203,7 +177,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetPathAndQuery() {
-        pbstrPathAndQuery := BSTR()
+        pbstrPathAndQuery := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pbstrPathAndQuery, "HRESULT")
         return pbstrPathAndQuery
     }
@@ -213,7 +187,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetQuery() {
-        pbstrQuery := BSTR()
+        pbstrQuery := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrQuery, "HRESULT")
         return pbstrQuery
     }
@@ -223,7 +197,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetRawUri() {
-        pbstrRawUri := BSTR()
+        pbstrRawUri := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pbstrRawUri, "HRESULT")
         return pbstrRawUri
     }
@@ -233,7 +207,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetSchemeName() {
-        pbstrSchemeName := BSTR()
+        pbstrSchemeName := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pbstrSchemeName, "HRESULT")
         return pbstrSchemeName
     }
@@ -243,7 +217,7 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetUserInfo() {
-        pbstrUserInfo := BSTR()
+        pbstrUserInfo := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", pbstrUserInfo, "HRESULT")
         return pbstrUserInfo
     }
@@ -259,7 +233,7 @@ class IUri extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getusernamew
      */
     GetUserName() {
-        pbstrUserName := BSTR()
+        pbstrUserName := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pbstrUserName, "HRESULT")
         return pbstrUserName
     }
@@ -310,10 +284,9 @@ class IUri extends IUnknown {
     }
 
     /**
-     * Evaluates to a Boolean value that indicates whether two CLSIDs are equal.
+     * 
      * @param {IUri} pUri 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/guiddef/nf-guiddef-isequalclsid
      */
     IsEqual(pUri) {
         result := ComCall(27, this, "ptr", pUri, "int*", &pfEqual := 0, "HRESULT")

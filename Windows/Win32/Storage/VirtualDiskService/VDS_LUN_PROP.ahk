@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_HEALTH.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_LUN_TYPE.ahk
 #Include .\VDS_LUN_STATUS.ahk
-#Include .\VDS_HEALTH.ahk
 #Include .\VDS_TRANSITION_STATE.ahk
 
 /**
@@ -14,17 +16,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_LUN_PROP extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
     /**
      * The GUID of the LUN object.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -32,8 +37,8 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {Integer}
      */
     ullSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -41,8 +46,8 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {PWSTR}
      */
     pwszFriendlyName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -50,8 +55,8 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {PWSTR}
      */
     pwszIdentification {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -77,8 +82,8 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {PWSTR}
      */
     pwszUnmaskingList {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -86,8 +91,8 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -95,8 +100,8 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {VDS_LUN_TYPE}
      */
     type {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -105,8 +110,8 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {VDS_LUN_STATUS}
      */
     status {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -115,8 +120,8 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {VDS_HEALTH}
      */
     health {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 
     /**
@@ -125,8 +130,8 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {VDS_TRANSITION_STATE}
      */
     TransitionState {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -134,7 +139,7 @@ class VDS_LUN_PROP extends Win32Struct {
      * @type {Integer}
      */
     sRebuildPriority {
-        get => NumGet(this, 60, "short")
-        set => NumPut("short", value, this, 60)
+        get => NumGet(this, 68, "short")
+        set => NumPut("short", value, this, 68)
     }
 }

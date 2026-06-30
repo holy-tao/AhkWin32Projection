@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IBaseFilter.ahk
+#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
 #Include .\IEnumFilters.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPinConnection.ahk
+#Include .\IGraphConfigCallback.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IPin.ahk
 
 /**
  * The Filter Graph Manager exposes IGraphConfig to support dynamic graph building.

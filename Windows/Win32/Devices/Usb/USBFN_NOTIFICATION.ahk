@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBFN_EVENT.ahk
 #Include .\USBFN_BUS_SPEED.ahk
-#Include .\USB_DEFAULT_PIPE_SETUP_PACKET.ahk
 #Include .\BM_REQUEST_TYPE.ahk
+#Include .\USB_DEFAULT_PIPE_SETUP_PACKET.ahk
 #Include .\USBFN_PORT_TYPE.ahk
+#Include .\USBFN_EVENT.ahk
 #Include .\ALTERNATE_INTERFACE.ahk
 
 /**
@@ -15,7 +15,7 @@ class USBFN_NOTIFICATION extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 16
         static packingSize => 4
 
@@ -75,12 +75,12 @@ class USBFN_NOTIFICATION extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := USBFN_NOTIFICATION._u_e__Union(4, this)
+                this.__u := USBFN_NOTIFICATION._u(4, this)
             return this.__u
         }
     }

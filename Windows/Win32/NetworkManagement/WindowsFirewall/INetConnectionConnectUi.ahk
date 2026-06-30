@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\INetConnection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
@@ -38,11 +41,10 @@ class INetConnectionConnectUi extends IUnknown {
     }
 
     /**
-     * Defines each configuration setting and associates it with a name. The Connection element is optional.
+     * 
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/eaphost/eapconnectionpropertiesv1schema-connection-connections-element
      */
     Connect(hwndParent, dwFlags) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

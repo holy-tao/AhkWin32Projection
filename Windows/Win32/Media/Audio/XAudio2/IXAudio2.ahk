@@ -1,10 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IXAudio2SourceVoice.ahk
+#Include .\IXAudio2EngineCallback.ahk
 #Include .\IXAudio2SubmixVoice.ahk
+#Include ..\WAVEFORMATEX.ahk
+#Include .\IXAudio2SourceVoice.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\XAUDIO2_DEBUG_CONFIGURATION.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IXAudio2VoiceCallback.ahk
+#Include .\XAUDIO2_PERFORMANCE_DATA.ahk
 #Include .\IXAudio2MasteringVoice.ahk
+#Include .\XAUDIO2_EFFECT_CHAIN.ahk
+#Include .\XAUDIO2_VOICE_SENDS.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\AUDIO_STREAM_CATEGORY.ahk
 
 /**
  * IXAudio2 is the interface for the XAudio2 object that manages all audio engine states, the audio processing thread, the voice graph, and so forth.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The VDS_DRIVE_LETTER_NOTIFICATION structure (vdshwprv.h) defines the details of drive-letter events.
@@ -15,9 +16,9 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_DRIVE_LETTER_NOTIFICATION extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Determines the drive-letter event for which an application will be notified, as one of the following 
@@ -70,10 +71,13 @@ class VDS_DRIVE_LETTER_NOTIFICATION extends Win32Struct {
     /**
      * The GUID of the volume to which the drive letter is assigned. If the drive letter is freed, the volume 
      *       identifier is GUID_NULL.
-     * @type {Pointer}
+     * @type {Guid}
      */
     volumeId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__volumeId"))
+                this.__volumeId := Guid(8, this)
+            return this.__volumeId
+        }
     }
 }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITPluggableTerminalSuperclassInfo interface exposes methods that get the name and CLSID of a pluggable terminal class.
@@ -51,7 +52,7 @@ class ITPluggableTerminalSuperclassInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalsuperclassinfo-get_name
      */
     get_Name() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pName, "HRESULT")
         return pName
     }
@@ -63,7 +64,7 @@ class ITPluggableTerminalSuperclassInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalsuperclassinfo-get_clsid
      */
     get_CLSID() {
-        pCLSID := BSTR()
+        pCLSID := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pCLSID, "HRESULT")
         return pCLSID
     }

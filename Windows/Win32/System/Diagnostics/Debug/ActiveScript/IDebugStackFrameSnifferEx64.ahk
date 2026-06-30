@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugStackFrameSniffer.ahk
 #Include .\IEnumDebugStackFrames64.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDebugStackFrameSniffer.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

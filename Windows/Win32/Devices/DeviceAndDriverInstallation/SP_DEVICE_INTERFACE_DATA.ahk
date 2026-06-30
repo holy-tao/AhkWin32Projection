@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * An SP_DEVICE_INTERFACE_DATA structure defines a device interface in a device information set.
@@ -25,11 +26,14 @@ class SP_DEVICE_INTERFACE_DATA extends Win32Struct {
 
     /**
      * The GUID for the class to which the device interface belongs.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InterfaceClassGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__InterfaceClassGuid"))
+                this.__InterfaceClassGuid := Guid(4, this)
+            return this.__InterfaceClassGuid
+        }
     }
 
     /**
@@ -37,8 +41,8 @@ class SP_DEVICE_INTERFACE_DATA extends Win32Struct {
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**

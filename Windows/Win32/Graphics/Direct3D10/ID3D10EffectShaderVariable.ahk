@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
 #Include .\D3D10_EFFECT_SHADER_DESC.ahk
 #Include .\ID3D10VertexShader.ahk
-#Include .\ID3D10GeometryShader.ahk
 #Include .\ID3D10PixelShader.ahk
+#Include .\ID3D10GeometryShader.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10EffectVariable.ahk
 #Include .\D3D10_SIGNATURE_PARAMETER_DESC.ahk
 
 /**

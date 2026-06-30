@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\SYNCMGR_CONFLICT_ID_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IEnumSyncMgrConflict.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that allow a handler to provide conflicts that appear in the Conflicts folder.

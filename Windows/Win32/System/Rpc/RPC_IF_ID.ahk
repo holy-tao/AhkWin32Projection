@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The RPC_IF_ID structure contains the interface UUID and major and minor version numbers of an interface.
@@ -10,18 +11,21 @@
  * @namespace Windows.Win32.System.Rpc
  */
 class RPC_IF_ID extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the interface 
      * <a href="https://msdn.microsoft.com/">UUID</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Uuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Uuid"))
+                this.__Uuid := Guid(0, this)
+            return this.__Uuid
+        }
     }
 
     /**
@@ -29,8 +33,8 @@ class RPC_IF_ID extends Win32Struct {
      * @type {Integer}
      */
     VersMajor {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 
     /**
@@ -38,7 +42,7 @@ class RPC_IF_ID extends Win32Struct {
      * @type {Integer}
      */
     VersMinor {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+        get => NumGet(this, 18, "ushort")
+        set => NumPut("ushort", value, this, 18)
     }
 }

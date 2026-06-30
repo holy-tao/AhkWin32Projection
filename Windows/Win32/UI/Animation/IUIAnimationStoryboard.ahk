@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\UI_ANIMATION_STORYBOARD_STATUS.ahk
+#Include .\UI_ANIMATION_SCHEDULING_RESULT.ahk
+#Include .\IUIAnimationTransition.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAnimationStoryboardEventHandler.ahk
+#Include .\UI_ANIMATION_KEYFRAME.ahk
+#Include .\IUIAnimationVariable.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a storyboard, which contains a group of transitions that are synchronized relative to one another.

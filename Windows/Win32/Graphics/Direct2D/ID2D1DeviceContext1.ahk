@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1DeviceContext.ahk
+#Include .\ID2D1Geometry.ahk
+#Include .\ID2D1StrokeStyle.ahk
+#Include .\ID2D1Brush.ahk
 #Include .\ID2D1GeometryRealization.ahk
+#Include .\ID2D1DeviceContext.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables creation and drawing of geometry realization objects.

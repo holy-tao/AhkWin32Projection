@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use the IBITSExtensionSetup interface to enable or disable BITS uploads to a virtual directory.
@@ -73,7 +75,7 @@ class IBITSExtensionSetup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nf-bitscfg-ibitsextensionsetup-getcleanuptaskname
      */
     GetCleanupTaskName() {
-        pTaskName := BSTR()
+        pTaskName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pTaskName, "HRESULT")
         return pTaskName
     }

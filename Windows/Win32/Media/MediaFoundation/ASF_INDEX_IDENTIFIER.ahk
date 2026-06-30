@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Specifies an index for the ASF indexer object.
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class ASF_INDEX_IDENTIFIER extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The type of index. Currently this value must be GUID_NULL, which specifies time-based indexing.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidIndexType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidIndexType"))
+                this.__guidIndexType := Guid(0, this)
+            return this.__guidIndexType
+        }
     }
 
     /**
@@ -27,7 +31,7 @@ class ASF_INDEX_IDENTIFIER extends Win32Struct {
      * @type {Integer}
      */
     wStreamNumber {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 }

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
 class SOCKADDR_HV extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {ADDRESS_FAMILY}
@@ -27,18 +28,24 @@ class SOCKADDR_HV extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     VmId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__VmId"))
+                this.__VmId := Guid(4, this)
+            return this.__VmId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ServiceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ServiceId"))
+                this.__ServiceId := Guid(20, this)
+            return this.__ServiceId
+        }
     }
 }

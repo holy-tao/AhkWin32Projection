@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Cryptography\CERT_CHAIN_CONTEXT.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\CRYPT_PROVIDER_CERT.ahk
-#Include ..\Cryptography\CMSG_SIGNER_INFO.ahk
 #Include .\CRYPT_PROVIDER_SGNR.ahk
-#Include ..\Cryptography\CERT_CHAIN_CONTEXT.ahk
+#Include ..\Cryptography\CMSG_SIGNER_INFO.ahk
 
 /**
  * Provides information about a signer or countersigner.

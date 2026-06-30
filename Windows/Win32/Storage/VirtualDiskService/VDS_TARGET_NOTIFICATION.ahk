@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The VDS_TARGET_NOTIFICATION structure (vdshwprv.h) defines the details of iSCSI target events.
@@ -17,9 +18,9 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_TARGET_NOTIFICATION extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Determines the iSCSI target event for which an application will be notified, as one of the following 
@@ -75,10 +76,13 @@ class VDS_TARGET_NOTIFICATION extends Win32Struct {
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the iSCSI target that triggered the event.
-     * @type {Pointer}
+     * @type {Guid}
      */
     targetId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__targetId"))
+                this.__targetId := Guid(4, this)
+            return this.__targetId
+        }
     }
 }

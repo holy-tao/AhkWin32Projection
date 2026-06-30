@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * The APOInitBaseStruct structure is the base initialization header that must precede other initialization data in IAudioProcessingObject::Initialize.
@@ -10,9 +11,9 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class APOInitBaseStruct extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The total size of the structure in bytes.
@@ -25,15 +26,18 @@ class APOInitBaseStruct extends Win32Struct {
 
     /**
      * The Class ID (CLSID) of the APO.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(4, this)
+            return this.__clsid
+        }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 16
+        this.cbSize := 20
     }
 }

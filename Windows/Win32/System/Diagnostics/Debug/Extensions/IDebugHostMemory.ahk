@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\Location.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDebugHostContext.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -89,7 +92,7 @@ class IDebugHostMemory extends IUnknown {
      * @returns {BSTR} 
      */
     GetDisplayStringForLocation(_context, _location, verbose) {
-        locationName := BSTR()
+        locationName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", _context, "ptr", _location, "char", verbose, "ptr", locationName, "HRESULT")
         return locationName
     }

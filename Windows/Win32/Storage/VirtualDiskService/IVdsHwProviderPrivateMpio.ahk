@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_PATH_STATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_HBAPORT_PROP.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a method that sets the status of paths originating from a particular HBA port to the provider.

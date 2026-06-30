@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\MF_ATTRIBUTE_TYPE.ahk
 
 /**
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -25,11 +26,14 @@ class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct {
 
     /**
      * GUID that specifies the attribute to update.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidAttributeKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidAttributeKey"))
+                this.__guidAttributeKey := Guid(8, this)
+            return this.__guidAttributeKey
+        }
     }
 
     /**
@@ -37,31 +41,31 @@ class MFTOPONODE_ATTRIBUTE_UPDATE extends Win32Struct {
      * @type {MF_ATTRIBUTE_TYPE}
      */
     attrType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     u32 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     u64 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Float}
      */
     d {
-        get => NumGet(this, 24, "double")
-        set => NumPut("double", value, this, 24)
+        get => NumGet(this, 32, "double")
+        set => NumPut("double", value, this, 32)
     }
 }

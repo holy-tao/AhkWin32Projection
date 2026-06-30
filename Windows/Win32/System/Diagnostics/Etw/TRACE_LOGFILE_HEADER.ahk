@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -160,11 +162,14 @@ class TRACE_LOGFILE_HEADER extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     LogInstanceGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__LogInstanceGuid"))
+                this.__LogInstanceGuid := Guid(40, this)
+            return this.__LogInstanceGuid
+        }
     }
 
     /**

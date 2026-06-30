@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsDNWithBinary interface provides methods for an ADSI client to associate a distinguished name (DN) with the GUID of an object.
@@ -72,7 +73,7 @@ class IADsDNWithBinary extends IDispatch {
      * @returns {BSTR} 
      */
     get_DNString() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", retval, "HRESULT")
         return retval
     }

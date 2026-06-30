@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FOLDERSETTINGS.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.UI.Shell
  */
 class FOLDERSETDATA extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a></b>
@@ -30,11 +31,14 @@ class FOLDERSETDATA extends Win32Struct {
      * Type: <b>SHELLVIEWID</b>
      * 
      * The last view used for this folder, used as a suggestion for this visit.
-     * @type {Pointer}
+     * @type {Guid}
      */
     _vidRestore {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("___vidRestore"))
+                this.___vidRestore := Guid(8, this)
+            return this.___vidRestore
+        }
     }
 
     /**
@@ -42,7 +46,7 @@ class FOLDERSETDATA extends Win32Struct {
      * @type {Integer}
      */
     _dwViewPriority {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

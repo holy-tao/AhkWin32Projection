@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the possible ways in which elevated users are notified about Automatic Updates events.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-automaticupdatesnotificationlevel
  * @namespace Windows.Win32.System.UpdateAgent
  */
 class AutomaticUpdates extends Win32Struct {

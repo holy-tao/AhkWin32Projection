@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
 
 /**
  * The DD_GETINTERNALMOCOMPDATA structure contains the internal memory requirements.

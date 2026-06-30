@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\PWSTR.ahk
+#Include ..\..\..\Guid.ahk
 
 /**
  * Contains information about an ELS service.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Globalization
  */
 class MAPPING_SERVICE_INFO extends Win32Struct {
-    static sizeof => 176
+    static sizeof => 184
 
     static packingSize => 8
 
@@ -180,11 +182,14 @@ class MAPPING_SERVICE_INFO extends Win32Struct {
 
     /**
      * Globally unique identifier (GUID) for the service.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(120, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -192,8 +197,8 @@ class MAPPING_SERVICE_INFO extends Win32Struct {
      * @type {PWSTR}
      */
     pszCategory {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -201,8 +206,8 @@ class MAPPING_SERVICE_INFO extends Win32Struct {
      * @type {PWSTR}
      */
     pszDescription {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
@@ -210,8 +215,8 @@ class MAPPING_SERVICE_INFO extends Win32Struct {
      * @type {Integer}
      */
     dwPrivateDataSize {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 152, "uint")
+        set => NumPut("uint", value, this, 152)
     }
 
     /**
@@ -219,8 +224,8 @@ class MAPPING_SERVICE_INFO extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pPrivateData {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
@@ -228,8 +233,8 @@ class MAPPING_SERVICE_INFO extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pContext {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
@@ -241,8 +246,8 @@ class MAPPING_SERVICE_INFO extends Win32Struct {
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
+        get => NumGet(this, 176, "uint")
+        set => NumPut("uint", value, this, 176)
     }
 
     /**

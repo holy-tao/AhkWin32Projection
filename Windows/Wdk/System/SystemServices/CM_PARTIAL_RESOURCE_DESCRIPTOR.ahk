@@ -9,7 +9,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -160,7 +160,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
             Raw {
                 get {
                     if(!this.HasProp("__Raw"))
-                        this.__Raw := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._MessageInterrupt._Raw(0, this)
+                        this.__Raw := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._MessageInterrupt._Raw(0, this)
                     return this.__Raw
                 }
             }
@@ -171,7 +171,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
             Translated {
                 get {
                     if(!this.HasProp("__Translated"))
-                        this.__Translated := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._MessageInterrupt._Translated(0, this)
+                        this.__Translated := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._MessageInterrupt._Translated(0, this)
                     return this.__Translated
                 }
             }
@@ -476,7 +476,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         Generic {
             get {
                 if(!this.HasProp("__Generic"))
-                    this.__Generic := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Generic(0, this)
+                    this.__Generic := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Generic(0, this)
                 return this.__Generic
             }
         }
@@ -487,7 +487,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         Port {
             get {
                 if(!this.HasProp("__Port"))
-                    this.__Port := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Port(0, this)
+                    this.__Port := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Port(0, this)
                 return this.__Port
             }
         }
@@ -498,7 +498,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         Interrupt {
             get {
                 if(!this.HasProp("__Interrupt"))
-                    this.__Interrupt := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Interrupt(0, this)
+                    this.__Interrupt := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Interrupt(0, this)
                 return this.__Interrupt
             }
         }
@@ -509,7 +509,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         MessageInterrupt {
             get {
                 if(!this.HasProp("__MessageInterrupt"))
-                    this.__MessageInterrupt := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._MessageInterrupt(0, this)
+                    this.__MessageInterrupt := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._MessageInterrupt(0, this)
                 return this.__MessageInterrupt
             }
         }
@@ -520,7 +520,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         Memory {
             get {
                 if(!this.HasProp("__Memory"))
-                    this.__Memory := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Memory(0, this)
+                    this.__Memory := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Memory(0, this)
                 return this.__Memory
             }
         }
@@ -531,7 +531,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         Dma {
             get {
                 if(!this.HasProp("__Dma"))
-                    this.__Dma := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Dma(0, this)
+                    this.__Dma := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Dma(0, this)
                 return this.__Dma
             }
         }
@@ -542,7 +542,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         DmaV3 {
             get {
                 if(!this.HasProp("__DmaV3"))
-                    this.__DmaV3 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._DmaV3(0, this)
+                    this.__DmaV3 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._DmaV3(0, this)
                 return this.__DmaV3
             }
         }
@@ -553,7 +553,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         DevicePrivate {
             get {
                 if(!this.HasProp("__DevicePrivate"))
-                    this.__DevicePrivate := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._DevicePrivate(0, this)
+                    this.__DevicePrivate := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._DevicePrivate(0, this)
                 return this.__DevicePrivate
             }
         }
@@ -564,7 +564,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         BusNumber {
             get {
                 if(!this.HasProp("__BusNumber"))
-                    this.__BusNumber := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._BusNumber(0, this)
+                    this.__BusNumber := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._BusNumber(0, this)
                 return this.__BusNumber
             }
         }
@@ -575,7 +575,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         DeviceSpecificData {
             get {
                 if(!this.HasProp("__DeviceSpecificData"))
-                    this.__DeviceSpecificData := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._DeviceSpecificData(0, this)
+                    this.__DeviceSpecificData := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._DeviceSpecificData(0, this)
                 return this.__DeviceSpecificData
             }
         }
@@ -586,7 +586,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         Memory40 {
             get {
                 if(!this.HasProp("__Memory40"))
-                    this.__Memory40 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Memory40(0, this)
+                    this.__Memory40 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Memory40(0, this)
                 return this.__Memory40
             }
         }
@@ -597,7 +597,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         Memory48 {
             get {
                 if(!this.HasProp("__Memory48"))
-                    this.__Memory48 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Memory48(0, this)
+                    this.__Memory48 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Memory48(0, this)
                 return this.__Memory48
             }
         }
@@ -608,7 +608,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         Memory64 {
             get {
                 if(!this.HasProp("__Memory64"))
-                    this.__Memory64 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Memory64(0, this)
+                    this.__Memory64 := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Memory64(0, this)
                 return this.__Memory64
             }
         }
@@ -619,7 +619,7 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
         Connection {
             get {
                 if(!this.HasProp("__Connection"))
-                    this.__Connection := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union._Connection(0, this)
+                    this.__Connection := CM_PARTIAL_RESOURCE_DESCRIPTOR._u._Connection(0, this)
                 return this.__Connection
             }
         }
@@ -650,12 +650,12 @@ class CM_PARTIAL_RESOURCE_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := CM_PARTIAL_RESOURCE_DESCRIPTOR._u_e__Union(8, this)
+                this.__u := CM_PARTIAL_RESOURCE_DESCRIPTOR._u(8, this)
             return this.__u
         }
     }

@@ -1,8 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDScopeMatchingRule.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_NAME_LIST.ahk
+#Include .\IWSDiscoveryPublisherNotify.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WSD_URI_LIST.ahk
+#Include .\IWSDMessageParameters.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWSDXMLContext.ahk
+#Include .\WSD_SOAP_MESSAGE.ahk
 
 /**
  * Provides methods for announcing hosts and managing incoming queries to hosts.

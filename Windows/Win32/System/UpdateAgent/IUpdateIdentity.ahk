@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the unique identifier of an update.
@@ -62,7 +63,7 @@ class IUpdateIdentity extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateidentity-get_updateid
      */
     get_UpdateID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", retval, "HRESULT")
         return retval
     }

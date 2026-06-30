@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_BIOMETRIC_DATA_TYPE.ahk
 #Include .\CERT_HASHED_URL.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CERT_BIOMETRIC_DATA_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about biometric data.

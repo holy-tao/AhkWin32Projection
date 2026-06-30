@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRT_EVENT_TYPE.ahk
-#Include .\DRT_LEAFSET_KEY_CHANGE_TYPE.ahk
-#Include .\DRT_DATA.ahk
 #Include .\DRT_REGISTRATION_STATE.ahk
+#Include .\DRT_LEAFSET_KEY_CHANGE_TYPE.ahk
+#Include .\DRT_EVENT_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DRT_DATA.ahk
 #Include .\DRT_STATUS.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
 

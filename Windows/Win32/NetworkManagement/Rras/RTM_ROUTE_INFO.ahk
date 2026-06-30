@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RTM_PREF_INFO.ahk
 #Include .\RTM_NEXTHOP_LIST.ahk
+#Include .\RTM_PREF_INFO.ahk
 
 /**
  * The RTM_ROUTE_INFO structure is used to exchange route information with the routing table manager. Do not change the read-only information.

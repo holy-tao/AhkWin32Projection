@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_SHADER_DEBUG_VARTYPE.ahk
 #Include ..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk
+#Include .\D3D10_SHADER_DEBUG_VARTYPE.ahk
 
 /**
  * Describes a shader scope variable.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\IMMDevice.ahk
 #Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\..\Foundation\PROPERTYKEY.ahk
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 

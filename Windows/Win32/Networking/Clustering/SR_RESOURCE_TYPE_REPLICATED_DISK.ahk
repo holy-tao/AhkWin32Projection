@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SR_REPLICATED_DISK_TYPE.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class SR_RESOURCE_TYPE_REPLICATED_DISK extends Win32Struct {
-    static sizeof => 544
+    static sizeof => 556
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The type of the replicated disk.
@@ -23,20 +24,26 @@ class SR_RESOURCE_TYPE_REPLICATED_DISK extends Win32Struct {
 
     /**
      * The cluster resource identifier of the disk.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ClusterDiskResourceGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ClusterDiskResourceGuid"))
+                this.__ClusterDiskResourceGuid := Guid(4, this)
+            return this.__ClusterDiskResourceGuid
+        }
     }
 
     /**
      * The replication group identifier of the disk.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ReplicationGroupId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ReplicationGroupId"))
+                this.__ReplicationGroupId := Guid(20, this)
+            return this.__ReplicationGroupId
+        }
     }
 
     /**
@@ -44,7 +51,7 @@ class SR_RESOURCE_TYPE_REPLICATED_DISK extends Win32Struct {
      * @type {String}
      */
     ReplicationGroupName {
-        get => StrGet(this.ptr + 24, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
+        get => StrGet(this.ptr + 36, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 36, 259, "UTF-16")
     }
 }

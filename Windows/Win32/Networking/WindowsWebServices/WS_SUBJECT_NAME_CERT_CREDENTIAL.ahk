@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CERT_CREDENTIAL.ahk
-#Include .\WS_CERT_CREDENTIAL_TYPE.ahk
 #Include .\WS_STRING.ahk
+#Include .\WS_CERT_CREDENTIAL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WS_CERT_CREDENTIAL_TYPE.ahk
 
 /**
  * The type for specifying a certificate credential using the certificate's subject name, store location and store name. The specified credential is loaded when the containing channel or listener is opened.

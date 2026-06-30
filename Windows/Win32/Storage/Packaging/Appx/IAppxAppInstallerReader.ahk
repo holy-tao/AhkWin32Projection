@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the XML DOM for an App Installer file.

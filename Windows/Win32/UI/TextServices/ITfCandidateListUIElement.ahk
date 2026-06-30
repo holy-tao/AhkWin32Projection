@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfUIElement.ahk
-#Include .\ITfDocumentMgr.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITfDocumentMgr.ahk
+#Include .\ITfUIElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has the candidate list UI.
@@ -145,7 +146,7 @@ class ITfCandidateListUIElement extends ITfUIElement {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getstring
      */
     GetString(uIndex) {
-        _pstr := BSTR()
+        _pstr := BSTR({Value: 0}, True)
         result := ComCall(11, this, "uint", uIndex, "ptr", _pstr, "HRESULT")
         return _pstr
     }

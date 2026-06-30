@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_AUTH_CIPHER_PAIR.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
 #Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_AUTH_CIPHER_PAIR.ahk
 
 /**
  * Contains a list of authentication and cipher algorithm pairs.

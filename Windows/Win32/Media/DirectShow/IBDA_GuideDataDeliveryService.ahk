@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Retrieves out-of-band guide data from a media transform device (MTD). This interface provides access to a device's Guide Data Delivery Service.
@@ -124,7 +125,7 @@ class IBDA_GuideDataDeliveryService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-gettunexmlfromserviceidx
      */
     GetTuneXmlFromServiceIdx(ul64ServiceIdx) {
-        pbstrTuneXml := BSTR()
+        pbstrTuneXml := BSTR({Value: 0}, True)
         result := ComCall(6, this, "uint", ul64ServiceIdx, "ptr", pbstrTuneXml, "HRESULT")
         return pbstrTuneXml
     }
@@ -151,7 +152,7 @@ class IBDA_GuideDataDeliveryService extends IUnknown {
     GetServiceInfoFromTuneXml(bstrTuneXml) {
         bstrTuneXml := bstrTuneXml is String ? BSTR.Alloc(bstrTuneXml).Value : bstrTuneXml
 
-        pbstrServiceDescription := BSTR()
+        pbstrServiceDescription := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", bstrTuneXml, "ptr", pbstrServiceDescription, "HRESULT")
         return pbstrServiceDescription
     }

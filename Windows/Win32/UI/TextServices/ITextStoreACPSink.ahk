@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\TS_TEXTCHANGE.ahk
+#Include .\TEXT_STORE_TEXT_CHANGE_FLAGS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\TEXT_STORE_LOCK_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TsLayoutCode.ahk
 
 /**
  * The ITextStoreACPSink interface is implemented by the TSF manager and is used by an ACP-based application to notify the manager when certain events occur. The manager installs this advise sink by calling ITextStoreACP::AdviseSink.

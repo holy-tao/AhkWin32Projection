@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Include .\ITfRange.ahk
 #Include .\IEnumTfRanges.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ITfContext.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfReadOnlyProperty interface is implemented by the TSF manager and used by an application or text service to obtain property data.

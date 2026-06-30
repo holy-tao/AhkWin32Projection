@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\HGROUP.ahk
 
 /**
  * The IGetClusterGroupInfo interface is called by a Failover Cluster Administrator extension to retrieve information about a group.

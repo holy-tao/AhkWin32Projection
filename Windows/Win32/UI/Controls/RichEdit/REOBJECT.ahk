@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\System\Ole\IOleObject.ahk
+#Include .\REOBJECT_FLAGS.ahk
 #Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Ole\IOleClientSite.ahk
 #Include ..\..\..\Foundation\SIZE.ahk
-#Include .\REOBJECT_FLAGS.ahk
+#Include ..\..\..\System\Ole\IOleObject.ahk
 
 /**
  * Contains information about an OLE or image object in a rich edit control.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
 class REOBJECT extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -44,11 +45,14 @@ class REOBJECT extends Win32Struct {
      * Type: <b>CLSID</b>
      * 
      * Class identifier of the object.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(8, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -58,8 +62,8 @@ class REOBJECT extends Win32Struct {
      * @type {IOleObject}
      */
     poleobj {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -69,8 +73,8 @@ class REOBJECT extends Win32Struct {
      * @type {IStorage}
      */
     pstg {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -80,8 +84,8 @@ class REOBJECT extends Win32Struct {
      * @type {IOleClientSite}
      */
     polesite {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -93,7 +97,7 @@ class REOBJECT extends Win32Struct {
     sizel {
         get {
             if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(40, this)
+                this.__sizel := SIZE(48, this)
             return this.__sizel
         }
     }
@@ -105,8 +109,8 @@ class REOBJECT extends Win32Struct {
      * @type {Integer}
      */
     dvaspect {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -114,8 +118,8 @@ class REOBJECT extends Win32Struct {
      * @type {REOBJECT_FLAGS}
      */
     dwFlags {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -125,7 +129,7 @@ class REOBJECT extends Win32Struct {
      * @type {Integer}
      */
     dwUser {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 }

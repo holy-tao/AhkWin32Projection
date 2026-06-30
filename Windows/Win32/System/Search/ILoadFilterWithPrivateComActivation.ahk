@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FILTERED_DATA_SOURCES.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ILoadFilter.ahk
+#Include ..\..\Storage\IndexServer\IFilter.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

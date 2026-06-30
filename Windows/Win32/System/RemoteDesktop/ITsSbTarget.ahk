@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\TSSD_ConnectionPoint.ahk
+#Include .\TARGET_STATE.ahk
 #Include .\ITsSbTargetPropertySet.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TSSD_ConnectionPoint.ahk
 
 /**
  * Exposes properties that store configuration and state information about a target.
@@ -117,7 +119,7 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetname
      */
     get_TargetName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -143,7 +145,7 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_farmname
      */
     get_FarmName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -167,7 +169,7 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetfqdn
      */
     get_TargetFQDN() {
-        TargetFqdnName := BSTR()
+        TargetFqdnName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", TargetFqdnName, "HRESULT")
         return TargetFqdnName
     }
@@ -191,7 +193,7 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetnetbios
      */
     get_TargetNetbios() {
-        TargetNetbiosName := BSTR()
+        TargetNetbiosName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", TargetNetbiosName, "HRESULT")
         return TargetNetbiosName
     }
@@ -291,7 +293,7 @@ class ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_environmentname
      */
     get_EnvironmentName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pVal, "HRESULT")
         return pVal
     }

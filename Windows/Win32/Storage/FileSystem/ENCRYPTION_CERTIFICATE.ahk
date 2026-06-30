@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SID.ahk
 #Include .\EFS_CERTIFICATE_BLOB.ahk
+#Include ..\..\Security\SID.ahk
 
 /**
  * Contains a certificate and the SID of its owner.

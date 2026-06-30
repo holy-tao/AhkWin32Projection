@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -20,9 +21,9 @@
  * @charset ANSI
  */
 class NTMS_DRIVEINFORMATIONA extends Win32Struct {
-    static sizeof => 208
+    static sizeof => 232
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Number of the drive in the library. This is set zero or one relative the value based on the drive numbering system of the device. Some changers number drives beginning with zero, and some changers begin with one.
@@ -43,11 +44,14 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
 
     /**
      * Unique identifier of the drive type object containing the attributes for the drive.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DriveType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__DriveType"))
+                this.__DriveType := Guid(8, this)
+            return this.__DriveType
+        }
     }
 
     /**
@@ -55,8 +59,8 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szDeviceName {
-        get => StrGet(this.ptr + 16, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 63, "UTF-8")
+        get => StrGet(this.ptr + 24, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 63, "UTF-8")
     }
 
     /**
@@ -64,8 +68,8 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szSerialNumber {
-        get => StrGet(this.ptr + 80, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 31, "UTF-8")
+        get => StrGet(this.ptr + 88, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 88, 31, "UTF-8")
     }
 
     /**
@@ -73,8 +77,8 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szRevision {
-        get => StrGet(this.ptr + 112, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 112, 31, "UTF-8")
+        get => StrGet(this.ptr + 120, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 120, 31, "UTF-8")
     }
 
     /**
@@ -82,8 +86,8 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     ScsiPort {
-        get => NumGet(this, 144, "ushort")
-        set => NumPut("ushort", value, this, 144)
+        get => NumGet(this, 152, "ushort")
+        set => NumPut("ushort", value, this, 152)
     }
 
     /**
@@ -91,8 +95,8 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     ScsiBus {
-        get => NumGet(this, 146, "ushort")
-        set => NumPut("ushort", value, this, 146)
+        get => NumGet(this, 154, "ushort")
+        set => NumPut("ushort", value, this, 154)
     }
 
     /**
@@ -100,8 +104,8 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     ScsiTarget {
-        get => NumGet(this, 148, "ushort")
-        set => NumPut("ushort", value, this, 148)
+        get => NumGet(this, 156, "ushort")
+        set => NumPut("ushort", value, this, 156)
     }
 
     /**
@@ -109,8 +113,8 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     ScsiLun {
-        get => NumGet(this, 150, "ushort")
-        set => NumPut("ushort", value, this, 150)
+        get => NumGet(this, 158, "ushort")
+        set => NumPut("ushort", value, this, 158)
     }
 
     /**
@@ -118,8 +122,8 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     dwMountCount {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
+        get => NumGet(this, 160, "uint")
+        set => NumPut("uint", value, this, 160)
     }
 
     /**
@@ -129,36 +133,45 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
     LastCleanedTs {
         get {
             if(!this.HasProp("__LastCleanedTs"))
-                this.__LastCleanedTs := SYSTEMTIME(156, this)
+                this.__LastCleanedTs := SYSTEMTIME(164, this)
             return this.__LastCleanedTs
         }
     }
 
     /**
      * Partition identifier of the medium that is in the drive. If this value is NULL and the drive is found to be full, the media was loaded by a user and needs to be classified.
-     * @type {Pointer}
+     * @type {Guid}
      */
     SavedPartitionId {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get {
+            if(!this.HasProp("__SavedPartitionId"))
+                this.__SavedPartitionId := Guid(180, this)
+            return this.__SavedPartitionId
+        }
     }
 
     /**
      * Unique identifier of the library that contains the drive.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Library {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get {
+            if(!this.HasProp("__Library"))
+                this.__Library := Guid(196, this)
+            return this.__Library
+        }
     }
 
     /**
      * Reserved.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Reserved {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get {
+            if(!this.HasProp("__Reserved"))
+                this.__Reserved := Guid(212, this)
+            return this.__Reserved
+        }
     }
 
     /**
@@ -166,7 +179,7 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     dwDeferDismountDelay {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
+        get => NumGet(this, 228, "uint")
+        set => NumPut("uint", value, this, 228)
     }
 }

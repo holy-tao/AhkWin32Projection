@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VBICODECFILTERING_NABTS_SUBSTREAMS.ahk
+#Include .\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSPROPERTY_VBICODECFILTERING_NABTS_SUBSTREAMS_S extends Win32Struct {
-    static sizeof => 528
+    static sizeof => 536
 
     static packingSize => 8
 
@@ -28,7 +29,7 @@ class KSPROPERTY_VBICODECFILTERING_NABTS_SUBSTREAMS_S extends Win32Struct {
     Substreams {
         get {
             if(!this.HasProp("__Substreams"))
-                this.__Substreams := VBICODECFILTERING_NABTS_SUBSTREAMS(16, this)
+                this.__Substreams := VBICODECFILTERING_NABTS_SUBSTREAMS(24, this)
             return this.__Substreams
         }
     }

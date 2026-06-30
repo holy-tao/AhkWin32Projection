@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NCRYPT_ALGORITHM_NAME_CLASS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\NCRYPT_OPERATION.ahk
+#Include .\NCRYPT_ALGORITHM_NAME_CLASS.ahk
 
 /**
  * Used to contain information about a CNG algorithm.

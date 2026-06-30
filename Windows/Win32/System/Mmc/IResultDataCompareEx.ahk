@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\RDCOMPARE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows primary snap-ins to compare both scope and result items that are displayed in a sorted order in the result pane.

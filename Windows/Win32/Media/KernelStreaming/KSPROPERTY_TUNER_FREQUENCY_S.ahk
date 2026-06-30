@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -25,22 +26,6 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct {
      * @type {Integer}
      */
     Frequency {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastFrequency {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TuningFlags {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -48,7 +33,7 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct {
     /**
      * @type {Integer}
      */
-    VideoSubChannel {
+    LastFrequency {
         get => NumGet(this, 28, "uint")
         set => NumPut("uint", value, this, 28)
     }
@@ -56,7 +41,7 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct {
     /**
      * @type {Integer}
      */
-    AudioSubChannel {
+    TuningFlags {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -64,7 +49,7 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct {
     /**
      * @type {Integer}
      */
-    Channel {
+    VideoSubChannel {
         get => NumGet(this, 36, "uint")
         set => NumPut("uint", value, this, 36)
     }
@@ -72,8 +57,24 @@ class KSPROPERTY_TUNER_FREQUENCY_S extends Win32Struct {
     /**
      * @type {Integer}
      */
-    Country {
+    AudioSubChannel {
         get => NumGet(this, 40, "uint")
         set => NumPut("uint", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Channel {
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Country {
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_DISPLAY_DATA0.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\FWPM_DISPLAY_DATA0.ahk
 
 /**
  * Stores the state associated with a callout.
@@ -15,7 +17,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_CALLOUT0 extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -24,11 +26,14 @@ class FWPM_CALLOUT0 extends Win32Struct {
      * 
      * If the GUID is initialized to zero in the
      *    call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutadd0">FwpmCalloutAdd0</a>, the base filtering engine (BFE) will generate one.
-     * @type {Pointer}
+     * @type {Guid}
      */
     calloutKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__calloutKey"))
+                this.__calloutKey := Guid(0, this)
+            return this.__calloutKey
+        }
     }
 
     /**
@@ -38,7 +43,7 @@ class FWPM_CALLOUT0 extends Win32Struct {
     displayData {
         get {
             if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
+                this.__displayData := FWPM_DISPLAY_DATA0(16, this)
             return this.__displayData
         }
     }
@@ -84,8 +89,8 @@ class FWPM_CALLOUT0 extends Win32Struct {
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -93,8 +98,8 @@ class FWPM_CALLOUT0 extends Win32Struct {
      * @type {Pointer<Guid>}
      */
     providerKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -104,18 +109,21 @@ class FWPM_CALLOUT0 extends Win32Struct {
     providerData {
         get {
             if(!this.HasProp("__providerData"))
-                this.__providerData := FWP_BYTE_BLOB(40, this)
+                this.__providerData := FWP_BYTE_BLOB(48, this)
             return this.__providerData
         }
     }
 
     /**
      * Specifies the layer in which the callout can be used. Only filters in this layer can invoke the callout. For more information, see <a href="https://docs.microsoft.com/windows/desktop/FWP/management-filtering-layer-identifiers-">Filtering Layer Identifiers</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     applicableLayer {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__applicableLayer"))
+                this.__applicableLayer := Guid(64, this)
+            return this.__applicableLayer
+        }
     }
 
     /**
@@ -124,7 +132,7 @@ class FWPM_CALLOUT0 extends Win32Struct {
      * @type {Integer}
      */
     calloutId {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 }

@@ -1,10 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontFamily.ahk
-#Include .\IDWriteLocalizedStrings.ahk
+#Include .\DWRITE_FONT_STRETCH.ahk
 #Include .\IDWriteFontFace.ahk
+#Include .\DWRITE_FONT_METRICS.ahk
+#Include .\DWRITE_FONT_WEIGHT.ahk
+#Include .\DWRITE_FONT_SIMULATIONS.ahk
+#Include .\IDWriteFontFamily.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_FONT_STYLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IDWriteLocalizedStrings.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_INFORMATIONAL_STRING_ID.ahk
 
 /**
  * Represents a physical font in a font collection. This interface is used to create font faces from physical fonts, or to retrieve information such as font face metrics or face names from existing font faces.

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFSharingEngineClassFactory.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables the PlayToConnection object to connect to a media element.

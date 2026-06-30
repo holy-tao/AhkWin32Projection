@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_STRING.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents a unique ID URI.
@@ -12,7 +14,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
 class WS_UNIQUE_ID extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -35,10 +37,13 @@ class WS_UNIQUE_ID extends Win32Struct {
      * If the uri.length field is 0, then this field contains
      *                     the GUID representation of the unique ID.  Otherwise
      *                     the value of the field is not defined.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(16, this)
+            return this.__guid
+        }
     }
 }

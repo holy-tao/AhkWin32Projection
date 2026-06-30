@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * Borland debugging information.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_debug_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
 class IMAGE_DEBUG_TYPE extends Win32Enum {

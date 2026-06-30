@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The sharing flags.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_flags
  * @namespace Windows.Win32.System.DesktopSharing
  */
 class RDPSRAPIApplication extends Win32Struct {

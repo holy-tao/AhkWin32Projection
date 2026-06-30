@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_READER_INPUT.ahk
 #Include .\WS_XML_READER_INPUT_TYPE.ahk
+#Include .\WS_XML_READER_INPUT.ahk
 
 /**
  * Specifies that the source of the xml input is a buffer.

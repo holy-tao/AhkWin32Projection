@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VDS_STORAGE_BUS_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The VDS_HINTS2 structure (vdshwprv.h) contains the automagic hints for a LUN in a storage pool.

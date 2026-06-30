@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Input\KeyboardAndMouse\HKL.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * This structure contains data for the input processor profile.
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.UI.TextServices
  */
 class TF_INPUTPROCESSORPROFILE extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -47,29 +48,38 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct {
 
     /**
      * The CLSID of the text service. This is CLSID_NULL if this profile is a keyboard layout.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(8, this)
+            return this.__clsid
+        }
     }
 
     /**
      * The guidProfile of the text services. This is GUID_NULL if this profile is a keyboard layout.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidProfile {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidProfile"))
+                this.__guidProfile := Guid(24, this)
+            return this.__guidProfile
+        }
     }
 
     /**
      * The category of this text service. This category is GUID_TFCAT_TIP_KEYBOARD, GUID_TFCAT_TIP_SPEECH, GUID_TFCAT_TIP_HANDWRITING or something in GUID_TFCAT_CATEGORY_OF_TIP.
-     * @type {Pointer}
+     * @type {Guid}
      */
     catid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__catid"))
+                this.__catid := Guid(40, this)
+            return this.__catid
+        }
     }
 
     /**
@@ -79,7 +89,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct {
     hklSubstitute {
         get {
             if(!this.HasProp("__hklSubstitute"))
-                this.__hklSubstitute := HKL(32, this)
+                this.__hklSubstitute := HKL(56, this)
             return this.__hklSubstitute
         }
     }
@@ -124,8 +134,8 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct {
      * @type {Integer}
      */
     dwCaps {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -135,7 +145,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct {
     hkl {
         get {
             if(!this.HasProp("__hkl"))
-                this.__hkl := HKL(48, this)
+                this.__hkl := HKL(72, this)
             return this.__hkl
         }
     }
@@ -164,7 +174,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct {
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 }

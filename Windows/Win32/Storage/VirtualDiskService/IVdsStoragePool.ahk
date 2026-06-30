@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVdsProvider.ahk
-#Include .\VDS_STORAGE_POOL_PROP.ahk
-#Include .\VDS_POOL_ATTRIBUTES.ahk
 #Include .\IEnumVdsObject.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_STORAGE_POOL_DRIVE_EXTENT.ahk
+#Include .\IVdsProvider.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_POOL_ATTRIBUTES.ahk
+#Include .\VDS_STORAGE_POOL_PROP.ahk
 
 /**
  * The IVdsStoragePool interface (vdshwprv.h) provides methods to query information and enumerate related objects for a storage pool.

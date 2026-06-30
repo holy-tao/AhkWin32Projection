@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmPipelineModuleImplementation.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFsrmPipelineModuleDefinition.ahk
+#Include .\IFsrmPipelineModuleImplementation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates the communication channel between FSRM and your pipeline module implementation.
@@ -97,7 +99,7 @@ class IFsrmPipelineModuleConnector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_modulename
      */
     get_ModuleName() {
-        userName := BSTR()
+        userName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", userName, "HRESULT")
         return userName
     }
@@ -108,7 +110,7 @@ class IFsrmPipelineModuleConnector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostinguseraccount
      */
     get_HostingUserAccount() {
-        userAccount := BSTR()
+        userAccount := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", userAccount, "HRESULT")
         return userAccount
     }

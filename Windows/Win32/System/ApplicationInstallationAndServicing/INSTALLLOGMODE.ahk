@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Logs the data record with the installation action.
- * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienableloga
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class INSTALLLOGMODE extends Win32Enum {

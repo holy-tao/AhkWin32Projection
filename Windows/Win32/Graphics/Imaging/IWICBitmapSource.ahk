@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWICPalette.ahk
+#Include .\WICRect.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that refers to a source from which pixels are retrieved, but cannot be written back to.

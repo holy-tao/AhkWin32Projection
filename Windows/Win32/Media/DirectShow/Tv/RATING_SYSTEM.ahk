@@ -1,21 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\RATING_ATTRIBUTE.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
 class RATING_SYSTEM extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     rating_system_id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__rating_system_id"))
+                this.__rating_system_id := Guid(0, this)
+            return this.__rating_system_id
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class RATING_SYSTEM extends Win32Struct {
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
@@ -51,7 +55,7 @@ class RATING_SYSTEM extends Win32Struct {
     country_code {
         get {
             if(!this.HasProp("__country_codeProxyArray"))
-                this.__country_codeProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
+                this.__country_codeProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")
             return this.__country_codeProxyArray
         }
     }
@@ -60,15 +64,15 @@ class RATING_SYSTEM extends Win32Struct {
      * @type {Integer}
      */
     rating_attribute_count {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Pointer<RATING_ATTRIBUTE>}
      */
     lpratingattrib {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

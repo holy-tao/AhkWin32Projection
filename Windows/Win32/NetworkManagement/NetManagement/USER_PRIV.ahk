@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Administrator
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
 class USER_PRIV extends Win32Enum {

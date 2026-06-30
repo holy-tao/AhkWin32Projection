@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MPEG_REQUEST_TYPE.ahk
-#Include .\MPEG_CONTEXT.ahk
-#Include .\MPEG_CONTEXT_TYPE.ahk
 #Include .\MPEG_BCS_DEMUX.ahk
-#Include .\MPEG_WINSOCK.ahk
-#Include .\MPEG2_FILTER.ahk
-#Include .\DSMCC_FILTER_OPTIONS.ahk
+#Include .\MPEG_CONTEXT_TYPE.ahk
+#Include .\MPEG_CONTEXT.ahk
 #Include .\ATSC_FILTER_OPTIONS.ahk
+#Include .\DSMCC_FILTER_OPTIONS.ahk
+#Include .\MPEG2_FILTER.ahk
+#Include .\MPEG_WINSOCK.ahk
+#Include .\MPEG_REQUEST_TYPE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv

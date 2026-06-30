@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_TEXT.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WS_XML_TEXT_TYPE.ahk
 
 /**
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
 class WS_XML_UNIQUE_ID_TEXT extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_text">WS_XML_TEXT</a>.
@@ -27,10 +28,13 @@ class WS_XML_UNIQUE_ID_TEXT extends Win32Struct {
 
     /**
      * The GUID value.
-     * @type {Pointer}
+     * @type {Guid}
      */
     value {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__value"))
+                this.__value := Guid(4, this)
+            return this.__value
+        }
     }
 }

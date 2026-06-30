@@ -2,6 +2,8 @@
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
 #Include ..\System\Com\IUnknown.ahk
+#Include ..\Foundation\HANDLE.ahk
+#Include ..\Foundation\HRESULT.ahk
 
 /**
  * The IReferenceClock interface provides access to an external clock. This interface is provided to enable all rendering routines to be synchronized to the same clock.This interface can be obtained from a reader object.

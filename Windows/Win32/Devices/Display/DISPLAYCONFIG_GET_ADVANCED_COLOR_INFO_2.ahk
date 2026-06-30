@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
 #Include ..\..\Foundation\LUID.ahk
 #Include ..\..\Graphics\Gdi\DISPLAYCONFIG_COLOR_ENCODING.ahk
 #Include ..\..\Graphics\Gdi\DISPLAYCONFIG_ADVANCED_COLOR_MODE.ahk
+#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
+#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display

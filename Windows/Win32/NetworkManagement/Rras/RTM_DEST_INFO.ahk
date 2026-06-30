@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RTM_NET_ADDRESS.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\RTM_NET_ADDRESS.ahk
 
 /**
  * The RTM_DEST_INFO structure is used to exchange destination information with clients registered with the routing table manager.

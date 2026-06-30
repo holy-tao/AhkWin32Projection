@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\ITaskFolder.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ITaskFolder.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides information and control for a collection of folders that contain tasks.

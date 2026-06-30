@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_RESOURCE_PRIORITY.ahk
 #Include .\IDXGIDeviceSubObject.ahk
+#Include .\DXGI_USAGE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * An IDXGIResource interface allows resource sharing and identifies the memory that a resource resides in.
@@ -62,7 +65,7 @@ class IDXGIResource extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getsharedhandle
      */
     GetSharedHandle() {
-        pSharedHandle := HANDLE()
+        pSharedHandle := HANDLE({Value: 0}, True)
         result := ComCall(8, this, "ptr", pSharedHandle, "HRESULT")
         return pSharedHandle
     }

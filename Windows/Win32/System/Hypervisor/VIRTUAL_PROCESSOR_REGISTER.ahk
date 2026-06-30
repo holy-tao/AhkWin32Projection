@@ -30,7 +30,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct {
         }
     }
 
-    class _X64_e__Union extends Win32Struct {
+    class _X64 extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -294,7 +294,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct {
         Segment {
             get {
                 if(!this.HasProp("__Segment"))
-                    this.__Segment := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._Segment(0, this)
+                    this.__Segment := VIRTUAL_PROCESSOR_REGISTER._X64._Segment(0, this)
                 return this.__Segment
             }
         }
@@ -305,7 +305,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct {
         Table {
             get {
                 if(!this.HasProp("__Table"))
-                    this.__Table := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._Table(0, this)
+                    this.__Table := VIRTUAL_PROCESSOR_REGISTER._X64._Table(0, this)
                 return this.__Table
             }
         }
@@ -316,7 +316,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct {
         FpControlStatus {
             get {
                 if(!this.HasProp("__FpControlStatus"))
-                    this.__FpControlStatus := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._FpControlStatus(0, this)
+                    this.__FpControlStatus := VIRTUAL_PROCESSOR_REGISTER._X64._FpControlStatus(0, this)
                 return this.__FpControlStatus
             }
         }
@@ -327,7 +327,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct {
         XmmControlStatus {
             get {
                 if(!this.HasProp("__XmmControlStatus"))
-                    this.__XmmControlStatus := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._XmmControlStatus(0, this)
+                    this.__XmmControlStatus := VIRTUAL_PROCESSOR_REGISTER._X64._XmmControlStatus(0, this)
                 return this.__XmmControlStatus
             }
         }
@@ -377,12 +377,12 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct {
     }
 
     /**
-     * @type {_X64_e__Union}
+     * @type {_X64}
      */
     X64 {
         get {
             if(!this.HasProp("__X64"))
-                this.__X64 := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union(0, this)
+                this.__X64 := VIRTUAL_PROCESSOR_REGISTER._X64(0, this)
             return this.__X64
         }
     }

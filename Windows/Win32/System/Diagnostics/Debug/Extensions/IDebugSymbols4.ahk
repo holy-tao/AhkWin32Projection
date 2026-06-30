@@ -1,13 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\DEBUG_MODULE_PARAMETERS.ahk
-#Include .\IDebugSymbolGroup.ahk
-#Include .\IDebugSymbolGroup2.ahk
-#Include .\DEBUG_MODULE_AND_ID.ahk
 #Include .\DEBUG_SYMBOL_ENTRY.ahk
+#Include .\DEBUG_MODULE_AND_ID.ahk
 #Include .\DEBUG_SYMBOL_SOURCE_ENTRY.ahk
+#Include .\IDebugSymbolGroup.ahk
+#Include .\DEBUG_STACK_FRAME_EX.ahk
+#Include .\DEBUG_OFFSET_REGION.ahk
+#Include .\IDebugSymbolGroup2.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\DEBUG_MODULE_PARAMETERS.ahk
+#Include .\DEBUG_STACK_FRAME.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -538,13 +544,9 @@ class IDebugSymbols4 extends IUnknown {
     }
 
     /**
-     * The ReloadZone method reloads the DNS Zone from its database.
+     * 
      * @param {PSTR} Module 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-zone-reloadzone
+     * @returns {HRESULT} 
      */
     Reload(Module) {
         Module := Module is String ? StrPtr(Module) : Module

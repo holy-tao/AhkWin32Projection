@@ -1,8 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\PM_ACTIVATION_POLICY.ahk
+#Include .\PM_APPLICATION_INSTALL_TYPE.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\PM_TASK_TRANSITION.ahk
+#Include .\PACKMAN_RUNTIME.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\PM_APPLICATION_STATE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\PM_TASK_TYPE.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

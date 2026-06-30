@@ -3,6 +3,8 @@
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include .\IDebugHostMemory2.ahk
 #Include .\Location.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDebugHostContext.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

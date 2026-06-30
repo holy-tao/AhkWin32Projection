@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IPropertyChange.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods for several multiple change operations that may be passed to IFileOperation.

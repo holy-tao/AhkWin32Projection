@@ -1,8 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HCS_OPERATION.ahk
-#Include .\HCS_SYSTEM.ahk
+#Include .\HCS_OPERATION_OPTIONS.ahk
+#Include .\HCS_OPERATION_TYPE.ahk
+#Include .\HCS_EVENT_OPTIONS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\HCS_CREATE_OPTIONS.ahk
 #Include .\HCS_PROCESS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\HCS_OPERATION.ahk
+#Include .\HCS_RESOURCE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Security\SECURITY_DESCRIPTOR.ahk
+#Include .\HCS_PROCESS_INFORMATION.ahk
+#Include .\HCS_SYSTEM.ahk
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
@@ -347,7 +357,7 @@ class HostComputeSystem {
         configuration := configuration is String ? StrPtr(configuration) : configuration
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        computeSystem := HCS_SYSTEM()
+        computeSystem := HCS_SYSTEM({Value: 0}, True)
         result := DllCall("computecore.dll\HcsCreateComputeSystem", "ptr", id, "ptr", configuration, "ptr", operation, "ptr", _securityDescriptor, "ptr", computeSystem, "HRESULT")
         return computeSystem
     }
@@ -369,7 +379,7 @@ class HostComputeSystem {
 
         optionsMarshal := options is VarRef ? "int*" : "ptr"
 
-        computeSystem := HCS_SYSTEM()
+        computeSystem := HCS_SYSTEM({Value: 0}, True)
         result := DllCall("computecore.dll\HcsCreateComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "ptr", configuration, "ptr", operation, optionsMarshal, options, "ptr", computeSystem, "HRESULT")
         return computeSystem
     }
@@ -384,7 +394,7 @@ class HostComputeSystem {
     static HcsOpenComputeSystem(id, requestedAccess) {
         id := id is String ? StrPtr(id) : id
 
-        computeSystem := HCS_SYSTEM()
+        computeSystem := HCS_SYSTEM({Value: 0}, True)
         result := DllCall("computecore.dll\HcsOpenComputeSystem", "ptr", id, "uint", requestedAccess, "ptr", computeSystem, "HRESULT")
         return computeSystem
     }
@@ -400,7 +410,7 @@ class HostComputeSystem {
         idNamespace := idNamespace is String ? StrPtr(idNamespace) : idNamespace
         id := id is String ? StrPtr(id) : id
 
-        computeSystem := HCS_SYSTEM()
+        computeSystem := HCS_SYSTEM({Value: 0}, True)
         result := DllCall("computecore.dll\HcsOpenComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "uint", requestedAccess, "ptr", computeSystem, "HRESULT")
         return computeSystem
     }
@@ -725,7 +735,7 @@ class HostComputeSystem {
         processParameters := processParameters is String ? StrPtr(processParameters) : processParameters
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        process := HCS_PROCESS()
+        process := HCS_PROCESS({Value: 0}, True)
         result := DllCall("computecore.dll\HcsCreateProcess", "ptr", computeSystem, "ptr", processParameters, "ptr", operation, "ptr", _securityDescriptor, "ptr", process, "HRESULT")
         return process
     }
@@ -741,7 +751,7 @@ class HostComputeSystem {
     static HcsOpenProcess(computeSystem, processId, requestedAccess) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
 
-        process := HCS_PROCESS()
+        process := HCS_PROCESS({Value: 0}, True)
         result := DllCall("computecore.dll\HcsOpenProcess", "ptr", computeSystem, "uint", processId, "uint", requestedAccess, "ptr", process, "HRESULT")
         return process
     }

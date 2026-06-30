@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Specifies the set of callbacks which should be invoked by IPsec at various stages of SA negotiation.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -17,11 +18,14 @@ class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * Reserved for system use.
-     * @type {Pointer}
+     * @type {Guid}
      */
     reserved {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__reserved"))
+                this.__reserved := Guid(0, this)
+            return this.__reserved
+        }
     }
 
     /**
@@ -31,8 +35,8 @@ class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct {
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -42,8 +46,8 @@ class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct {
      * @type {Pointer<IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0>}
      */
     keyDictationCheck {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -53,8 +57,8 @@ class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct {
      * @type {Pointer<IPSEC_KEY_MANAGER_DICTATE_KEY0>}
      */
     keyDictation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -64,7 +68,7 @@ class IPSEC_KEY_MANAGER_CALLBACKS0 extends Win32Struct {
      * @type {Pointer<IPSEC_KEY_MANAGER_NOTIFY_KEY0>}
      */
     keyNotify {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

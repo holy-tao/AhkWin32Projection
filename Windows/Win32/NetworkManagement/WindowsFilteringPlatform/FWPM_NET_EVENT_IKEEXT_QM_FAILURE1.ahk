@@ -1,26 +1,28 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_V4_ADDR_AND_MASK.ahk
 #Include .\IPSEC_FAILURE_POINT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\FWP_BYTE_BLOB.ahk
+#Include .\FWP_RANGE0.ahk
+#Include .\FWP_BYTE_ARRAY16.ahk
+#Include .\FWP_V6_ADDR_AND_MASK.ahk
+#Include .\FWP_DATA_TYPE.ahk
+#Include .\FWP_TOKEN_INFORMATION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\FWP_BYTE_ARRAY6.ahk
+#Include .\FWP_CONDITION_VALUE0.ahk
 #Include .\IKEEXT_KEY_MODULE_TYPE.ahk
 #Include .\IKEEXT_QM_SA_STATE.ahk
-#Include .\IKEEXT_SA_ROLE.ahk
 #Include .\IPSEC_TRAFFIC_TYPE.ahk
-#Include .\FWP_CONDITION_VALUE0.ahk
-#Include .\FWP_DATA_TYPE.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
-#Include .\FWP_V4_ADDR_AND_MASK.ahk
-#Include .\FWP_V6_ADDR_AND_MASK.ahk
-#Include .\FWP_RANGE0.ahk
+#Include .\IKEEXT_SA_ROLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_NET_EVENT_IKEEXT_QM_FAILURE1 extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -111,10 +113,13 @@ class FWPM_NET_EVENT_IKEEXT_QM_FAILURE1 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     mmProviderContextKey {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get {
+            if(!this.HasProp("__mmProviderContextKey"))
+                this.__mmProviderContextKey := Guid(72, this)
+            return this.__mmProviderContextKey
+        }
     }
 }

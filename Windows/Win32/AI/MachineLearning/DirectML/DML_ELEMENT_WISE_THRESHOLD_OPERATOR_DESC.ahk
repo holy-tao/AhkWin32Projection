@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
 #Include .\DML_SCALE_BIAS.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Replaces all elements of *InputTensor* below the given threshold, *Min*, with *Min*. Results are placed into the corresponding element of *OutputTensor*.

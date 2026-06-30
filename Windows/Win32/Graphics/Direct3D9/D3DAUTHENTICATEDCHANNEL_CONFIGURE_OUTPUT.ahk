@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the response to a call to the IDirect3DAuthenticatedChannel9::Configure method.
@@ -11,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
 class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -29,11 +31,14 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct {
 
     /**
      * A GUID that specifies the command. For a list of values, see [Content Protection Commands](content-protection-commands.md).
-     * @type {Pointer}
+     * @type {Guid}
      */
     ConfigureType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ConfigureType"))
+                this.__ConfigureType := Guid(16, this)
+            return this.__ConfigureType
+        }
     }
 
     /**
@@ -43,7 +48,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct {
     hChannel {
         get {
             if(!this.HasProp("__hChannel"))
-                this.__hChannel := HANDLE(24, this)
+                this.__hChannel := HANDLE(32, this)
             return this.__hChannel
         }
     }
@@ -53,8 +58,8 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct {
      * @type {Integer}
      */
     SequenceNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -62,7 +67,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct {
      * @type {HRESULT}
      */
     ReturnCode {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 }

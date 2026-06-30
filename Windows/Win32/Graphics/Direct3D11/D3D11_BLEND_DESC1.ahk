@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_RENDER_TARGET_BLEND_DESC1.ahk
 #Include .\D3D11_BLEND.ahk
-#Include .\D3D11_BLEND_OP.ahk
 #Include .\D3D11_LOGIC_OP.ahk
+#Include .\D3D11_BLEND_OP.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D11_RENDER_TARGET_BLEND_DESC1.ahk
 
 /**
  * Describes the blend state that you use in a call to ID3D11Device1::CreateBlendState1 to create a blend-state object. (D3D11_BLEND_DESC1)

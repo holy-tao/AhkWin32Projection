@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_ASYNC_EVENT.ahk
-#Include .\RPC_NOTIFICATION_TYPES.ahk
-#Include .\RPC_ASYNC_NOTIFICATION_INFO.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\IO\OVERLAPPED.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\IO\OVERLAPPED.ahk
+#Include .\RPC_ASYNC_EVENT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\RPC_ASYNC_NOTIFICATION_INFO.ahk
+#Include .\RPC_NOTIFICATION_TYPES.ahk
 
 /**
  * The RPC_ASYNC_STATE structure holds the state of an asynchronous remote procedure call. RPC_ASYNC_STATE is a handle to this structure, used to wait for, query, reply to, or cancel asynchronous calls.

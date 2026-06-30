@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WAVEFORMATEX.ahk
+#Include .\SpatialAudioHrtfEnvironmentType.ahk
+#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
+#Include .\SpatialAudioHrtfDirectivityUnion.ahk
 #Include .\AudioObjectType.ahk
 #Include .\AUDIO_STREAM_CATEGORY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
-#Include .\SpatialAudioHrtfDistanceDecay.ahk
-#Include .\SpatialAudioHrtfDirectivityUnion.ahk
-#Include .\SpatialAudioHrtfEnvironmentType.ahk
 #Include .\SPATIAL_AUDIO_STREAM_OPTIONS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\WAVEFORMATEX.ahk
+#Include .\SpatialAudioHrtfDistanceDecay.ahk
 
 /**
  * Represents activation parameters for a spatial audio render stream, extending SpatialAudioHrtfActivationParams with the ability to specify stream options.

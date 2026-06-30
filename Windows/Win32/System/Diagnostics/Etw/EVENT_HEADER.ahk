@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\EVENT_DESCRIPTOR.ahk
 
 /**
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class EVENT_HEADER extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -205,11 +206,14 @@ class EVENT_HEADER extends Win32Struct {
 
     /**
      * GUID that uniquely identifies the provider that logged the event.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProviderId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__ProviderId"))
+                this.__ProviderId := Guid(24, this)
+            return this.__ProviderId
+        }
     }
 
     /**
@@ -219,7 +223,7 @@ class EVENT_HEADER extends Win32Struct {
     EventDescriptor {
         get {
             if(!this.HasProp("__EventDescriptor"))
-                this.__EventDescriptor := EVENT_DESCRIPTOR(32, this)
+                this.__EventDescriptor := EVENT_DESCRIPTOR(40, this)
             return this.__EventDescriptor
         }
     }
@@ -228,32 +232,35 @@ class EVENT_HEADER extends Win32Struct {
      * @type {Integer}
      */
     KernelTime {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     UserTime {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
      * @type {Integer}
      */
     ProcessorTime {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * Identifier that relates two events. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/nf-evntprov-eventwritetransfer">EventWriteTransfer</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ActivityId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__ActivityId"))
+                this.__ActivityId := Guid(64, this)
+            return this.__ActivityId
+        }
     }
 }

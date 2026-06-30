@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains the basic options with which to create an RPC binding handle. (Unicode)
@@ -44,11 +45,11 @@
  * @charset Unicode
  */
 class RPC_BINDING_HANDLE_TEMPLATE_V1_W extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
-    class _u1_e__Union extends Win32Struct {
+    class _u1 extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -123,22 +124,25 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_W extends Win32Struct {
     }
 
     /**
-     * @type {_u1_e__Union}
+     * @type {_u1}
      */
     u1 {
         get {
             if(!this.HasProp("__u1"))
-                this.__u1 := RPC_BINDING_HANDLE_TEMPLATE_V1_W._u1_e__Union(32, this)
+                this.__u1 := RPC_BINDING_HANDLE_TEMPLATE_V1_W._u1(32, this)
             return this.__u1
         }
     }
 
     /**
      * The UUID of the remote object. The semantics for this UUID are the same as those for a string binding. After the binding handle is created, call <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetobject">RpcBindingSetObject</a> to change the UUID as needed.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectUuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__ObjectUuid"))
+                this.__ObjectUuid := Guid(40, this)
+            return this.__ObjectUuid
+        }
     }
 }

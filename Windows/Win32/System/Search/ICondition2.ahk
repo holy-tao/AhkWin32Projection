@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ICondition.ahk
+#Include Common\CONDITION_OPERATION.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the functionality of the ICondition interface. ICondition2 provides methods for retrieving information about a search condition.

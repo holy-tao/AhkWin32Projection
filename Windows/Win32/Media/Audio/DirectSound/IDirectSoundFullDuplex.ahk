@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\IDirectSoundCaptureBuffer8.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\DSCBUFFERDESC.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IDirectSoundBuffer8.ahk
+#Include .\DSBUFFERDESC.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound

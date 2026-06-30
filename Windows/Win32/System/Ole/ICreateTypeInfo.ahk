@@ -1,6 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\FUNCDESC.ahk
+#Include ..\Com\IMPLTYPEFLAGS.ahk
+#Include ..\Com\VARDESC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\ITypeInfo.ahk
+#Include ..\Com\TYPEDESC.ahk
+#Include ..\Com\IDLDESC.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**

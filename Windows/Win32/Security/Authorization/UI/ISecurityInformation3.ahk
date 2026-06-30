@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\SI_PAGE_TYPE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods necessary for displaying an elevated access control editor when a user clicks the Edit button on an access control editor page that displays an image of a shield on that Edit button.

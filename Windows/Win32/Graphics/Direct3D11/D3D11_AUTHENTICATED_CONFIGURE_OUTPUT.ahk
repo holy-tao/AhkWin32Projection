@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_OMAC.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\D3D11_OMAC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the response from the ID3D11VideoContext::ConfigureAuthenticatedChannel method.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -27,11 +29,14 @@ class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct {
 
     /**
      * A GUID that specifies the command. For a list of GUIDs, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_authenticated_configure_input">D3D11_AUTHENTICATED_CONFIGURE_INPUT</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ConfigureType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ConfigureType"))
+                this.__ConfigureType := Guid(16, this)
+            return this.__ConfigureType
+        }
     }
 
     /**
@@ -41,7 +46,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct {
     hChannel {
         get {
             if(!this.HasProp("__hChannel"))
-                this.__hChannel := HANDLE(24, this)
+                this.__hChannel := HANDLE(32, this)
             return this.__hChannel
         }
     }
@@ -51,8 +56,8 @@ class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct {
      * @type {Integer}
      */
     SequenceNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -60,7 +65,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct {
      * @type {HRESULT}
      */
     ReturnCode {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 }

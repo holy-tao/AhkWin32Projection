@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_RTV_DIMENSION.ahk
-#Include .\D3D12_BUFFER_RTV.ahk
-#Include .\D3D12_TEX1D_RTV.ahk
-#Include .\D3D12_TEX1D_ARRAY_RTV.ahk
-#Include .\D3D12_TEX2D_RTV.ahk
-#Include .\D3D12_TEX2D_ARRAY_RTV.ahk
-#Include .\D3D12_TEX2DMS_RTV.ahk
-#Include .\D3D12_TEX2DMS_ARRAY_RTV.ahk
 #Include .\D3D12_TEX3D_RTV.ahk
+#Include .\D3D12_TEX2DMS_ARRAY_RTV.ahk
+#Include .\D3D12_TEX2DMS_RTV.ahk
+#Include .\D3D12_RTV_DIMENSION.ahk
+#Include .\D3D12_TEX2D_RTV.ahk
+#Include .\D3D12_TEX1D_ARRAY_RTV.ahk
+#Include .\D3D12_BUFFER_RTV.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_TEX1D_RTV.ahk
+#Include .\D3D12_TEX2D_ARRAY_RTV.ahk
 
 /**
  * Describes the subresources from a resource that are accessible by using a render-target view.

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxOutgoingMessage.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxOutgoingMessage.ahk
+#Include .\FAX_RECEIPT_TYPE_ENUM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used by a fax client application to retrieve information about a sent fax message in the archive of outbound faxes.
@@ -106,7 +109,7 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receiptaddress
      */
     get_ReceiptAddress() {
-        pbstrReceiptAddress := BSTR()
+        pbstrReceiptAddress := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", pbstrReceiptAddress, "HRESULT")
         return pbstrReceiptAddress
     }

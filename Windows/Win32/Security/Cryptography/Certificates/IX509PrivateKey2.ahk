@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509PrivateKey.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\X509HardwareKeyUsageFlags.ahk
+#Include .\IX509PrivateKey.ahk
+#Include .\X509KeyParametersExportType.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -84,7 +88,7 @@ class IX509PrivateKey2 extends IX509PrivateKey {
      * @returns {BSTR} 
      */
     get_AlternateStorageLocation() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(67, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -106,7 +110,7 @@ class IX509PrivateKey2 extends IX509PrivateKey {
      * @returns {BSTR} 
      */
     get_AlgorithmName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(69, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -129,7 +133,7 @@ class IX509PrivateKey2 extends IX509PrivateKey {
      * @returns {BSTR} 
      */
     get_AlgorithmParameters(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(71, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

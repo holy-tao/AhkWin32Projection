@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes a single storage tier region.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class FILE_STORAGE_TIER_REGION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
      * Tier ID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     TierId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__TierId"))
+                this.__TierId := Guid(0, this)
+            return this.__TierId
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class FILE_STORAGE_TIER_REGION extends Win32Struct {
      * @type {Integer}
      */
     Offset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -34,7 +38,7 @@ class FILE_STORAGE_TIER_REGION extends Win32Struct {
      * @type {Integer}
      */
     Length {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

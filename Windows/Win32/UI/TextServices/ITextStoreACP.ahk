@@ -1,12 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\TS_STATUS.ahk
-#Include .\TS_TEXTCHANGE.ahk
+#Include .\TS_SELECTION_ACP.ahk
+#Include .\TS_RUNINFO.ahk
 #Include ..\..\System\Com\IDataObject.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\FORMATETC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TS_STATUS.ahk
+#Include .\TS_ATTRVAL.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\TS_TEXTCHANGE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITextStoreACP interface is implemented by the application and is used by the TSF manager to manipulate text streams or text stores in TSF.

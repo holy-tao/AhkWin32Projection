@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISpatialAudioObjectBase.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to write metadata commands for spatial audio.

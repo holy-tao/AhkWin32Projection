@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -104,7 +105,7 @@ class ISClusVersion extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrClusterName := BSTR()
+        pbstrClusterName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrClusterName, "HRESULT")
         return pbstrClusterName
     }
@@ -141,7 +142,7 @@ class ISClusVersion extends IDispatch {
      * @returns {BSTR} 
      */
     get_VendorId() {
-        pbstrVendorId := BSTR()
+        pbstrVendorId := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrVendorId, "HRESULT")
         return pbstrVendorId
     }
@@ -151,7 +152,7 @@ class ISClusVersion extends IDispatch {
      * @returns {BSTR} 
      */
     get_CSDVersion() {
-        pbstrCSDVersion := BSTR()
+        pbstrCSDVersion := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrCSDVersion, "HRESULT")
         return pbstrCSDVersion
     }

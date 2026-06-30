@@ -10,7 +10,7 @@ class NSID extends Win32Struct {
 
     static packingSize => 4
 
-    class _address_e__Union extends Win32Struct {
+    class _address extends Win32Struct {
         static sizeof => 76
         static packingSize => 4
 
@@ -70,12 +70,12 @@ class NSID extends Win32Struct {
     }
 
     /**
-     * @type {_address_e__Union}
+     * @type {_address}
      */
     address {
         get {
             if(!this.HasProp("__address"))
-                this.__address := NSID._address_e__Union(28, this)
+                this.__address := NSID._address(28, this)
             return this.__address
         }
     }

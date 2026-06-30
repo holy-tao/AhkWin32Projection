@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_PROTOCOL_SPECIFIC_DATA.ahk
 #Include .\STORAGE_PROTOCOL_TYPE.ahk
+#Include .\STORAGE_PROTOCOL_SPECIFIC_DATA.ahk
 
 /**
  * This structure is used in conjunction with IOCTL_STORAGE_QUERY_PROPERTY to return protocol-specific data from a storage device or adapter.

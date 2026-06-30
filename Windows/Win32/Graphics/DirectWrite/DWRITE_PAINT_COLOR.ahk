@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_COLOR_F.ahk
 #Include .\DWRITE_PAINT_ATTRIBUTES.ahk
+#Include .\DWRITE_COLOR_F.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite

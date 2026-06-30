@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The eviction priority of the resource is high. The resource is placed in its preferred location instead of a low-priority or normal-priority resource.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-setevictionpriority
  * @namespace Windows.Win32.Graphics.Dxgi
  */
 class DXGI_RESOURCE_PRIORITY extends Win32Enum {

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Geometry.ahk
+#Include Common\D2D_MATRIX_3X2_F.ahk
 
 /**
  * Represents a geometry that has been transformed.

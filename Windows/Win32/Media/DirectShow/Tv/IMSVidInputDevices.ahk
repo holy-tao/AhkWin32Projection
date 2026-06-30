@@ -2,8 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IMSVidInputDevice.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidInputDevices interface represents a collection of input devices. The MSVidInputDevices object exposes this object.

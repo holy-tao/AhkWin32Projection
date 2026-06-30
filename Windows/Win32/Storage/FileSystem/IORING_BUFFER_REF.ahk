@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IORING_REF_KIND.ahk
 #Include .\IORING_REGISTERED_BUFFER.ahk
+#Include .\IORING_REF_KIND.ahk
 
 /**
  * IORING_BUFFER_REF represents a reference to a buffer used in an I/O ring operation.

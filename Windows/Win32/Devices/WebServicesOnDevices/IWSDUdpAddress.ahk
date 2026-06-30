@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWSDTransportAddress.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
+#Include .\WSDUdpMessageType.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWSDTransportAddress.ahk
 
 /**
  * Provides access to the individual components of a UDP address.

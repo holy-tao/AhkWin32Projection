@@ -1,20 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TEXTMETRICA.ahk
-#Include .\TMPF_FLAGS.ahk
-#Include .\PANOSE.ahk
-#Include .\PAN_FAMILY_TYPE.ahk
-#Include .\PAN_SERIF_STYLE.ahk
-#Include .\PAN_WEIGHT.ahk
-#Include .\PAN_PROPORTION.ahk
-#Include .\PAN_CONTRAST.ahk
-#Include .\PAN_STROKE_VARIATION.ahk
-#Include .\PAN_ARM_STYLE.ahk
-#Include .\PAN_LETT_FORM.ahk
 #Include .\PAN_MIDLINE.ahk
-#Include .\PAN_XHEIGHT.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include .\PANOSE.ahk
+#Include .\PAN_PROPORTION.ahk
+#Include .\PAN_WEIGHT.ahk
+#Include .\PAN_STROKE_VARIATION.ahk
+#Include .\PAN_CONTRAST.ahk
+#Include .\PAN_LETT_FORM.ahk
+#Include .\PAN_FAMILY_TYPE.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\TMPF_FLAGS.ahk
+#Include .\PAN_ARM_STYLE.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\PAN_XHEIGHT.ahk
+#Include .\PAN_SERIF_STYLE.ahk
+#Include .\TEXTMETRICA.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The OUTLINETEXTMETRIC structure contains metrics describing a TrueType font. (ANSI)

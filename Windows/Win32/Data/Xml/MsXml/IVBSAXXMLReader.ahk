@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IVBSAXEntityResolver.ahk
-#Include .\IVBSAXContentHandler.ahk
 #Include .\IVBSAXDTDHandler.ahk
+#Include .\IVBSAXContentHandler.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IVBSAXErrorHandler.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IVBSAXEntityResolver.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -209,7 +211,7 @@ class IVBSAXXMLReader extends IDispatch {
      * @returns {BSTR} 
      */
     get_baseURL() {
-        strBaseURL := BSTR()
+        strBaseURL := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", strBaseURL, "HRESULT")
         return strBaseURL
     }
@@ -231,7 +233,7 @@ class IVBSAXXMLReader extends IDispatch {
      * @returns {BSTR} 
      */
     get_secureBaseURL() {
-        strSecureBaseURL := BSTR()
+        strSecureBaseURL := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", strSecureBaseURL, "HRESULT")
         return strSecureBaseURL
     }

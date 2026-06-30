@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SYNC_VERSION.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\SYNC_RANGE.ahk
 #Include .\IReplicaKeyMap.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents knowledge that a replica has about its item store.

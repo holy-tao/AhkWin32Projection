@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ITransactionCloner.ahk
 #Include .\XACTTRANSINFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

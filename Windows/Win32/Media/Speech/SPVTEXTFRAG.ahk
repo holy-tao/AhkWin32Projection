@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPVTEXTFRAG.ahk
-#Include .\SPVSTATE.ahk
-#Include .\SPVACTIONS.ahk
 #Include .\SPVPITCH.ahk
-#Include .\SPPARTOFSPEECH.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SPVTEXTFRAG.ahk
+#Include .\SPVACTIONS.ahk
 #Include .\SPVCONTEXT.ahk
+#Include .\SPPARTOFSPEECH.ahk
+#Include .\SPVSTATE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLMimeTypesCollection.ahk
-#Include .\IHTMLPluginsCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLOpsProfile.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IHTMLPluginsCollection.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -155,7 +157,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_appCodeName() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -165,7 +167,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_appName() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -175,7 +177,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_appVersion() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -185,7 +187,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_userAgent() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -249,7 +251,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     toString() {
-        _string := BSTR()
+        _string := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", _string, "HRESULT")
         return _string
     }
@@ -259,7 +261,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_cpuClass() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -269,7 +271,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_systemLanguage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", p, "HRESULT")
         return p
     }
@@ -279,7 +281,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_browserLanguage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -289,7 +291,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_userLanguage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", p, "HRESULT")
         return p
     }
@@ -299,7 +301,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_platform() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -309,7 +311,7 @@ class IOmNavigator extends IDispatch {
      * @returns {BSTR} 
      */
     get_appMinorVersion() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", p, "HRESULT")
         return p
     }

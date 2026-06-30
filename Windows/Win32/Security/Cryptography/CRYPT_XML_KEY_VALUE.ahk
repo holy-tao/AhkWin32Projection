@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_KEY_VALUE_TYPE.ahk
 #Include .\CRYPT_XML_KEY_DSA_KEY_VALUE.ahk
+#Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_KEY_RSA_KEY_VALUE.ahk
 #Include .\CRYPT_XML_KEY_ECDSA_KEY_VALUE.ahk
-#Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_CHARSET.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CRYPT_XML_KEY_VALUE_TYPE.ahk
 
 /**
  * Contains a single public key that may be useful in validating the signature.

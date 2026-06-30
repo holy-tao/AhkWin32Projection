@@ -1,12 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IInkDrawingAttributes.ahk
+#Include .\IInkTransform.ahk
 #Include .\IInkDisp.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IInkExtendedProperties.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IInkStrokes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\InkBoundingBoxMode.ahk
 #Include .\IInkRectangle.ahk
+#Include .\TabletPropertyMetricUnit.ahk
 
 /**
  * Represents a single ink stroke.A stroke is a set of properties and point data that the digitizer captures that represent the coordinates and properties of a known ink mark.

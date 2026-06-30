@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WMT_NET_PROTOCOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IWMWriterSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMWriterNetworkSink interface is used to deliver streams to the network.

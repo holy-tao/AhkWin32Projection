@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISClusProperties.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISClusResGroups.ahk
-#Include .\ISCluster.ahk
 #Include .\ISClusNodeNetInterfaces.ahk
+#Include .\CLUSTER_NODE_STATE.ahk
+#Include .\ISClusResGroups.ahk
+#Include .\ISClusProperties.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISCluster.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -150,7 +152,7 @@ class ISClusNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -169,7 +171,7 @@ class ISClusNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_NodeID() {
-        pbstrNodeID := BSTR()
+        pbstrNodeID := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrNodeID, "HRESULT")
         return pbstrNodeID
     }
@@ -206,14 +208,8 @@ class ISClusNode extends IDispatch {
     }
 
     /**
-     * Deletes a node from the cluster database.
-     * @remarks
-     * To reinstate an evicted node, you must first remove the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> from the node and then reinstall it. During installation, choose the <b>Join an Existing Cluster</b> option.
-     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
-     * If the operation fails, 
-     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-evictclusternode
+     * @returns {HRESULT} 
      */
     Evict() {
         result := ComCall(17, this, "HRESULT")

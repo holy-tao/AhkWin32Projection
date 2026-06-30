@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
 #Include .\EAP_CONFIG_INPUT_FIELD_DATA.ahk
+#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
 
 /**
  * Contains both the old and new EAP credentials for credential expiry operations.

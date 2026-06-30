@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -691,7 +693,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontFamily() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -713,7 +715,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -735,7 +737,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontVariant() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -757,7 +759,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontWeight() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -799,7 +801,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_font() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -841,7 +843,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_background() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -883,7 +885,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundImage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -905,7 +907,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundRepeat() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", p, "HRESULT")
         return p
     }
@@ -927,7 +929,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundAttachment() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", p, "HRESULT")
         return p
     }
@@ -949,7 +951,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundPosition() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1051,7 +1053,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textDecoration() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(42, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1188,7 +1190,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textTransform() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(56, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1210,7 +1212,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textAlign() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(58, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1352,7 +1354,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_margin() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(72, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1454,7 +1456,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_padding() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(82, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1476,7 +1478,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_border() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(84, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1498,7 +1500,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderTop() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(86, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1520,7 +1522,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderRight() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(88, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1542,7 +1544,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderBottom() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(90, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1564,7 +1566,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderLeft() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(92, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1586,7 +1588,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderColor() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(94, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1688,7 +1690,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderWidth() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(104, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1790,7 +1792,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(114, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1812,7 +1814,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderTopStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(116, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1834,7 +1836,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderRightStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(118, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1856,7 +1858,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderBottomStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(120, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1878,7 +1880,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderLeftStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(122, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1940,7 +1942,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_styleFloat() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(128, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1962,7 +1964,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_clear() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(130, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1984,7 +1986,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_display() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(132, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2006,7 +2008,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_visibility() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(134, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2028,7 +2030,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyleType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(136, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2050,7 +2052,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStylePosition() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(138, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2072,7 +2074,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyleImage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(140, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2094,7 +2096,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(142, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2116,7 +2118,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_whiteSpace() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(144, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2166,7 +2168,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_position() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(149, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2208,7 +2210,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_overflow() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(153, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2230,7 +2232,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakBefore() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(155, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2252,7 +2254,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakAfter() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(157, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2274,7 +2276,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_cssText() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(159, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2296,7 +2298,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_cursor() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(161, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2318,7 +2320,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_clip() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(163, this, "ptr", p, "HRESULT")
         return p
     }
@@ -2340,7 +2342,7 @@ class IHTMLRuleStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_filter() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(165, this, "ptr", p, "HRESULT")
         return p
     }

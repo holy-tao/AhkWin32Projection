@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -40,7 +41,7 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY extends Win32Struct {
     VirtualStorageType {
         get {
             if(!this.HasProp("__VirtualStorageType"))
-                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(16, this)
+                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(12, this)
             return this.__VirtualStorageType
         }
     }

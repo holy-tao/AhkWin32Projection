@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\UNDOCK_REASON.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Receives Accessibility Window Docking events.

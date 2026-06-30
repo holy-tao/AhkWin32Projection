@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\HTML_PAINTER_INFO.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -29,16 +35,13 @@ class IHTMLPainter extends IUnknown {
     static VTableNames => ["Draw", "OnResize", "GetPainterInfo", "HitTestPoint"]
 
     /**
-     * Animates the caption of a window to indicate the opening of an icon or the minimizing or maximizing of a window.
+     * 
      * @param {RECT} rcBounds 
      * @param {RECT} rcUpdate 
      * @param {Integer} lDrawFlags 
      * @param {HDC} _hdc 
      * @param {Pointer<Void>} pvDrawObject 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawanimatedrects
+     * @returns {HRESULT} 
      */
     Draw(rcBounds, rcUpdate, lDrawFlags, _hdc, pvDrawObject) {
         _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc

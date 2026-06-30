@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSD_ENDPOINT_REFERENCE.ahk
-#Include .\WSD_NAME_LIST.ahk
-#Include .\WSD_SCOPES.ahk
-#Include .\WSD_URI_LIST.ahk
 #Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_NAME_LIST.ahk
+#Include .\WSD_URI_LIST.ahk
+#Include .\WSD_SCOPES.ahk
 
 /**
  * Represents a ProbeMatch message.

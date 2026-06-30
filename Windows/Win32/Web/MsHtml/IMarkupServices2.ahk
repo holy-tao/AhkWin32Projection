@@ -2,7 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMarkupServices.ahk
+#Include .\IHTMLElement.ahk
+#Include .\ISegmentList.ahk
+#Include .\IMarkupPointer.ahk
 #Include .\IMarkupContainer.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

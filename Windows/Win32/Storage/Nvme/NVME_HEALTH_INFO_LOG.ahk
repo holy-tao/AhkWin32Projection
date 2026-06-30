@@ -13,7 +13,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct {
 
     static packingSize => 4
 
-    class _CriticalWarning_e__Union extends Win32Struct {
+    class _CriticalWarning extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -87,12 +87,12 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct {
      * Each field of the **CriticalWarning** structure is a bit that corresponds to a critical warning type; multiple bits may be set. If a bit is cleared to `0`, then that critical warning does not apply. Bits in this field represent the current associated state and are not persistent.
      * 
      * Critical warnings may result in an asynchronous event notification to the host.
-     * @type {_CriticalWarning_e__Union}
+     * @type {_CriticalWarning}
      */
     CriticalWarning {
         get {
             if(!this.HasProp("__CriticalWarning"))
-                this.__CriticalWarning := NVME_HEALTH_INFO_LOG._CriticalWarning_e__Union(0, this)
+                this.__CriticalWarning := NVME_HEALTH_INFO_LOG._CriticalWarning(0, this)
             return this.__CriticalWarning
         }
     }

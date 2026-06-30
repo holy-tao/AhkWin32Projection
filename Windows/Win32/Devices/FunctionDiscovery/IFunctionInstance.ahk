@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\STGM.ahk
 #Include ..\..\System\Com\IServiceProvider.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A function instance is created as the result of calling one of the IFunctionDiscovery methods; client program do not create these objects themselves.

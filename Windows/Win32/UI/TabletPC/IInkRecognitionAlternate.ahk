@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\InkRecognitionConfidence.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IInkRecognitionAlternates.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IInkStrokes.ahk
-#Include .\IInkRecognitionAlternates.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the possible word matches for segments of ink that are compared to a recognizers dictionary.
@@ -125,7 +127,7 @@ class IInkRecognitionAlternate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_string
      */
     get_String() {
-        RecoString := BSTR()
+        RecoString := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", RecoString, "HRESULT")
         return RecoString
     }

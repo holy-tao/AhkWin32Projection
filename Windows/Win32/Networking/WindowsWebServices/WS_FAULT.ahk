@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_FAULT_CODE.ahk
-#Include .\WS_FAULT_REASON.ahk
 #Include .\WS_STRING.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WS_XML_BUFFER.ahk
+#Include .\WS_FAULT_REASON.ahk
+#Include .\WS_FAULT_CODE.ahk
 
 /**
  * A Fault is a value carried in the body of a message which conveys a processing failure. Faults are modeled using the WS_FAULT structure.

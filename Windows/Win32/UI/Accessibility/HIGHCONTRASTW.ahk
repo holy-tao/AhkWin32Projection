@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HIGHCONTRASTW_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the high contrast accessibility feature. (Unicode)

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
+#Include ..\..\..\Win32\Foundation\HANDLE.ahk
 #Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
 
 /**

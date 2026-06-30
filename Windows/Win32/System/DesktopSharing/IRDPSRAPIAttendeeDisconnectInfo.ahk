@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IRDPSRAPIAttendee.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ATTENDEE_DISCONNECT_REASON.ahk
 
 /**
  * Contains information about the reason an attendee disconnected.

@@ -1,12 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsiDirectoryItem.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IBootOptions.ahk
-#Include .\IFileSystemImageResult.ahk
 #Include .\IFsiFileItem.ahk
+#Include .\IDiscRecorder2.ahk
+#Include .\IFileSystemImageResult.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFsiDirectoryItem.ahk
+#Include .\FsiFileSystems.ahk
+#Include .\FsiItemType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IBootOptions.ahk
+#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
 
 /**
  * Use this interface to build a file system image, set session parameter, and import or export an image.
@@ -361,7 +368,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumename
      */
     get_VolumeName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -425,7 +432,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_importedvolumename
      */
     get_ImportedVolumeName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -512,7 +519,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_workingdirectory
      */
     get_WorkingDirectory() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -1045,7 +1052,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-calculatediscidentifier
      */
     CalculateDiscIdentifier() {
-        discIdentifier := BSTR()
+        discIdentifier := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", discIdentifier, "HRESULT")
         return discIdentifier
     }
@@ -1364,7 +1371,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumenameudf
      */
     get_VolumeNameUDF() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(50, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -1375,7 +1382,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumenamejoliet
      */
     get_VolumeNameJoliet() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(51, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -1386,7 +1393,7 @@ class IFileSystemImage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage-get_volumenameiso9660
      */
     get_VolumeNameISO9660() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(52, this, "ptr", pVal, "HRESULT")
         return pVal
     }

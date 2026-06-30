@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D_ROOT_SIGNATURE_VERSION.ahk
-#Include .\D3D12_ROOT_SIGNATURE_DESC.ahk
-#Include .\D3D12_ROOT_PARAMETER.ahk
-#Include .\D3D12_STATIC_SAMPLER_DESC.ahk
-#Include .\D3D12_ROOT_SIGNATURE_FLAGS.ahk
-#Include .\D3D12_ROOT_SIGNATURE_DESC1.ahk
 #Include .\D3D12_ROOT_PARAMETER1.ahk
-#Include .\D3D12_ROOT_SIGNATURE_DESC2.ahk
+#Include .\D3D12_ROOT_SIGNATURE_DESC.ahk
+#Include .\D3D12_STATIC_SAMPLER_DESC.ahk
+#Include .\D3D12_ROOT_PARAMETER.ahk
 #Include .\D3D12_STATIC_SAMPLER_DESC1.ahk
+#Include .\D3D12_ROOT_SIGNATURE_FLAGS.ahk
+#Include .\D3D12_ROOT_SIGNATURE_DESC2.ahk
+#Include .\D3D12_ROOT_SIGNATURE_DESC1.ahk
+#Include .\D3D_ROOT_SIGNATURE_VERSION.ahk
 
 /**
  * Holds any version of a root signature description, and is designed to be used with serialization/deserialization functions.

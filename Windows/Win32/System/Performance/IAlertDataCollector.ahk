@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IDataCollector.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Monitors performance counters and performs actions each time a counter value crosses the specified threshold.To create the alert data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method. For details on the XML that you pass to CreateDataCollectorFromXml, see Remarks.
@@ -208,7 +211,7 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_task
      */
     get_Task() {
-        task := BSTR()
+        task := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", task, "HRESULT")
         return task
     }
@@ -295,7 +298,7 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_taskarguments
      */
     get_TaskArguments() {
-        task := BSTR()
+        task := BSTR({Value: 0}, True)
         result := ComCall(42, this, "ptr", task, "HRESULT")
         return task
     }
@@ -388,7 +391,7 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_taskusertextarguments
      */
     get_TaskUserTextArguments() {
-        task := BSTR()
+        task := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", task, "HRESULT")
         return task
     }
@@ -443,7 +446,7 @@ class IAlertDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ialertdatacollector-get_triggerdatacollectorset
      */
     get_TriggerDataCollectorSet() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(46, this, "ptr", name, "HRESULT")
         return name
     }

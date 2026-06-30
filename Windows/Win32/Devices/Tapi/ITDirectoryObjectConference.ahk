@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\RND_ADVERTISING_SCOPE.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITDirectoryObjectConference interface provides methods that allow an application to set and get conference details. The ITDirectoryObjectConference interface is created by calling QueryInterface on ITDirectoryObject.
@@ -102,7 +105,7 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_protocol
      */
     get_Protocol() {
-        ppProtocol := BSTR()
+        ppProtocol := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", ppProtocol, "HRESULT")
         return ppProtocol
     }
@@ -119,7 +122,7 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_originator
      */
     get_Originator() {
-        ppOriginator := BSTR()
+        ppOriginator := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", ppOriginator, "HRESULT")
         return ppOriginator
     }
@@ -302,7 +305,7 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_url
      */
     get_Url() {
-        ppUrl := BSTR()
+        ppUrl := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", ppUrl, "HRESULT")
         return ppUrl
     }
@@ -397,7 +400,7 @@ class ITDirectoryObjectConference extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_description
      */
     get_Description() {
-        ppDescription := BSTR()
+        ppDescription := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", ppDescription, "HRESULT")
         return ppDescription
     }

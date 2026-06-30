@@ -2,15 +2,15 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DOMNodeType.ahk
 #Include .\SERVERXMLHTTP_OPTION.ahk
-#Include .\SXH_SERVER_CERT_OPTION.ahk
-#Include .\SXH_PROXY_SETTING.ahk
-#Include .\SOMITEMTYPE.ahk
+#Include .\SCHEMAPROCESSCONTENTS.ahk
+#Include .\SCHEMAWHITESPACE.ahk
 #Include .\SCHEMAUSE.ahk
 #Include .\SCHEMADERIVATIONMETHOD.ahk
 #Include .\SCHEMACONTENTTYPE.ahk
-#Include .\SCHEMAPROCESSCONTENTS.ahk
-#Include .\SCHEMAWHITESPACE.ahk
 #Include .\SCHEMATYPEVARIETY.ahk
+#Include .\SXH_PROXY_SETTING.ahk
+#Include .\SXH_SERVER_CERT_OPTION.ahk
+#Include .\SOMITEMTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

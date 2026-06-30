@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENTRYID.ahk
 #Include .\SRestriction.ahk
+#Include .\ENTRYID.ahk
 
 /**
  * Describes the display and behavior of the common address dialog box.

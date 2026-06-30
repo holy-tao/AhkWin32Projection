@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITemplatePrinter.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITemplatePrinter.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -116,7 +118,7 @@ class ITemplatePrinter2 extends ITemplatePrinter {
      * @returns {BSTR} 
      */
     get_orientation() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(67, this, "ptr", p, "HRESULT")
         return p
     }

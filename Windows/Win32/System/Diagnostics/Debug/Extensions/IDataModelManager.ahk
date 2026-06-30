@@ -1,9 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IModelObject.ahk
+#Include .\Location.ahk
+#Include .\IDataModelConcept.ahk
+#Include .\ModelObjectKind.ahk
+#Include .\IDebugHostSymbolEnumerator.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include .\IDebugHostContext.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
 #Include .\IKeyStore.ahk
+#Include .\IDebugHostType.ahk
+#Include .\IModelObject.ahk
+#Include .\IDebugHostTypeSignature.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -30,15 +40,8 @@ class IDataModelManager extends IUnknown {
     static VTableNames => ["Close", "CreateNoValue", "CreateErrorObject", "CreateTypedObject", "CreateTypedObjectReference", "CreateSyntheticObject", "CreateDataModelObject", "CreateIntrinsicObject", "CreateTypedIntrinsicObject", "GetModelForTypeSignature", "GetModelForType", "RegisterModelForTypeSignature", "UnregisterModelForTypeSignature", "RegisterExtensionForTypeSignature", "UnregisterExtensionForTypeSignature", "CreateMetadataStore", "GetRootNamespace", "RegisterNamedModel", "UnregisterNamedModel", "AcquireNamedModel"]
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(3, this, "HRESULT")

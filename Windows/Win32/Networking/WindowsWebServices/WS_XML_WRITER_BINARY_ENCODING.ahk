@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_WRITER_ENCODING.ahk
-#Include .\WS_XML_WRITER_ENCODING_TYPE.ahk
 #Include .\WS_XML_DICTIONARY.ahk
+#Include .\WS_XML_WRITER_ENCODING_TYPE.ahk
 
 /**
  * Used to indicate that the writer should emit bytes as binary xml.

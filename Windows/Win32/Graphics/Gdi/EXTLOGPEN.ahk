@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The EXTLOGPEN structure defines the pen style, width, and brush attributes for an extended pen.

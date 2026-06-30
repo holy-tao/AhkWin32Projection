@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMPackageWriter.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include .\IXpsOMObjectFactory.ahk
+#Include .\IXpsOMPackageWriter.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\XPS_DOCUMENT_TYPE.ahk
 
 /**
  * The IXpsDocumentPackageTarget interface contains the elements needed for printing XPS content in the Document Printing model.

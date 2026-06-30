@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TBBUTTONINFOW_MASK.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains or receives information for a specific button in a toolbar. (ANSI)

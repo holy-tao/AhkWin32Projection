@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_STATUS_ERROR_STATUS.ahk
 #Include .\CRYPT_XML_STATUS_INFO_STATUS.ahk
+#Include .\CRYPT_XML_STATUS_ERROR_STATUS.ahk
 
 /**
  * Returns information about the signature validation status, summary status information about a SignedInfo element, or summary status information about an array of Reference elements.

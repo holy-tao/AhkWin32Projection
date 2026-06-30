@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDXGIOutput5.ahk
 #Include .\DXGI_OUTPUT_DESC1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput6 interface exposes methods to provide specific monitor capabilities.

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -39,7 +41,6 @@ class IDebugSystemObjects2 extends IUnknown {
     /**
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/evntcons/nf-evntcons-geteventprocessorindex
      */
     GetEventProcess() {
         result := ComCall(4, this, "uint*", &Id := 0, "HRESULT")

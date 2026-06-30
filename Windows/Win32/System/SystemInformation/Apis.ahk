@@ -1,5 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\COMPUTER_NAME_FORMAT.ahk
+#Include .\OS_PRODUCT_TYPE.ahk
+#Include .\MEMORYSTATUS.ahk
+#Include .\OSVERSIONINFOW.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\SYSTEM_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMAGE_FILE_MACHINE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\DEVICEFAMILYDEVICEFORM.ahk
+#Include .\DEVELOPER_DRIVE_ENABLEMENT_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MEMORYSTATUSEX.ahk
+#Include .\VER_FLAGS.ahk
+#Include .\OSVERSIONINFOA.ahk
+#Include .\DEVICEFAMILYINFOENUM.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\USER_CET_ENVIRONMENT.ahk
+#Include .\FIRMWARE_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\LOGICAL_PROCESSOR_RELATIONSHIP.ahk
+#Include .\FIRMWARE_TABLE_PROVIDER.ahk
+#Include .\OSVERSIONINFOEXW.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\OSVERSIONINFOEXA.ahk
+#Include .\RTL_SYSTEM_GLOBAL_DATA_ID.ahk
+#Include .\OS_DEPLOYEMENT_STATE_VALUES.ahk
+#Include .\DEP_SYSTEM_POLICY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemInformation

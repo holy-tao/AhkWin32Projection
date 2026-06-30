@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains the version information about the miniversion that is created.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class TXFS_GET_METADATA_INFO_OUT extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -45,11 +46,14 @@ class TXFS_GET_METADATA_INFO_OUT extends Win32Struct {
 
     /**
      * The <b>GUID</b> of the transaction that locked the specified file locked, if the file is locked.
-     * @type {Pointer}
+     * @type {Guid}
      */
     LockingTransaction {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__LockingTransaction"))
+                this.__LockingTransaction := Guid(16, this)
+            return this.__LockingTransaction
+        }
     }
 
     /**
@@ -57,8 +61,8 @@ class TXFS_GET_METADATA_INFO_OUT extends Win32Struct {
      * @type {Integer}
      */
     LastLsn {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -69,7 +73,7 @@ class TXFS_GET_METADATA_INFO_OUT extends Win32Struct {
      * @type {Integer}
      */
     TransactionState {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

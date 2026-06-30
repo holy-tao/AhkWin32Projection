@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ALT_NAME_ENTRY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CERT_OTHER_NAME.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_ALT_NAME_ENTRY.ahk
 
 /**
  * The CERT_ACCESS_DESCRIPTION structure is a member of a CERT_AUTHORITY_INFO_ACCESS structure.

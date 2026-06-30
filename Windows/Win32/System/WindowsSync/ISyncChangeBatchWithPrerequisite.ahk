@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChangeBatchBase.ahk
-#Include .\ISyncKnowledge.ahk
 #Include .\IForgottenKnowledge.ahk
+#Include .\ISyncChangeBatchBase.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISyncKnowledge.ahk
 
 /**
  * Represents metadata about a change batch that is based on the prerequisite knowledge associated with the change batch.

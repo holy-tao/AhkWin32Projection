@@ -1,15 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequestPkcs7.ahk
-#Include .\IObjectId.ahk
-#Include .\ICryptAttributes.ahk
-#Include .\IX509NameValuePairs.ahk
-#Include .\IX509Extensions.ahk
-#Include .\IObjectIds.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509SignatureInformation.ahk
+#Include .\ICryptAttributes.ahk
+#Include .\IX509CertificateRequestPkcs7.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IX509NameValuePairs.ahk
+#Include .\IX509CertificateRequest.ahk
 #Include .\ISignerCertificates.ahk
+#Include .\IX509Extensions.ahk
+#Include .\IObjectId.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IObjectIds.ahk
 
 /**
  * Represents a CMC (Certificate Management Message over CMS) certificate request.
@@ -519,7 +523,7 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7 {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_sendernonce
      */
     get_SenderNonce(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(50, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -703,7 +707,7 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7 {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_keyarchivalcertificate
      */
     get_KeyArchivalCertificate(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(55, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -952,7 +956,7 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7 {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptedkeyhash
      */
     get_EncryptedKeyHash(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(61, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

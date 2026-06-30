@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
+#Include .\QOS_EVENT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITQOSEvent interface contains methods that retrieve the description of quality of service (QOS) events.

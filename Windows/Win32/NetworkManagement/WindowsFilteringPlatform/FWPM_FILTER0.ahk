@@ -1,17 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_DISPLAY_DATA0.ahk
-#Include .\FWPM_FILTER_FLAGS.ahk
-#Include .\FWP_BYTE_BLOB.ahk
 #Include .\FWP_VALUE0.ahk
+#Include .\FWPM_ACTION0.ahk
 #Include .\FWP_DATA_TYPE.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
-#Include ..\..\Security\SID.ahk
 #Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
+#Include .\FWPM_FILTER_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\SID.ahk
 #Include .\FWPM_FILTER_CONDITION0.ahk
-#Include .\FWPM_ACTION0.ahk
+#Include .\FWPM_DISPLAY_DATA0.ahk
+#Include .\FWP_BYTE_BLOB.ahk
 #Include .\FWP_ACTION_TYPE.ahk
+#Include .\FWP_BYTE_ARRAY6.ahk
 
 /**
  * Stores the state associated with a filter.
@@ -25,7 +27,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_FILTER0 extends Win32Struct {
-    static sizeof => 160
+    static sizeof => 200
 
     static packingSize => 8
 
@@ -33,11 +35,14 @@ class FWPM_FILTER0 extends Win32Struct {
      * Uniquely identifies the session. 
      * 
      * If the GUID is initialized to zero in the call to <a href="https://docs.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilteradd0">FwpmFilterAdd0</a>, the Base Filtering Engine (BFE) will generate one.
-     * @type {Pointer}
+     * @type {Guid}
      */
     filterKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__filterKey"))
+                this.__filterKey := Guid(0, this)
+            return this.__filterKey
+        }
     }
 
     /**
@@ -47,7 +52,7 @@ class FWPM_FILTER0 extends Win32Struct {
     displayData {
         get {
             if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
+                this.__displayData := FWPM_DISPLAY_DATA0(16, this)
             return this.__displayData
         }
     }
@@ -56,8 +61,8 @@ class FWPM_FILTER0 extends Win32Struct {
      * @type {FWPM_FILTER_FLAGS}
      */
     flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -65,8 +70,8 @@ class FWPM_FILTER0 extends Win32Struct {
      * @type {Pointer<Guid>}
      */
     providerKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -76,29 +81,35 @@ class FWPM_FILTER0 extends Win32Struct {
     providerData {
         get {
             if(!this.HasProp("__providerData"))
-                this.__providerData := FWP_BYTE_BLOB(40, this)
+                this.__providerData := FWP_BYTE_BLOB(48, this)
             return this.__providerData
         }
     }
 
     /**
      * GUID of the layer where the filter resides. See <a href="https://docs.microsoft.com/windows/win32/fwp/management-filtering-layer-identifiers-">Filtering Layer Identifiers</a> for a list of possible values.
-     * @type {Pointer}
+     * @type {Guid}
      */
     layerKey {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__layerKey"))
+                this.__layerKey := Guid(64, this)
+            return this.__layerKey
+        }
     }
 
     /**
      * GUID of the sub-layer where the filter resides. See <a href="https://docs.microsoft.com/windows/win32/fwp/management-filtering-sublayer-identifiers">Filtering Sub-Layer Identifiers</a> for a list of built-in sub-layers.
      * 
      * If this is set to IID_NULL, the filter is added to the default sublayer.
-     * @type {Pointer}
+     * @type {Guid}
      */
     subLayerKey {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__subLayerKey"))
+                this.__subLayerKey := Guid(80, this)
+            return this.__subLayerKey
+        }
     }
 
     /**
@@ -151,7 +162,7 @@ class FWPM_FILTER0 extends Win32Struct {
     weight {
         get {
             if(!this.HasProp("__weight"))
-                this.__weight := FWP_VALUE0(72, this)
+                this.__weight := FWP_VALUE0(96, this)
             return this.__weight
         }
     }
@@ -161,8 +172,8 @@ class FWPM_FILTER0 extends Win32Struct {
      * @type {Integer}
      */
     numFilterConditions {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -173,8 +184,8 @@ class FWPM_FILTER0 extends Win32Struct {
      * @type {Pointer<FWPM_FILTER_CONDITION0>}
      */
     filterCondition {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -184,7 +195,7 @@ class FWPM_FILTER0 extends Win32Struct {
     action {
         get {
             if(!this.HasProp("__action"))
-                this.__action := FWPM_ACTION0(104, this)
+                this.__action := FWPM_ACTION0(128, this)
             return this.__action
         }
     }
@@ -193,16 +204,19 @@ class FWPM_FILTER0 extends Win32Struct {
      * @type {Integer}
      */
     rawContext {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 152, "uint")
+        set => NumPut("uint", value, this, 152)
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     providerContextKey {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get {
+            if(!this.HasProp("__providerContextKey"))
+                this.__providerContextKey := Guid(152, this)
+            return this.__providerContextKey
+        }
     }
 
     /**
@@ -210,8 +224,8 @@ class FWPM_FILTER0 extends Win32Struct {
      * @type {Pointer<Guid>}
      */
     reserved {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
@@ -220,8 +234,8 @@ class FWPM_FILTER0 extends Win32Struct {
      * @type {Integer}
      */
     filterId {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 176, "uint")
+        set => NumPut("uint", value, this, 176)
     }
 
     /**
@@ -231,7 +245,7 @@ class FWPM_FILTER0 extends Win32Struct {
     effectiveWeight {
         get {
             if(!this.HasProp("__effectiveWeight"))
-                this.__effectiveWeight := FWP_VALUE0(144, this)
+                this.__effectiveWeight := FWP_VALUE0(184, this)
             return this.__effectiveWeight
         }
     }

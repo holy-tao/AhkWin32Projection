@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IBindStatusCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\BINDINFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Com

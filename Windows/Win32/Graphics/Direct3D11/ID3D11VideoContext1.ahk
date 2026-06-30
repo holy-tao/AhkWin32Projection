@@ -1,6 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11CryptoSession.ahk
+#Include .\ID3D11VideoProcessor.ahk
+#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT.ahk
+#Include .\D3D11_VIDEO_DECODER_BUFFER_DESC1.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\ID3D11VideoDecoder.ahk
+#Include .\D3D11_VIDEO_SAMPLE_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D11_CRYPTO_SESSION_STATUS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\ID3D11VideoContext.ahk
 
 /**

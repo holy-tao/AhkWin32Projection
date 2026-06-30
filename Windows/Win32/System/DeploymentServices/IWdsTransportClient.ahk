@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\WDSTRANSPORT_DISCONNECT_TYPE.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportSession.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a WDS client that is joined to a transport session on a WDS transport server.
@@ -140,7 +142,7 @@ class IWdsTransportClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_name
      */
     get_Name() {
-        pbszName := BSTR()
+        pbszName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbszName, "HRESULT")
         return pbszName
     }
@@ -151,7 +153,7 @@ class IWdsTransportClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_macaddress
      */
     get_MacAddress() {
-        pbszMacAddress := BSTR()
+        pbszMacAddress := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbszMacAddress, "HRESULT")
         return pbszMacAddress
     }
@@ -162,7 +164,7 @@ class IWdsTransportClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_ipaddress
      */
     get_IpAddress() {
-        pbszIpAddress := BSTR()
+        pbszIpAddress := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbszIpAddress, "HRESULT")
         return pbszIpAddress
     }
@@ -223,7 +225,7 @@ class IWdsTransportClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_useridentity
      */
     get_UserIdentity() {
-        pbszUserIdentity := BSTR()
+        pbszUserIdentity := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbszUserIdentity, "HRESULT")
         return pbszUserIdentity
     }

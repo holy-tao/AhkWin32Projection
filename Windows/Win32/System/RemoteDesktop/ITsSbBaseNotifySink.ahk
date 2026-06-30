@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\CLIENT_MESSAGE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that report status and error messages to Remote Desktop Connection Broker (RD Connection Broker).

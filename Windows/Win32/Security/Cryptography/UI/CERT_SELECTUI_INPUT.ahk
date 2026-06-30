@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\HCERTSTORE.ahk
 #Include ..\CERT_CHAIN_CONTEXT.ahk
+#Include ..\HCERTSTORE.ahk
 
 /**
  * Used by the CertSelectionGetSerializedBlob function to serialize the certificates contained in a store or an array of certificate chains. The returned serialized BLOB can be passed to the CredUIPromptForWindowsCredentials function.

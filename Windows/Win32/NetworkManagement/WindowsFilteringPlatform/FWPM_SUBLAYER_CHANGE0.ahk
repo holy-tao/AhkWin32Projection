@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWPM_CHANGE_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Change notification dispatched to subscribers. (FWPM_SUBLAYER_CHANGE0)
@@ -10,9 +11,9 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_SUBLAYER_CHANGE0 extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type of change as specified by [FWPM_CHANGE_TYPE](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_change_type).
@@ -25,10 +26,13 @@ class FWPM_SUBLAYER_CHANGE0 extends Win32Struct {
 
     /**
      * GUID of the sublayer that changed.
-     * @type {Pointer}
+     * @type {Guid}
      */
     subLayerKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__subLayerKey"))
+                this.__subLayerKey := Guid(4, this)
+            return this.__subLayerKey
+        }
     }
 }

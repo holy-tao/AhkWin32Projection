@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcRelationshipSet.ahk
-#Include ..\..\..\System\Com\IStream.ahk
 #Include .\IOpcPartUri.ahk
+#Include .\IOpcRelationshipSet.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include .\OPC_COMPRESSION_OPTIONS.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a part that contains data and is not a Relationships part.

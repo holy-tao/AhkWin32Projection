@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * The SIP_CAP_SET_V2 structure defines the capabilities of a subject interface package (SIP). (SIP_CAP_SET_V2 structure)

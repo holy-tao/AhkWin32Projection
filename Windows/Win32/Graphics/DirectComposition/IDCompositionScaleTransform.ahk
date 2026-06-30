@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionTransform.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a 2D transformation that affects the scale of a visual along the x-axis and y-axis. The coordinate system is scaled from the specified center point.

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CMD_ENTRY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CMD_GROUP_ENTRY.ahk
+#Include .\CMD_ENTRY.ahk
 
 /**
  * Defines attributes of a context.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetShell
  */
 class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -50,11 +52,14 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * A pointer to the GUID of this helper. Identical to the value passed to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nf-netsh-registerhelper">RegisterHelper</a> function as the <b>pguidHelper</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netsh/ns-netsh-ns_helper_attributes">NS_HELPER_ATTRIBUTES</a> structure.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidHelper {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidHelper"))
+                this.__guidHelper := Guid(16, this)
+            return this.__guidHelper
+        }
     }
 
     /**
@@ -111,8 +116,8 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -120,8 +125,8 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Integer}
      */
     ulPriority {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -129,8 +134,8 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Integer}
      */
     ulNumTopCmds {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -138,8 +143,8 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Pointer<CMD_ENTRY>}
      */
     pTopCmds {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -147,8 +152,8 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Integer}
      */
     ulNumGroups {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -156,8 +161,8 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Pointer<CMD_GROUP_ENTRY>}
      */
     pCmdGroups {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -166,8 +171,8 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Pointer<PNS_CONTEXT_COMMIT_FN>}
      */
     pfnCommitFn {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -176,8 +181,8 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Pointer<PNS_CONTEXT_DUMP_FN>}
      */
     pfnDumpFn {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -185,8 +190,8 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Pointer<PNS_CONTEXT_CONNECT_FN>}
      */
     pfnConnectFn {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -194,15 +199,15 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pReserved {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Pointer<PNS_OSVERSIONCHECK>}
      */
     pfnOsVersionCheck {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 }

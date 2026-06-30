@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\IESEvent.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements an event service that includes methods that raise events derived from the IESEvent interface.

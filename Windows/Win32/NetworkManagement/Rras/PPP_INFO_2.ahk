@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPP_NBFCP_INFO.ahk
 #Include .\PPP_IPCP_INFO2.ahk
-#Include .\PPP_IPXCP_INFO.ahk
-#Include .\PPP_ATCP_INFO.ahk
+#Include .\PPP_NBFCP_INFO.ahk
 #Include .\PPP_CCP_INFO.ahk
+#Include .\PPP_ATCP_INFO.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
 #Include .\PPP_LCP_INFO.ahk
 #Include .\PPP_LCP.ahk
-#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
+#Include .\PPP_IPXCP_INFO.ahk
 
 /**
  * The PPP_INFO_2 structure is used to report the results of the various Point-to-Point (PPP) projection operations for a connection.

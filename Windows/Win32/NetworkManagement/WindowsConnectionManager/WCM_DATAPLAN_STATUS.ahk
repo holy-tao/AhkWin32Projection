@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WCM_USAGE_DATA.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\WCM_BILLING_CYCLE_INFO.ahk
 #Include .\WCM_TIME_INTERVAL.ahk
+#Include .\WCM_BILLING_CYCLE_INFO.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\WCM_USAGE_DATA.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies subscription information for a network connection.

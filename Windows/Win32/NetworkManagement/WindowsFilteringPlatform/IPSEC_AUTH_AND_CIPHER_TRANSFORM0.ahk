@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_AUTH_TRANSFORM0.ahk
+#Include .\IPSEC_CIPHER_TRANSFORM_ID0.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IPSEC_CIPHER_TYPE.ahk
 #Include .\IPSEC_AUTH_TRANSFORM_ID0.ahk
 #Include .\IPSEC_AUTH_TYPE.ahk
 #Include .\IPSEC_CIPHER_TRANSFORM0.ahk
-#Include .\IPSEC_CIPHER_TRANSFORM_ID0.ahk
-#Include .\IPSEC_CIPHER_TYPE.ahk
+#Include .\IPSEC_AUTH_TRANSFORM0.ahk
 
 /**
  * Is used to store hash and encryption specific information together for an SA transform in an IPsec quick mode policy.

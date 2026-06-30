@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_URL.ahk
-#Include .\WS_URL_SCHEME_TYPE.ahk
 #Include .\WS_STRING.ahk
+#Include .\WS_URL_SCHEME_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WS_URL.ahk
 
 /**
  * The URL subtype for specifying an HTTPS URL.

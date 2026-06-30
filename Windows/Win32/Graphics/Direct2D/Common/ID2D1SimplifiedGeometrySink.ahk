@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\D2D1_BEZIER_SEGMENT.ahk
+#Include .\D2D1_PATH_SEGMENT.ahk
+#Include .\D2D1_FILL_MODE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\D2D_POINT_2F.ahk
+#Include .\D2D1_FIGURE_BEGIN.ahk
+#Include .\D2D1_FIGURE_END.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**

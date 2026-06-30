@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COPYFILE2_CREATE_OPLOCK_KEYS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\COPYFILE_FLAGS.ahk
 #Include .\COPYFILE2_V2_FLAGS.ahk
-#Include .\COPYFILE2_CREATE_OPLOCK_KEYS.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem

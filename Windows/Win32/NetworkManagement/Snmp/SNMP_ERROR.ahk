@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * An authorization error occurred.
- * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgetpdudata
  * @namespace Windows.Win32.NetworkManagement.Snmp
  */
 class SNMP_ERROR extends Win32Enum {

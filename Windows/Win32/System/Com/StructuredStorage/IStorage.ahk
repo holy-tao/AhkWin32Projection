@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\IStream.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\STGM.ahk
+#Include ..\..\..\Foundation\FILETIME.ahk
 #Include .\IEnumSTATSTG.ahk
 #Include ..\STATSTG.ahk
+#Include ..\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IStorage interface supports the creation and management of structured storage objects.

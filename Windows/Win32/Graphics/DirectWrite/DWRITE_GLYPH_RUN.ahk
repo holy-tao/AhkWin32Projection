@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IDWriteFontFace.ahk
 #Include .\DWRITE_GLYPH_OFFSET.ahk
+#Include .\IDWriteFontFace.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the information needed by renderers to draw glyph runs.

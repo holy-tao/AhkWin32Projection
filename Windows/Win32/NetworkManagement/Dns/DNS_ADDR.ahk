@@ -11,7 +11,7 @@ class DNS_ADDR extends Win32Struct {
 
     static packingSize => 2
 
-    class _Data_e__Union extends Win32Struct {
+    class _Data extends Win32Struct {
         static sizeof => 32
         static packingSize => 1
 
@@ -37,12 +37,12 @@ class DNS_ADDR extends Win32Struct {
     }
 
     /**
-     * @type {_Data_e__Union}
+     * @type {_Data}
      */
     Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := DNS_ADDR._Data_e__Union(32, this)
+                this.__Data := DNS_ADDR._Data(32, this)
             return this.__Data
         }
     }

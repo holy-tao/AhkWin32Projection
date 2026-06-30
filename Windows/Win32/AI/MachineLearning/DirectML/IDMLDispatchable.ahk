@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DML_BINDING_PROPERTIES.ahk
 #Include .\IDMLPageable.ahk
 
 /**

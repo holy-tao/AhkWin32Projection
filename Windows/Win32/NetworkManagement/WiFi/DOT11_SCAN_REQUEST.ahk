@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_BSS_TYPE.ahk
 #Include .\DOT11_SSID.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_SCAN_TYPE.ahk
 
 /**

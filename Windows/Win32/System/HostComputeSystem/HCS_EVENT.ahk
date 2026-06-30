@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCS_EVENT_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HCS_OPERATION.ahk
+#Include .\HCS_EVENT_TYPE.ahk
 
 /**
  * HCS_EVENT

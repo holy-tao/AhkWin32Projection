@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Geometry.ahk
+#Include Common\D2D_RECT_F.ahk
 
 /**
  * Describes a two-dimensional rectangle.

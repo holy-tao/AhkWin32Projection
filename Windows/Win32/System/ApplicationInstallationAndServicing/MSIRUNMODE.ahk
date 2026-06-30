@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The administrative mode is installing, or the product is installing.
- * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetmode
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class MSIRUNMODE extends Win32Enum {

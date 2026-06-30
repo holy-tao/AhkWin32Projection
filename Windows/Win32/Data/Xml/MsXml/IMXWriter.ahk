@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -130,7 +132,7 @@ class IMXWriter extends IDispatch {
      * @returns {BSTR} 
      */
     get_encoding() {
-        strEncoding := BSTR()
+        strEncoding := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", strEncoding, "HRESULT")
         return strEncoding
     }
@@ -228,7 +230,7 @@ class IMXWriter extends IDispatch {
      * @returns {BSTR} 
      */
     get_version() {
-        strVersion := BSTR()
+        strVersion := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", strVersion, "HRESULT")
         return strVersion
     }

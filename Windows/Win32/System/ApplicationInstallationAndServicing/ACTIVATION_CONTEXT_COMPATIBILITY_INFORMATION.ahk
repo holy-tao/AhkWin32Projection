@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\COMPATIBILITY_CONTEXT_ELEMENT.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ACTCTX_COMPATIBILITY_ELEMENT_TYPE.ahk
 
 /**
@@ -79,7 +80,7 @@
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 

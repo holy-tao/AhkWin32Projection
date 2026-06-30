@@ -1,22 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\IndexServer\DBID.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Ole\IRecordInfo.ahk
+#Include ..\Variant\VARENUM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\CY.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\..\Storage\IndexServer\DBID.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
 class DBPROP extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -61,7 +66,7 @@ class DBPROP extends Win32Struct {
     vValue {
         get {
             if(!this.HasProp("__vValue"))
-                this.__vValue := VARIANT(40, this)
+                this.__vValue := VARIANT(48, this)
             return this.__vValue
         }
     }

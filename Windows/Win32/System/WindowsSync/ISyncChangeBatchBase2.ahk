@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISyncChangeBatchBase.ahk
+#Include .\SYNC_SERIALIZATION_VERSION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents additional capabilities of an ISyncChangeBatchBase object.

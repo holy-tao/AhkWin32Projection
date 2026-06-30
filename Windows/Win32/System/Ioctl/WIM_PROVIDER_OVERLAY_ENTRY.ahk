@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class WIM_PROVIDER_OVERLAY_ENTRY extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -26,33 +27,20 @@ class WIM_PROVIDER_OVERLAY_ENTRY extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     WimGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__WimGuid"))
+                this.__WimGuid := Guid(16, this)
+            return this.__WimGuid
+        }
     }
 
     /**
      * @type {Integer}
      */
     WimFileNameOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    WimType {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    WimIndex {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -60,8 +48,24 @@ class WIM_PROVIDER_OVERLAY_ENTRY extends Win32Struct {
     /**
      * @type {Integer}
      */
-    Flags {
+    WimType {
         get => NumGet(this, 36, "uint")
         set => NumPut("uint", value, this, 36)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    WimIndex {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Flags {
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

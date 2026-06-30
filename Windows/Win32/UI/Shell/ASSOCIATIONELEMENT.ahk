@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ASSOCCLASS.ahk
 #Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ASSOCCLASS.ahk
 
 /**
  * Defines information used by AssocCreateForClasses to retrieve an IQueryAssociations interface for a given file association.

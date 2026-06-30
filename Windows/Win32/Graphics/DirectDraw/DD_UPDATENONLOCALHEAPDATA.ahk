@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_UPDATENONLOCALHEAPDATA structure contains the required heap information.

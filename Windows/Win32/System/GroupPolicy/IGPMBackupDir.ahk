@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMBackup.ahk
 #Include .\IGPMBackupCollection.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IGPMBackup.ahk
+#Include .\IGPMSearchCriteria.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMBackupDir interface supports methods that allow you to query GPMBackup and GPMBackupCollection objects when you use the Group Policy Management Console (GPMC) interfaces.
@@ -50,7 +52,7 @@ class IGPMBackupDir extends IDispatch {
      * @returns {BSTR} 
      */
     get_BackupDirectory() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }

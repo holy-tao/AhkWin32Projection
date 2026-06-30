@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IRTCProfile.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -49,7 +50,7 @@ class IRTCProfile2 extends IRTCProfile {
      * @returns {BSTR} 
      */
     get_Realm() {
-        pbstrRealm := BSTR()
+        pbstrRealm := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pbstrRealm, "HRESULT")
         return pbstrRealm
     }

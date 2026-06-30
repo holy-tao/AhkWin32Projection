@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The accounts operator privilege is enabled.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1010
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
 class AF_OP extends Win32BitflagEnum {

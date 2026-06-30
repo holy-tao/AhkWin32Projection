@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_INFOW.ahk
-#Include .\RESOURCE_DISPLAY_TYPE.ahk
-#Include .\SERVICE_ADDRESSES.ahk
 #Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SERVICE_INFOW.ahk
+#Include .\SERVICE_ADDRESSES.ahk
+#Include .\RESOURCE_DISPLAY_TYPE.ahk
 
 /**
  * Contains information about a network service or a network service type in the context of a specified namespace, or a set of default namespaces. (Unicode)

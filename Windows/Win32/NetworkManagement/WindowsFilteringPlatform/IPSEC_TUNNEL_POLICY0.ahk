@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_POLICY_FLAG.ahk
-#Include .\IPSEC_PROPOSAL0.ahk
-#Include .\IPSEC_TUNNEL_ENDPOINTS0.ahk
-#Include .\FWP_IP_VERSION.ahk
 #Include .\IPSEC_SA_IDLE_TIMEOUT0.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_TUNNEL_ENDPOINTS0.ahk
+#Include .\IPSEC_PROPOSAL0.ahk
+#Include .\IPSEC_POLICY_FLAG.ahk
 #Include .\IKEEXT_EM_POLICY0.ahk
 
 /**

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_ADDRESS.ahk
 #Include .\SOCKADDR.ahk
+#Include .\SOCKET_ADDRESS.ahk
 
 /**
  * The INTERFACE_INFO_EX structure is used in conjunction with the SIO_GET_INTERFACE_LIST IOCTL command to obtain information about an interface IP address.

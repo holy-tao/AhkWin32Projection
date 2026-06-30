@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_RESOLVE_MATCH.ahk
 #Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_RESOLVE_MATCH.ahk
 
 /**
  * Represents a ResolveMatches message.

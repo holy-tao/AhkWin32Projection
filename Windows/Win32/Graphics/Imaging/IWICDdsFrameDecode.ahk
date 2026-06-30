@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\WICDdsFormatInfo.ahk
+#Include .\WICRect.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to a single frame of DDS image data in its native DXGI_FORMAT form, as well as information about the image data.

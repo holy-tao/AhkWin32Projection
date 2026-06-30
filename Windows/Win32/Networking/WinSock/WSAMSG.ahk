@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR.ahk
 #Include .\WSABUF.ahk
+#Include .\SOCKADDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used with the WSARecvMsg and WSASendMsg functions to store address and optional control information about connected and unconnected sockets as well as an array of buffers used to store message data.

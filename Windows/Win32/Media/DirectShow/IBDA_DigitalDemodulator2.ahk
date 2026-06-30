@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TransmissionMode.ahk
 #Include .\IBDA_DigitalDemodulator.ahk
+#Include .\Pilot.ahk
+#Include .\RollOff.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\GuardInterval.ahk
 
 /**
  * Controls a Broadcast Driver Architecture (BDA) demodulator filter. Demodulation filters for Digital Video Broadcasting-Satellite version 2 (DVB-S2) implement this interface.

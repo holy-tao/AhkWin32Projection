@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\TabletDeviceKind.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IInkTablet interface.

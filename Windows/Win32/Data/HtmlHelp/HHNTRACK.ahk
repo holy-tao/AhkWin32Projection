@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\UI\Controls\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\UI\Controls\NMHDR.ahk
 #Include .\HH_WINTYPE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * This structure returns the file name of the current topic and a constant that specifies the user action that is about to occur, such as hiding the Navigation pane by clicking the Hide button on the toolbar.

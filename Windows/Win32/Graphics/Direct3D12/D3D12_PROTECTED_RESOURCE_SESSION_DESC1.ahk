@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D12_PROTECTED_RESOURCE_SESSION_FLAGS.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
 class D3D12_PROTECTED_RESOURCE_SESSION_DESC1 extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
@@ -40,10 +41,13 @@ class D3D12_PROTECTED_RESOURCE_SESSION_DESC1 extends Win32Struct {
      * The GUID that represents the protection type. Microsoft defines **D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED**.
      * 
      * Using the **D3D12_PROTECTED_RESOURCES_SESSION_HARDWARE_PROTECTED** GUID is equivalent to calling [**ID3D12Device4::CreateProtectedResourceSession**](./nf-d3d12-id3d12device4-createprotectedresourcesession.md).
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProtectionType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ProtectionType"))
+                this.__ProtectionType := Guid(8, this)
+            return this.__ProtectionType
+        }
     }
 }

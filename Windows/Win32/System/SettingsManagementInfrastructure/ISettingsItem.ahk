@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include .\IItemEnumerator.ahk
+#Include .\WcmDataType.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\WcmSettingType.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WcmRestrictionFacets.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Navigates the settings tree, retrieves the metadata for a particular setting, and retrieves or modify its value.
@@ -38,7 +44,7 @@ class ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getname
      */
     GetName() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -504,7 +510,7 @@ class ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getpath
      */
     GetPath() {
-        _Path := BSTR()
+        _Path := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", _Path, "HRESULT")
         return _Path
     }

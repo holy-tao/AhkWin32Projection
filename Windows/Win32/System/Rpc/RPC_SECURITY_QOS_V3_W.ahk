@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_C_QOS_CAPABILITIES.ahk
-#Include .\RPC_C_QOS_IDENTITY.ahk
-#Include ..\Com\RPC_C_IMP_LEVEL.ahk
-#Include .\RPC_C_AUTHN_INFO_TYPE.ahk
 #Include .\RPC_HTTP_TRANSPORT_CREDENTIALS_W.ahk
+#Include .\RPC_C_AUTHN_INFO_TYPE.ahk
+#Include ..\Com\RPC_C_IMP_LEVEL.ahk
+#Include .\RPC_C_QOS_IDENTITY.ahk
+#Include .\RPC_C_QOS_CAPABILITIES.ahk
 
 /**
  * The RPC_SECURITY_QOS_V3 structure defines version 3 security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions. (Unicode)
@@ -40,7 +40,7 @@ class RPC_SECURITY_QOS_V3_W extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -289,12 +289,12 @@ class RPC_SECURITY_QOS_V3_W extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := RPC_SECURITY_QOS_V3_W._u_e__Union(24, this)
+                this.__u := RPC_SECURITY_QOS_V3_W._u(24, this)
             return this.__u
         }
     }

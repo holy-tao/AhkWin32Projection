@@ -34,4 +34,9 @@ class D3D12_PIPELINE_STATE_FLAGS extends Win32BitflagEnum {
      * @type {Integer (Int32)}
      */
     static D3D12_PIPELINE_STATE_FLAG_DYNAMIC_INDEX_BUFFER_STRIP_CUT => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_PIPELINE_STATE_FLAG_DISABLE_CACHED_BLOB => 16
 }

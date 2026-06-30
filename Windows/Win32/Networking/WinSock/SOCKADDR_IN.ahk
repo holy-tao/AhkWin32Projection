@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADDRESS_FAMILY.ahk
 #Include .\IN_ADDR.ahk
+#Include .\ADDRESS_FAMILY.ahk
 
 /**
  * The SOCKADDR_IN (winsock.h) structure varies depending on the protocol selected.

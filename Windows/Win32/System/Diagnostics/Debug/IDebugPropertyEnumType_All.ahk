@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -34,7 +35,7 @@ class IDebugPropertyEnumType_All extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        __MIDL__IDebugPropertyEnumType_All0000 := BSTR()
+        __MIDL__IDebugPropertyEnumType_All0000 := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", __MIDL__IDebugPropertyEnumType_All0000, "HRESULT")
         return __MIDL__IDebugPropertyEnumType_All0000
     }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance
@@ -170,17 +171,16 @@ class ICounterItem extends IUnknown {
      * @returns {BSTR} 
      */
     get_Path() {
-        pstrValue := BSTR()
+        pstrValue := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pstrValue, "HRESULT")
         return pstrValue
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
+     * 
      * @param {Pointer<Float>} Value 
      * @param {Pointer<Integer>} _Status 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(Value, _Status) {
         ValueMarshal := Value is VarRef ? "double*" : "ptr"

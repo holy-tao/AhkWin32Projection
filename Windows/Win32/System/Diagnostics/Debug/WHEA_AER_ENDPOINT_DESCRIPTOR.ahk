@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WHEA_PCI_SLOT_NUMBER.ahk
 #Include .\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

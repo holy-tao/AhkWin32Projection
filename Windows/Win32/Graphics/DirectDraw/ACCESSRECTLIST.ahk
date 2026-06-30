@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ACCESSRECTLIST.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
 #Include .\HEAPALIASINFO.ahk
+#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

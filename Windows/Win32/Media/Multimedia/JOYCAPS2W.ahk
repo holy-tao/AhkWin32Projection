@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  * @charset Unicode
  */
 class JOYCAPS2W extends Win32Struct {
-    static sizeof => 752
+    static sizeof => 776
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -203,26 +204,35 @@ class JOYCAPS2W extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ManufacturerGuid {
-        get => NumGet(this, 728, "ptr")
-        set => NumPut("ptr", value, this, 728)
+        get {
+            if(!this.HasProp("__ManufacturerGuid"))
+                this.__ManufacturerGuid := Guid(728, this)
+            return this.__ManufacturerGuid
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProductGuid {
-        get => NumGet(this, 736, "ptr")
-        set => NumPut("ptr", value, this, 736)
+        get {
+            if(!this.HasProp("__ProductGuid"))
+                this.__ProductGuid := Guid(744, this)
+            return this.__ProductGuid
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     NameGuid {
-        get => NumGet(this, 744, "ptr")
-        set => NumPut("ptr", value, this, 744)
+        get {
+            if(!this.HasProp("__NameGuid"))
+                this.__NameGuid := Guid(760, this)
+            return this.__NameGuid
+        }
     }
 }

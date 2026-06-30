@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMLOperatorShapeInferrer.ahk
+#Include .\MLOperatorSetId.ahk
+#Include .\IMLOperatorTypeInferrer.ahk
+#Include .\MLOperatorSchemaDescription.ahk
+#Include .\MLOperatorKernelDescription.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IMLOperatorKernelFactory.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**

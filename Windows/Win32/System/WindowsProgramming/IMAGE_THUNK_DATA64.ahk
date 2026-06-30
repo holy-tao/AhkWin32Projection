@@ -9,7 +9,7 @@ class IMAGE_THUNK_DATA64 extends Win32Struct {
 
     static packingSize => 8
 
-    class _u1_e__Union extends Win32Struct {
+    class _u1 extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -47,12 +47,12 @@ class IMAGE_THUNK_DATA64 extends Win32Struct {
     }
 
     /**
-     * @type {_u1_e__Union}
+     * @type {_u1}
      */
     u1 {
         get {
             if(!this.HasProp("__u1"))
-                this.__u1 := IMAGE_THUNK_DATA64._u1_e__Union(0, this)
+                this.__u1 := IMAGE_THUNK_DATA64._u1(0, this)
             return this.__u1
         }
     }

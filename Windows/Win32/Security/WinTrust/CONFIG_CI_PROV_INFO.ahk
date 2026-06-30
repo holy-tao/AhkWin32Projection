@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\CONFIG_CI_PROV_INFO_RESULT.ahk
+#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\CONFIG_CI_PROV_INFO_RESULT2.ahk
 
 /**

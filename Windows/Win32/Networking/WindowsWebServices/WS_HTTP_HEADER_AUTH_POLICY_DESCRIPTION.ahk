@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_PROPERTIES.ahk
-#Include .\WS_CHANNEL_PROPERTY.ahk
 #Include .\WS_SECURITY_PROPERTIES.ahk
-#Include .\WS_SECURITY_PROPERTY.ahk
-#Include .\WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
+#Include .\WS_CHANNEL_PROPERTY.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTY.ahk
+#Include .\WS_SECURITY_PROPERTY.ahk
+#Include .\WS_HTTP_HEADER_AUTH_SECURITY_BINDING_POLICY_DESCRIPTION.ahk
+#Include .\WS_CHANNEL_PROPERTIES.ahk
 
 /**
  * Describes the policy specifying http channel binding. (WS_HTTP_HEADER_AUTH_POLICY_DESCRIPTION)

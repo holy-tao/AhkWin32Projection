@@ -3,9 +3,9 @@
 #Include .\D3D12_RESOURCE_DIMENSION.ahk
 #Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
-#Include .\D3D12_TEXTURE_LAYOUT.ahk
-#Include .\D3D12_RESOURCE_FLAGS.ahk
 #Include .\D3D12_MIP_REGION.ahk
+#Include .\D3D12_RESOURCE_FLAGS.ahk
+#Include .\D3D12_TEXTURE_LAYOUT.ahk
 
 /**
  * Describes a resource, such as a texture, including a mip region. This structure is used in several methods.

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the properties of a drive letter.
@@ -9,9 +11,9 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_DRIVE_LETTER_PROP extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The drive letter.
@@ -24,11 +26,14 @@ class VDS_DRIVE_LETTER_PROP extends Win32Struct {
 
     /**
      * The GUID of the volume object represented by the drive letter.
-     * @type {Pointer}
+     * @type {Guid}
      */
     volumeId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__volumeId"))
+                this.__volumeId := Guid(4, this)
+            return this.__volumeId
+        }
     }
 
     /**
@@ -36,8 +41,8 @@ class VDS_DRIVE_LETTER_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -45,7 +50,7 @@ class VDS_DRIVE_LETTER_PROP extends Win32Struct {
      * @type {BOOL}
      */
     bUsed {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

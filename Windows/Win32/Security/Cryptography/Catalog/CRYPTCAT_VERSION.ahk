@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * Version 1 file format.
- * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatopen
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  */
 class CRYPTCAT_VERSION extends Win32Enum {

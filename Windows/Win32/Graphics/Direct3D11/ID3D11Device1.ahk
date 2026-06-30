@@ -1,10 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Device.ahk
+#Include .\D3D11_RASTERIZER_DESC1.ahk
 #Include .\ID3D11DeviceContext1.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11Device.ahk
+#Include .\D3D11_BLEND_DESC1.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\ID3D11BlendState1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ID3D11RasterizerState1.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
+#Include .\ID3DDeviceContextState.ahk
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device1 adds new methods to those in ID3D11Device.

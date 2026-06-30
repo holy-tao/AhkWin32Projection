@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\AUDIO_SYSTEMEFFECT_STATE.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a System Effects Audio Processing Object (sAPO) audio effect.
@@ -10,17 +12,20 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class AUDIO_SYSTEMEFFECT extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The GUID identifier for an audio effect. Audio effect GUIDs are defined in [ksmedia.h](/windows-hardware/drivers/audio/ksmedia-h).
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -28,8 +33,8 @@ class AUDIO_SYSTEMEFFECT extends Win32Struct {
      * @type {BOOL}
      */
     canSetState {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -37,7 +42,7 @@ class AUDIO_SYSTEMEFFECT extends Win32Struct {
      * @type {AUDIO_SYSTEMEFFECT_STATE}
      */
     state {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IPartPrintTicket.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -34,7 +35,7 @@ class IFixedDocument extends IUnknown {
      * @returns {BSTR} 
      */
     GetUri() {
-        uri := BSTR()
+        uri := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", uri, "HRESULT")
         return uri
     }

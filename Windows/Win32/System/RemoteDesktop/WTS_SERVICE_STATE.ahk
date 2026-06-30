@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_RCM_SERVICE_STATE.ahk
 #Include .\WTS_RCM_DRAIN_STATE.ahk
+#Include .\WTS_RCM_SERVICE_STATE.ahk
 
 /**
  * Contains information about changes in the state of the Remote Desktop Services service.

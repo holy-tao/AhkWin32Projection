@@ -14,7 +14,7 @@ class MLOperatorAttributeType extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
-    static Float => 2
+    static Win32Float => 2
 
     /**
      * @type {Integer (UInt32)}
@@ -24,7 +24,7 @@ class MLOperatorAttributeType extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
-    static String => 4
+    static Win32String => 4
 
     /**
      * @type {Integer (UInt32)}

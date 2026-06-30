@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWP_BYTE_ARRAY6.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information that describes a MAC layer drop failure.

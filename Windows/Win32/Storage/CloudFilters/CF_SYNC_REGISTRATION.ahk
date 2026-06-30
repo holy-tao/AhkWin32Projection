@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The details of the sync provider and sync root to be registered.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  */
 class CF_SYNC_REGISTRATION extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -78,10 +80,13 @@ class CF_SYNC_REGISTRATION extends Win32Struct {
 
     /**
      * This is a GUID that is meant to identify a specific sync provider. It is optional. If not provided, the platform generates a GUID using the MD5 hash of the *ProviderName* string. The information is used for telemetry only such that the platform can better correlate activities from the same sync provider more efficiently and more accurately even if the sync provider registers sync roots with different *ProviderName* strings. It is recommended that a sync provider always supply the same GUID for all versions of its sync product(s). On the other hand, sync providers are free to choose different *ProviderName* strings for the sake of the best user experience.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProviderId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__ProviderId"))
+                this.__ProviderId := Guid(52, this)
+            return this.__ProviderId
+        }
     }
 }

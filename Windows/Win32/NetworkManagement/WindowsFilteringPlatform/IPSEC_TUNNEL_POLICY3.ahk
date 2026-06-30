@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_PROPOSAL0.ahk
-#Include .\IPSEC_TUNNEL_ENDPOINTS2.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\IPSEC_TUNNEL_ENDPOINT0.ahk
 #Include .\IPSEC_SA_IDLE_TIMEOUT0.ahk
-#Include .\IKEEXT_EM_POLICY2.ahk
+#Include .\IPSEC_TUNNEL_ENDPOINT0.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_TUNNEL_ENDPOINTS2.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IPSEC_TRAFFIC_SELECTOR_POLICY0.ahk
+#Include .\IPSEC_PROPOSAL0.ahk
+#Include .\IKEEXT_EM_POLICY2.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform

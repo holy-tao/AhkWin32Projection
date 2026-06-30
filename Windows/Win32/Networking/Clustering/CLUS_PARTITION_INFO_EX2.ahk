@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes the disk partition information of a storage class resource.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class CLUS_PARTITION_INFO_EX2 extends Win32Struct {
-    static sizeof => 536
+    static sizeof => 540
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The globally unique identifier (GUID) of the partition.
-     * @type {Pointer}
+     * @type {Guid}
      */
     GptPartitionId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__GptPartitionId"))
+                this.__GptPartitionId := Guid(0, this)
+            return this.__GptPartitionId
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class CLUS_PARTITION_INFO_EX2 extends Win32Struct {
      * @type {String}
      */
     szPartitionName {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+        get => StrGet(this.ptr + 16, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 259, "UTF-16")
     }
 
     /**
@@ -34,7 +38,7 @@ class CLUS_PARTITION_INFO_EX2 extends Win32Struct {
      * @type {Integer}
      */
     EncryptionFlags {
-        get => NumGet(this, 528, "uint")
-        set => NumPut("uint", value, this, 528)
+        get => NumGet(this, 536, "uint")
+        set => NumPut("uint", value, this, 536)
     }
 }

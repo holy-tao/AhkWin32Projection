@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\D3D12_LIFETIME_STATE.ahk
 
 /**
  * Represents an application-defined callback used for being notified of lifetime changes of an object.

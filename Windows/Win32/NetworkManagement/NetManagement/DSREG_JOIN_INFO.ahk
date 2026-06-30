@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DSREG_JOIN_TYPE.ahk
-#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DSREG_USER_INFO.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 
 /**
  * Contains information about how a device is joined to Microsoft Azure Active Directory.

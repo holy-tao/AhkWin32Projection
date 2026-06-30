@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include .\VMR9NormalizedRect.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\VMR9ProcAmpControlRange.ahk
+#Include .\VMR9ProcAmpControl.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IVMRMixerControl9 interface enables an application to manipulate the incoming video streams on the Video Mixing Renderer Filter 9 (VMR-9). This interface is intended for use by applications only; it should not be used by upstream filters.

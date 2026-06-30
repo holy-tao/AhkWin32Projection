@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\RTC_REGISTRATION_STATE.ahk
+#Include .\RTC_PROVIDER_URI.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -145,7 +149,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_Key() {
-        pbstrKey := BSTR()
+        pbstrKey := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrKey, "HRESULT")
         return pbstrKey
     }
@@ -155,7 +159,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -165,7 +169,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_XML() {
-        pbstrXML := BSTR()
+        pbstrXML := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pbstrXML, "HRESULT")
         return pbstrXML
     }
@@ -175,7 +179,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ProviderName() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -186,7 +190,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ProviderURI(enURI) {
-        pbstrURI := BSTR()
+        pbstrURI := BSTR({Value: 0}, True)
         result := ComCall(7, this, "int", enURI, "ptr", pbstrURI, "HRESULT")
         return pbstrURI
     }
@@ -196,7 +200,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ProviderData() {
-        pbstrData := BSTR()
+        pbstrData := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrData, "HRESULT")
         return pbstrData
     }
@@ -206,7 +210,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientName() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -225,7 +229,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientMinVer() {
-        pbstrMinVer := BSTR()
+        pbstrMinVer := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrMinVer, "HRESULT")
         return pbstrMinVer
     }
@@ -235,7 +239,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientCurVer() {
-        pbstrCurVer := BSTR()
+        pbstrCurVer := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrCurVer, "HRESULT")
         return pbstrCurVer
     }
@@ -245,7 +249,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientUpdateURI() {
-        pbstrUpdateURI := BSTR()
+        pbstrUpdateURI := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrUpdateURI, "HRESULT")
         return pbstrUpdateURI
     }
@@ -255,7 +259,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_ClientData() {
-        pbstrData := BSTR()
+        pbstrData := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrData, "HRESULT")
         return pbstrData
     }
@@ -265,7 +269,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_UserURI() {
-        pbstrUserURI := BSTR()
+        pbstrUserURI := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrUserURI, "HRESULT")
         return pbstrUserURI
     }
@@ -275,7 +279,7 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_UserName() {
-        pbstrUserName := BSTR()
+        pbstrUserName := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pbstrUserName, "HRESULT")
         return pbstrUserName
     }
@@ -285,63 +289,17 @@ class IRTCProfile extends IUnknown {
      * @returns {BSTR} 
      */
     get_UserAccount() {
-        pbstrUserAccount := BSTR()
+        pbstrUserAccount := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrUserAccount, "HRESULT")
         return pbstrUserAccount
     }
 
     /**
-     * Sets the attributes of a credential, such as the name associated with the credential. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The sspi.h header defines SetCredentialsAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {BSTR} bstrUserURI 
      * @param {BSTR} bstrUserAccount 
      * @param {BSTR} bstrPassword 
-     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
-     * 
-     * If the function fails, the return value may be one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle passed to the function is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attribute</a> is not supported by Schannel. This return value will only be returned when the Schannel SSP is being used.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not enough memory is available to complete the request.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-setcredentialsattributesa
+     * @returns {HRESULT} 
      */
     SetCredentials(bstrUserURI, bstrUserAccount, bstrPassword) {
         bstrUserURI := bstrUserURI is String ? BSTR.Alloc(bstrUserURI).Value : bstrUserURI

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Include ..\..\Win32\Security\SECURITY_DESCRIPTOR.ahk
 #Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
 #Include ..\..\Win32\Foundation\OBJECT_ATTRIBUTE_FLAGS.ahk
-#Include ..\..\Win32\Security\SECURITY_DESCRIPTOR.ahk
-#Include ..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Include ..\..\Win32\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

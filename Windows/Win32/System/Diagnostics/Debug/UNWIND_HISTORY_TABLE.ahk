@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\UNWIND_HISTORY_TABLE_ENTRY.ahk
 #Include .\IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY.ahk
+#Include .\UNWIND_HISTORY_TABLE_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

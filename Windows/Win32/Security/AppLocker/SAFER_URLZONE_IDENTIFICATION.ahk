@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFER_IDENTIFICATION_HEADER.ahk
-#Include .\SAFER_IDENTIFICATION_TYPES.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\SAFER_IDENTIFICATION_TYPES.ahk
+#Include .\SAFER_IDENTIFICATION_HEADER.ahk
 
 /**
  * Represents a URL zone identification rule.
@@ -10,9 +11,9 @@
  * @namespace Windows.Win32.Security.AppLocker
  */
 class SAFER_URLZONE_IDENTIFICATION extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {SAFER_IDENTIFICATION_HEADER}
@@ -87,8 +88,8 @@ class SAFER_URLZONE_IDENTIFICATION extends Win32Struct {
      * @type {Integer}
      */
     UrlZoneId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -96,7 +97,7 @@ class SAFER_URLZONE_IDENTIFICATION extends Win32Struct {
      * @type {Integer}
      */
     dwSaferFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

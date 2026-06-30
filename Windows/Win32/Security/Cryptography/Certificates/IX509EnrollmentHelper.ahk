@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\PolicyServerUrlFlags.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
+#Include .\WebEnrollmentFlags.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * The IX509EnrollmentHelper interface defines methods that enable a web application to enroll a certificate, store policy server credentials in the credential cache, and register policy servers and enrollment servers.
@@ -231,7 +237,7 @@ class IX509EnrollmentHelper extends IDispatch {
         strEnrollmentPolicyServerURI := strEnrollmentPolicyServerURI is String ? BSTR.Alloc(strEnrollmentPolicyServerURI).Value : strEnrollmentPolicyServerURI
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        pstrCertificate := BSTR()
+        pstrCertificate := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", strEnrollmentPolicyServerURI, "ptr", strTemplateName, "int", Encoding, "int", enrollFlags, "ptr", pstrCertificate, "HRESULT")
         return pstrCertificate
     }

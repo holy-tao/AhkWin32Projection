@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDraw7.ahk
 #Include .\IVMRImagePresenterConfig.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IVMRImagePresenterExclModeConfig interface inherits from IVMRImagePresenterConfig and provides methods for setting and retrieving the rendering preferences on the Exclusive Mode Allocator-Presenter.

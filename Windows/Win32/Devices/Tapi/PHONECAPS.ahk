@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The PHONECAPS structure describes the capabilities of a phone device. The phoneGetDevCaps and TSPI_phoneGetDevCaps functions return this structure.
@@ -11,9 +12,9 @@
  * @namespace Windows.Win32.Devices.Tapi
  */
 class PHONECAPS extends Win32Struct {
-    static sizeof => 192
+    static sizeof => 196
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Total size allocated to this data structure, in bytes.
@@ -454,10 +455,13 @@ class PHONECAPS extends Win32Struct {
 
     /**
      * The GUID permanently associated with this phone.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PermanentPhoneGuid {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get {
+            if(!this.HasProp("__PermanentPhoneGuid"))
+                this.__PermanentPhoneGuid := Guid(180, this)
+            return this.__PermanentPhoneGuid
+        }
     }
 }

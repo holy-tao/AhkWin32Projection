@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\KSIDENTIFIER.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSEVENTDATA.ahk
+#Include .\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSRELATIVEEVENT extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -72,7 +73,7 @@ class KSRELATIVEEVENT extends Win32Struct {
     EventData {
         get {
             if(!this.HasProp("__EventData"))
-                this.__EventData := KSEVENTDATA(40, this)
+                this.__EventData := KSEVENTDATA(48, this)
             return this.__EventData
         }
     }

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ALT_NAME_ENTRY.ahk
-#Include .\CERT_OTHER_NAME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_OTHER_NAME.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CERT_ALT_NAME_ENTRY.ahk
 
 /**
  * The CERT_GENERAL_SUBTREE structure is used in CERT_NAME_CONSTRAINTS_INFO structure. This structure provides the identity of a certificate that can be included or excluded.

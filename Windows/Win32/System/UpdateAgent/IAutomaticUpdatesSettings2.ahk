@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\AutomaticUpdatesUserType.ahk
 #Include .\IAutomaticUpdatesSettings.ahk
+#Include .\AutomaticUpdatesPermissionType.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the settings that are available in Automatic Updates. (IAutomaticUpdatesSettings2)

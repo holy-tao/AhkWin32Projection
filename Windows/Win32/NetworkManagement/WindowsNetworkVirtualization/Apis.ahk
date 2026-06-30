@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\WNV_NOTIFICATION_PARAM.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**

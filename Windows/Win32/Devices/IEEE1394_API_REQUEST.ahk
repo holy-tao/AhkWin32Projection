@@ -10,7 +10,7 @@ class IEEE1394_API_REQUEST extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
 
@@ -54,12 +54,12 @@ class IEEE1394_API_REQUEST extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := IEEE1394_API_REQUEST._u_e__Union(8, this)
+                this.__u := IEEE1394_API_REQUEST._u(8, this)
             return this.__u
         }
     }

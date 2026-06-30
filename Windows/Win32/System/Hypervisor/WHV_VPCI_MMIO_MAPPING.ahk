@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_VPCI_DEVICE_REGISTER_SPACE.ahk
 #Include .\WHV_VPCI_MMIO_RANGE_FLAGS.ahk
+#Include .\WHV_VPCI_DEVICE_REGISTER_SPACE.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

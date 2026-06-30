@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * An SP_DEVINFO_DATA structure defines a device instance that is a member of a device information set.
@@ -27,11 +28,14 @@ class SP_DEVINFO_DATA extends Win32Struct {
 
     /**
      * The GUID of the device's setup class.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ClassGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ClassGuid"))
+                this.__ClassGuid := Guid(4, this)
+            return this.__ClassGuid
+        }
     }
 
     /**
@@ -41,8 +45,8 @@ class SP_DEVINFO_DATA extends Win32Struct {
      * @type {Integer}
      */
     DevInst {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**

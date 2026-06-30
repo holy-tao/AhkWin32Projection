@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Include .\PPP_ATCP_INFO.ahk
+#Include .\PPP_IPCP_INFO.ahk
 #Include .\PPP_INFO.ahk
 #Include .\PPP_NBFCP_INFO.ahk
-#Include .\PPP_IPCP_INFO.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\PPP_IPXCP_INFO.ahk
-#Include .\PPP_ATCP_INFO.ahk
 
 /**
  * The RAS_CONNECTION_1 structure contains detailed information regarding a specific connection, such as error counts and bytes received. For more general information about a specific connection, such as user name or domain, see RAS_CONNECTION_0.

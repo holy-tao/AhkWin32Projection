@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSDATAFORMAT extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -42,27 +43,36 @@ class KSDATAFORMAT extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     MajorFormat {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__MajorFormat"))
+                this.__MajorFormat := Guid(16, this)
+            return this.__MajorFormat
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     SubFormat {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__SubFormat"))
+                this.__SubFormat := Guid(32, this)
+            return this.__SubFormat
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Specifier {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__Specifier"))
+                this.__Specifier := Guid(48, this)
+            return this.__Specifier
+        }
     }
 
     /**

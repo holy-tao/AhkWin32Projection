@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
+#Include .\D3D12_ROOT_SIGNATURE_DESC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VERSIONED_ROOT_SIGNATURE_DESC.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D_ROOT_SIGNATURE_VERSION.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -43,6 +51,11 @@ class Direct3D12 {
      * @type {Integer (UInt32)}
      */
     static D3D12_ARRAY_AXIS_ADDRESS_RANGE_BIT_COUNT => 9
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static D3D12_AS_TGSM_BYTES_MINIMUM_SUPPORT => 32768
 
     /**
      * @type {Integer (UInt32)}
@@ -428,6 +441,11 @@ class Direct3D12 {
      * @type {Integer (UInt32)}
      */
     static D3D12_CS_DISPATCH_MAX_THREAD_GROUPS_PER_DIMENSION => 65535
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static D3D12_CS_TGSM_BYTES_MINIMUM_SUPPORT => 32768
 
     /**
      * @type {Integer (UInt32)}
@@ -982,6 +1000,21 @@ class Direct3D12 {
     /**
      * @type {Integer (UInt32)}
      */
+    static D3D12_GUID_TEXTURE_LAYOUT_ROW_MAJOR_HEIGHT_ALIGNMENT => 4
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static D3D12_GUID_TEXTURE_LAYOUT_ROW_MAJOR_PITCH_ALIGNMENT => 256
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static D3D12_GUID_TEXTURE_LAYOUT_ROW_MAJOR_PLANE_ALIGNMENT => 4096
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static D3D12_HS_CONTROL_POINT_PHASE_INPUT_REGISTER_COUNT => 32
 
     /**
@@ -1355,6 +1388,16 @@ class Direct3D12 {
     static D3D12_MIP_LOD_RANGE_BIT_COUNT => 8
 
     /**
+     * @type {Integer (UInt32)}
+     */
+    static D3D12_MS_DISPATCH_MAX_THREAD_GROUPS_PER_GRID => 4194303
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static D3D12_MS_TGSM_BYTES_MINIMUM_SUPPORT => 28672
+
+    /**
      * @type {Float}
      */
     static D3D12_MULTISAMPLE_ANTIALIAS_LINE_WIDTH => 1.4
@@ -1387,7 +1430,7 @@ class Direct3D12 {
     /**
      * @type {Integer (UInt32)}
      */
-    static D3D12_PREVIEW_SDK_VERSION => 717
+    static D3D12_PREVIEW_SDK_VERSION => 719
 
     /**
      * @type {Integer (UInt32)}
@@ -1737,7 +1780,7 @@ class Direct3D12 {
     /**
      * @type {Integer (UInt32)}
      */
-    static D3D12_SDK_VERSION => 618
+    static D3D12_SDK_VERSION => 619
 
     /**
      * @type {Integer (UInt32)}
@@ -2177,6 +2220,11 @@ class Direct3D12 {
     /**
      * @type {Integer (UInt32)}
      */
+    static D3D12_WORK_GRAPHS_DISPATCH_MAX_THREAD_GROUPS_PER_GRID => 16777215
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static D3D12_WORK_GRAPHS_MAX_NODE_DEPTH => 32
 
     /**
@@ -2268,6 +2316,16 @@ class Direct3D12 {
      * @type {Guid}
      */
     static CLSID_D3D12StateObjectFactory => Guid("{54e1c9f3-1303-4112-bf8e-7bf2bb606a73}")
+
+    /**
+     * @type {Guid}
+     */
+    static CLSID_D3D12RuntimeValidationControl => Guid("{e5b53e74-3fca-47b4-88b9-a8b41ef8fb73}")
+
+    /**
+     * @type {Guid}
+     */
+    static CLSID_D3D12ApplicationIdentity => Guid("{08d8e1e8-75a6-42a7-bf3a-d05fe529c47c}")
 
     /**
      * @type {Integer (UInt32)}
@@ -2413,11 +2471,6 @@ class Direct3D12 {
      * @type {Guid}
      */
     static D3D12ExperimentalShaderModels => Guid("{76f5573e-f13a-40f5-b297-81ce9e18933f}")
-
-    /**
-     * @type {Guid}
-     */
-    static D3D12TiledResourceTier4 => Guid("{c9c4725f-a81a-4f56-8c5b-c51039d694fb}")
 
     /**
      * @type {Guid}

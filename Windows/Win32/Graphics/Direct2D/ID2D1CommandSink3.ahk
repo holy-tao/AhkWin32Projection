@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_BITMAP_INTERPOLATION_MODE.ahk
 #Include .\ID2D1CommandSink2.ahk
+#Include .\ID2D1SpriteBatch.ahk
+#Include .\ID2D1Bitmap.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D2D1_SPRITE_OPTIONS.ahk
 
 /**
  * This interface performs all the same functions as the existing ID2D1CommandSink2 interface. It also enables access to sprite batch rendering.

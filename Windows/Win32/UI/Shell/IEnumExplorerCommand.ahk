@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IExplorerCommand.ahk
 
 /**
  * Provided by an IExplorerCommandProvider. This interface contains the enumeration of commands to be put into the command bar.

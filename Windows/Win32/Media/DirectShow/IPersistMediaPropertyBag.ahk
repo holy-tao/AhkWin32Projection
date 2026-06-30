@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IErrorLog.ahk
+#Include .\IMediaPropertyBag.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IPersist.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IPersistMediaPropertyBag interface sets and retrieves INFO and DISP chunks in Audio-Video Interleaved (AVI) streams.

@@ -1,35 +1,37 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\NTMS_DRIVEINFORMATIONA.ahk
-#Include .\NTMS_DRIVETYPEINFORMATIONA.ahk
-#Include .\FILE_DEVICE_TYPE.ahk
 #Include .\NTMS_I1_LIBRARYINFORMATION.ahk
-#Include .\NTMS_CHANGERINFORMATIONA.ahk
-#Include .\NTMS_CHANGERTYPEINFORMATIONA.ahk
-#Include .\NTMS_STORAGESLOTINFORMATION.ahk
-#Include .\NTMS_IEDOORINFORMATION.ahk
-#Include .\NTMS_IEPORTINFORMATION.ahk
-#Include .\NTMS_I1_PMIDINFORMATIONA.ahk
-#Include .\NTMS_LMIDINFORMATION.ahk
-#Include .\NTMS_I1_PARTITIONINFORMATIONA.ahk
-#Include .\NTMS_MEDIAPOOLINFORMATION.ahk
-#Include .\NTMS_MEDIATYPEINFORMATION.ahk
 #Include .\NTMS_I1_LIBREQUESTINFORMATIONA.ahk
+#Include .\NTMS_IEPORTINFORMATION.ahk
+#Include .\NTMS_LMIDINFORMATION.ahk
+#Include .\NTMS_DRIVEINFORMATIONA.ahk
+#Include .\NTMS_CHANGERINFORMATIONA.ahk
+#Include .\NTMS_MEDIATYPEINFORMATION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\NTMS_CHANGERTYPEINFORMATIONA.ahk
+#Include .\FILE_DEVICE_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\NTMS_DRIVETYPEINFORMATIONA.ahk
 #Include .\NTMS_I1_OPREQUESTINFORMATIONA.ahk
+#Include .\NTMS_I1_PMIDINFORMATIONA.ahk
+#Include .\NTMS_STORAGESLOTINFORMATION.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\NTMS_MEDIAPOOLINFORMATION.ahk
+#Include .\NTMS_I1_PARTITIONINFORMATIONA.ahk
+#Include .\NTMS_IEDOORINFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset ANSI
  */
 class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct {
-    static sizeof => 864
+    static sizeof => 884
 
-    static packingSize => 8
+    static packingSize => 4
 
-    class _Info_e__Union extends Win32Struct {
-        static sizeof => 616
-        static packingSize => 8
+    class _Info extends Win32Struct {
+        static sizeof => 628
+        static packingSize => 4
 
         /**
          * @type {NTMS_DRIVEINFORMATIONA}
@@ -236,52 +238,55 @@ class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__ObjectGuid"))
+                this.__ObjectGuid := Guid(40, this)
+            return this.__ObjectGuid
+        }
     }
 
     /**
      * @type {BOOL}
      */
     Enabled {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     dwOperationalState {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 56, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 56, 63, "UTF-8")
+        get => StrGet(this.ptr + 64, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 64, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     szDescription {
-        get => StrGet(this.ptr + 120, 126, "UTF-8")
-        set => StrPut(value, this.ptr + 120, 126, "UTF-8")
+        get => StrGet(this.ptr + 128, 126, "UTF-8")
+        set => StrPut(value, this.ptr + 128, 126, "UTF-8")
     }
 
     /**
-     * @type {_Info_e__Union}
+     * @type {_Info}
      */
     Info {
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := NTMS_I1_OBJECTINFORMATIONA._Info_e__Union(248, this)
+                this.__Info := NTMS_I1_OBJECTINFORMATIONA._Info(256, this)
             return this.__Info
         }
     }

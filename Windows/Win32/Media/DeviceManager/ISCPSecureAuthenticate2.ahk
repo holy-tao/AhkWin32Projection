@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISCPSecureAuthenticate.ahk
 #Include .\ISCPSession.ahk
+#Include .\ISCPSecureAuthenticate.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISCPSecureAuthenticate2 interface extends ISCPSecureAuthenticate by providing a way to get a session object.

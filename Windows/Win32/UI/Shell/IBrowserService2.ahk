@@ -1,9 +1,30 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITravelLog.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Controls\NMHDR.ahk
+#Include .\FOLDERSETDATA.ahk
+#Include .\BASEBROWSERDATALH.ahk
+#Include .\TOOLBARITEM.ahk
+#Include ..\WindowsAndMessaging\CREATESTRUCTW.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include Common\ITEMIDLIST.ahk
 #Include .\IBrowserService.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include .\IShellView.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\WindowsAndMessaging\HACCEL.ahk
+#Include ..\WindowsAndMessaging\MSG.ahk
 
 /**
  * Deprecated. (IBrowserService2)

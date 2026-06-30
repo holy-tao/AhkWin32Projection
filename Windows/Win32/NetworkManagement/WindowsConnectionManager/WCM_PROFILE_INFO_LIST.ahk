@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WCM_PROFILE_INFO.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WCM_MEDIA_TYPE.ahk
 
 /**
@@ -11,7 +12,7 @@
 class WCM_PROFILE_INFO_LIST extends Win32Struct {
     static sizeof => 536
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -33,7 +34,7 @@ class WCM_PROFILE_INFO_LIST extends Win32Struct {
     ProfileInfo {
         get {
             if(!this.HasProp("__ProfileInfoProxyArray"))
-                this.__ProfileInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, WCM_PROFILE_INFO, "")
+                this.__ProfileInfoProxyArray := Win32FixedArray(this.ptr + 4, 1, WCM_PROFILE_INFO, "")
             return this.__ProfileInfoProxyArray
         }
     }

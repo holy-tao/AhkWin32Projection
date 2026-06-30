@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICspInformations.ahk
+#Include .\X509RequestType.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IObjectId.ahk
+#Include .\RequestClientInfoClientId.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\EncodingType.ahk
+#Include .\InnerRequestLevel.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * The IX509CertificateRequest interface represents an abstract base certificate request that identifies methods and properties common to and inherited by each of the request objects implemented by the Certificate Enrollment API.
@@ -447,7 +454,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_uicontextmessage
      */
     get_UIContextMessage() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -505,7 +512,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_renewalcertificate
      */
     get_RenewalCertificate(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(21, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -797,7 +804,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_rawdata
      */
     get_RawData(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(31, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

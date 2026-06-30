@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D11_UAV_DIMENSION.ahk
-#Include .\D3D11_BUFFER_UAV.ahk
-#Include .\D3D11_TEX1D_UAV.ahk
-#Include .\D3D11_TEX1D_ARRAY_UAV.ahk
 #Include .\D3D11_TEX2D_UAV.ahk
 #Include .\D3D11_TEX2D_ARRAY_UAV.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D11_TEX3D_UAV.ahk
+#Include .\D3D11_TEX1D_UAV.ahk
+#Include .\D3D11_TEX1D_ARRAY_UAV.ahk
+#Include .\D3D11_BUFFER_UAV.ahk
+#Include .\D3D11_UAV_DIMENSION.ahk
 
 /**
  * Specifies the subresources from a resource that are accessible using an unordered-access view.

@@ -1,13 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontFile.ahk
-#Include .\DWRITE_FONT_AXIS_VALUE.ahk
 #Include .\DWRITE_FONT_AXIS_RANGE.ahk
 #Include .\IDWriteLocalizedStrings.ahk
 #Include .\IDWriteFontFace5.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteFontFile.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IDWriteFontFaceReference1.ahk
+#Include .\DWRITE_FONT_SIMULATIONS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_FONT_AXIS_ATTRIBUTES.ahk
 
 /**
  * Provides axis information for a font resource, and is used to create specific font face instances.

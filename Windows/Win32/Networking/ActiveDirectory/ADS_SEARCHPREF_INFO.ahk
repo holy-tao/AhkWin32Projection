@@ -1,27 +1,28 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADS_SEARCHPREF_ENUM.ahk
-#Include .\ADSVALUE.ahk
-#Include .\ADSTYPE.ahk
 #Include .\ADS_OCTET_STRING.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\ADS_PROV_SPECIFIC.ahk
+#Include .\ADSVALUE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ADS_CASEIGNORE_LIST.ahk
 #Include .\ADS_OCTET_LIST.ahk
-#Include .\ADS_PATH.ahk
 #Include .\ADS_POSTALADDRESS.ahk
-#Include .\ADS_TIMESTAMP.ahk
-#Include .\ADS_BACKLINK.ahk
-#Include .\ADS_TYPEDNAME.ahk
-#Include .\ADS_HOLD.ahk
-#Include .\ADS_NETADDRESS.ahk
-#Include .\ADS_REPLICAPOINTER.ahk
-#Include .\ADS_FAXNUMBER.ahk
-#Include .\ADS_EMAIL.ahk
 #Include .\ADS_NT_SECURITY_DESCRIPTOR.ahk
-#Include .\ADS_DN_WITH_BINARY.ahk
-#Include .\ADS_DN_WITH_STRING.ahk
+#Include .\ADS_REPLICAPOINTER.ahk
 #Include .\ADS_STATUSENUM.ahk
+#Include .\ADS_EMAIL.ahk
+#Include .\ADS_NETADDRESS.ahk
+#Include .\ADS_DN_WITH_BINARY.ahk
+#Include .\ADS_SEARCHPREF_ENUM.ahk
+#Include .\ADS_HOLD.ahk
+#Include .\ADS_PROV_SPECIFIC.ahk
+#Include .\ADS_BACKLINK.ahk
+#Include .\ADS_DN_WITH_STRING.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\ADS_PATH.ahk
+#Include .\ADS_TYPEDNAME.ahk
+#Include .\ADS_FAXNUMBER.ahk
+#Include .\ADSTYPE.ahk
+#Include .\ADS_TIMESTAMP.ahk
 
 /**
  * The ADS_SEARCHPREF_INFO structure specifies the query preferences.

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TYPEDESC.ahk
-#Include ..\Ole\ARRAYDESC.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include .\IDLDESC.ahk
-#Include .\IDLFLAGS.ahk
-#Include ..\Ole\PARAMDESC.ahk
 #Include ..\Ole\PARAMDESCEX.ahk
+#Include ..\Ole\ARRAYDESC.ahk
+#Include .\IDLFLAGS.ahk
 #Include ..\Ole\PARAMFLAGS.ahk
+#Include ..\Ole\PARAMDESC.ahk
+#Include ..\Variant\VARENUM.ahk
+#Include .\TYPEDESC.ahk
+#Include .\IDLDESC.ahk
 
 /**
  * The ELEMDESC structure contains the type description and process-transfer information for a variable, a function, or a function parameter. (ELEMDESC)

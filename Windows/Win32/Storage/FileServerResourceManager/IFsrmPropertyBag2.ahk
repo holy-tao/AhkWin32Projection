@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmPropertyBag.ahk
+#Include .\FsrmPropertyBagField.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IFsrmCollection.ahk
+#Include .\IFsrmPropertyBag.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * IFsrmPropertyBag2 Interface

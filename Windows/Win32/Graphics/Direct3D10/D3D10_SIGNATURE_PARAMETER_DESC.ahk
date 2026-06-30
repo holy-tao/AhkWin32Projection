@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Direct3D\D3D_NAME.ahk
 #Include ..\Direct3D\D3D_REGISTER_COMPONENT_TYPE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Direct3D\D3D_NAME.ahk
 
 /**
  * Describes a shader signature. (D3D10_SIGNATURE_PARAMETER_DESC)

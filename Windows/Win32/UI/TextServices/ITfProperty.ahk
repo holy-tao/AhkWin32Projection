@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfReadOnlyProperty.ahk
 #Include .\ITfRange.ahk
+#Include .\ITfReadOnlyProperty.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ITfPropertyStore.ahk
+#Include .\TfAnchor.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfProperty interface is implemented by the TSF manager and used by a client (application or text service) to modify a property value.

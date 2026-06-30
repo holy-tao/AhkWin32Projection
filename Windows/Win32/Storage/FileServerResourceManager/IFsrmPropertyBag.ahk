@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\FsrmFileStreamingMode.ahk
 #Include .\IFsrmProperty.ahk
+#Include .\FsrmFileStreamingInterfaceType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the classification properties for a file.
@@ -171,7 +175,7 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", name, "HRESULT")
         return name
     }
@@ -186,7 +190,7 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativepath
      */
     get_RelativePath() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", _path, "HRESULT")
         return _path
     }
@@ -203,7 +207,7 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_volumename
      */
     get_VolumeName() {
-        volumeName := BSTR()
+        volumeName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", volumeName, "HRESULT")
         return volumeName
     }
@@ -220,7 +224,7 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativenamespaceroot
      */
     get_RelativeNamespaceRoot() {
-        relativeNamespaceRoot := BSTR()
+        relativeNamespaceRoot := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", relativeNamespaceRoot, "HRESULT")
         return relativeNamespaceRoot
     }
@@ -328,7 +332,7 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_ownersid
      */
     get_OwnerSid() {
-        ownerSid := BSTR()
+        ownerSid := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", ownerSid, "HRESULT")
         return ownerSid
     }

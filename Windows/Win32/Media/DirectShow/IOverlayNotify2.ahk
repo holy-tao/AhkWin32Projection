@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IOverlayNotify.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IOverlayNotify2 interface derives from the IOverlayNotify interface.

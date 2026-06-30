@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSMAN_FRAGMENT.ahk
-#Include .\WSMAN_FILTER.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_SELECTOR_SET.ahk
-#Include .\WSMAN_KEY.ahk
-#Include .\WSMAN_OPTION_SET.ahk
+#Include .\WSMAN_FILTER.ahk
 #Include .\WSMAN_OPTION.ahk
+#Include .\WSMAN_FRAGMENT.ahk
+#Include .\WSMAN_OPTION_SET.ahk
+#Include .\WSMAN_KEY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a specific resource endpoint for which the plug-in must perform the request.

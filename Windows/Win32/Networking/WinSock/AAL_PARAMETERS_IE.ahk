@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\AAL_TYPE.ahk
-#Include .\AAL5_PARAMETERS.ahk
 #Include .\AALUSER_PARAMETERS.ahk
+#Include .\AAL5_PARAMETERS.ahk
+#Include .\AAL_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -12,7 +12,7 @@ class AAL_PARAMETERS_IE extends Win32Struct {
 
     static packingSize => 4
 
-    class _AALSpecificParameters_e__Union extends Win32Struct {
+    class _AALSpecificParameters extends Win32Struct {
         static sizeof => 12
         static packingSize => 4
 
@@ -48,12 +48,12 @@ class AAL_PARAMETERS_IE extends Win32Struct {
     }
 
     /**
-     * @type {_AALSpecificParameters_e__Union}
+     * @type {_AALSpecificParameters}
      */
     AALSpecificParameters {
         get {
             if(!this.HasProp("__AALSpecificParameters"))
-                this.__AALSpecificParameters := AAL_PARAMETERS_IE._AALSpecificParameters_e__Union(4, this)
+                this.__AALSpecificParameters := AAL_PARAMETERS_IE._AALSpecificParameters(4, this)
             return this.__AALSpecificParameters
         }
     }

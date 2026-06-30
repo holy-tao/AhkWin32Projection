@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\WindowsMediaLibrarySharingDeviceAuthorizationStatus.ahk
 #Include .\IWindowsMediaLibrarySharingDeviceProperties.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWindowsMediaLibrarySharingDevice interface defines methods that provide access to an individual media device on the home network.
@@ -61,7 +63,7 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_deviceid
      */
     get_DeviceID() {
-        deviceID := BSTR()
+        deviceID := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", deviceID, "HRESULT")
         return deviceID
     }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EAP_METHOD_TYPE.ahk
-#Include .\EAP_TYPE.ahk
 #Include .\EAP_METHOD_INFO_ARRAY_EX.ahk
+#Include .\EAP_TYPE.ahk
 
 /**
  * Contains information about an EAP method. (EAP_METHOD_INFO_EX)

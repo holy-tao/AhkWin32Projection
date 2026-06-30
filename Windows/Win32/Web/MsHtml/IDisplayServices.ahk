@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDisplayPointer.ahk
 #Include .\IHTMLCaret.ahk
+#Include .\IHTMLElement.ahk
 #Include .\IHTMLComputedStyle.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include .\IDisplayPointer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IMarkupPointer.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\COORD_SYSTEM.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -66,9 +73,8 @@ class IDisplayServices extends IUnknown {
     }
 
     /**
-     * Retrieves the time required to invert the caret's pixels. The user can set this value.
+     * 
      * @returns {IHTMLCaret} 
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcaretblinktime
      */
     GetCaret() {
         result := ComCall(6, this, "ptr*", &ppCaret := 0, "HRESULT")

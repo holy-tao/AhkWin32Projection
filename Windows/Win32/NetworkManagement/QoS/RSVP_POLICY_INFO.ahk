@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\QOS_OBJECT_HDR.ahk
 #Include .\RSVP_POLICY.ahk
+#Include .\QOS_OBJECT_HDR.ahk
 
 /**
  * The RSVP_POLICY_INFO structure stores undefined policy elements retrieved from RSVP.

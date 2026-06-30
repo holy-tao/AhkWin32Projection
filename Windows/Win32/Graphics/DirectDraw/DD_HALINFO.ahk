@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIDEOMEMORYINFO.ahk
-#Include .\DDPIXELFORMAT.ahk
 #Include .\DDNTCORECAPS.ahk
-#Include .\DDSCAPS.ahk
 #Include .\DD_D3DBUFCALLBACKS.ahk
+#Include .\DDPIXELFORMAT.ahk
+#Include .\DDSCAPS.ahk
+#Include .\VIDEOMEMORYINFO.ahk
 
 /**
  * The DD_HALINFO structure describes the capabilities of the hardware and driver.

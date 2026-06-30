@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\FLOWSPEC.ahk
 #Include .\QOS_OBJECT_HDR.ahk
+#Include ..\..\Networking\WinSock\FLOWSPEC.ahk
 
 /**
  * The TC_GEN_FLOW structure creates a generic flow for use with the traffic control interface. The flow is customized through the members of this structure.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDIFORMAT.ahk
 #Include .\D3DKMDT_GDISURFACETYPE.ahk
+#Include .\D3DDDIFORMAT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

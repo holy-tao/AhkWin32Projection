@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TS_SELECTIONSTYLE.ahk
 #Include .\TsActiveSelEnd.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The TS_SELECTION_ACP structure contains ACP-based text selection data.

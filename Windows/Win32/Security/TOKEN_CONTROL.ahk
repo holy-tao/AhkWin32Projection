@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Foundation\LUID.ahk
 #Include .\TOKEN_SOURCE.ahk
+#Include ..\Foundation\LUID.ahk
 
 /**
  * Contains information that identifies an access token.

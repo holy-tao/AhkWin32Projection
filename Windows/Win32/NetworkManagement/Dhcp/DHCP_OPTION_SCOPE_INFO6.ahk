@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_RESERVED_SCOPE6.ahk
 #Include .\DHCP_OPTION_SCOPE_TYPE6.ahk
 #Include .\DHCP_IPV6_ADDRESS.ahk
-#Include .\DHCP_RESERVED_SCOPE6.ahk
 
 /**
  * Defines the data associated with a DHCP option scope.

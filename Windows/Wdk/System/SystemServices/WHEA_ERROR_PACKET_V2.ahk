@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WHEA_ERROR_TYPE.ahk
-#Include .\WHEA_ERROR_SEVERITY.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk
+#Include .\WHEA_ERROR_SEVERITY.ahk
 #Include .\WHEA_ERROR_PACKET_DATA_FORMAT.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
 class WHEA_ERROR_PACKET_V2 extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -78,49 +79,36 @@ class WHEA_ERROR_PACKET_V2 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     NotifyType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__NotifyType"))
+                this.__NotifyType := Guid(40, this)
+            return this.__NotifyType
+        }
     }
 
     /**
      * @type {Integer}
      */
     Context {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {WHEA_ERROR_PACKET_DATA_FORMAT}
      */
     DataFormat {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     Reserved1 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataOffset {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DataLength {
         get => NumGet(this, 68, "uint")
         set => NumPut("uint", value, this, 68)
     }
@@ -128,7 +116,7 @@ class WHEA_ERROR_PACKET_V2 extends Win32Struct {
     /**
      * @type {Integer}
      */
-    PshedDataOffset {
+    DataOffset {
         get => NumGet(this, 72, "uint")
         set => NumPut("uint", value, this, 72)
     }
@@ -136,8 +124,24 @@ class WHEA_ERROR_PACKET_V2 extends Win32Struct {
     /**
      * @type {Integer}
      */
-    PshedDataLength {
+    DataLength {
         get => NumGet(this, 76, "uint")
         set => NumPut("uint", value, this, 76)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PshedDataOffset {
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PshedDataLength {
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 }

@@ -9,7 +9,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct {
 
     static packingSize => 4
 
-    class _Flags_e__Union extends Win32Struct {
+    class _Flags extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -78,7 +78,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct {
         CacheFlags {
             get {
                 if(!this.HasProp("__CacheFlags"))
-                    this.__CacheFlags := NV_SEP_CACHE_PARAMETER._Flags_e__Union._CacheFlags(0, this)
+                    this.__CacheFlags := NV_SEP_CACHE_PARAMETER._Flags._CacheFlags(0, this)
                 return this.__CacheFlags
             }
         }
@@ -109,12 +109,12 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct {
     }
 
     /**
-     * @type {_Flags_e__Union}
+     * @type {_Flags}
      */
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := NV_SEP_CACHE_PARAMETER._Flags_e__Union(8, this)
+                this.__Flags := NV_SEP_CACHE_PARAMETER._Flags(8, this)
             return this.__Flags
         }
     }

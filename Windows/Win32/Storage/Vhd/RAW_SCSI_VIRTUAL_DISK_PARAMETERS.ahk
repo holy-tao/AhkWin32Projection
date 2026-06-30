@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RAW_SCSI_VIRTUAL_DISK_VERSION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains raw SCSI virtual disk request parameters.

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IStorage.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\IPersist.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables a container application to pass a storage object to one of its contained objects and to load and save the storage object.

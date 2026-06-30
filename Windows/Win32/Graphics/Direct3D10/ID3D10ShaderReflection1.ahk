@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Direct3D\D3D_PRIMITIVE.ahk
 #Include .\D3D10_SHADER_DESC.ahk
 #Include .\D3D10_SHADER_INPUT_BIND_DESC.ahk
 #Include .\D3D10_SIGNATURE_PARAMETER_DESC.ahk
+#Include .\ID3D10ShaderReflectionVariable.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10ShaderReflectionConstantBuffer.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D10ShaderReflection1)
@@ -35,9 +41,8 @@ class ID3D10ShaderReflection1 extends IUnknown {
     static VTableNames => ["GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetResourceBindingDesc", "GetInputParameterDesc", "GetOutputParameterDesc", "GetVariableByName", "GetResourceBindingDescByName", "GetMovInstructionCount", "GetMovcInstructionCount", "GetConversionInstructionCount", "GetBitwiseInstructionCount", "GetGSInputPrimitive", "IsLevel9Shader", "IsSampleFrequencyShader"]
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
+     * 
      * @returns {D3D10_SHADER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDesc() {
         pDesc := D3D10_SHADER_DESC()
@@ -68,14 +73,9 @@ class ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * Gets a resource binding description by name.
-     * @remarks
-     * This method requires Windows Vista Service Pack 1.
-     * @param {Integer} ResourceIndex 
-     * @returns {D3D10_SHADER_INPUT_BIND_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_shader_input_bind_desc">D3D10_SHADER_INPUT_BIND_DESC</a>*</b>
      * 
-     * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_shader_input_bind_desc">D3D10_SHADER_INPUT_BIND_DESC</a> structure that will be populated with resource binding information.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/nf-d3d10_1shader-id3d10shaderreflection1-getresourcebindingdescbyname
+     * @param {Integer} ResourceIndex 
+     * @returns {D3D10_SHADER_INPUT_BIND_DESC} 
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D10_SHADER_INPUT_BIND_DESC()

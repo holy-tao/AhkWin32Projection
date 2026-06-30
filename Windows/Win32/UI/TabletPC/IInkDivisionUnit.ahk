@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkStrokes.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\InkDivisionType.ahk
 #Include .\IInkTransform.ahk
+#Include .\IInkStrokes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a single structural element within an IInkDivisionResult object.
@@ -94,7 +96,7 @@ class IInkDivisionUnit extends IDispatch {
      * @returns {BSTR} 
      */
     get_RecognizedString() {
-        RecoString := BSTR()
+        RecoString := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", RecoString, "HRESULT")
         return RecoString
     }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWebWizardHost.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWebWizardHost.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -36,7 +37,7 @@ class IWebWizardHost2 extends IWebWizardHost {
     SignString(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        signedValue := BSTR()
+        signedValue := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", value, "ptr", signedValue, "HRESULT")
         return signedValue
     }

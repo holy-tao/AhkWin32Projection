@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The maximum number of attendees that can connect to the session. (Get)
- * @remarks
- * The password is set when the invitation is created and can be modified using <b>put_AttendeeLimit</b>.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_attendeelimit
  * @namespace Windows.Win32.System.DesktopSharing
  */
 class RDPSRAPIInvitation extends Win32Struct {

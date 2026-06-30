@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_TRIGGER_TYPE.ahk
 #Include .\SERVICE_TRIGGER_ACTION.ahk
+#Include .\SERVICE_TRIGGER_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SERVICE_TRIGGER_SPECIFIC_DATA_ITEM.ahk
 
 /**

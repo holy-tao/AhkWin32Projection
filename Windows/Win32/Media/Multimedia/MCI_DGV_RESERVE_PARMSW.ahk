@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_RESERVE_PARMSW (Unicode) structure (digitalv.h) contains information for the MCI_RESERVE command for digital-video devices.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WAVEFORMATEX.ahk
 #Include .\AudioObjectType.ahk
-#Include .\AUDIO_STREAM_CATEGORY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\ISpatialAudioObjectRenderStreamNotify.ahk
+#Include .\WAVEFORMATEX.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SPATIAL_AUDIO_STREAM_OPTIONS.ahk
+#Include .\AUDIO_STREAM_CATEGORY.ahk
 
 /**
  * Represents activation parameters for a spatial audio render stream for metadata, extending SpatialAudioObjectRenderStreamForMetadataActivationParams with the ability to specify stream options.
@@ -58,7 +59,7 @@
  * @namespace Windows.Win32.Media.Audio
  */
 class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -121,11 +122,14 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
 
     /**
      * The identifier of  the metadata format for the currently active spatial rendering engine.
-     * @type {Pointer}
+     * @type {Guid}
      */
     MetadataFormatId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__MetadataFormatId"))
+                this.__MetadataFormatId := Guid(32, this)
+            return this.__MetadataFormatId
+        }
     }
 
     /**
@@ -133,8 +137,8 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
      * @type {Integer}
      */
     MaxMetadataItemCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -142,8 +146,8 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
      * @type {Pointer<PROPVARIANT>}
      */
     MetadataActivationParams {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -151,8 +155,8 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
      * @type {ISpatialAudioObjectRenderStreamNotify}
      */
     NotifyObject {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -160,7 +164,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
      * @type {SPATIAL_AUDIO_STREAM_OPTIONS}
      */
     Options {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 }

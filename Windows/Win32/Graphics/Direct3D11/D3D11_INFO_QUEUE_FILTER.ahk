@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_INFO_QUEUE_FILTER_DESC.ahk
 #Include .\D3D11_MESSAGE_CATEGORY.ahk
 #Include .\D3D11_MESSAGE_SEVERITY.ahk
 #Include .\D3D11_MESSAGE_ID.ahk
+#Include .\D3D11_INFO_QUEUE_FILTER_DESC.ahk
 
 /**
  * Debug message filter; contains a lists of message types to allow or deny. (D3D11_INFO_QUEUE_FILTER)

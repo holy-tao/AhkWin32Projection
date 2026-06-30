@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMDMStorageGlobals.ahk
+#Include .\OPAQUECOMMAND.ahk
 #Include .\WMDMDATETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WMDMRIGHTS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWMDMEnumStorage.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\IWMDMStorageGlobals.ahk
 
 /**
  * An instance of the IWMDMStorage interface provides methods to examine and explore a storage (a generic name for a data or collection object, such as a file, folder, or playlist) on a device.

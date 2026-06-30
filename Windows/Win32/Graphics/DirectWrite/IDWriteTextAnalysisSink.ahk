@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteNumberSubstitution.ahk
+#Include .\DWRITE_SCRIPT_ANALYSIS.ahk
+#Include .\DWRITE_LINE_BREAKPOINT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface is implemented by the text analyzer's client to receive the output of a given text analysis.

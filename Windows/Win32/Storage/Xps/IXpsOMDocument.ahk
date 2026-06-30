@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMPart.ahk
-#Include .\IXpsOMDocumentSequence.ahk
-#Include .\IXpsOMPageReferenceCollection.ahk
 #Include .\IXpsOMPrintTicketResource.ahk
-#Include .\IXpsOMDocumentStructureResource.ahk
+#Include .\IXpsOMPageReferenceCollection.ahk
 #Include .\IXpsOMSignatureBlockResourceCollection.ahk
+#Include .\IXpsOMDocumentSequence.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IXpsOMDocumentStructureResource.ahk
+#Include .\IXpsOMPart.ahk
 
 /**
  * An ordered sequence of fixed pages and document-level resources that make up the document.

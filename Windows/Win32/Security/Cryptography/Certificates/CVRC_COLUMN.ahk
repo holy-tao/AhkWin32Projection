@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * Column information mask.
- * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-enumcertviewcolumn
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
 class CVRC_COLUMN extends Win32Enum {

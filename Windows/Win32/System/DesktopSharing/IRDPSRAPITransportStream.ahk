@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRDPSRAPITransportStreamEvents.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IRDPSRAPITransportStreamBuffer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that perform operations with streams.

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElement5.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUIAutomationElement5.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomationElement5 interface to provide access to current and cached full descriptions.
@@ -50,7 +51,7 @@ class IUIAutomationElement6 extends IUIAutomationElement5 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_currentfulldescription
      */
     get_CurrentFullDescription() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(108, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -61,7 +62,7 @@ class IUIAutomationElement6 extends IUIAutomationElement5 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_cachedfulldescription
      */
     get_CachedFullDescription() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(109, this, "ptr", retVal, "HRESULT")
         return retVal
     }

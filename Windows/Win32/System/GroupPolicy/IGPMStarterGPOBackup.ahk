@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IGPMResult.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\GPMReportType.ahk
+#Include .\GPMStarterGPOType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMStarterGPOBackup interface supports methods that allow you to delete GPMStarterGPOBackup objects and to retrieve various properties of GPMStarterGPOBackup objects.
@@ -98,7 +102,7 @@ class IGPMStarterGPOBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_BackupDir() {
-        pbstrBackupDir := BSTR()
+        pbstrBackupDir := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrBackupDir, "HRESULT")
         return pbstrBackupDir
     }
@@ -108,7 +112,7 @@ class IGPMStarterGPOBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_Comment() {
-        pbstrComment := BSTR()
+        pbstrComment := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrComment, "HRESULT")
         return pbstrComment
     }
@@ -118,7 +122,7 @@ class IGPMStarterGPOBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        pbstrDisplayName := BSTR()
+        pbstrDisplayName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrDisplayName, "HRESULT")
         return pbstrDisplayName
     }
@@ -128,7 +132,7 @@ class IGPMStarterGPOBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_Domain() {
-        pbstrTemplateDomain := BSTR()
+        pbstrTemplateDomain := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrTemplateDomain, "HRESULT")
         return pbstrTemplateDomain
     }
@@ -138,7 +142,7 @@ class IGPMStarterGPOBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_StarterGPOID() {
-        pbstrTemplateID := BSTR()
+        pbstrTemplateID := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrTemplateID, "HRESULT")
         return pbstrTemplateID
     }
@@ -148,7 +152,7 @@ class IGPMStarterGPOBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_ID() {
-        pbstrID := BSTR()
+        pbstrID := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrID, "HRESULT")
         return pbstrID
     }

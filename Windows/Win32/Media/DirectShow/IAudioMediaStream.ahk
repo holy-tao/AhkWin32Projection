@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMediaStream.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
 #Include .\IAudioStreamSample.ahk
+#Include .\IAudioData.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 
 /**
  * Note  This interface is deprecated.

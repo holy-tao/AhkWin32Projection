@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D11View.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.ahk
 
 /**
  * Identifies the input surfaces that can be accessed during video processing.

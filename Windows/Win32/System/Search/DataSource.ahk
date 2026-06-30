@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\DataSourceListener.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Determines the source of the performance counter data.
- * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-datasourcetypeconstants
  * @namespace Windows.Win32.System.Search
  */
 class DataSource extends IUnknown {

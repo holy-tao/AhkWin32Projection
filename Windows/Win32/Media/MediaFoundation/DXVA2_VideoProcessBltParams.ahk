@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\DXVA2_AYUVSample16.ahk
-#Include .\DXVA2_ExtendedFormat.ahk
-#Include .\DXVA2_ProcAmpValues.ahk
-#Include .\DXVA2_Fixed32.ahk
 #Include .\DXVA2_FilterValues.ahk
+#Include .\DXVA2_Fixed32.ahk
+#Include .\DXVA2_ProcAmpValues.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\DXVA2_ExtendedFormat.ahk
+#Include .\DXVA2_AYUVSample16.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains parameters for the IDirectXVideoProcessor::VideoProcessBlt method.

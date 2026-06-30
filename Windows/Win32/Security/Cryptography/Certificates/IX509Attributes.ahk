@@ -4,6 +4,7 @@
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509Attribute.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IX509Attributes interface defines the following methods and properties that enable you to manage a collection of IX509Attribute objects.

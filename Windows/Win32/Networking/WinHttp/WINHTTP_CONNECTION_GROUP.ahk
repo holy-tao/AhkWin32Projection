@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents a connection group.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.Networking.WinHttp
  */
 class WINHTTP_CONNECTION_GROUP extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
@@ -26,10 +27,13 @@ class WINHTTP_CONNECTION_GROUP extends Win32Struct {
      * Type: **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * A http connection **GUID**.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidGroup {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidGroup"))
+                this.__guidGroup := Guid(4, this)
+            return this.__guidGroup
+        }
     }
 }

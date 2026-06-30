@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Device3.ahk
 #Include .\ID2D1DeviceContext4.ahk
+#Include .\D2D1_DEVICE_CONTEXT_OPTIONS.ahk
+#Include .\ID2D1Device3.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. This interface performs all the same functions as the ID2D1Device3 interface. It also enables the creation of ID2D1DeviceContext4 objects.

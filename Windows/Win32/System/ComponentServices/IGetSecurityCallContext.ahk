@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ISecurityCallContext.ahk
 
 /**

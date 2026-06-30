@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDRAWSURFACE_MORE.ahk
-#Include .\DDRAWI_DDRAWSURFACE_GBL.ahk
-#Include .\ATTACHLIST.ahk
-#Include .\DDSCAPS.ahk
+#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
 #Include .\DDRAWI_DDRAWPALETTE_INT.ahk
 #Include .\DDRAWI_DDRAWCLIPPER_LCL.ahk
+#Include .\ATTACHLIST.ahk
+#Include .\DDRAWI_DDRAWSURFACE_GBL.ahk
+#Include .\DDRAWI_DDRAWSURFACE_MORE.ahk
 #Include .\DDRAWI_DDRAWCLIPPER_INT.ahk
 #Include .\DDCOLORKEY.ahk
 #Include .\DDRAWI_DDRAWSURFACE_INT.ahk
 #Include .\DBLNODE.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
+#Include .\DDSCAPS.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**

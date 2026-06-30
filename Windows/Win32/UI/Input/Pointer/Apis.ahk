@@ -1,5 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\POINTER_DEVICE_CURSOR_INFO.ahk
+#Include .\POINTER_INFO.ahk
+#Include .\POINTER_PEN_INFO.ahk
+#Include ..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include .\INPUT_TRANSFORM.ahk
+#Include .\POINTER_DEVICE_PROPERTY.ahk
+#Include .\POINTER_TYPE_INFO.ahk
+#Include .\POINTER_TOUCH_INFO.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\TOUCH_FEEDBACK_MODE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\HSYNTHETICPOINTERDEVICE.ahk
+#Include .\POINTER_DEVICE_INFO.ahk
+#Include ..\..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Pointer

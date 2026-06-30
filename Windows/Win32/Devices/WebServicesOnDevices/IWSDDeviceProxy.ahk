@@ -1,10 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWSDAddress.ahk
+#Include .\WSD_HOST_METADATA.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\IWSDEndpointProxy.ahk
 #Include .\IWSDAsyncResult.ahk
 #Include .\IWSDServiceProxy.ahk
-#Include .\IWSDEndpointProxy.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WSD_METADATA_SECTION_LIST.ahk
+#Include .\WSD_THIS_DEVICE_METADATA.ahk
+#Include .\IWSDXMLContext.ahk
+#Include .\WSD_THIS_MODEL_METADATA.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a remote Devices Profile for Web Services (DPWS) device for client applications and middleware.

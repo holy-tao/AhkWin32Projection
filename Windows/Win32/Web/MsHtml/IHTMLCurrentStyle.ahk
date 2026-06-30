@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -670,7 +671,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_position() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -680,7 +681,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_styleFloat() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -710,7 +711,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontFamily() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", p, "HRESULT")
         return p
     }
@@ -720,7 +721,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -730,7 +731,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontVariant() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", p, "HRESULT")
         return p
     }
@@ -760,7 +761,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundImage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -790,7 +791,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundRepeat() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", p, "HRESULT")
         return p
     }
@@ -840,7 +841,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderTopStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -850,7 +851,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderRightStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", p, "HRESULT")
         return p
     }
@@ -860,7 +861,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderBottomStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -870,7 +871,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderLeftStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1000,7 +1001,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textAlign() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1010,7 +1011,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textDecoration() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1020,7 +1021,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_display() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(42, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1030,7 +1031,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_visibility() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(43, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1090,7 +1091,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundAttachment() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(49, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1140,7 +1141,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_clear() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(54, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1150,7 +1151,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyleType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(55, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1160,7 +1161,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStylePosition() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(56, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1170,7 +1171,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyleImage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(57, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1220,7 +1221,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_overflow() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(62, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1230,7 +1231,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakBefore() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(63, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1240,7 +1241,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakAfter() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(64, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1250,7 +1251,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_cursor() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(65, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1260,7 +1261,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_tableLayout() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(66, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1270,7 +1271,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderCollapse() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(67, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1280,7 +1281,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_direction() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(68, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1290,7 +1291,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_behavior() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(69, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1314,7 +1315,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_unicodeBidi() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(71, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1344,7 +1345,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_imeMode() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(74, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1354,7 +1355,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_rubyAlign() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(75, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1364,7 +1365,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_rubyPosition() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(76, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1374,7 +1375,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_rubyOverhang() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(77, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1384,7 +1385,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textAutospace() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(78, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1394,7 +1395,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_lineBreak() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(79, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1404,7 +1405,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_wordBreak() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(80, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1414,7 +1415,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textJustify() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(81, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1424,7 +1425,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textJustifyTrim() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(82, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1444,7 +1445,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_blockDirection() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(84, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1474,7 +1475,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_layoutGridMode() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(87, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1484,7 +1485,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_layoutGridType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(88, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1494,7 +1495,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(89, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1504,7 +1505,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderColor() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(90, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1514,7 +1515,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderWidth() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(91, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1524,7 +1525,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_padding() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(92, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1534,7 +1535,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_margin() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(93, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1544,7 +1545,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_accelerator() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(94, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1554,7 +1555,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_overflowX() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(95, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1564,7 +1565,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_overflowY() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(96, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1574,7 +1575,7 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textTransform() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(97, this, "ptr", p, "HRESULT")
         return p
     }

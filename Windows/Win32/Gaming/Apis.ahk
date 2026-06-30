@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include .\GAMING_DEVICE_MODEL_INFORMATION.ahk
+#Include ..\System\WinRT\IInspectable.ahk
+#Include ..\System\WinRT\HSTRING.ahk
+#Include ..\Foundation\BOOL.ahk
+#Include ..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Gaming

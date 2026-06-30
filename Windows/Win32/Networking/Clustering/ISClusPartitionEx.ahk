@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISClusPartition.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISClusPartition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides extended information about a partition on a Physical Disk resource.
@@ -106,7 +107,7 @@ class ISClusPartitionEx extends ISClusPartition {
      * @returns {BSTR} 
      */
     get_VolumeGuid() {
-        pbstrVolumeGuid := BSTR()
+        pbstrVolumeGuid := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pbstrVolumeGuid, "HRESULT")
         return pbstrVolumeGuid
     }

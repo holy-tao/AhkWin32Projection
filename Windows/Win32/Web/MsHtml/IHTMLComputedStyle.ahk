@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -316,10 +318,9 @@ class IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * Evaluates to a Boolean value that indicates whether two CLSIDs are equal.
+     * 
      * @param {IHTMLComputedStyle} pComputedStyle 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/guiddef/nf-guiddef-isequalclsid
      */
     IsEqual(pComputedStyle) {
         result := ComCall(21, this, "ptr", pComputedStyle, "short*", &pfEqual := 0, "HRESULT")

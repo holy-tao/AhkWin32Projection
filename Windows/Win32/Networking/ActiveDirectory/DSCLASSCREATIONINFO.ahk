@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Used with the IDsDisplaySpecifier::GetClassCreationInfo method to hold data about the class creation wizard objects for an object class.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DSCLASSCREATIONINFO extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -21,20 +22,26 @@ class DSCLASSCREATIONINFO extends Win32Struct {
 
     /**
      * Contains the class identifier of the class creation wizard dialog box. This member is not used if <b>dwFlags</b> does not contain <b>DSCCIF_HASWIZARDDIALOG</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidWizardDialog {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsidWizardDialog"))
+                this.__clsidWizardDialog := Guid(4, this)
+            return this.__clsidWizardDialog
+        }
     }
 
     /**
      * Contains the class identifier of the primary property page of the class creation wizard. This member is not used if <b>dwFlags</b> does not contain <b>DSCCIF_HASWIZARDPRIMARYPAGE</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidWizardPrimaryPage {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__clsidWizardPrimaryPage"))
+                this.__clsidWizardPrimaryPage := Guid(20, this)
+            return this.__clsidWizardPrimaryPage
+        }
     }
 
     /**
@@ -42,8 +49,8 @@ class DSCLASSCREATIONINFO extends Win32Struct {
      * @type {Integer}
      */
     cWizardExtensions {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -53,7 +60,7 @@ class DSCLASSCREATIONINFO extends Win32Struct {
     aWizardExtensions {
         get {
             if(!this.HasProp("__aWizardExtensionsProxyArray"))
-                this.__aWizardExtensionsProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "ptr")
+                this.__aWizardExtensionsProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "ptr")
             return this.__aWizardExtensionsProxyArray
         }
     }

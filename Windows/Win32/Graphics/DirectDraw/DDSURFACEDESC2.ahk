@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS2.ahk
 #Include .\DDCOLORKEY.ahk
 #Include .\DDPIXELFORMAT.ahk
-#Include .\DDSCAPS2.ahk
 
 /**
  * The DDSURFACEDESC2 structure contains a description of a surface to be created by the driver.

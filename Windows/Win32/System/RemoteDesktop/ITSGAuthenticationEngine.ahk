@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ITSGAuthenticateUserSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that authenticate users for Remote Desktop Gateway (RD Gateway).

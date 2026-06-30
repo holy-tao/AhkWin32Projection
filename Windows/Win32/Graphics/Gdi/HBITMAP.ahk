@@ -4,8 +4,6 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * Frees resources on the server side when called by RPC stub files.
- * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userfree
  * @namespace Windows.Win32.Graphics.Gdi
  */
 class HBITMAP extends Win32Handle {

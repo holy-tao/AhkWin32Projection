@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1DeviceContext4.ahk
+#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include Common\D2D_SIZE_F.ahk
 #Include .\ID2D1SvgDocument.ahk
+#Include .\ID2D1DeviceContext4.ahk
+#Include .\D2D1_SIMPLE_COLOR_PROFILE.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\ID2D1ColorContext1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext4 interface, plus it enables the creation of color contexts and Svg documents.

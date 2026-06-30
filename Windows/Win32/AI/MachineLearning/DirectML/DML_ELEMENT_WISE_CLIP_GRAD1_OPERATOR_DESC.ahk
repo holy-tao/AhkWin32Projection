@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
 #Include .\DML_TENSOR_DATA_TYPE.ahk
 #Include .\DML_SCALAR_UNION.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Computes backpropagation gradients for [element-wise clip](/windows/win32/api/directml/ns-directml-dml_element_wise_clip1_operator_desc).

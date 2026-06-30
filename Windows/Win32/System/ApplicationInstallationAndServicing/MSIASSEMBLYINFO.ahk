@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * .NET Assembly
- * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblya
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class MSIASSEMBLYINFO extends Win32Enum {

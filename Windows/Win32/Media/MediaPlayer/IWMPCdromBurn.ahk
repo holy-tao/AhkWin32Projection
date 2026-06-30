@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IWMPPlaylist.ahk
+#Include .\WMPBurnFormat.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\WMPBurnState.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMPCdromBurn interface provides methods to manage creating audio CDs.

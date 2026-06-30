@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DS_SELECTION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\DS_SELECTION.ahk
 
 /**
  * The DS_SELECTION_LIST structure contains data about the objects the user selected from an object picker dialog box.

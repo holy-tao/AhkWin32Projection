@@ -1,5 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\SIP_SUBJECTINFO.ahk
+#Include ..\CERT_QUERY_ENCODING_TYPE.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\SIP_CAP_SET_V3.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\SIP_ADD_NEWPROVIDER.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\SIP_DISPATCH_INFO.ahk
+#Include .\SIP_INDIRECT_DATA.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Sip

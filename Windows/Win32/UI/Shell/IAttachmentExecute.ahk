@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ATTACHMENT_ACTION.ahk
+#Include .\ATTACHMENT_PROMPT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that work with client applications to present a user environment that provides safe download and exchange of files through email and messaging attachments.
@@ -466,7 +472,7 @@ class IAttachmentExecute extends IUnknown {
         _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszVerb := pszVerb is String ? StrPtr(pszVerb) : pszVerb
 
-        phProcess := HANDLE()
+        phProcess := HANDLE({Value: 0}, True)
         result := ComCall(12, this, "ptr", _hwnd, "ptr", pszVerb, "ptr", phProcess, "HRESULT")
         return phProcess
     }

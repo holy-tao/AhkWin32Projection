@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
 class GHOSTED_FILE_EXTENT extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -26,27 +27,30 @@ class GHOSTED_FILE_EXTENT extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     RecallOwnerGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__RecallOwnerGuid"))
+                this.__RecallOwnerGuid := Guid(16, this)
+            return this.__RecallOwnerGuid
+        }
     }
 
     /**
      * @type {Integer}
      */
     NextEntryOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     RecallMetadataBufferSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -55,7 +59,7 @@ class GHOSTED_FILE_EXTENT extends Win32Struct {
     RecallMetadataBuffer {
         get {
             if(!this.HasProp("__RecallMetadataBufferProxyArray"))
-                this.__RecallMetadataBufferProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__RecallMetadataBufferProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
             return this.__RecallMetadataBufferProxyArray
         }
     }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The PDH_FMT_COUNTERVALUE structure contains the computed value of the counter and its status.

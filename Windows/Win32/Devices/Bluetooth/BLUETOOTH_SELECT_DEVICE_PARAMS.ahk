@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BLUETOOTH_COD_PAIRS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\BLUETOOTH_DEVICE_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\BLUETOOTH_COD_PAIRS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Facilitates and manages the visibility, authentication, and selection of Bluetooth devices and services.

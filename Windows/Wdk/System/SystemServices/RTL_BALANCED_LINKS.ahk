@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RTL_BALANCED_LINKS.ahk
+#Include ..\..\..\Win32\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

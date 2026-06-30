@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Sets a value that indicates whether the Business Rule (BizRule) allows the user to perform the requested task.
- * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizrulecontext-put_businessruleresult
  * @namespace Windows.Win32.Security.Authorization
  */
 class AzBizRuleContext extends Win32Struct {

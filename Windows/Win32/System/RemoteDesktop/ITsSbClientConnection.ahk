@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITsSbLoadBalanceResult.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include .\ITsSbEnvironment.ahk
-#Include .\ITsSbClientConnectionPropertySet.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ITsSbLoadBalanceResult.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\ITsSbSession.ahk
+#Include .\ITsSbClientConnectionPropertySet.ahk
+#Include .\RD_FARM_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods and properties that store state information about an incoming connection request from a Remote Desktop Connection (RDC) client.
@@ -118,7 +121,7 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_username
      */
     get_UserName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -129,7 +132,7 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_domain
      */
     get_Domain() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -140,7 +143,7 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_initialprogram
      */
     get_InitialProgram() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -163,7 +166,7 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_farmname
      */
     get_FarmName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -227,7 +230,7 @@ class ITsSbClientConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_samuseraccount
      */
     get_SamUserAccount() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pVal, "HRESULT")
         return pVal
     }

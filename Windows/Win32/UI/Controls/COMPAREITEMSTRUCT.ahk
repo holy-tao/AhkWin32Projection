@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
 
 /**
  * Supplies the identifiers and application-supplied data for two items in a sorted, owner-drawn list box or combo box.

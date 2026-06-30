@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IMpeg2Data.ahk
+#Include .\ISectionList.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Gets data from an Integrated Services Digital Broadcasting (ISDB) entitlement management message (EMM) table.

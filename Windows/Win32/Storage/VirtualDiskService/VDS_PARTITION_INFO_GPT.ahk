@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Defines details of a GUID partition table (GPT) partition.
@@ -13,26 +14,32 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_PARTITION_INFO_GPT extends Win32Struct {
-    static sizeof => 96
+    static sizeof => 112
 
     static packingSize => 8
 
     /**
      * GUID for the partition type.
-     * @type {Pointer}
+     * @type {Guid}
      */
     partitionType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__partitionType"))
+                this.__partitionType := Guid(0, this)
+            return this.__partitionType
+        }
     }
 
     /**
      * GUID for the partition.
-     * @type {Pointer}
+     * @type {Guid}
      */
     partitionId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__partitionId"))
+                this.__partitionId := Guid(16, this)
+            return this.__partitionId
+        }
     }
 
     /**
@@ -40,8 +47,8 @@ class VDS_PARTITION_INFO_GPT extends Win32Struct {
      * @type {Integer}
      */
     attributes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -49,7 +56,7 @@ class VDS_PARTITION_INFO_GPT extends Win32Struct {
      * @type {String}
      */
     name {
-        get => StrGet(this.ptr + 24, 35, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 35, "UTF-16")
+        get => StrGet(this.ptr + 40, 35, "UTF-16")
+        set => StrPut(value, this.ptr + 40, 35, "UTF-16")
     }
 }

@@ -1,6 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\HEAPLIST32.ahk
+#Include .\MODULEENTRY32W.ahk
+#Include .\PROCESSENTRY32.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\THREADENTRY32.ahk
+#Include .\CREATE_TOOLHELP_SNAPSHOT_FLAGS.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\PROCESSENTRY32W.ahk
+#Include .\MODULEENTRY32.ahk
+#Include .\HEAPENTRY32.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp

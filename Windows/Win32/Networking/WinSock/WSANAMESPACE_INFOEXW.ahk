@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains all registration information for a namespace provider. (WSANAMESPACE_INFOEXW)
@@ -27,7 +30,7 @@
  * @charset Unicode
  */
 class WSANAMESPACE_INFOEXW extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -35,11 +38,14 @@ class WSANAMESPACE_INFOEXW extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * A unique GUID for this namespace provider.
-     * @type {Pointer}
+     * @type {Guid}
      */
     NSProviderId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__NSProviderId"))
+                this.__NSProviderId := Guid(0, this)
+            return this.__NSProviderId
+        }
     }
 
     /**
@@ -141,8 +147,8 @@ class WSANAMESPACE_INFOEXW extends Win32Struct {
      * @type {Integer}
      */
     dwNameSpace {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -152,8 +158,8 @@ class WSANAMESPACE_INFOEXW extends Win32Struct {
      * @type {BOOL}
      */
     fActive {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -163,8 +169,8 @@ class WSANAMESPACE_INFOEXW extends Win32Struct {
      * @type {Integer}
      */
     dwVersion {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -174,8 +180,8 @@ class WSANAMESPACE_INFOEXW extends Win32Struct {
      * @type {PWSTR}
      */
     lpszIdentifier {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -187,7 +193,7 @@ class WSANAMESPACE_INFOEXW extends Win32Struct {
     ProviderSpecific {
         get {
             if(!this.HasProp("__ProviderSpecific"))
-                this.__ProviderSpecific := BLOB(32, this)
+                this.__ProviderSpecific := BLOB(40, this)
             return this.__ProviderSpecific
         }
     }

@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace4.ahk
 #Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\IDWriteFontFace4.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IDWriteFontResource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace5)

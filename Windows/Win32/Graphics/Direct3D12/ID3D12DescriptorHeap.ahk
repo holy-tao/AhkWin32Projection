@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_DESCRIPTOR_HEAP_DESC.ahk
+#Include .\D3D12_GPU_DESCRIPTOR_HANDLE.ahk
+#Include .\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
 #Include .\ID3D12Pageable.ahk
 
 /**

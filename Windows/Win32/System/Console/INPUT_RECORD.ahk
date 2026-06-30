@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KEY_EVENT_RECORD.ahk
-#Include .\MOUSE_EVENT_RECORD.ahk
 #Include .\COORD.ahk
-#Include .\WINDOW_BUFFER_SIZE_RECORD.ahk
+#Include .\MOUSE_EVENT_RECORD.ahk
 #Include .\MENU_EVENT_RECORD.ahk
 #Include .\FOCUS_EVENT_RECORD.ahk
+#Include .\KEY_EVENT_RECORD.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WINDOW_BUFFER_SIZE_RECORD.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * See reference information about the INPUT_RECORD structure, which describes an input event in the console input buffer.
@@ -17,7 +19,7 @@ class INPUT_RECORD extends Win32Struct {
 
     static packingSize => 4
 
-    class _Event_e__Union extends Win32Struct {
+    class _Event extends Win32Struct {
         static sizeof => 16
         static packingSize => 4
 
@@ -98,12 +100,12 @@ class INPUT_RECORD extends Win32Struct {
 
     /**
      * The event information. The format of this member depends on the event type specified by the **EventType** member.
-     * @type {_Event_e__Union}
+     * @type {_Event}
      */
     Event {
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := INPUT_RECORD._Event_e__Union(4, this)
+                this.__Event := INPUT_RECORD._Event(4, this)
             return this.__Event
         }
     }

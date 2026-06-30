@@ -2,7 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\WPCFLAG_RESTRICTION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Accesses general settings for the user.

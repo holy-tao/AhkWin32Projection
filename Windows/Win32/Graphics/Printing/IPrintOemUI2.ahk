@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Gdi\HDC.ahk
 #Include .\IPrintOemUI.ahk
+#Include .\PRINTER_HANDLE.ahk
+#Include ..\Gdi\DEVMODEA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

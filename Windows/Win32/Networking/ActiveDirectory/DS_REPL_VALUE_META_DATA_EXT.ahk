@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct {
-    static sizeof => 112
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -84,58 +86,61 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidLastOriginatingDsaInvocationID {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__uuidLastOriginatingDsaInvocationID"))
+                this.__uuidLastOriginatingDsaInvocationID := Guid(60, this)
+            return this.__uuidLastOriginatingDsaInvocationID
+        }
     }
 
     /**
      * @type {Integer}
      */
     usnOriginatingChange {
-        get => NumGet(this, 72, "int64")
-        set => NumPut("int64", value, this, 72)
+        get => NumGet(this, 80, "int64")
+        set => NumPut("int64", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     usnLocalChange {
-        get => NumGet(this, 80, "int64")
-        set => NumPut("int64", value, this, 80)
+        get => NumGet(this, 88, "int64")
+        set => NumPut("int64", value, this, 88)
     }
 
     /**
      * @type {PWSTR}
      */
     pszLastOriginatingDsaDN {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     dwUserIdentifier {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     dwPriorLinkState {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
      * @type {Integer}
      */
     dwCurrentLinkState {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 }

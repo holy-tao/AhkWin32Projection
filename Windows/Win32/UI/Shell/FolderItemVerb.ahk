@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a single verb available to an item. This object contains properties and methods that allow you to retrieve information about the verb.
@@ -80,7 +81,7 @@ class FolderItemVerb extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbs := BSTR()
+        pbs := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbs, "HRESULT")
         return pbs
     }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -37,9 +38,8 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * Returns the length, in bytes, of a valid security identifier (SID).
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WMT_WATERMARK_ENTRY_TYPE.ahk
 
 /**
@@ -23,11 +25,14 @@ class WMT_WATERMARK_ENTRY extends Win32Struct {
 
     /**
      * GUID value identifying the watermarking system.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(4, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -35,8 +40,8 @@ class WMT_WATERMARK_ENTRY extends Win32Struct {
      * @type {Integer}
      */
     cbDisplayName {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**

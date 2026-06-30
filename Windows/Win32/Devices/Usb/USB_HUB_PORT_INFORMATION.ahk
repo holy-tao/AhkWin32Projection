@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_DEVICE_STATE.ahk
 #Include .\USB_CONNECTION_STATUS.ahk
+#Include .\USB_DEVICE_STATE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITQueue interface (tapi3cc.h) gets and sets information concerning a queue.
@@ -299,7 +300,7 @@ class ITQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_name
      */
     get_Name() {
-        ppName := BSTR()
+        ppName := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", ppName, "HRESULT")
         return ppName
     }

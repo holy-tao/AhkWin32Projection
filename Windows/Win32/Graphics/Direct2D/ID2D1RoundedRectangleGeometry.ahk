@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Geometry.ahk
+#Include .\D2D1_ROUNDED_RECT.ahk
 
 /**
  * Describes a rounded rectangle.

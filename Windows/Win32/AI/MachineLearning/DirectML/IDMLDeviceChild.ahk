@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\IDMLObject.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * An interface implemented by all objects created from the DirectML device.

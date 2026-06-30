@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_ALGORITHM_ID.ahk
 #Include .\WS_SECURITY_ALGORITHM_PROPERTY.ahk
+#Include .\WS_SECURITY_ALGORITHM_ID.ahk
 
 /**
  * Defines the security algorithms and key lengths to be used with WS-Security. This setting is relevant to message security bindings and mixed-mode security bindings.

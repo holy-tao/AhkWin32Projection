@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WINBIO_IDENTITY.ahk
 
 /**
@@ -24,17 +25,20 @@ class WINBIO_PROTECTION_POLICY extends Win32Struct {
     Identity {
         get {
             if(!this.HasProp("__Identity"))
-                this.__Identity := WINBIO_IDENTITY(8, this)
+                this.__Identity := WINBIO_IDENTITY(4, this)
             return this.__Identity
         }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     DatabaseId {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get {
+            if(!this.HasProp("__DatabaseId"))
+                this.__DatabaseId := Guid(80, this)
+            return this.__DatabaseId
+        }
     }
 
     /**

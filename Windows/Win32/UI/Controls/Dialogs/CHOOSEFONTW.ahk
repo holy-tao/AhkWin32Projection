@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\COLORREF.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
-#Include .\CHOOSEFONT_FLAGS.ahk
-#Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include .\CHOOSEFONT_FONT_TYPE.ahk
+#Include .\CHOOSEFONT_FLAGS.ahk
 
 /**
  * Contains information that the ChooseFont function uses to initialize the Font dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. (Unicode)

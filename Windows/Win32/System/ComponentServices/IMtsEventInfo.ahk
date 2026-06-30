@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes user-defined events.
@@ -76,7 +77,7 @@ class IMtsEventInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtseventinfo-get_displayname
      */
     get_DisplayName() {
-        sDisplayName := BSTR()
+        sDisplayName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", sDisplayName, "HRESULT")
         return sDisplayName
     }
@@ -87,7 +88,7 @@ class IMtsEventInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtseventinfo-get_eventid
      */
     get_EventID() {
-        sGuidEventID := BSTR()
+        sGuidEventID := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", sGuidEventID, "HRESULT")
         return sGuidEventID
     }

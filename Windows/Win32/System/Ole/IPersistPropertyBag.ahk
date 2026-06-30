@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IErrorLog.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\Com\IPersist.ahk
+#Include ..\Com\StructuredStorage\IPropertyBag.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Works with [IPropertyBag](/windows/win32/api/oaidl/nn-oaidl-ipropertybag) and [IErrorlog](/windows/win32/api/oaidl/nn-oaidl-ierrorlog) to define an individual property-based persistence mechanism.

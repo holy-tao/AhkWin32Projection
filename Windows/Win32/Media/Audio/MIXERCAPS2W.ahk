@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
 class MIXERCAPS2W extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 128
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -59,26 +60,35 @@ class MIXERCAPS2W extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ManufacturerGuid {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get {
+            if(!this.HasProp("__ManufacturerGuid"))
+                this.__ManufacturerGuid := Guid(80, this)
+            return this.__ManufacturerGuid
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProductGuid {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get {
+            if(!this.HasProp("__ProductGuid"))
+                this.__ProductGuid := Guid(96, this)
+            return this.__ProductGuid
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     NameGuid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get {
+            if(!this.HasProp("__NameGuid"))
+                this.__NameGuid := Guid(112, this)
+            return this.__NameGuid
+        }
     }
 }

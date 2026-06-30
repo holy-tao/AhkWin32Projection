@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_FIELD_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FWP_DATA_TYPE.ahk
+#Include .\FWPM_FIELD_TYPE.ahk
 
 /**
  * Specifies schema information for a field.

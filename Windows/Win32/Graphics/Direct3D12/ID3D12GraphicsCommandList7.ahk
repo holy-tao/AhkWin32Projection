@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12GraphicsCommandList6.ahk
+#Include .\D3D12_BARRIER_GROUP.ahk
 
 /**
  * TBD

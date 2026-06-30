@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\Controls\HPROPSHEETPAGE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods used by a wizard extension to navigate the borders between itself and the rest of the wizard.
@@ -40,7 +41,7 @@ class IWizardSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardsite-getpreviouspage
      */
     GetPreviousPage() {
-        phpage := HPROPSHEETPAGE()
+        phpage := HPROPSHEETPAGE({Value: 0}, True)
         result := ComCall(3, this, "ptr", phpage, "HRESULT")
         return phpage
     }
@@ -53,7 +54,7 @@ class IWizardSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardsite-getnextpage
      */
     GetNextPage() {
-        phpage := HPROPSHEETPAGE()
+        phpage := HPROPSHEETPAGE({Value: 0}, True)
         result := ComCall(4, this, "ptr", phpage, "HRESULT")
         return phpage
     }
@@ -66,7 +67,7 @@ class IWizardSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardsite-getcancelledpage
      */
     GetCancelledPage() {
-        phpage := HPROPSHEETPAGE()
+        phpage := HPROPSHEETPAGE({Value: 0}, True)
         result := ComCall(5, this, "ptr", phpage, "HRESULT")
         return phpage
     }

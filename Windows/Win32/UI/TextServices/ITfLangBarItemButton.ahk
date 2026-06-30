@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITfLangBarItem.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\TfLBIClick.ahk
+#Include .\ITfMenu.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The ITfLangBarItemButton interface is implemented by a language bar button provider and used by the language bar manager to obtain information about a button item on the language bar.
@@ -171,7 +176,7 @@ class ITfLangBarItemButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembutton-geticon
      */
     GetIcon() {
-        phIcon := HICON()
+        phIcon := HICON({Value: 0}, True)
         result := ComCall(10, this, "ptr", phIcon, "HRESULT")
         return phIcon
     }
@@ -182,7 +187,7 @@ class ITfLangBarItemButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembutton-gettext
      */
     GetText() {
-        pbstrText := BSTR()
+        pbstrText := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrText, "HRESULT")
         return pbstrText
     }

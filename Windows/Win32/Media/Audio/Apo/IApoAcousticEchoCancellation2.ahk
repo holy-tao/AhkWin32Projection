@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IApoAcousticEchoCancellation.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\APO_REFERENCE_STREAM_PROPERTIES.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo

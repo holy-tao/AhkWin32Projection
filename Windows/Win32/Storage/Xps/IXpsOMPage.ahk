@@ -1,13 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMPart.ahk
 #Include .\IXpsOMPageReference.ahk
-#Include .\IXpsOMVisualCollection.ahk
-#Include .\XPS_SIZE.ahk
 #Include .\XPS_RECT.ahk
-#Include .\IXpsOMDictionary.ahk
+#Include .\IXpsOMPart.ahk
 #Include .\IXpsOMRemoteDictionaryResource.ahk
+#Include ..\..\System\Com\ISequentialStream.ahk
+#Include .\XPS_SIZE.ahk
+#Include .\IXpsOMDictionary.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\XPS_OBJECT_TYPE.ahk
+#Include .\IXpsOMVisualCollection.ahk
 
 /**
  * Provides the root node of a tree of objects that hold the contents of a single page.

@@ -1,8 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\UICloseReasonType.ahk
+#Include .\SmartCardAssociationType.ahk
+#Include .\EALocationCodeType.ahk
+#Include .\EntitlementType.ahk
+#Include .\SmartCardApplication.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SmartCardStatusType.ahk
 
 /**
  * The IBDA_ConditionalAccess interface provides conditional access to program content.
@@ -153,7 +161,7 @@ class IBDA_ConditionalAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-getmoduleui
      */
     GetModuleUI(byDialogNumber) {
-        pbstrURL := BSTR()
+        pbstrURL := BSTR({Value: 0}, True)
         result := ComCall(11, this, "char", byDialogNumber, "ptr", pbstrURL, "HRESULT")
         return pbstrURL
     }

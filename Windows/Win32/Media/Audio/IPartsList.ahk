@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPart.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IPartsList interface represents a list of parts, each of which is an object with an IPart interface that represents a connector or subunit.

@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\XAUDIO2_BUFFER_WMA.ahk
 #Include .\IXAudio2Voice.ahk
+#Include .\XAUDIO2_VOICE_STATE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\XAUDIO2_BUFFER.ahk
 
 /**
  * Use a source voice to submit audio data to the XAudio2 processing pipeline.

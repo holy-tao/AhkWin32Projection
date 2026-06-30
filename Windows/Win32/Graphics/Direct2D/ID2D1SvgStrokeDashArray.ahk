@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1SvgAttribute.ahk
 #Include .\D2D1_SVG_LENGTH.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1SvgAttribute.ahk
 
 /**
  * Interface describing an SVG stroke-dasharray value.

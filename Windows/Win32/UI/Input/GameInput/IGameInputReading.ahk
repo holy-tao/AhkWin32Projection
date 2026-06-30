@@ -1,6 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\GameInputSwitchPosition.ahk
+#Include .\IGameInputDevice.ahk
+#Include .\GameInputFlightStickState.ahk
+#Include .\GameInputGamepadState.ahk
+#Include .\GameInputRacingWheelState.ahk
+#Include .\GameInputKeyState.ahk
+#Include .\GameInputArcadeStickState.ahk
+#Include .\GameInputKind.ahk
+#Include .\GameInputMotionState.ahk
+#Include .\GameInputMouseState.ahk
+#Include .\GameInputTouchState.ahk
+#Include .\IGameInputRawDeviceReport.ahk
+#Include .\GameInputUiNavigationState.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,16 +60,8 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * Retrieves the time stamp of a loaded image.
-     * @remarks
-     * The time stamp for an image is initially set by the linker, but it can be modified by operations such as rebasing. The value is represented in the number of seconds elapsed since midnight (00:00:00), January 1, 1970, Universal Coordinated Time, according to the system clock. The time stamp can be printed using the C run-time (CRT) function ctime.
      * 
-     * All <a href="https://docs.microsoft.com/windows/desktop/Debug/dbghelp-functions">DbgHelp Functions</a>, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
-     * @returns {Integer} If the function succeeds, the return value is the time stamp from the image.
-     * 
-     * If the function fails, the return value is zero. To retrieve extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-gettimestampforloadedlibrary
+     * @returns {Integer} 
      */
     GetTimestamp() {
         result := ComCall(5, this, "uint")
@@ -64,57 +69,9 @@ class IGameInputReading extends IUnknown {
     }
 
     /**
-     * The GetDeviceCaps function retrieves device-specific information for the specified device.
-     * @remarks
-     * When <i>nIndex</i> is SHADEBLENDCAPS:
      * 
-     * <ul>
-     * <li>For a printer, <b>GetDeviceCaps</b> returns whatever the printer reports.</li>
-     * <li>For a display device, all blending operations are available; besides SB_NONE, the only return values are SB_CONST_ALPHA and SB_PIXEL_ALPHA, which indicate whether these operations are accelerated.</li>
-     * </ul>
-     * On a multiple monitor system, if <i>hdc</i> is the desktop, <b>GetDeviceCaps</b> returns the capabilities of the primary monitor. If you want info for other monitors, you must use the <a href="https://docs.microsoft.com/windows/desktop/gdi/multiple-display-monitors-reference">multi-monitor APIs</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> to get a HDC for the device context (DC) of a specific monitor.  
-     * 
-     * <div class="alert"><b>Note</b>  Display1 is typically the primary monitor, but not always.</div>
-     * <div> </div>
-     * <b>GetDeviceCaps</b> provides the following six indexes in place of printer escapes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Index</th>
-     * <th>Printer escape replaced</th>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALWIDTH</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALHEIGHT</td>
-     * <td>GETPHYSPAGESIZE</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETX</td>
-     * <td>GETPRINTINGOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>PHYSICALOFFSETY</td>
-     * <td>GETPHYSICALOFFSET</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORX</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * <tr>
-     * <td>SCALINGFACTORY</td>
-     * <td>GETSCALINGFACTOR</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * <div class="alert"><b>Note</b>  <b>GetDeviceCaps</b> reports info that the display driver provides. If the display driver declines to report any info, <b>GetDeviceCaps</b> calculates the info based on fixed calculations. If the display driver reports invalid info, <b>GetDeviceCaps</b> returns the invalid info. Also, if the display driver declines to report info, <b>GetDeviceCaps</b> might calculate incorrect info because it assumes either fixed DPI (96 DPI) or a fixed size (depending on the info that the display driver did and didn’t provide). Unfortunately, a display driver that is implemented to the Windows Display Driver Model (WDDM) (introduced in Windows Vista) causes GDI to not get the info, so <b>GetDeviceCaps</b> must always calculate the info.</div>
-     * <div> </div>
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdevicecaps
      */
     GetDevice(device) {
         ComCall(6, this, "ptr*", device)

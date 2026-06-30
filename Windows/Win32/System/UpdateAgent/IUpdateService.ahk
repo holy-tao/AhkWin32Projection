@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IStringCollection.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains information about a service that is registered with Windows Update Agent (WUA) or with Automatic Updates. (IUpdateService)
@@ -131,7 +133,7 @@ class IUpdateService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_name
      */
     get_Name() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -213,7 +215,7 @@ class IUpdateService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_serviceid
      */
     get_ServiceID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -244,7 +246,7 @@ class IUpdateService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_serviceurl
      */
     get_ServiceUrl() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -255,7 +257,7 @@ class IUpdateService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_setupprefix
      */
     get_SetupPrefix() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", retval, "HRESULT")
         return retval
     }

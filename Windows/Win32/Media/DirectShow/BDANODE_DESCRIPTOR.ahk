@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
 class BDANODE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -18,18 +19,24 @@ class BDANODE_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidFunction {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidFunction"))
+                this.__guidFunction := Guid(4, this)
+            return this.__guidFunction
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidName"))
+                this.__guidName := Guid(20, this)
+            return this.__guidName
+        }
     }
 }

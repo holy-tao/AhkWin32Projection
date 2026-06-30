@@ -1,30 +1,31 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_NOTIFICATION_TARGET_TYPE.ahk
-#Include .\VDS_PACK_NOTIFICATION.ahk
-#Include .\VDS_NF_PACK.ahk
-#Include .\VDS_DISK_NOTIFICATION.ahk
+#Include .\VDS_PORT_NOTIFICATION.ahk
+#Include .\VDS_NF_FILE_SYSTEM.ahk
+#Include .\VDS_SUB_SYSTEM_NOTIFICATION.ahk
+#Include .\VDS_DRIVE_LETTER_NOTIFICATION.ahk
 #Include .\VDS_NF_DISK.ahk
 #Include .\VDS_VOLUME_NOTIFICATION.ahk
-#Include .\VDS_PARTITION_NOTIFICATION.ahk
-#Include .\VDS_DRIVE_LETTER_NOTIFICATION.ahk
-#Include .\VDS_FILE_SYSTEM_NOTIFICATION.ahk
-#Include .\VDS_NF_FILE_SYSTEM.ahk
-#Include .\VDS_MOUNT_POINT_NOTIFICATION.ahk
-#Include .\VDS_SUB_SYSTEM_NOTIFICATION.ahk
-#Include .\VDS_CONTROLLER_NOTIFICATION.ahk
-#Include .\VDS_NF_CONTROLLER.ahk
 #Include .\VDS_DRIVE_NOTIFICATION.ahk
-#Include .\VDS_NF_DRIVE.ahk
 #Include .\VDS_LUN_NOTIFICATION.ahk
-#Include .\VDS_NF_LUN.ahk
-#Include .\VDS_PORT_NOTIFICATION.ahk
-#Include .\VDS_NF_PORT.ahk
 #Include .\VDS_PORTAL_NOTIFICATION.ahk
-#Include .\VDS_TARGET_NOTIFICATION.ahk
-#Include .\VDS_PORTAL_GROUP_NOTIFICATION.ahk
 #Include .\VDS_SERVICE_NOTIFICATION.ahk
+#Include .\VDS_MOUNT_POINT_NOTIFICATION.ahk
+#Include .\VDS_NF_DRIVE.ahk
 #Include .\VDS_RECOVER_ACTION.ahk
+#Include .\VDS_TARGET_NOTIFICATION.ahk
+#Include .\VDS_NF_PORT.ahk
+#Include .\VDS_FILE_SYSTEM_NOTIFICATION.ahk
+#Include .\VDS_PARTITION_NOTIFICATION.ahk
+#Include .\VDS_NF_PACK.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\VDS_NF_LUN.ahk
+#Include .\VDS_PACK_NOTIFICATION.ahk
+#Include .\VDS_NF_CONTROLLER.ahk
+#Include .\VDS_NOTIFICATION_TARGET_TYPE.ahk
+#Include .\VDS_PORTAL_GROUP_NOTIFICATION.ahk
+#Include .\VDS_DISK_NOTIFICATION.ahk
+#Include .\VDS_CONTROLLER_NOTIFICATION.ahk
 
 /**
  * The VDS_NOTIFICATION structure (vdshwprv.h) defines the VDS notification structures specific to each notification target type (subject).
@@ -37,7 +38,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_NOTIFICATION extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWSDAttachment.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows applications to read MIME-encoded attachment data from an incoming message.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains media type information for registering a Media Foundation transform (MFT).
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class MFT_REGISTER_TYPE_INFO extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The major media type. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-type-guids">Major Media Types</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidMajorType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidMajorType"))
+                this.__guidMajorType := Guid(0, this)
+            return this.__guidMajorType
+        }
     }
 
     /**
@@ -31,10 +35,13 @@ class MFT_REGISTER_TYPE_INFO extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/medfound/video-subtype-guids">Video Subtype GUIDs</a>
      * </li>
      * </ul>
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidSubtype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidSubtype"))
+                this.__guidSubtype := Guid(16, this)
+            return this.__guidSubtype
+        }
     }
 }

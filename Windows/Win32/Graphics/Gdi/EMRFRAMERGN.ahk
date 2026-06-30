@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
 #Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\RECTL.ahk
 
 /**
  * The EMRFRAMERGN structure contains members for the FrameRgn enhanced metafile record.

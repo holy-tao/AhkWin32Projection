@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Image.ahk
+#Include .\D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES.ahk
+#Include .\ID2D1ImageSource.ahk
 
 /**
  * Represents an image source which shares resources with an original image source.

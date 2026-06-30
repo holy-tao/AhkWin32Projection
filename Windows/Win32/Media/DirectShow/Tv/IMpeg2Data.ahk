@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ISectionList.ahk
+#Include .\MPEG2_FILTER.ahk
 #Include .\IMpeg2Stream.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\ISectionList.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * IMpeg2Data is no longer available for use as of Windows 7.

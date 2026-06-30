@@ -1,8 +1,48 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\ADS_ATTR_INFO.ahk
+#Include .\DS_NAME_FLAGS.ahk
+#Include .\SCHEDULE.ahk
+#Include .\ADSPROPINITPARAMS.ahk
+#Include ..\WinSock\SOCKET_ADDRESS.ahk
+#Include .\ADSVALUE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DS_DOMAIN_TRUSTSA.ahk
+#Include .\DS_MANGLE_FOR.ahk
+#Include .\ADS_AUTHENTICATION_ENUM.ahk
+#Include .\DSBROWSEINFOA.ahk
+#Include .\ADSPROPERROR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DS_SITE_COST_INFO.ahk
+#Include ..\..\Security\Authentication\Identity\LSA_FOREST_TRUST_INFORMATION.ahk
+#Include .\DS_REPSYNCALL_ERRINFOW.ahk
+#Include ..\..\System\Com\IDataObject.ahk
+#Include .\DS_NAME_FORMAT.ahk
+#Include .\DOMAIN_CONTROLLER_INFOW.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\DS_SCHEMA_GUID_MAPA.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DS_SPN_WRITE_OP.ahk
+#Include .\DS_SCHEMA_GUID_MAPW.ahk
+#Include .\DS_NAME_RESULTW.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DS_SPN_NAME_TYPE.ahk
+#Include .\DS_REPL_INFO_TYPE.ahk
+#Include .\IADsContainer.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\DS_KCC_TASKID.ahk
+#Include .\DOMAIN_CONTROLLER_INFOA.ahk
+#Include .\DSROLE_PRIMARY_DOMAIN_INFO_LEVEL.ahk
+#Include .\DS_NAME_RESULTA.ahk
+#Include .\DS_REPSYNCALL_ERRINFOA.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\DSBROWSEINFOW.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include .\DS_DOMAIN_TRUSTSW.ahk
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory

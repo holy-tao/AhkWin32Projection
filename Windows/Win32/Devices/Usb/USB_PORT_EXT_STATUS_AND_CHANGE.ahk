@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_PORT_STATUS_AND_CHANGE.ahk
-#Include .\USB_PORT_STATUS.ahk
-#Include .\USB_20_PORT_STATUS.ahk
 #Include .\USB_30_PORT_STATUS.ahk
+#Include .\USB_PORT_EXT_STATUS.ahk
 #Include .\USB_PORT_CHANGE.ahk
 #Include .\USB_20_PORT_CHANGE.ahk
+#Include .\USB_20_PORT_STATUS.ahk
 #Include .\USB_30_PORT_CHANGE.ahk
-#Include .\USB_PORT_EXT_STATUS.ahk
+#Include .\USB_PORT_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

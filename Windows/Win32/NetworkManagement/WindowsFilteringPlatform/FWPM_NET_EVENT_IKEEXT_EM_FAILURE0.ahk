@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IPSEC_FAILURE_POINT.ahk
+#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
 #Include .\IKEEXT_EM_SA_STATE.ahk
 #Include .\IKEEXT_SA_ROLE.ahk
-#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
 
 /**
  * The FWPM_NET_EVENT_IKEEXT_EM_FAILURE0 structure contains information that describes an IKE Extended Mode (EM) failure.Note  FWPM_NET_EVENT_IKEEXT_EM_FAILURE0 is the specific implementation of FWPM_NET_EVENT_IKEEXT_EM_FAILURE used in Windows Vista.

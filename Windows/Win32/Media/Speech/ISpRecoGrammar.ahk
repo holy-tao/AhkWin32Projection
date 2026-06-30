@@ -1,8 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPGRAMMARSTATE.ahk
 #Include .\ISpGrammarBuilder.ahk
 #Include .\ISpRecoContext.ahk
+#Include .\SPRULESTATE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SPWORDPRONOUNCEABLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SPBINARYGRAMMAR.ahk
+#Include .\SPTEXTSELECTIONINFO.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include .\SPLOADOPTIONS.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

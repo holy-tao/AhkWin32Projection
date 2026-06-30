@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfEditRecord.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfContext.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfTextEditSink interface supports completion of an edit session that involves read/write access.

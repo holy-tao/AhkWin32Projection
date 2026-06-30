@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DFORMAT.ahk
-#Include .\D3DMULTISAMPLE_TYPE.ahk
-#Include .\D3DSWAPEFFECT.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\D3DSWAPEFFECT.ahk
+#Include .\D3DMULTISAMPLE_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3DFORMAT.ahk
 
 /**
  * Describes the presentation parameters.

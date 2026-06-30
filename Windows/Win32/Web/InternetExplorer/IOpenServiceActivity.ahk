@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOpenService.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IOpenServiceActivityInput.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include .\OpenServiceActivityContentType.ahk
+#Include .\IOpenService.ahk
+#Include .\IOpenServiceActivityOutputContext.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -30,11 +35,10 @@ class IOpenServiceActivity extends IOpenService {
     static VTableNames => ["Execute", "CanExecute", "CanExecuteType", "Preview", "CanPreview", "CanPreviewType", "GetStatusText", "GetHomepageUrl", "GetDisplayName", "GetDescription", "GetCategoryName", "GetIconPath", "GetIcon", "GetDescriptionFilePath", "GetDownloadUrl", "GetInstallUrl", "IsEnabled", "SetEnabled"]
 
     /**
-     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
+     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
-     * @returns {HRESULT} This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
+     * @returns {HRESULT} 
      */
     Execute(pInput, pOutput) {
         result := ComCall(6, this, "ptr", pInput, "ptr", pOutput, "HRESULT")
@@ -63,11 +67,10 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * Used by IResultsViewer PreviewStyle to set or determine the display style currently being used.
+     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/lwef/-search-2x-previewdisplaystyleenum
      */
     Preview(pInput, pOutput) {
         result := ComCall(9, this, "ptr", pInput, "ptr", pOutput, "HRESULT")
@@ -101,7 +104,7 @@ class IOpenServiceActivity extends IOpenService {
      * @returns {BSTR} 
      */
     GetStatusText(pInput) {
-        pbstrStatusText := BSTR()
+        pbstrStatusText := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pInput, "ptr", pbstrStatusText, "HRESULT")
         return pbstrStatusText
     }
@@ -111,7 +114,7 @@ class IOpenServiceActivity extends IOpenService {
      * @returns {BSTR} 
      */
     GetHomepageUrl() {
-        pbstrHomepageUrl := BSTR()
+        pbstrHomepageUrl := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrHomepageUrl, "HRESULT")
         return pbstrHomepageUrl
     }
@@ -121,7 +124,7 @@ class IOpenServiceActivity extends IOpenService {
      * @returns {BSTR} 
      */
     GetDisplayName() {
-        pbstrDisplayName := BSTR()
+        pbstrDisplayName := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrDisplayName, "HRESULT")
         return pbstrDisplayName
     }
@@ -132,7 +135,7 @@ class IOpenServiceActivity extends IOpenService {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription() {
-        pbstrDescription := BSTR()
+        pbstrDescription := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrDescription, "HRESULT")
         return pbstrDescription
     }
@@ -142,7 +145,7 @@ class IOpenServiceActivity extends IOpenService {
      * @returns {BSTR} 
      */
     GetCategoryName() {
-        pbstrCategoryName := BSTR()
+        pbstrCategoryName := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pbstrCategoryName, "HRESULT")
         return pbstrCategoryName
     }
@@ -152,24 +155,18 @@ class IOpenServiceActivity extends IOpenService {
      * @returns {BSTR} 
      */
     GetIconPath() {
-        pbstrIconPath := BSTR()
+        pbstrIconPath := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrIconPath, "HRESULT")
         return pbstrIconPath
     }
 
     /**
-     * Retrieves information about the specified icon or cursor.
-     * @remarks
-     * <b>GetIconInfo</b> creates bitmaps for the <b>hbmMask</b> and <b>hbmColor</b> or members of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfo">ICONINFO</a>. The calling application must manage these bitmaps and delete them when they are no longer necessary.
      * 
-     * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
-     * This API does not participate in DPI virtualization. The output returned is not affected by the DPI of the calling thread.
      * @param {BOOL} fSmallIcon 
      * @returns {HICON} 
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-geticoninfo
      */
     GetIcon(fSmallIcon) {
-        phIcon := HICON()
+        phIcon := HICON({Value: 0}, True)
         result := ComCall(18, this, "int", fSmallIcon, "ptr", phIcon, "HRESULT")
         return phIcon
     }
@@ -179,7 +176,7 @@ class IOpenServiceActivity extends IOpenService {
      * @returns {BSTR} 
      */
     GetDescriptionFilePath() {
-        pbstrXmlPath := BSTR()
+        pbstrXmlPath := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pbstrXmlPath, "HRESULT")
         return pbstrXmlPath
     }
@@ -189,7 +186,7 @@ class IOpenServiceActivity extends IOpenService {
      * @returns {BSTR} 
      */
     GetDownloadUrl() {
-        pbstrXmlUri := BSTR()
+        pbstrXmlUri := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", pbstrXmlUri, "HRESULT")
         return pbstrXmlUri
     }
@@ -199,7 +196,7 @@ class IOpenServiceActivity extends IOpenService {
      * @returns {BSTR} 
      */
     GetInstallUrl() {
-        pbstrInstallUri := BSTR()
+        pbstrInstallUri := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pbstrInstallUri, "HRESULT")
         return pbstrInstallUri
     }
@@ -243,80 +240,9 @@ class IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * Enables one or more Unicode point ranges on the context.
-     * @remarks
-     * The <b>SetEnabledUnicodeRanges</b> function is optional.
      * 
-     * Some recognizers do not support enabling and disabling specific code points, but may still include the <b>SetEnabledUnicodeRanges</b> function. For such recognizers, the <b>SetEnabledUnicodeRanges</b> function returns E_NOTIMPL.
-     * 
-     * Each recognizer supports one or more Unicode point ranges. To determine which Unicode point ranges the recognizer supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getunicoderanges">GetUnicodeRanges</a> function. If you do not call this function, the recognizer uses a default set of Unicode point ranges. The default ranges are recognizer specific.
-     * 
-     * The Microsoft gesture recognizer uses Unicode characters from 0xF000 to 0xF0FF. Each single Unicode value in this range represents a single gesture. For a complete list of Unicode values for gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/unicode-range-values-of-gestures">Unicode Range Values of Gestures</a>.
      * @param {BOOL} fEnable 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TPC_S_TRUNCATED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support one of the specified Unicode point ranges.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setenabledunicoderanges
+     * @returns {HRESULT} 
      */
     SetEnabled(fEnable) {
         result := ComCall(23, this, "int", fEnable, "HRESULT")

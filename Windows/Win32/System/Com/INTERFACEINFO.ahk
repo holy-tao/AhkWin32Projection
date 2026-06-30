@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.System.Com
  */
 class INTERFACEINFO extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -23,11 +24,14 @@ class INTERFACEINFO extends Win32Struct {
 
     /**
      * The identifier of the requested interface.
-     * @type {Pointer}
+     * @type {Guid}
      */
     iid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__iid"))
+                this.__iid := Guid(8, this)
+            return this.__iid
+        }
     }
 
     /**
@@ -35,7 +39,7 @@ class INTERFACEINFO extends Win32Struct {
      * @type {Integer}
      */
     wMethod {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 }

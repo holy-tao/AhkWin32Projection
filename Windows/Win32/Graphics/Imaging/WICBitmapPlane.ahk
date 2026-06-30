@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Specifies the pixel format, buffer, stride and size of a component plane for a planar pixel format.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  */
 class WICBitmapPlane extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -15,11 +16,14 @@ class WICBitmapPlane extends Win32Struct {
      * Type: <b>WICPixelFormatGUID</b>
      * 
      * Describes the pixel format of the plane.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Format {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Format"))
+                this.__Format := Guid(0, this)
+            return this.__Format
+        }
     }
 
     /**
@@ -29,8 +33,8 @@ class WICBitmapPlane extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     pbBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -40,8 +44,8 @@ class WICBitmapPlane extends Win32Struct {
      * @type {Integer}
      */
     cbStride {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -51,7 +55,7 @@ class WICBitmapPlane extends Win32Struct {
      * @type {Integer}
      */
     cbBufferSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

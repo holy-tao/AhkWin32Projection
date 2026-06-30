@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIAdapter.ahk
 #Include .\DXGI_ADAPTER_DESC1.ahk
+#Include .\IDXGIAdapter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDXGIAdapter1 interface represents a display sub-system (including one or more GPU's, DACs and video memory).

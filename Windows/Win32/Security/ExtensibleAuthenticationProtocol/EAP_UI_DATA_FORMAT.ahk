@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
 #Include .\EAP_CRED_EXPIRY_REQ.ahk
+#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
 
 /**
  * The EAP_UI_DATA_FORMAT union specifies the value of the attribute stored in the pbUiData member of the EAP_INTERACTIVE_UI_DATA structure.

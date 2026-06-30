@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationElementArray.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to information exposed by a UI Automation provider for an element that can be dragged as part of a drag-and-drop operation.
@@ -103,7 +106,7 @@ class IUIAutomationDragPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_currentdropeffect
      */
     get_CurrentDropEffect() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -116,7 +119,7 @@ class IUIAutomationDragPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_cacheddropeffect
      */
     get_CachedDropEffect() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", retVal, "HRESULT")
         return retVal
     }

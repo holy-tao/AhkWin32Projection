@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\JOBOBJECT_RATE_CONTROL_TOLERANCE.ahk
-#Include .\JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ahk
 #Include .\JOB_OBJECT_LIMIT.ahk
+#Include .\JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ahk
 
 /**
  * Contains information about notification limits for a job object. This structure is used by the SetInformationJobObject and QueryInformationJobObject functions with the JobObjectNotificationLimitInformation information class.

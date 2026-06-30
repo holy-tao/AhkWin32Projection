@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_SHADER_DEBUG_OUTPUTREG_INFO.ahk
-#Include .\D3D10_SHADER_DEBUG_REGTYPE.ahk
 #Include .\D3D10_SHADER_DEBUG_OUTPUTVAR.ahk
+#Include .\D3D10_SHADER_DEBUG_REGTYPE.ahk
+#Include .\D3D10_SHADER_DEBUG_OUTPUTREG_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains instruction data.

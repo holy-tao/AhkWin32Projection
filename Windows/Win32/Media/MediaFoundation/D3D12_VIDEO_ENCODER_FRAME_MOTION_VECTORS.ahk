@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include .\D3D12_VIDEO_ENCODER_MOVEREGION_INFO.ahk
+#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

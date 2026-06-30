@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SynchronizedInputType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the keyboard or mouse input of a control.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOGFONTA.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
-#Include .\FONT_CLIP_PRECISION.ahk
 #Include .\FONT_QUALITY.ahk
+#Include .\FONT_OUTPUT_PRECISION.ahk
+#Include .\FONT_CHARSET.ahk
+#Include .\LOGFONTA.ahk
+#Include .\FONT_CLIP_PRECISION.ahk
 
 /**
  * The ENUMLOGFONT structure defines the attributes of a font, the complete name of a font, and the style of a font. (ANSI)

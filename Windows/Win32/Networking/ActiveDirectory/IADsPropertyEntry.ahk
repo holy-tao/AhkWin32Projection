@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsPropertyEntry interface is used to manage a property entry in the property cache.
@@ -96,7 +97,7 @@ class IADsPropertyEntry extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", retval, "HRESULT")
         return retval
     }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_RENDER_TARGET_BLEND_DESC1.ahk
-#Include .\D3D10_BLEND.ahk
 #Include .\D3D10_BLEND_OP.ahk
+#Include .\D3D10_BLEND.ahk
+#Include .\D3D10_RENDER_TARGET_BLEND_DESC1.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the blend state for a Direct3D 10.1 device.

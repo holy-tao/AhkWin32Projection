@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
 #Include .\IADsCollection.ahk
+#Include .\IADs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to control a printer from across a network.

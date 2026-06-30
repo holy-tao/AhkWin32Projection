@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_ATTACHLIST.ahk
 #Include .\DD_SURFACE_LOCAL.ahk
+#Include .\DD_ATTACHLIST.ahk
 
 /**
  * The DD_ATTACHLIST structure maintains a list of attached surfaces for Microsoft DirectDraw.

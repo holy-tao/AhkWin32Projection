@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KD_NAMESPACE_ENUM.ahk
+#Include ..\..\..\Win32\Foundation\PWSTR.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

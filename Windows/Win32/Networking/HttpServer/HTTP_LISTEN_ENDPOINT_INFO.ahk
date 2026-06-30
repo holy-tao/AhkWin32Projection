@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_PROPERTY_FLAGS.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Controls whether IP-based URLs should listen on the specific IP address or on a wildcard.

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\RAS_AUTH_ATTRIBUTE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The PPP_EAP_INPUT structure is used in the interaction between the RAS Connection Manager Service PPP implementation and the EAP.
@@ -25,7 +28,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
 class PPP_EAP_INPUT extends Win32Struct {
-    static sizeof => 144
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -341,18 +344,21 @@ class PPP_EAP_INPUT extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidConnectionId {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get {
+            if(!this.HasProp("__guidConnectionId"))
+                this.__guidConnectionId := Guid(128, this)
+            return this.__guidConnectionId
+        }
     }
 
     /**
      * @type {BOOL}
      */
     isVpn {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
+        get => NumGet(this, 144, "int")
+        set => NumPut("int", value, this, 144)
     }
 }

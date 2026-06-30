@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IUPnPRemoteEndpointInfo interface allows a hosted device to obtain information about a requester (that is, a control point) and the request.
@@ -94,7 +95,7 @@ class IUPnPRemoteEndpointInfo extends IUnknown {
     GetStringValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
 
-        pbstrValue := BSTR()
+        pbstrValue := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", bstrValueName, "ptr", pbstrValue, "HRESULT")
         return pbstrValue
     }

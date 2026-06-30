@@ -1,12 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DLIGHTTYPE.ahk
 #Include .\D3DCOLORVALUE.ahk
+#Include .\D3DLIGHTTYPE.ahk
 #Include ..\Direct3D\D3DVECTOR.ahk
 
 /**
- * Defines a set of lighting properties.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dlight9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
 class D3DLIGHT extends Win32Struct {

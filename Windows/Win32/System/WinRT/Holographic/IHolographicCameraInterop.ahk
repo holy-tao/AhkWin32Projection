@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IInspectable.ahk
+#Include ..\..\..\Graphics\Direct3D12\D3D12_RESOURCE_DESC.ahk
 #Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk
+#Include ..\IInspectable.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Device.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12CommandQueue.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends [HolographicCamera](/uwp/api/windows.graphics.holographic.holographiccamera) to allow 2D texture resources to be created and used as back buffers for holographic rendering in Direct3D 12.

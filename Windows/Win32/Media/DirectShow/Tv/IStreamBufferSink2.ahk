@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IStreamBufferSink.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IStreamBufferSink2 interface is exposed by the Stream Buffer Sink filter.

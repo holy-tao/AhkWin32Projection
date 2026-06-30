@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IDirectDrawSurface.ahk
 #Include .\DDCOLORKEY.ahk
+#Include .\IDirectDrawSurface.ahk
 
 /**
  * The DDOVERLAYFX structure passes overlay information to the IDirectDrawSurface7::UpdateOverlay method.

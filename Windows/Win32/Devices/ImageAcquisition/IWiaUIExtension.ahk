@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\DEVICEDIALOGDATA.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWiaUIExtension interface provides methods that replace the default system user interface, provide a custom device bitmap logo, and provide a custom device icon.
@@ -77,7 +80,7 @@ class IWiaUIExtension extends IUnknown {
     GetDeviceIcon(bstrDeviceId, nSize) {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
-        phIcon := HICON()
+        phIcon := HICON({Value: 0}, True)
         result := ComCall(4, this, "ptr", bstrDeviceId, "ptr", phIcon, "uint", nSize, "HRESULT")
         return phIcon
     }
@@ -101,7 +104,7 @@ class IWiaUIExtension extends IUnknown {
     GetDeviceBitmapLogo(bstrDeviceId, nMaxWidth, nMaxHeight) {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
-        phBitmap := HBITMAP()
+        phBitmap := HBITMAP({Value: 0}, True)
         result := ComCall(5, this, "ptr", bstrDeviceId, "ptr", phBitmap, "uint", nMaxWidth, "uint", nMaxHeight, "HRESULT")
         return phBitmap
     }

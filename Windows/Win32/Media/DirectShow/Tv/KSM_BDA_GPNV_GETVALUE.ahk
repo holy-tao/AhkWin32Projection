@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
 class KSM_BDA_GPNV_GETVALUE extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -25,16 +26,16 @@ class KSM_BDA_GPNV_GETVALUE extends Win32Struct {
      * @type {Integer}
      */
     ulNameLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {String}
      */
     cLanguage {
-        get => StrGet(this.ptr + 20, 11, "UTF-8")
-        set => StrPut(value, this.ptr + 20, 11, "UTF-8")
+        get => StrGet(this.ptr + 28, 11, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 11, "UTF-8")
     }
 
     /**
@@ -43,7 +44,7 @@ class KSM_BDA_GPNV_GETVALUE extends Win32Struct {
     argbData {
         get {
             if(!this.HasProp("__argbDataProxyArray"))
-                this.__argbDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__argbDataProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
             return this.__argbDataProxyArray
         }
     }

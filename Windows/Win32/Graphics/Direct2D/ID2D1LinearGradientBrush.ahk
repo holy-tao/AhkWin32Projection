@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D_POINT_2F.ahk
 #Include .\ID2D1Brush.ahk
+#Include .\ID2D1GradientStopCollection.ahk
 
 /**
  * Paints an area with a linear gradient.

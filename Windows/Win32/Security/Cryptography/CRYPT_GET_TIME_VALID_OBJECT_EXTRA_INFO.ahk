@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\CERT_REVOCATION_CHAIN_PARA.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_REVOCATION_CHAIN_PARA.ahk
 
 /**
  * Contains optional extra information that can be passed to the CryptGetTimeValidObject function in the pExtraInfo parameter.

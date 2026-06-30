@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_HOST_INFO.ahk
 #Include .\DHCP_SUBNET_STATE.ahk
+#Include .\DHCP_HOST_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCP_SUBNET_INFO structure defines information describing a subnet.

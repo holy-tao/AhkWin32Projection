@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * The CAPSTATUS structure defines the current state of the capture window.

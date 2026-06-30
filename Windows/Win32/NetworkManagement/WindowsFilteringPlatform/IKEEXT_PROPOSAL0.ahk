@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
 #Include .\IKEEXT_CIPHER_TYPE.ahk
 #Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
-#Include .\IKEEXT_INTEGRITY_TYPE.ahk
+#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
 #Include .\IKEEXT_DH_GROUP.ahk
+#Include .\IKEEXT_INTEGRITY_TYPE.ahk
 
 /**
  * Is used to store an IKE/AuthIP main mode proposal.

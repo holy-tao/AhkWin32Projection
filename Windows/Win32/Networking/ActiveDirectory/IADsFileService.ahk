@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADsService.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IADsService.ahk
 
 /**
  * The IADsFileService interface is a dual interface that inherits from IADsService.
@@ -53,7 +54,7 @@ class IADsFileService extends IADsService {
      * @returns {BSTR} 
      */
     get_Description() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", retval, "HRESULT")
         return retval
     }

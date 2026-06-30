@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk
 #Include .\PEER_GROUP_AUTHENTICATION_SCHEME.ahk

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\BG_FILE_RANGE.ahk
 #Include .\IBackgroundCopyJob2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use the IBackgroundCopyJob3 interface to download ranges of a file and change the prefix of a remote file name.

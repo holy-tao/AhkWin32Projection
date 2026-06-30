@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SET_VIRTUAL_DISK_INFO_VERSION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains virtual hard disk (VHD) information to use when you call the SetVirtualDiskInformation function to set VHD properties.
@@ -8,7 +11,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  */
 class SET_VIRTUAL_DISK_INFO extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -46,23 +49,26 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct {
     }
 
     class _ParentLocator extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 24
         static packingSize => 8
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         LinkageId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__LinkageId"))
+                    this.__LinkageId := Guid(0, this)
+                return this.__LinkageId
+            }
         }
 
         /**
          * @type {PWSTR}
          */
         ParentFilePath {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
         }
     }
 
@@ -75,11 +81,14 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     UniqueIdentifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__UniqueIdentifier"))
+                this.__UniqueIdentifier := Guid(8, this)
+            return this.__UniqueIdentifier
+        }
     }
 
     /**
@@ -102,11 +111,14 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     VirtualDiskId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__VirtualDiskId"))
+                this.__VirtualDiskId := Guid(8, this)
+            return this.__VirtualDiskId
+        }
     }
 
     /**

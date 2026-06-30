@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
 #Include .\CERT_PUBLIC_KEY_INFO.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
-#Include .\CRYPT_ATTRIBUTE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * The CERT_REQUEST_INFO structure contains information for a certificate request. The subject, subject public key, and attribute BLOBs are encoded.

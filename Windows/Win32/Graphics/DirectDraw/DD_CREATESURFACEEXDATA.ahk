@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
 #Include .\DD_SURFACE_LOCAL.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_CREATESURFACEEXDATA structure contains information required for the driver to create a surface and associate with it a supplied texture handle.

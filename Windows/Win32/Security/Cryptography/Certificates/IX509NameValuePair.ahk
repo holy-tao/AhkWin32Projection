@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a generic name-value pair.
@@ -71,7 +72,7 @@ class IX509NameValuePair extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509namevaluepair-get_value
      */
     get_Value() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -84,7 +85,7 @@ class IX509NameValuePair extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509namevaluepair-get_name
      */
     get_Name() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pValue, "HRESULT")
         return pValue
     }

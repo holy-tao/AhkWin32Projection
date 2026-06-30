@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WINTRUST_DATA_UICHOICE.ahk
-#Include .\WINTRUST_DATA_REVOCATION_CHECKS.ahk
 #Include .\WINTRUST_DATA_UNION_CHOICE.ahk
-#Include .\WINTRUST_FILE_INFO.ahk
-#Include .\WINTRUST_CATALOG_INFO.ahk
-#Include .\WINTRUST_BLOB_INFO.ahk
-#Include .\WINTRUST_SGNR_INFO.ahk
-#Include .\WINTRUST_CERT_INFO.ahk
-#Include .\WINTRUST_DETACHED_SIG_INFO.ahk
 #Include .\WINTRUST_DATA_STATE_ACTION.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\WINTRUST_DATA_PROVIDER_FLAGS.ahk
+#Include .\WINTRUST_BLOB_INFO.ahk
+#Include .\WINTRUST_DETACHED_SIG_INFO.ahk
 #Include .\WINTRUST_DATA_UICONTEXT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\WINTRUST_SGNR_INFO.ahk
+#Include .\WINTRUST_FILE_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WINTRUST_DATA_PROVIDER_FLAGS.ahk
 #Include .\WINTRUST_SIGNATURE_SETTINGS.ahk
+#Include .\WINTRUST_DATA_REVOCATION_CHECKS.ahk
+#Include .\WINTRUST_CERT_INFO.ahk
+#Include .\WINTRUST_CATALOG_INFO.ahk
 
 /**
  * Used when calling WinVerifyTrust to pass necessary information into the trust providers.

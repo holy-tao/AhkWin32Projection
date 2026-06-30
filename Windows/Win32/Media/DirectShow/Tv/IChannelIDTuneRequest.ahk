@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuneRequest.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ITuneRequest.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods that support channel requests using a string identifier.
@@ -52,7 +53,7 @@ class IChannelIDTuneRequest extends ITuneRequest {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichannelidtunerequest-get_channelid
      */
     get_ChannelID() {
-        ChannelID := BSTR()
+        ChannelID := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", ChannelID, "HRESULT")
         return ChannelID
     }

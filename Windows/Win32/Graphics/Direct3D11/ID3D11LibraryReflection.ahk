@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\D3D11_LIBRARY_DESC.ahk
+#Include .\ID3D11FunctionReflection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A library-reflection interface accesses library info. (ID3D11LibraryReflection)

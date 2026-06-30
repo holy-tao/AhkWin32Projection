@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents the information for a synchronization provider configuration.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.System.WindowsSync
  */
 class SyncProviderConfiguration extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The version of the synchronization provider. The constant value <b>SYNC_PROVIDER_CONFIGURATION_VERSION.</b>
@@ -22,38 +23,50 @@ class SyncProviderConfiguration extends Win32Struct {
 
     /**
      * The unique instance ID of the synchronization provider.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidInstanceId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidInstanceId"))
+                this.__guidInstanceId := Guid(4, this)
+            return this.__guidInstanceId
+        }
     }
 
     /**
      * The COM CLSID of the synchronization provider.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidProvider {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__clsidProvider"))
+                this.__clsidProvider := Guid(20, this)
+            return this.__clsidProvider
+        }
     }
 
     /**
      * The instance ID of the configuration UI used to create this synchronization provider, or <b>GUID_NULL</b> if no configuration UI was used.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidConfigUIInstanceId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__guidConfigUIInstanceId"))
+                this.__guidConfigUIInstanceId := Guid(36, this)
+            return this.__guidConfigUIInstanceId
+        }
     }
 
     /**
      * The GUID that identifies the content type.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidContentType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__guidContentType"))
+                this.__guidContentType := Guid(52, this)
+            return this.__guidContentType
+        }
     }
 
     /**
@@ -65,8 +78,8 @@ class SyncProviderConfiguration extends Win32Struct {
      * @type {Integer}
      */
     dwCapabilities {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -79,7 +92,7 @@ class SyncProviderConfiguration extends Win32Struct {
      * @type {Integer}
      */
     dwSupportedArchitecture {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 }

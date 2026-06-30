@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\PSID.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used with the DsEnumerateDomainTrusts function to contain trust data for a domain. (ANSI)
@@ -11,7 +14,7 @@
  * @charset ANSI
  */
 class DS_DOMAIN_TRUSTSA extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -84,10 +87,13 @@ class DS_DOMAIN_TRUSTSA extends Win32Struct {
 
     /**
      * Contains the GUID of the domain represented by this structure.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DomainGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__DomainGuid"))
+                this.__DomainGuid := Guid(40, this)
+            return this.__DomainGuid
+        }
     }
 }

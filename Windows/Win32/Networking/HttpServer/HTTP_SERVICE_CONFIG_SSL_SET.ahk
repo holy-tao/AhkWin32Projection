@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_SSL_KEY.ahk
-#Include ..\WinSock\SOCKADDR.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_PARAM.ahk
+#Include .\HTTP_SERVICE_CONFIG_SSL_KEY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\WinSock\SOCKADDR.ahk
 
 /**
  * Used to add a new record to the SSL store or retrieve an existing record from it.
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  */
 class HTTP_SERVICE_CONFIG_SSL_SET extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 

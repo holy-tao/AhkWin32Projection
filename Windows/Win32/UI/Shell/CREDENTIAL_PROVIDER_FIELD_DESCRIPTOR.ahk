@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CREDENTIAL_PROVIDER_FIELD_TYPE.ahk
 
 /**
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.UI.Shell
  */
 class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -126,10 +128,13 @@ class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidFieldType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidFieldType"))
+                this.__guidFieldType := Guid(16, this)
+            return this.__guidFieldType
+        }
     }
 }

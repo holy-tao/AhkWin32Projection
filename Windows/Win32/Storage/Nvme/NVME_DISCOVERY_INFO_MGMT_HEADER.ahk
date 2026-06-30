@@ -9,7 +9,7 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct {
 
     static packingSize => 8
 
-    class _EKTYPE_e__Union extends Win32Struct {
+    class _EKTYPE extends Win32Struct {
         static sizeof => 2
         static packingSize => 2
 
@@ -152,12 +152,12 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct {
     }
 
     /**
-     * @type {_EKTYPE_e__Union}
+     * @type {_EKTYPE}
      */
     EKTYPE {
         get {
             if(!this.HasProp("__EKTYPE"))
-                this.__EKTYPE := NVME_DISCOVERY_INFO_MGMT_HEADER._EKTYPE_e__Union(22, this)
+                this.__EKTYPE := NVME_DISCOVERY_INFO_MGMT_HEADER._EKTYPE(22, this)
             return this.__EKTYPE
         }
     }

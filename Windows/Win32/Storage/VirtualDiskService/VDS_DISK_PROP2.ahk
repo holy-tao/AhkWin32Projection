@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_STORAGE_BUS_TYPE.ahk
 #Include .\VDS_DISK_STATUS.ahk
 #Include .\VDS_DISK_OFFLINE_REASON.ahk
 #Include .\VDS_LUN_RESERVE_MODE.ahk
-#Include .\VDS_HEALTH.ahk
-#Include .\VDS_STORAGE_BUS_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_PARTITION_STYLE.ahk
 
 /**
@@ -72,17 +74,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_DISK_PROP2 extends Win32Struct {
-    static sizeof => 120
+    static sizeof => 136
 
     static packingSize => 8
 
     /**
      * The GUID of the disk object.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -94,8 +99,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {VDS_DISK_STATUS}
      */
     status {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -103,8 +108,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {VDS_DISK_OFFLINE_REASON}
      */
     OfflineReason {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -112,8 +117,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {VDS_LUN_RESERVE_MODE}
      */
     ReserveMode {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -122,8 +127,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {VDS_HEALTH}
      */
     health {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -131,8 +136,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     dwDeviceType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -142,8 +147,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     dwMediaType {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -153,8 +158,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     ullSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -162,8 +167,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     ulBytesPerSector {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -171,8 +176,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     ulSectorsPerTrack {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -180,8 +185,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     ulTracksPerCylinder {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -190,8 +195,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {Integer}
      */
     ulFlags {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -200,8 +205,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {VDS_STORAGE_BUS_TYPE}
      */
     BusType {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -211,24 +216,27 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {VDS_PARTITION_STYLE}
      */
     PartitionStyle {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 68, "int")
+        set => NumPut("int", value, this, 68)
     }
 
     /**
      * @type {Integer}
      */
     dwSignature {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     DiskGuid {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__DiskGuid"))
+                this.__DiskGuid := Guid(72, this)
+            return this.__DiskGuid
+        }
     }
 
     /**
@@ -244,8 +252,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {PWSTR}
      */
     pwszDiskAddress {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -254,8 +262,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {PWSTR}
      */
     pwszName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -264,8 +272,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {PWSTR}
      */
     pwszFriendlyName {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -274,8 +282,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {PWSTR}
      */
     pwszAdaptorName {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -285,8 +293,8 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {PWSTR}
      */
     pwszDevicePath {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -297,7 +305,7 @@ class VDS_DISK_PROP2 extends Win32Struct {
      * @type {PWSTR}
      */
     pwszLocationPath {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

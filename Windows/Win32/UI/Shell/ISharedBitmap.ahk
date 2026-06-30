@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WTS_ALPHATYPE.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes memory-efficient methods for accessing bitmaps. This interface is used as a thin wrapper around HBITMAP objects, allowing those objects to be reference counted and protected from having their underlying data changed.
@@ -53,7 +55,7 @@ class ISharedBitmap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-getsharedbitmap
      */
     GetSharedBitmap() {
-        phbm := HBITMAP()
+        phbm := HBITMAP({Value: 0}, True)
         result := ComCall(3, this, "ptr", phbm, "HRESULT")
         return phbm
     }
@@ -113,7 +115,7 @@ class ISharedBitmap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-detach
      */
     Detach() {
-        phbm := HBITMAP()
+        phbm := HBITMAP({Value: 0}, True)
         result := ComCall(7, this, "ptr", phbm, "HRESULT")
         return phbm
     }

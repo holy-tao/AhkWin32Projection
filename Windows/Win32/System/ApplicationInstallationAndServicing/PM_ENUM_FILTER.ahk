@@ -1,25 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PM_APP_GENRE.ahk
-#Include .\PM_APPLICATION_HUBTYPE.ahk
 #Include .\PM_TILE_HUBTYPE.ahk
-#Include .\PM_TASK_TYPE.ahk
 #Include .\PM_APPTASKTYPE.ahk
-#Include .\PM_EXTENSIONCONSUMER.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\PM_BSATASKID.ahk
 #Include .\PM_BWTASKID.ahk
+#Include .\PM_APP_GENRE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\PM_APPLICATION_HUBTYPE.ahk
+#Include .\PM_TASK_TYPE.ahk
+#Include .\PM_EXTENSIONCONSUMER.ahk
+#Include .\PM_BSATASKID.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class PM_ENUM_FILTER extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
-    class _FilterParameter_e__Union extends Win32Struct {
-        static sizeof => 16
+    class _FilterParameter extends Win32Struct {
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -63,19 +64,25 @@ class PM_ENUM_FILTER extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         TaskProductID {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__TaskProductID"))
+                    this.__TaskProductID := Guid(0, this)
+                return this.__TaskProductID
+            }
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         TileProductID {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__TileProductID"))
+                    this.__TileProductID := Guid(0, this)
+                return this.__TileProductID
+            }
         }
 
         /**
@@ -112,11 +119,14 @@ class PM_ENUM_FILTER extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         BSAProductID {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__BSAProductID"))
+                    this.__BSAProductID := Guid(0, this)
+                return this.__BSAProductID
+            }
         }
 
         /**
@@ -164,11 +174,14 @@ class PM_ENUM_FILTER extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         AppSupportedFileExtPID {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__AppSupportedFileExtPID"))
+                    this.__AppSupportedFileExtPID := Guid(0, this)
+                return this.__AppSupportedFileExtPID
+            }
         }
 
         /**
@@ -192,12 +205,12 @@ class PM_ENUM_FILTER extends Win32Struct {
     }
 
     /**
-     * @type {_FilterParameter_e__Union}
+     * @type {_FilterParameter}
      */
     FilterParameter {
         get {
             if(!this.HasProp("__FilterParameter"))
-                this.__FilterParameter := PM_ENUM_FILTER._FilterParameter_e__Union(8, this)
+                this.__FilterParameter := PM_ENUM_FILTER._FilterParameter(8, this)
             return this.__FilterParameter
         }
     }

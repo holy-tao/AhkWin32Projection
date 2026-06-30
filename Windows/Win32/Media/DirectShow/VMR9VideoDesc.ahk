@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VMR9_SampleFormat.ahk
 #Include .\VMR9Frequency.ahk
+#Include .\VMR9_SampleFormat.ahk
 
 /**
  * The VMR9VideoDesc structure describes a video stream to be deinterlaced.

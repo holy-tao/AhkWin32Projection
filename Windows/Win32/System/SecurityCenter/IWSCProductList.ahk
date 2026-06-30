@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IWscProduct.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to collect product information for the selected type of providers installed on the computer.

@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The view of the file as of its last commit.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createfiletransacteda
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class TXFS_MINIVERSION extends Win32Enum {

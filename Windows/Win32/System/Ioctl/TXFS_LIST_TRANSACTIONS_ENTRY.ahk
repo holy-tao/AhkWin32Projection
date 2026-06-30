@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about a transaction.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class TXFS_LIST_TRANSACTIONS_ENTRY extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
      * The GUID of the transaction.
-     * @type {Pointer}
+     * @type {Guid}
      */
     TransactionId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__TransactionId"))
+                this.__TransactionId := Guid(0, this)
+            return this.__TransactionId
+        }
     }
 
     /**
@@ -25,24 +29,6 @@ class TXFS_LIST_TRANSACTIONS_ENTRY extends Win32Struct {
      * @type {Integer}
      */
     TransactionState {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * Reserved.
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * Reserved.
-     * @type {Integer}
-     */
-    Reserved2 {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
     }
@@ -51,8 +37,26 @@ class TXFS_LIST_TRANSACTIONS_ENTRY extends Win32Struct {
      * Reserved.
      * @type {Integer}
      */
+    Reserved1 {
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
+    Reserved2 {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * Reserved.
+     * @type {Integer}
+     */
     Reserved3 {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
+        get => NumGet(this, 32, "int64")
+        set => NumPut("int64", value, this, 32)
     }
 }

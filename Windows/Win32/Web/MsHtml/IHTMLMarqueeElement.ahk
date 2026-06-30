@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -203,7 +205,7 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_direction() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -225,7 +227,7 @@ class IHTMLMarqueeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_behavior() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -426,9 +428,8 @@ class IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * Specifies the length of time, in seconds, to wait before an EAPOL-Start is sent.
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/NativeWiFi/onexschema-startperiod-onex-element
      */
     start() {
         result := ComCall(35, this, "HRESULT")

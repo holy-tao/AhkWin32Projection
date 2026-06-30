@@ -1,18 +1,36 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontCollection.ahk
-#Include .\IDWriteFontFile.ahk
-#Include .\IDWriteFontFace.ahk
-#Include .\IDWriteRenderingParams.ahk
+#Include .\DWRITE_NUMBER_SUBSTITUTION_METHOD.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include .\IDWriteFontCollectionLoader.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IDWriteTextFormat.ahk
-#Include .\IDWriteTypography.ahk
-#Include .\IDWriteGdiInterop.ahk
-#Include .\IDWriteTextLayout.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\DWRITE_FONT_SIMULATIONS.ahk
+#Include .\DWRITE_PIXEL_GEOMETRY.ahk
 #Include .\IDWriteInlineObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteRenderingParams.ahk
+#Include .\IDWriteFontFile.ahk
+#Include .\IDWriteTypography.ahk
+#Include .\IDWriteFontCollection.ahk
+#Include .\IDWriteFontFileLoader.ahk
+#Include .\IDWriteGdiInterop.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IDWriteTextLayout.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\DWRITE_MEASURING_MODE.ahk
+#Include .\DWRITE_FONT_WEIGHT.ahk
+#Include .\DWRITE_FONT_STRETCH.ahk
+#Include .\DWRITE_GLYPH_RUN.ahk
+#Include .\DWRITE_FONT_FACE_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Gdi\HMONITOR.ahk
+#Include .\DWRITE_RENDERING_MODE.ahk
 #Include .\IDWriteTextAnalyzer.ahk
 #Include .\IDWriteNumberSubstitution.ahk
+#Include .\DWRITE_FONT_STYLE.ahk
 #Include .\IDWriteGlyphRunAnalysis.ahk
 
 /**

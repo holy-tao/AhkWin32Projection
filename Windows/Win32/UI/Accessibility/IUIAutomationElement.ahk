@@ -1,12 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationElementArray.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\UIA_PROPERTY_ID.ahk
+#Include .\UIA_CONTROLTYPE_ID.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include .\TreeScope.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\OrientationType.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IUIAutomationElementArray.ahk
+#Include .\UIA_PATTERN_ID.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationCondition.ahk
 
 /**
  * Exposes methods and properties for a UI Automation element, which represents a UI item.
@@ -858,7 +870,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentlocalizedcontroltype
      */
     get_CurrentLocalizedControlType() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -871,7 +883,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentname
      */
     get_CurrentName() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -882,7 +894,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentacceleratorkey
      */
     get_CurrentAcceleratorKey() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -895,7 +907,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentaccesskey
      */
     get_CurrentAccessKey() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -938,7 +950,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentautomationid
      */
     get_CurrentAutomationId() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -951,7 +963,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentclassname
      */
     get_CurrentClassName() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -967,7 +979,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currenthelptext
      */
     get_CurrentHelpText() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(31, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1035,7 +1047,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemtype
      */
     get_CurrentItemType() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(37, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1068,7 +1080,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentframeworkid
      */
     get_CurrentFrameworkId() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1091,7 +1103,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemstatus
      */
     get_CurrentItemStatus() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(42, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1127,7 +1139,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariarole
      */
     get_CurrentAriaRole() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(45, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1138,7 +1150,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariaproperties
      */
     get_CurrentAriaProperties() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(46, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1193,7 +1205,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentproviderdescription
      */
     get_CurrentProviderDescription() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(51, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1226,7 +1238,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedlocalizedcontroltype
      */
     get_CachedLocalizedControlType() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(54, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1239,7 +1251,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedname
      */
     get_CachedName() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(55, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1250,7 +1262,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedacceleratorkey
      */
     get_CachedAcceleratorKey() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(56, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1263,7 +1275,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedaccesskey
      */
     get_CachedAccessKey() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(57, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1306,7 +1318,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedautomationid
      */
     get_CachedAutomationId() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(61, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1319,7 +1331,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedclassname
      */
     get_CachedClassName() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(62, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1335,7 +1347,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhelptext
      */
     get_CachedHelpText() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(63, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1405,7 +1417,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemtype
      */
     get_CachedItemType() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(69, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1438,7 +1450,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedframeworkid
      */
     get_CachedFrameworkId() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(72, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1461,7 +1473,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemstatus
      */
     get_CachedItemStatus() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(74, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1497,7 +1509,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariarole
      */
     get_CachedAriaRole() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(77, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1508,7 +1520,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariaproperties
      */
     get_CachedAriaProperties() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(78, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -1563,7 +1575,7 @@ class IUIAutomationElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedproviderdescription
      */
     get_CachedProviderDescription() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(83, this, "ptr", retVal, "HRESULT")
         return retVal
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\OCSP_BASIC_RESPONSE_ENTRY.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CERT_EXTENSION.ahk
 
 /**

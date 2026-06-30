@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ICategoryCollection.ahk
-#Include .\IImageInformation.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IUpdateCollection.ahk
+#Include .\ICategoryCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IImageInformation.ahk
 
 /**
  * Represents the category to which an update belongs.
@@ -110,7 +111,7 @@ class ICategory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_name
      */
     get_Name() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -121,7 +122,7 @@ class ICategory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_categoryid
      */
     get_CategoryID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -150,7 +151,7 @@ class ICategory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_description
      */
     get_Description() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -201,7 +202,7 @@ class ICategory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_type
      */
     get_Type() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", retval, "HRESULT")
         return retval
     }

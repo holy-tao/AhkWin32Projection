@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MENUINFO_MASK.ahk
-#Include .\MENUINFO_STYLE.ahk
 #Include ..\..\Graphics\Gdi\HBRUSH.ahk
+#Include .\MENUINFO_STYLE.ahk
+#Include .\MENUINFO_MASK.ahk
 
 /**
  * Contains information about a menu.

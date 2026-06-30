@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AM_MPEGSTREAMTYPE structure defines the media type for an MPEG-1 program stream.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class AM_MPEGSTREAMTYPE extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -50,7 +52,7 @@ class AM_MPEGSTREAMTYPE extends Win32Struct {
     bFormat {
         get {
             if(!this.HasProp("__bFormatProxyArray"))
-                this.__bFormatProxyArray := Win32FixedArray(this.ptr + 72, 1, Primitive, "char")
+                this.__bFormatProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")
             return this.__bFormatProxyArray
         }
     }

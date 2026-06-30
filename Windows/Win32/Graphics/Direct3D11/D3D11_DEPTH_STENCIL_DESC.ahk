@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_DEPTH_WRITE_MASK.ahk
 #Include .\D3D11_COMPARISON_FUNC.ahk
-#Include .\D3D11_DEPTH_STENCILOP_DESC.ahk
 #Include .\D3D11_STENCIL_OP.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D11_DEPTH_STENCILOP_DESC.ahk
 
 /**
  * Describes depth-stencil state. (D3D11_DEPTH_STENCIL_DESC)

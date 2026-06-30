@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITRequestEvent interface contains methods that allow an application to receive and process Assisted Telephony request events.
@@ -101,7 +102,7 @@ class ITRequestEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_destaddress
      */
     get_DestAddress() {
-        ppDestAddress := BSTR()
+        ppDestAddress := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", ppDestAddress, "HRESULT")
         return ppDestAddress
     }
@@ -115,7 +116,7 @@ class ITRequestEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_appname
      */
     get_AppName() {
-        ppAppName := BSTR()
+        ppAppName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", ppAppName, "HRESULT")
         return ppAppName
     }
@@ -129,7 +130,7 @@ class ITRequestEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_calledparty
      */
     get_CalledParty() {
-        ppCalledParty := BSTR()
+        ppCalledParty := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", ppCalledParty, "HRESULT")
         return ppCalledParty
     }
@@ -143,7 +144,7 @@ class ITRequestEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_comment
      */
     get_Comment() {
-        ppComment := BSTR()
+        ppComment := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", ppComment, "HRESULT")
         return ppComment
     }

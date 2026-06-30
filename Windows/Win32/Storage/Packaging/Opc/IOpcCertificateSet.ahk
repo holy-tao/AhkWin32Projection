@@ -3,6 +3,8 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcCertificateEnumerator.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Security\Cryptography\CERT_CONTEXT.ahk
 
 /**
  * An unordered set of certificates to be used with a signature.

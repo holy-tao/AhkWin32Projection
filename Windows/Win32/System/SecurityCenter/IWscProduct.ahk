@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Include .\WSC_SECURITY_SIGNATURE_STATUS.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\WSC_SECURITY_PRODUCT_STATE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for getting product information for an individual provider to interact with Windows Security Center.
@@ -85,7 +89,7 @@ class IWscProduct extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productname
      */
     get_ProductName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -116,7 +120,7 @@ class IWscProduct extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_remediationpath
      */
     get_RemediationPath() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -127,7 +131,7 @@ class IWscProduct extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productstatetimestamp
      */
     get_ProductStateTimestamp() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -137,7 +141,7 @@ class IWscProduct extends IDispatch {
      * @returns {BSTR} 
      */
     get_ProductGuid() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pVal, "HRESULT")
         return pVal
     }

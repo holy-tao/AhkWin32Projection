@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_CLASS_INSTANCE_DESC.ahk
 #Include .\ID3D11DeviceChild.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\ID3D11ClassLinkage.ahk
 
 /**
  * This interface encapsulates an HLSL class.

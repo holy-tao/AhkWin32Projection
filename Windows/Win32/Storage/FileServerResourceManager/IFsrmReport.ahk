@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FsrmReportFilter.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\FsrmReportType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to configure the description and filters for a single report.
@@ -81,7 +84,7 @@ class IFsrmReport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", name, "HRESULT")
         return name
     }
@@ -111,7 +114,7 @@ class IFsrmReport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_description
      */
     get_Description() {
-        description := BSTR()
+        description := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", description, "HRESULT")
         return description
     }
@@ -141,7 +144,7 @@ class IFsrmReport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_lastgeneratedfilenameprefix
      */
     get_LastGeneratedFileNamePrefix() {
-        prefix := BSTR()
+        prefix := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", prefix, "HRESULT")
         return prefix
     }

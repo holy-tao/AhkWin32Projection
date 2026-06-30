@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D_POINT_2F.ahk
 #Include Common\D2D_SIZE_F.ahk
-#Include .\D2D1_SWEEP_DIRECTION.ahk
+#Include Common\D2D_POINT_2F.ahk
 #Include .\D2D1_ARC_SIZE.ahk
+#Include .\D2D1_SWEEP_DIRECTION.ahk
 
 /**
  * Describes an elliptical arc between two points.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IMSVidWebDVD.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains methods that save and load the current location and state for DVD playback.

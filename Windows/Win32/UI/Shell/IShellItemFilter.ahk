@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposed by a client to specify how to filter the enumeration of a Shell item by a server application.

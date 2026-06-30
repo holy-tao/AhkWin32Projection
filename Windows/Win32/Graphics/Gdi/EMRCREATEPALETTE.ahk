@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\LOGPALETTE.ahk
 #Include .\PALETTEENTRY.ahk
+#Include .\EMR.ahk
+#Include .\LOGPALETTE.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 
 /**
  * The EMRCREATEPALETTE structure contains members for the CreatePalette enhanced metafile record.

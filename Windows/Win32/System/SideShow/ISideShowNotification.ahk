@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.SideShow
@@ -141,7 +143,7 @@ class ISideShowNotification extends IUnknown {
      * @returns {HICON} 
      */
     get_Image() {
-        out_phIcon := HICON()
+        out_phIcon := HICON({Value: 0}, True)
         result := ComCall(9, this, "ptr", out_phIcon, "HRESULT")
         return out_phIcon
     }

@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionResourceAsync.ahk
+#Include .\ITransaction.ahk
+#Include .\XACTSTAT.ahk
+#Include .\ITransactionEnlistmentAsync.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\BOID.ahk
 
 /**
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.
@@ -30,14 +37,13 @@ class IResourceManager extends IUnknown {
     static VTableNames => ["Enlist", "Reenlist", "ReenlistmentComplete", "GetDistributedTransactionManager"]
 
     /**
-     * KTM defines the following enlistment access masks to be used when opening enlistments.
+     * 
      * @param {ITransaction} pTransaction 
      * @param {ITransactionResourceAsync} pRes 
      * @param {Pointer<BOID>} pUOW 
      * @param {Pointer<Integer>} pisoLevel 
      * @param {Pointer<ITransactionEnlistmentAsync>} ppEnlist 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Ktm/enlistment-access-masks
      */
     Enlist(pTransaction, pRes, pUOW, pisoLevel, ppEnlist) {
         pisoLevelMarshal := pisoLevel is VarRef ? "int*" : "ptr"

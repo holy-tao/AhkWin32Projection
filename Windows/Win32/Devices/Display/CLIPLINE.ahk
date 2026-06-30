@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\POINTFIX.ahk
 #Include .\RUN.ahk
+#Include .\POINTFIX.ahk
 
 /**
  * The CLIPLINE structure gives the driver access to a portion of a line between two clip regions used for drawing.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_MESH_SHADER_TIER.ahk
 #Include .\D3D12_SAMPLER_FEEDBACK_TIER.ahk
+#Include .\D3D12_MESH_SHADER_TIER.ahk
 
 /**
  * Indicates the level of support that the adapter provides for mesh and amplification shaders, and for sampler feedback.

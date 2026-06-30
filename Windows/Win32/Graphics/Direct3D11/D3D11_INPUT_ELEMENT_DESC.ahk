@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D11_INPUT_CLASSIFICATION.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * A description of a single element for the input-assembler stage. (D3D11_INPUT_ELEMENT_DESC)

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IStreamBufferConfigure.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IStreamBufferConfigure2 interface is exposed by the StreamBufferConfig object.

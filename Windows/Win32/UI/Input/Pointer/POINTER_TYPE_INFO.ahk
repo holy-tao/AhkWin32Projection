@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
 #Include .\POINTER_INFO.ahk
+#Include .\POINTER_BUTTON_CHANGE_TYPE.ahk
 #Include .\POINTER_FLAGS.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\POINT.ahk
-#Include .\POINTER_BUTTON_CHANGE_TYPE.ahk
-#Include .\POINTER_TOUCH_INFO.ahk
-#Include ..\..\..\Foundation\RECT.ahk
 #Include .\POINTER_PEN_INFO.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\RECT.ahk
+#Include .\POINTER_TOUCH_INFO.ahk
+#Include ..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
 
 /**
  * Contains information about the pointer input type.

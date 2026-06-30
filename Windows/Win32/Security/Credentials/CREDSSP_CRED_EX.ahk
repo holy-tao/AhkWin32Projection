@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CREDSPP_SUBMIT_TYPE.ahk
 #Include .\CREDSSP_CRED.ahk
+#Include .\CREDSPP_SUBMIT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Credentials

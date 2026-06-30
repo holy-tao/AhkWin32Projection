@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The Intel Software Guard Extensions 2 (SGX2) enclave environment.
- * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-isusercetavailableinenvironment
  * @namespace Windows.Win32.System.SystemInformation
  */
 class USER_CET_ENVIRONMENT extends Win32Enum {

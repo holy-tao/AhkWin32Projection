@@ -1,17 +1,29 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DVD_PLAYBACK_LOCATION2.ahk
-#Include .\DVD_MenuAttributes.ahk
-#Include .\DVD_VideoAttributes.ahk
-#Include .\DVD_AudioAttributes.ahk
-#Include .\DVD_KaraokeAttributes.ahk
-#Include .\DVD_SubpictureAttributes.ahk
+#Include .\DVD_SUBPICTURE_LANG_EXT.ahk
+#Include .\DVD_DOMAIN.ahk
 #Include .\IDvdState.ahk
+#Include .\DVD_AUDIO_LANG_EXT.ahk
+#Include .\DVD_TextCharSet.ahk
+#Include .\DVD_TitleAttributes.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DVD_TextStringType.ahk
+#Include .\DVD_SubpictureAttributes.ahk
+#Include .\DVD_DISC_SIDE.ahk
+#Include .\DVD_PLAYBACK_LOCATION2.ahk
 #Include .\IDvdCmd.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DVD_MenuAttributes.ahk
+#Include .\DVD_HMSF_TIMECODE.ahk
+#Include .\DVD_KaraokeAttributes.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DVD_DECODER_CAPS.ahk
+#Include .\DVD_VideoAttributes.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DVD_AudioAttributes.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * The IDvdInfo2 interface reports attributes of a DVD disc or the current state of DVD playback and navigation.

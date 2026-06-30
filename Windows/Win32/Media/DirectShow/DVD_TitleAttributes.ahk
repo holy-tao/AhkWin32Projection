@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVD_TITLE_APPMODE.ahk
+#Include .\DVD_AUDIO_FORMAT.ahk
 #Include .\DVD_HMSF_TIMECODE.ahk
-#Include .\DVD_VideoAttributes.ahk
+#Include .\DVD_AUDIO_APPMODE.ahk
+#Include .\DVD_TITLE_APPMODE.ahk
+#Include .\DVD_SUBPICTURE_CODING.ahk
+#Include .\DVD_AUDIO_LANG_EXT.ahk
 #Include .\DVD_VIDEO_COMPRESSION.ahk
 #Include .\DVD_AudioAttributes.ahk
-#Include .\DVD_AUDIO_APPMODE.ahk
-#Include .\DVD_AUDIO_FORMAT.ahk
-#Include .\DVD_AUDIO_LANG_EXT.ahk
-#Include .\DVD_MultichannelAudioAttributes.ahk
 #Include .\DVD_MUA_MixingInfo.ahk
-#Include .\DVD_MUA_Coeff.ahk
-#Include .\DVD_SubpictureAttributes.ahk
+#Include .\DVD_MultichannelAudioAttributes.ahk
+#Include .\DVD_VideoAttributes.ahk
 #Include .\DVD_SUBPICTURE_TYPE.ahk
-#Include .\DVD_SUBPICTURE_CODING.ahk
+#Include .\DVD_MUA_Coeff.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DVD_SubpictureAttributes.ahk
 #Include .\DVD_SUBPICTURE_LANG_EXT.ahk
 
 /**

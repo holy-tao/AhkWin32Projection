@@ -1,6 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\VALENTW.ahk
 #Include .\HKEY.ahk
+#Include .\REG_SAM_FLAGS.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\REG_NOTIFY_FILTER.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Include .\VALENTA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\REG_OPEN_CREATE_OPTIONS.ahk
+#Include .\REG_ROUTINE_FLAGS.ahk
+#Include .\REG_CREATE_KEY_DISPOSITION.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\REG_VALUE_TYPE.ahk
+#Include .\REG_SAVE_FORMAT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Security\OBJECT_SECURITY_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.System.Registry

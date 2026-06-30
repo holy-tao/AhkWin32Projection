@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
-#Include .\DD_MOTIONCOMP_LOCAL.ahk
 #Include .\DD_SURFACE_LOCAL.ahk
+#Include .\DD_MOTIONCOMP_LOCAL.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_QUERYMOCOMPSTATUSDATA structure contains information required to query the status of the previous frame.

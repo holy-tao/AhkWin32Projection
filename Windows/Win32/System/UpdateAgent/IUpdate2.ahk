@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUpdate.ahk
 #Include .\IStringCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the properties and methods that are available to an update. (IUpdate2)

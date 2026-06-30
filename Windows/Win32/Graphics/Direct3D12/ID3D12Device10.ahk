@@ -1,7 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_HEAP_FLAGS.ahk
+#Include .\D3D12_RESOURCE_DESC.ahk
+#Include .\ID3D12ProtectedResourceSession.ahk
+#Include .\ID3D12Heap.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_RESOURCE_DESC1.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_BARRIER_LAYOUT.ahk
 #Include .\ID3D12Device9.ahk
+#Include .\D3D12_CLEAR_VALUE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_HEAP_PROPERTIES.ahk
 
 /**
  * TBD

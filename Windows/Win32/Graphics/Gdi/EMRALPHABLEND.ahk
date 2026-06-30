@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
 #Include .\XFORM.ahk
+#Include ..\..\Foundation\RECTL.ahk
 
 /**
  * The EMRALPHABLEND structure contains members for the AlphaBlend enhanced metafile record.

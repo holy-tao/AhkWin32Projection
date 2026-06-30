@@ -140,4 +140,9 @@ class D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAGS extends Win32BitflagEnum {
      * @type {Integer (Int32)}
      */
     static D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_DELTA_LF_PARAMS => 33554432
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_VIDEO_ENCODER_AV1_FEATURE_FLAG_DISABLE_CDF_UPDATE_UNSUPPORTED => 67108864
 }

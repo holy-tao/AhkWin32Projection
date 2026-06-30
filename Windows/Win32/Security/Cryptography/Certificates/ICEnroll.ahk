@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ICEnroll interface is one of several interfaces that represent the Certificate Enrollment Control.
@@ -307,7 +309,7 @@ class ICEnroll extends IDispatch {
         DNName := DNName is String ? BSTR.Alloc(DNName).Value : DNName
         Usage := Usage is String ? BSTR.Alloc(Usage).Value : Usage
 
-        pPKCS10 := BSTR()
+        pPKCS10 := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", DNName, "ptr", Usage, "ptr", pPKCS10, "HRESULT")
         return pPKCS10
     }
@@ -358,7 +360,7 @@ class ICEnroll extends IDispatch {
     getCertFromPKCS7(wszPKCS7) {
         wszPKCS7 := wszPKCS7 is String ? BSTR.Alloc(wszPKCS7).Value : wszPKCS7
 
-        pbstrCert := BSTR()
+        pbstrCert := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", wszPKCS7, "ptr", pbstrCert, "HRESULT")
         return pbstrCert
     }
@@ -377,7 +379,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-enumproviders
      */
     enumProviders(dwIndex, dwFlags) {
-        pbstrProvName := BSTR()
+        pbstrProvName := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", dwIndex, "int", dwFlags, "ptr", pbstrProvName, "HRESULT")
         return pbstrProvName
     }
@@ -394,7 +396,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-enumcontainers
      */
     enumContainers(dwIndex) {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(13, this, "int", dwIndex, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -432,7 +434,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystorename
      */
     get_MyStoreName() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -484,7 +486,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystoretype
      */
     get_MyStoreType() {
-        pbstrType := BSTR()
+        pbstrType := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrType, "HRESULT")
         return pbstrType
     }
@@ -587,7 +589,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castorename
      */
     get_CAStoreName() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -639,7 +641,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castoretype
      */
     get_CAStoreType() {
-        pbstrType := BSTR()
+        pbstrType := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pbstrType, "HRESULT")
         return pbstrType
     }
@@ -734,7 +736,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstorename
      */
     get_RootStoreName() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -786,7 +788,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstoretype
      */
     get_RootStoreType() {
-        pbstrType := BSTR()
+        pbstrType := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", pbstrType, "HRESULT")
         return pbstrType
     }
@@ -898,7 +900,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststorename
      */
     get_RequestStoreName() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(33, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -968,7 +970,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststoretype
      */
     get_RequestStoreType() {
-        pbstrType := BSTR()
+        pbstrType := BSTR({Value: 0}, True)
         result := ComCall(35, this, "ptr", pbstrType, "HRESULT")
         return pbstrType
     }
@@ -1099,7 +1101,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_containername
      */
     get_ContainerName() {
-        pbstrContainer := BSTR()
+        pbstrContainer := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", pbstrContainer, "HRESULT")
         return pbstrContainer
     }
@@ -1154,7 +1156,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providername
      */
     get_ProviderName() {
-        pbstrProvider := BSTR()
+        pbstrProvider := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", pbstrProvider, "HRESULT")
         return pbstrProvider
     }
@@ -1625,7 +1627,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_spcfilename
      */
     get_SPCFileName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(57, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -1697,7 +1699,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_pvkfilename
      */
     get_PVKFileName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(59, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -1773,7 +1775,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_hashalgorithm
      */
     get_HashAlgorithm() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(61, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }

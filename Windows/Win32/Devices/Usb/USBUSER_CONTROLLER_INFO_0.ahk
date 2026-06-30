@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBUSER_REQUEST_HEADER.ahk
 #Include .\USB_USER_ERROR_CODE.ahk
 #Include .\USB_CONTROLLER_INFO_0.ahk
+#Include .\USBUSER_REQUEST_HEADER.ahk
 #Include .\USB_CONTROLLER_FLAVOR.ahk
 
 /**

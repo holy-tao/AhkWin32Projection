@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IDispatch.ahk
 #Include ..\IUnknown.ahk
+#Include .\IFiringControl.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Acts as a callback interface so that event publishers can control which subscribers receive event notifications or the order in which subscribers are notified.

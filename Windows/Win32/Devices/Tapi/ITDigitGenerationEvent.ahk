@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITDigitGenerationEvent interface contains methods that describe digit generation events.

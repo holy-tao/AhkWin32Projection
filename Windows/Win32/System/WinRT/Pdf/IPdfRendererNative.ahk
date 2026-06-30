@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\PDF_RENDER_PARAMS.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Graphics\Dxgi\IDXGISurface.ahk
+#Include ..\..\..\Graphics\Direct2D\ID2D1DeviceContext.ahk
+#Include ..\..\..\Foundation\POINT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a high-performance API for displaying a single page of a Portable Document Format (PDF) file.

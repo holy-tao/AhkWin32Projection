@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSACOMPLETIONTYPE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\WSACOMPLETIONTYPE.ahk
 #Include ..\..\System\IO\OVERLAPPED.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * Specifies completion notification settings for I/O control calls made to a registered namespace.
@@ -47,7 +48,7 @@ class WSACOMPLETION extends Win32Struct {
 
     static packingSize => 8
 
-    class _Parameters_e__Union extends Win32Struct {
+    class _Parameters extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
 
@@ -155,7 +156,7 @@ class WSACOMPLETION extends Win32Struct {
         WindowMessage {
             get {
                 if(!this.HasProp("__WindowMessage"))
-                    this.__WindowMessage := WSACOMPLETION._Parameters_e__Union._WindowMessage(0, this)
+                    this.__WindowMessage := WSACOMPLETION._Parameters._WindowMessage(0, this)
                 return this.__WindowMessage
             }
         }
@@ -166,7 +167,7 @@ class WSACOMPLETION extends Win32Struct {
         Event {
             get {
                 if(!this.HasProp("__Event"))
-                    this.__Event := WSACOMPLETION._Parameters_e__Union._Event(0, this)
+                    this.__Event := WSACOMPLETION._Parameters._Event(0, this)
                 return this.__Event
             }
         }
@@ -177,7 +178,7 @@ class WSACOMPLETION extends Win32Struct {
         Apc {
             get {
                 if(!this.HasProp("__Apc"))
-                    this.__Apc := WSACOMPLETION._Parameters_e__Union._Apc(0, this)
+                    this.__Apc := WSACOMPLETION._Parameters._Apc(0, this)
                 return this.__Apc
             }
         }
@@ -188,7 +189,7 @@ class WSACOMPLETION extends Win32Struct {
         Port {
             get {
                 if(!this.HasProp("__Port"))
-                    this.__Port := WSACOMPLETION._Parameters_e__Union._Port(0, this)
+                    this.__Port := WSACOMPLETION._Parameters._Port(0, this)
                 return this.__Port
             }
         }
@@ -207,12 +208,12 @@ class WSACOMPLETION extends Win32Struct {
 
     /**
      * The parameters required to complete the callback. The structures within the Parameters union specify information required for completing the callback of each given type. For example, the <b>WindowMessage</b> structure must be filled  when <b>Type</b> is set to NSP_NOTIFY_HWND.
-     * @type {_Parameters_e__Union}
+     * @type {_Parameters}
      */
     Parameters {
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := WSACOMPLETION._Parameters_e__Union(8, this)
+                this.__Parameters := WSACOMPLETION._Parameters(8, this)
             return this.__Parameters
         }
     }

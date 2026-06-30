@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains the result from a Signaling query in Certified Output Protection Protocol (COPP).
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 128-bit random number that was passed by the application in the <b>AMCOPPStatusInput</b> structure.
-     * @type {Pointer}
+     * @type {Guid}
      */
     rApp {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__rApp"))
+                this.__rApp := Guid(0, this)
+            return this.__rApp
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -34,8 +38,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     AvailableTVProtectionStandards {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -43,8 +47,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     ActiveTVProtectionStandard {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -52,8 +56,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     TVType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -61,8 +65,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     AspectRatioValidMask1 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -70,8 +74,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     AspectRatioData1 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -79,8 +83,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     AspectRatioValidMask2 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -88,8 +92,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     AspectRatioData2 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -97,8 +101,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     AspectRatioValidMask3 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -106,8 +110,8 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
      * @type {Integer}
      */
     AspectRatioData3 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -117,7 +121,7 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
     ExtendedInfoValidMask {
         get {
             if(!this.HasProp("__ExtendedInfoValidMaskProxyArray"))
-                this.__ExtendedInfoValidMaskProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")
+                this.__ExtendedInfoValidMaskProxyArray := Win32FixedArray(this.ptr + 56, 4, Primitive, "uint")
             return this.__ExtendedInfoValidMaskProxyArray
         }
     }
@@ -129,7 +133,7 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
     ExtendedInfoData {
         get {
             if(!this.HasProp("__ExtendedInfoDataProxyArray"))
-                this.__ExtendedInfoDataProxyArray := Win32FixedArray(this.ptr + 64, 4, Primitive, "uint")
+                this.__ExtendedInfoDataProxyArray := Win32FixedArray(this.ptr + 72, 4, Primitive, "uint")
             return this.__ExtendedInfoDataProxyArray
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FILE_ID_TYPE.ahk
 #Include .\FILE_ID_128.ahk
 
@@ -84,11 +85,14 @@ class FILE_ID_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ObjectId"))
+                this.__ObjectId := Guid(8, this)
+            return this.__ObjectId
+        }
     }
 
     /**

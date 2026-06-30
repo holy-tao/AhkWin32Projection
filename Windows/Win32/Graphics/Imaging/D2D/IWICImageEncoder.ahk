@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\WICImageParameters.ahk
+#Include ..\..\Direct2D\ID2D1Image.ahk
+#Include ..\IWICBitmapEncoder.ahk
+#Include ..\IWICBitmapFrameEncode.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Encodes ID2D1Image interfaces to an IWICBitmapEncoder.

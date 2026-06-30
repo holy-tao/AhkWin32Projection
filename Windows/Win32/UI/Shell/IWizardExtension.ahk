@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\Controls\HPROPSHEETPAGE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used by wizards such as the Web Publishing Wizard and Online Print Ordering Wizard which host server-side content pages. This interface exposes methods to specify supported extension pages and to navigate into and out of those pages.
@@ -72,7 +73,7 @@ class IWizardExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardextension-getfirstpage
      */
     GetFirstPage() {
-        phpage := HPROPSHEETPAGE()
+        phpage := HPROPSHEETPAGE({Value: 0}, True)
         result := ComCall(4, this, "ptr", phpage, "HRESULT")
         return phpage
     }
@@ -90,7 +91,7 @@ class IWizardExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardextension-getlastpage
      */
     GetLastPage() {
-        phpage := HPROPSHEETPAGE()
+        phpage := HPROPSHEETPAGE({Value: 0}, True)
         result := ComCall(5, this, "ptr", phpage, "HRESULT")
         return phpage
     }

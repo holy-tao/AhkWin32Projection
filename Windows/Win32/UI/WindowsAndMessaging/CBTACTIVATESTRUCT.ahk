@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information passed to a WH_CBT hook procedure, CBTProc, before a window is activated.

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRL_CONTEXT.ahk
 #Include .\CRL_ENTRY.ahk
+#Include .\CRL_CONTEXT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information updated by a certificate revocation list (CRL) revocation type handler.

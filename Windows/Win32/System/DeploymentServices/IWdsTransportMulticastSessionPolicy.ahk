@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWdsTransportCacheable.ahk
+#Include .\WDSTRANSPORT_SLOW_CLIENT_HANDLING_TYPE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface represents the multicast session policy portion of a WDS Transport server’s configuration.

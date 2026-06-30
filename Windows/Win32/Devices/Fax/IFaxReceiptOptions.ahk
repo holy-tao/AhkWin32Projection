@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\FAX_SMTP_AUTHENTICATION_TYPE_ENUM.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FAX_RECEIPT_TYPE_ENUM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxReceiptOptions interface defines a FaxReceiptOptions configuration object used by a fax client application to set and retrieve the receipt configuration that the fax service uses to send delivery receipts for fax transmissions.
@@ -135,7 +139,7 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpserver
      */
     get_SMTPServer() {
-        pbstrSMTPServer := BSTR()
+        pbstrSMTPServer := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrSMTPServer, "HRESULT")
         return pbstrSMTPServer
     }
@@ -188,7 +192,7 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpsender
      */
     get_SMTPSender() {
-        pbstrSMTPSender := BSTR()
+        pbstrSMTPSender := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrSMTPSender, "HRESULT")
         return pbstrSMTPSender
     }
@@ -216,7 +220,7 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtpuser
      */
     get_SMTPUser() {
-        pbstrSMTPUser := BSTR()
+        pbstrSMTPUser := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrSMTPUser, "HRESULT")
         return pbstrSMTPUser
     }
@@ -269,7 +273,7 @@ class IFaxReceiptOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxreceiptoptions-get_smtppassword
      */
     get_SMTPPassword() {
-        pbstrSMTPPassword := BSTR()
+        pbstrSMTPPassword := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pbstrSMTPPassword, "HRESULT")
         return pbstrSMTPPassword
     }

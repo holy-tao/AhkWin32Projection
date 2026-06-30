@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HRASCONN.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\LUID.ahk
+#Include .\HRASCONN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -9,7 +10,7 @@
  * @architecture X64, Arm64
  */
 class RASCONNW extends Win32Struct {
-    static sizeof => 1384
+    static sizeof => 1392
 
     static packingSize => 8
 
@@ -73,19 +74,22 @@ class RASCONNW extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidEntry {
-        get => NumGet(this, 1352, "ptr")
-        set => NumPut("ptr", value, this, 1352)
+        get {
+            if(!this.HasProp("__guidEntry"))
+                this.__guidEntry := Guid(1348, this)
+            return this.__guidEntry
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 1360, "uint")
-        set => NumPut("uint", value, this, 1360)
+        get => NumGet(this, 1364, "uint")
+        set => NumPut("uint", value, this, 1364)
     }
 
     /**
@@ -94,16 +98,19 @@ class RASCONNW extends Win32Struct {
     luid {
         get {
             if(!this.HasProp("__luid"))
-                this.__luid := LUID(1364, this)
+                this.__luid := LUID(1368, this)
             return this.__luid
         }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidCorrelationId {
-        get => NumGet(this, 1376, "ptr")
-        set => NumPut("ptr", value, this, 1376)
+        get {
+            if(!this.HasProp("__guidCorrelationId"))
+                this.__guidCorrelationId := Guid(1376, this)
+            return this.__guidCorrelationId
+        }
     }
 }

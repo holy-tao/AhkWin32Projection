@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CLUSTER_ENUM_ITEM structure contains the properties of a cluster objectand is used to enumerate clusters in the ClusterEnumEx and ClusterNodeEnumEx functions.

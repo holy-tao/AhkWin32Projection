@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PEER_RECORD_CHANGE_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Points to the PEER_EVENT_RECORD_CHANGE_DATA structure if one of the following peer events is triggered.
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_EVENT_RECORD_CHANGE_DATA extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the size of a structure.
@@ -33,19 +34,25 @@ class PEER_EVENT_RECORD_CHANGE_DATA extends Win32Struct {
 
     /**
      * Specifies the unique  ID of a changed record.
-     * @type {Pointer}
+     * @type {Guid}
      */
     recordId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__recordId"))
+                this.__recordId := Guid(8, this)
+            return this.__recordId
+        }
     }
 
     /**
      * Specifies the unique  record type of a changed record.
-     * @type {Pointer}
+     * @type {Guid}
      */
     recordType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__recordType"))
+                this.__recordType := Guid(24, this)
+            return this.__recordType
+        }
     }
 }

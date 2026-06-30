@@ -9,7 +9,7 @@ class MMTIME extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 8
         static packingSize => 1
 
@@ -128,7 +128,7 @@ class MMTIME extends Win32Struct {
         smpte {
             get {
                 if(!this.HasProp("__smpte"))
-                    this.__smpte := MMTIME._u_e__Union._smpte(0, this)
+                    this.__smpte := MMTIME._u._smpte(0, this)
                 return this.__smpte
             }
         }
@@ -139,7 +139,7 @@ class MMTIME extends Win32Struct {
         midi {
             get {
                 if(!this.HasProp("__midi"))
-                    this.__midi := MMTIME._u_e__Union._midi(0, this)
+                    this.__midi := MMTIME._u._midi(0, this)
                 return this.__midi
             }
         }
@@ -154,12 +154,12 @@ class MMTIME extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := MMTIME._u_e__Union(4, this)
+                this.__u := MMTIME._u(4, this)
             return this.__u
         }
     }

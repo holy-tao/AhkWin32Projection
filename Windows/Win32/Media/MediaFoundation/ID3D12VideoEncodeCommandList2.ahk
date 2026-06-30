@@ -2,6 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12VideoEncodeCommandList1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS.ahk
+#Include .\ID3D12VideoEncoderHeap.ahk
+#Include .\D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS.ahk
+#Include .\D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS.ahk
+#Include .\D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS.ahk
+#Include .\ID3D12VideoEncoder.ahk
 
 /**
  * This interface inherits from ID3D12VideoEncodeCommandList1 and adds methods for encoding video and resolving encode operation metadata.

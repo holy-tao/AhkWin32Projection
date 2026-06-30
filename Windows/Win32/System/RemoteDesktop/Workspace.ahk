@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Adds a resource to the connection in RemoteApp and Desktop Connection. (IWorkspaceRegistration2.AddResource)
- * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspaceregistration-addresource
  * @namespace Windows.Win32.System.RemoteDesktop
  */
 class Workspace extends Win32Struct {

@@ -9,7 +9,7 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct {
 
     static packingSize => 1
 
-    class _ProhibitedActions_e__Union extends Win32Struct {
+    class _ProhibitedActions extends Win32Struct {
         static sizeof => 4
         static packingSize => 1
 
@@ -102,12 +102,12 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct {
     }
 
     /**
-     * @type {_ProhibitedActions_e__Union}
+     * @type {_ProhibitedActions}
      */
     ProhibitedActions {
         get {
             if(!this.HasProp("__ProhibitedActions"))
-                this.__ProhibitedActions := DVD_DISC_CONTROL_BLOCK_HEADER._ProhibitedActions_e__Union(4, this)
+                this.__ProhibitedActions := DVD_DISC_CONTROL_BLOCK_HEADER._ProhibitedActions(4, this)
             return this.__ProhibitedActions
         }
     }

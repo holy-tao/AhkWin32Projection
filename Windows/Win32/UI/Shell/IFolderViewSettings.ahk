@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SORTCOLUMN.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\FOLDERLOGICALVIEWMODE.ahk
+#Include .\FOLDERFLAGS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods to obtain folder view settings.

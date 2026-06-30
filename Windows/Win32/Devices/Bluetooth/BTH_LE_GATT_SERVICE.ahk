@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BTH_LE_UUID.ahk
 
 /**
@@ -10,7 +12,7 @@
 class BTH_LE_GATT_SERVICE extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The Universally Unique ID (UUID) of the Bluetooth LE GATT profile service.
@@ -29,7 +31,7 @@ class BTH_LE_GATT_SERVICE extends Win32Struct {
      * @type {Integer}
      */
     AttributeHandle {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 }

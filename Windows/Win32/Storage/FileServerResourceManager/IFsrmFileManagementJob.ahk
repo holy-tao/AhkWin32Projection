@@ -1,12 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmActionCommand.ahk
-#Include .\IFsrmCollection.ahk
+#Include .\FsrmActionType.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\FsrmReportRunningStatus.ahk
 #Include .\IFsrmAction.ahk
+#Include .\FsrmFileManagementType.ahk
 #Include .\IFsrmPropertyCondition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmActionCommand.ahk
+#Include .\IFsrmObject.ahk
+#Include .\FsrmReportGenerationContext.ahk
 
 /**
  * Defines a file management job.
@@ -246,7 +253,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", name, "HRESULT")
         return name
     }
@@ -402,7 +409,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_expirationdirectory
      */
     get_ExpirationDirectory() {
-        expirationDirectory := BSTR()
+        expirationDirectory := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", expirationDirectory, "HRESULT")
         return expirationDirectory
     }
@@ -592,7 +599,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_mailto
      */
     get_MailTo() {
-        mailTo := BSTR()
+        mailTo := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", mailTo, "HRESULT")
         return mailTo
     }
@@ -783,7 +790,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_task
      */
     get_Task() {
-        taskName := BSTR()
+        taskName := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", taskName, "HRESULT")
         return taskName
     }
@@ -855,7 +862,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lasterror
      */
     get_LastError() {
-        lastError := BSTR()
+        lastError := BSTR({Value: 0}, True)
         result := ComCall(46, this, "ptr", lastError, "HRESULT")
         return lastError
     }
@@ -869,7 +876,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastreportpathwithoutextension
      */
     get_LastReportPathWithoutExtension() {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(47, this, "ptr", _path, "HRESULT")
         return _path
     }
@@ -897,7 +904,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_filenamepattern
      */
     get_FileNamePattern() {
-        fileNamePattern := BSTR()
+        fileNamePattern := BSTR({Value: 0}, True)
         result := ComCall(49, this, "ptr", fileNamePattern, "HRESULT")
         return fileNamePattern
     }

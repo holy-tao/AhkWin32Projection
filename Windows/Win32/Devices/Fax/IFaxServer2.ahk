@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFaxServer.ahk
+#Include .\IFaxSecurity2.ahk
+#Include .\IFaxAccountSet.ahk
 #Include .\IFaxConfiguration.ahk
 #Include .\IFaxAccount.ahk
-#Include .\IFaxAccountSet.ahk
-#Include .\IFaxSecurity2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Inherits all the functionality of the IFaxServer interface and adds read-only properties for the server's configuration, account management, security objects, and the current account.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_REDUCE_FUNCTION.ahk
 #Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_REDUCE_FUNCTION.ahk
 
 /**
  * Outputs the reduction of elements (sum, product, minimum, and so on) within one or more dimensions of the input tensor.

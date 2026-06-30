@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\DVB_STRCONV_MODE.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) multilingual service name descriptor. A multilingual service name descriptor provides the names of the service provider and service in text form in one or more languages.
@@ -81,7 +83,7 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordserviceprovidernamew
      */
     GetRecordServiceProviderNameW(bRecordIndex, convMode) {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "char", bRecordIndex, "int", convMode, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -95,7 +97,7 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordservicenamew
      */
     GetRecordServiceNameW(bRecordIndex, convMode) {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "char", bRecordIndex, "int", convMode, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }

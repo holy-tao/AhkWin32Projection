@@ -1,9 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICEnroll3.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\CERT_CREATE_REQUEST_FLAGS.ahk
+#Include .\XEKL_KEYSPEC.ahk
+#Include .\PENDING_REQUEST_DESIRED_PROPERTY.ahk
+#Include .\ADDED_CERT_TYPE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICEnroll3.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\XEKL_KEYSIZE.ahk
 
 /**
  * The ICEnroll4 interface is one of several interfaces that represent the Certificate Enrollment Control.
@@ -89,7 +96,7 @@ class ICEnroll4 extends ICEnroll3 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_privatekeyarchivecertificate
      */
     get_PrivateKeyArchiveCertificate() {
-        pbstrCert := BSTR()
+        pbstrCert := BSTR({Value: 0}, True)
         result := ComCall(84, this, "ptr", pbstrCert, "HRESULT")
         return pbstrCert
     }
@@ -117,7 +124,7 @@ class ICEnroll4 extends ICEnroll3 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-get_thumbprint
      */
     get_ThumbPrint() {
-        pbstrThumbPrint := BSTR()
+        pbstrThumbPrint := BSTR({Value: 0}, True)
         result := ComCall(86, this, "ptr", pbstrThumbPrint, "HRESULT")
         return pbstrThumbPrint
     }
@@ -133,7 +140,7 @@ class ICEnroll4 extends ICEnroll3 {
     binaryToString(Flags, strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
 
-        pstrEncoded := BSTR()
+        pstrEncoded := BSTR({Value: 0}, True)
         result := ComCall(87, this, "int", Flags, "ptr", strBinary, "ptr", pstrEncoded, "HRESULT")
         return pstrEncoded
     }
@@ -149,7 +156,7 @@ class ICEnroll4 extends ICEnroll3 {
     stringToBinary(Flags, strEncoded) {
         strEncoded := strEncoded is String ? BSTR.Alloc(strEncoded).Value : strEncoded
 
-        pstrBinary := BSTR()
+        pstrBinary := BSTR({Value: 0}, True)
         result := ComCall(88, this, "int", Flags, "ptr", strEncoded, "ptr", pstrBinary, "HRESULT")
         return pstrBinary
     }
@@ -256,7 +263,7 @@ class ICEnroll4 extends ICEnroll3 {
         strDNName := strDNName is String ? BSTR.Alloc(strDNName).Value : strDNName
         Usage := Usage is String ? BSTR.Alloc(Usage).Value : Usage
 
-        pstrRequest := BSTR()
+        pstrRequest := BSTR({Value: 0}, True)
         result := ComCall(94, this, "int", Flags, "ptr", strDNName, "ptr", Usage, "ptr", pstrRequest, "HRESULT")
         return pstrRequest
     }
@@ -344,7 +351,7 @@ class ICEnroll4 extends ICEnroll3 {
     getCertFromResponse(strResponse) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
 
-        pstrCert := BSTR()
+        pstrCert := BSTR({Value: 0}, True)
         result := ComCall(98, this, "ptr", strResponse, "ptr", pstrCert, "HRESULT")
         return pstrCert
     }
@@ -364,7 +371,7 @@ class ICEnroll4 extends ICEnroll3 {
     getCertFromFileResponse(strResponseFileName) {
         strResponseFileName := strResponseFileName is String ? BSTR.Alloc(strResponseFileName).Value : strResponseFileName
 
-        pstrCert := BSTR()
+        pstrCert := BSTR({Value: 0}, True)
         result := ComCall(99, this, "ptr", strResponseFileName, "ptr", pstrCert, "HRESULT")
         return pstrCert
     }
@@ -380,7 +387,7 @@ class ICEnroll4 extends ICEnroll3 {
     createPFX(strPassword) {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        pstrPFX := BSTR()
+        pstrPFX := BSTR({Value: 0}, True)
         result := ComCall(100, this, "ptr", strPassword, "ptr", pstrPFX, "HRESULT")
         return pstrPFX
     }

@@ -1,12 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISensorEvents.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\PortableDevices\IPortableDeviceValues.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\SensorState.ahk
 #Include ..\PortableDevices\IPortableDeviceKeyCollection.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\PortableDevices\IPortableDeviceValues.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISensorDataReport.ahk
 
 /**
@@ -89,7 +94,7 @@ class ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getfriendlyname
      */
     GetFriendlyName() {
-        pFriendlyName := BSTR()
+        pFriendlyName := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", pFriendlyName, "HRESULT")
         return pFriendlyName
     }

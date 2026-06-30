@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NCRYPT_KEY_HANDLE.ahk
 #Include .\CMSG_KEY_TRANS_RECIPIENT_INFO.ahk
+#Include .\NCRYPT_KEY_HANDLE.ahk
 
 /**
  * Contains information about a key transport message recipient.

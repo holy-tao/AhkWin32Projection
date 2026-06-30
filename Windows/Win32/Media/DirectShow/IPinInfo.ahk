@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -126,7 +127,7 @@ class IPinInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        ppUnk := BSTR()
+        ppUnk := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", ppUnk, "HRESULT")
         return ppUnk
     }
@@ -145,7 +146,7 @@ class IPinInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_PinID() {
-        strPinID := BSTR()
+        strPinID := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", strPinID, "HRESULT")
         return strPinID
     }
@@ -160,10 +161,9 @@ class IPinInfo extends IDispatch {
     }
 
     /**
-     * Defines each configuration setting and associates it with a name. The Connection element is optional.
+     * 
      * @param {IUnknown} pPin 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/eaphost/eapconnectionpropertiesv1schema-connection-connections-element
      */
     Connect(pPin) {
         result := ComCall(15, this, "ptr", pPin, "HRESULT")

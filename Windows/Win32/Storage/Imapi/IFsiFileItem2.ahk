@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsiFileItem.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IFsiNamedStreams.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to add, remove and enumerate named streams associated with a file. This interface also provides access to the 'Real-Time' attribute of a file.

@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDiscFormat2.ahk
-#Include .\IDiscRecorder2.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE.ahk
+#Include .\IMAPI_MEDIA_PHYSICAL_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDiscRecorder2.ahk
+#Include .\IDiscFormat2.ahk
 
 /**
  * Use this interface to write raw images to a disc device using Disc At Once (DAO) mode (also known as uninterrupted recording).
@@ -2138,7 +2144,7 @@ class IDiscFormat2RawCD extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_clientname
      */
     get_ClientName() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", value, "HRESULT")
         return value
     }

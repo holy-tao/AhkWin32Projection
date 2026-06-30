@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\DEVMODEW.ahk
 #Include .\PRINTER_ACCESS_RIGHTS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Gdi\DEVMODEW.ahk
 
 /**
  * The PRINTER\_DEFAULTS structure specifies the default data type, environment, initialization data, and access rights for a printer.

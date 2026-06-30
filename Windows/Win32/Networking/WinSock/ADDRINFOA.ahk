@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR.ahk
 #Include .\ADDRINFOA.ahk
+#Include .\SOCKADDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used by the getaddrinfo function to hold host address information.

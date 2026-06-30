@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_PARTITION_STYLE.ahk
 #Include .\VDS_PARTITION_INFO_MBR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_PARTITION_INFO_GPT.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\VDS_PARTITION_STYLE.ahk
 
 /**
  * Defines the properties of a partition.
@@ -14,7 +16,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_PARTITION_PROP extends Win32Struct {
-    static sizeof => 128
+    static sizeof => 144
 
     static packingSize => 8
 

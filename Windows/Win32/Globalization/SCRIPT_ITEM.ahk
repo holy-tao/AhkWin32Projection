@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\SCRIPT_ANALYSIS.ahk
 #Include .\SCRIPT_STATE.ahk
+#Include .\SCRIPT_ANALYSIS.ahk
 
 /**
  * Contains a script item, including a SCRIPT_ANALYSIS structure with the string offset of the first character of the item.

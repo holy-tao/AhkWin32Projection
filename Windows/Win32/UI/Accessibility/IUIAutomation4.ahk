@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUIAutomation3.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\TreeScope.ahk
+#Include .\IUIAutomationChangesEventHandler.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomation3 interface to expose additional methods for controlling Microsoft UI Automation functionality.

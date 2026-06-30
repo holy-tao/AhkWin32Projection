@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_POLICY_ENTRY_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\IMAGE_POLICY_ID.ahk
+#Include .\IMAGE_POLICY_ENTRY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -11,7 +14,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -129,12 +132,12 @@ class IMAGE_POLICY_ENTRY extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := IMAGE_POLICY_ENTRY._u_e__Union(8, this)
+                this.__u := IMAGE_POLICY_ENTRY._u(8, this)
             return this.__u
         }
     }

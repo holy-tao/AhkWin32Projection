@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_ISCSI_IPSEC_KEY.ahk
 
 /**
  * Provides methods for setting local-initiator-specific IPSEC pre-shared keys on an iSCSI portal.

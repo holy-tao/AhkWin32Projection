@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFAttributes.ahk
 #Include .\IMFMediaBuffer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a media sample, which is a container object for media data.

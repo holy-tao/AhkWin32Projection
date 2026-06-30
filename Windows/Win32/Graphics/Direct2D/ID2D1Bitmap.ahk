@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D_POINT_2U.ahk
+#Include Common\D2D_SIZE_U.ahk
+#Include Common\D2D_RECT_U.ahk
+#Include Common\D2D1_PIXEL_FORMAT.ahk
 #Include .\ID2D1Image.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID2D1RenderTarget.ahk
+#Include Common\D2D_SIZE_F.ahk
 
 /**
  * Represents a bitmap that has been bound to an ID2D1RenderTarget.

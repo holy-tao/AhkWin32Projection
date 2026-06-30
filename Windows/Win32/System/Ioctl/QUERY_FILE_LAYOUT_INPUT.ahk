@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\QUERY_FILE_LAYOUT_FILTER_TYPE.ahk
-#Include .\CLUSTER_RANGE.ahk
 #Include .\FILE_REFERENCE_RANGE.ahk
+#Include .\CLUSTER_RANGE.ahk
+#Include .\QUERY_FILE_LAYOUT_FILTER_TYPE.ahk
 #Include .\STORAGE_RESERVE_ID.ahk
 
 /**
@@ -13,7 +13,7 @@ class QUERY_FILE_LAYOUT_INPUT extends Win32Struct {
 
     static packingSize => 8
 
-    class _Filter_e__Union extends Win32Struct {
+    class _Filter extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -92,12 +92,12 @@ class QUERY_FILE_LAYOUT_INPUT extends Win32Struct {
     }
 
     /**
-     * @type {_Filter_e__Union}
+     * @type {_Filter}
      */
     Filter {
         get {
             if(!this.HasProp("__Filter"))
-                this.__Filter := QUERY_FILE_LAYOUT_INPUT._Filter_e__Union(16, this)
+                this.__Filter := QUERY_FILE_LAYOUT_INPUT._Filter(16, this)
             return this.__Filter
         }
     }

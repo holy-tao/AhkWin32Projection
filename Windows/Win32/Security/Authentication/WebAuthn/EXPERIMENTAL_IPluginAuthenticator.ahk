@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\EXPERIMENTAL_WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_REQUEST.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_RESPONSE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn

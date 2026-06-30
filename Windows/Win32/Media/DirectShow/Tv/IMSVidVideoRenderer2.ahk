@@ -2,8 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IMSVidVideoRenderer.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\IVMRSurfaceAllocator.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidVideoRenderer2 interface represents a video renderer device.

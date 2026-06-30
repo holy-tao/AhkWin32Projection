@@ -2,9 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\BCRYPT_KEY_HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CMSG_RECIPIENT_ENCODE_INFO.ahk
-#Include .\BCRYPT_KEY_HANDLE.ahk
 
 /**
  * Contains information shared between the PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY, PFN_CMSG_EXPORT_KEY_TRANS, PFN_CMSG_EXPORT_KEY_AGREE, and PFN_CMSG_EXPORT_MAIL_LIST functions.

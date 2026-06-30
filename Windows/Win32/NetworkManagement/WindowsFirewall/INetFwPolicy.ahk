@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetFwProfile.ahk
+#Include .\NET_FW_PROFILE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The INetFwPolicy interface provides access to a firewall policy.

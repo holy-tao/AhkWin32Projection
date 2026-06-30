@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\AHE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a single method that enables an application to determine whether its host is in desktop or immersive mode.

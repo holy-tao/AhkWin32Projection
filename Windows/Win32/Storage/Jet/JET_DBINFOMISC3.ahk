@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_SIGNATURE.ahk
-#Include .\JET_LOGTIME.ahk
 #Include .\JET_LGPOS.ahk
-#Include .\JET_BKINFO.ahk
+#Include .\JET_LOGTIME.ahk
+#Include .\JET_SIGNATURE.ahk
 #Include .\JET_BKLOGTIME.ahk
+#Include .\JET_BKINFO.ahk
 
 /**
  * Learn more about: JET_DBINFOMISC3 Structure

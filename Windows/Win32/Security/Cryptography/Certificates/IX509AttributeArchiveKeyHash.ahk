@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Attribute.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509Attribute.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an attribute that contains a SHA-1 hash of the encrypted private key to be archived by a certification authority.
@@ -81,7 +83,7 @@ class IX509AttributeArchiveKeyHash extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributearchivekeyhash-get_encryptedkeyhashblob
      */
     get_EncryptedKeyHashBlob(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

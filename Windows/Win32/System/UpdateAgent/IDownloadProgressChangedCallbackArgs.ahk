@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IDownloadProgress.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains information about the change in the progress of an asynchronous download operation.

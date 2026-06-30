@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Indicates the transaction to be recovered. This structure is sent with a recovery notification.
@@ -7,25 +8,31 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class TRANSACTION_NOTIFICATION_RECOVERY_ARGUMENT extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The enlistment identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     EnlistmentId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__EnlistmentId"))
+                this.__EnlistmentId := Guid(0, this)
+            return this.__EnlistmentId
+        }
     }
 
     /**
      * The transaction identifier, sometimes called the unit of work.
-     * @type {Pointer}
+     * @type {Guid}
      */
     UOW {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__UOW"))
+                this.__UOW := Guid(16, this)
+            return this.__UOW
+        }
     }
 }

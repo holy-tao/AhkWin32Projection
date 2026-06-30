@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
 #Include ..\..\Graphics\DirectDraw\DDCOLORKEY.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
 #Include .\NORMALIZEDRECT.ahk
 
 /**

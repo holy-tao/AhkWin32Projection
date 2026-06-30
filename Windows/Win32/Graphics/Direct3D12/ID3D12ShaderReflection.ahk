@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct3D\D3D_PRIMITIVE.ahk
+#Include .\D3D12_SIGNATURE_PARAMETER_DESC.ahk
+#Include .\D3D12_SHADER_INPUT_BIND_DESC.ahk
+#Include .\ID3D12ShaderReflectionVariable.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\D3D12_SHADER_DESC.ahk
-#Include .\D3D12_SHADER_INPUT_BIND_DESC.ahk
-#Include .\D3D12_SIGNATURE_PARAMETER_DESC.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ID3D12ShaderReflectionConstantBuffer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D12ShaderReflection)

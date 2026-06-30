@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to retrieve the access token or authorization scheme used during the authentication of a client.
@@ -36,7 +37,7 @@ class IWSDHttpAuthParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpauthparameters-getclientaccesstoken
      */
     GetClientAccessToken() {
-        phToken := HANDLE()
+        phToken := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "ptr", phToken, "HRESULT")
         return phToken
     }

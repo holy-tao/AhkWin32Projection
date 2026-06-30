@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Describes information about present that helps the operating system optimize presentation.

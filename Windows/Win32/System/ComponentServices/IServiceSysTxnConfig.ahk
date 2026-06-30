@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionProxy.ahk
 #Include .\IServiceTransactionConfig.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables you to run a set of code in the scope of an existing transaction that you specify with a transaction proxy.

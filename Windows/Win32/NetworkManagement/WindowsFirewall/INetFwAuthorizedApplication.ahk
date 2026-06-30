@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\NET_FW_SCOPE.ahk
+#Include .\NET_FW_IP_VERSION.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The INetFwAuthorizedApplication interface provides access to the properties of an application that has been authorized have openings in the firewall.
@@ -98,7 +102,7 @@ class INetFwAuthorizedApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", name, "HRESULT")
         return name
     }
@@ -130,7 +134,7 @@ class INetFwAuthorizedApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_processimagefilename
      */
     get_ProcessImageFileName() {
-        imageFileName := BSTR()
+        imageFileName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", imageFileName, "HRESULT")
         return imageFileName
     }
@@ -242,7 +246,7 @@ class INetFwAuthorizedApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_remoteaddresses
      */
     get_RemoteAddresses() {
-        remoteAddrs := BSTR()
+        remoteAddrs := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", remoteAddrs, "HRESULT")
         return remoteAddrs
     }

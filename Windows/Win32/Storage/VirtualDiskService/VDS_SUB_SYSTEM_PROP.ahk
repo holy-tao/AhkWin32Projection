@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_SUB_SYSTEM_STATUS.ahk
 #Include .\VDS_HEALTH.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\VDS_SUB_SYSTEM_STATUS.ahk
 
 /**
  * The VDS_SUB_SYSTEM_PROP structure (vdshwprv.h) defines the properties of a subsystem object.
@@ -12,17 +14,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_SUB_SYSTEM_PROP extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
     /**
      * The GUID of the subsystem object.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -31,8 +36,8 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {PWSTR}
      */
     pwszFriendlyName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -40,8 +45,8 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {PWSTR}
      */
     pwszIdentification {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -50,8 +55,8 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -62,8 +67,8 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulStripeSizeFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -71,8 +76,8 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {VDS_SUB_SYSTEM_STATUS}
      */
     status {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -81,8 +86,8 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {VDS_HEALTH}
      */
     health {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -90,8 +95,8 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {Integer}
      */
     sNumberOfInternalBuses {
-        get => NumGet(this, 40, "short")
-        set => NumPut("short", value, this, 40)
+        get => NumGet(this, 48, "short")
+        set => NumPut("short", value, this, 48)
     }
 
     /**
@@ -100,8 +105,8 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {Integer}
      */
     sMaxNumberOfSlotsEachBus {
-        get => NumGet(this, 42, "short")
-        set => NumPut("short", value, this, 42)
+        get => NumGet(this, 50, "short")
+        set => NumPut("short", value, this, 50)
     }
 
     /**
@@ -109,8 +114,8 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {Integer}
      */
     sMaxNumberOfControllers {
-        get => NumGet(this, 44, "short")
-        set => NumPut("short", value, this, 44)
+        get => NumGet(this, 52, "short")
+        set => NumPut("short", value, this, 52)
     }
 
     /**
@@ -118,7 +123,7 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct {
      * @type {Integer}
      */
     sRebuildPriority {
-        get => NumGet(this, 46, "short")
-        set => NumPut("short", value, this, 46)
+        get => NumGet(this, 54, "short")
+        set => NumPut("short", value, this, 54)
     }
 }

@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\COLUMNSTATUS.ahk
+#Include .\CProperty.ahk
+#Include .\ROWSTATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\PRIORITY.ahk
 
 /**
  * Use this interface in run-time applications to initialize, build, and obtain information about result sets.
@@ -278,18 +285,12 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
+     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Void>} lpvData 
      * @param {Integer} cbData 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
-     * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @returns {HRESULT} 
      */
     Set(lRowIndex, lColumnIndex, lpvData, cbData) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
@@ -299,17 +300,11 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
+     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {PWSTR} lpwStr 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
-     * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @returns {HRESULT} 
      */
     Set1(lRowIndex, lColumnIndex, lpwStr) {
         lpwStr := lpwStr is String ? StrPtr(lpwStr) : lpwStr
@@ -319,17 +314,11 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
+     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {Pointer} dwData 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
-     * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @returns {HRESULT} 
      */
     Set2(lRowIndex, lColumnIndex, dwData) {
         result := ComCall(13, this, "int", lRowIndex, "int", lColumnIndex, "ptr", dwData, "HRESULT")
@@ -337,17 +326,11 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
+     * 
      * @param {Integer} lRowIndex 
      * @param {Pointer<Void>} lpvHdr 
      * @param {Pointer<Void>} lpvData 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
-     * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @returns {HRESULT} 
      */
     Set3(lRowIndex, lpvHdr, lpvData) {
         lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : "ptr"
@@ -358,16 +341,9 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * Copies the specified accelerator table. This function is used to obtain the accelerator-table data that corresponds to an accelerator-table handle, or to determine the size of the accelerator-table data. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winuser.h header defines CopyAcceleratorTable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {IITResultSet} pRSCopy 
-     * @returns {HRESULT} Type: <b>int</b>
      * 
-     * If 
-     *       <i>lpAccelDst</i> is <b>NULL</b>, the return value specifies the number of accelerator-table entries in the original table. Otherwise, it specifies the number of accelerator-table entries that were copied.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyacceleratortablew
+     * @param {IITResultSet} pRSCopy 
+     * @returns {HRESULT} 
      */
     Copy(pRSCopy) {
         result := ComCall(15, this, "ptr", pRSCopy, "HRESULT")
@@ -590,19 +566,8 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The FreeAddrInfoEx function (ws2tcpip.h) frees address information that the GetAddrInfoEx function dynamically allocates in addrinfoex structures.
-     * @remarks
-     * The 
-     * <b>FreeAddrInfoEx</b> function frees <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structures dynamically allocated by the  <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexa">GetAddrInfoEx</a> function. The <b>FreeAddrInfoEx</b> function frees the initial 
-     * <b>addrinfoex</b> structure pointed to in the <i>pAddrInfo</i> parameter, including any buffers to which structure members point, then continues freeing any 
-     * <b>addrinfoex</b> structures linked by the <b>ai_next</b> member of the <b>addrinfoex</b> structure. The 
-     * <b>FreeAddrInfoEx</b> function continues freeing linked structures until a <b>NULL</b> <b>ai_next</b> member is encountered.
      * 
-     * When UNICODE or _UNICODE is defined, <b>FreeAddrInfoEx</b> is defined to <b>FreeAddrInfoExW</b>, the Unicode version of the function, and <b>ADDRINFOEX</b> is defined to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoexW</a> structure. When UNICODE or _UNICODE is not defined, <b>FreeAddrInfoEx</b> is defined to <b>FreeAddrInfoExA</b>, the ANSI version of the function, and <b>ADDRINFOEX</b> is defined to the <b>addrinfoexA</b> structure. 
-     * 
-     * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: The <b>FreeAddrInfoExW</b> function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @returns {HRESULT} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfoex
+     * @returns {HRESULT} 
      */
     Free() {
         result := ComCall(27, this, "HRESULT")
@@ -619,15 +584,8 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * Use the Cancel-Session packet to terminate the upload session with the BITS server.
-     * @remarks
-     * This packet cancels an upload job if it is sent before the last fragment is sent. Cancel-Session has no effect on a file whose last fragment has already been sent. When the BITS server receives the last fragment, it writes the file to its final destination and, in the case of an upload-reply, posts the file to the server application. In the upload-reply case, the Cancel-Session packet cancels the reply portion of an upload-reply job.
      * 
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
-     * 
-     * The BITS client sends this packet when the user cancels the job.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/cancel-session
      */
     Cancel() {
         result := ComCall(29, this, "HRESULT")

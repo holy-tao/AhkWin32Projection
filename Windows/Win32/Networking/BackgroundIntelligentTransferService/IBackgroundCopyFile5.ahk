@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyFile4.ahk
 #Include .\BITS_FILE_PROPERTY_VALUE.ahk
+#Include .\IBackgroundCopyFile4.ahk
+#Include .\BITS_FILE_PROPERTY_ID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to get or set generic properties of BITS file transfers.

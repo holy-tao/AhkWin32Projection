@@ -1,7 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ComponentStatistics.ahk
+#Include .\ApplicationSummary.ahk
+#Include .\ApplicationProcessStatistics.ahk
+#Include .\ComponentSummary.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ApplicationProcessRecycleInfo.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ApplicationProcessSummary.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ComponentHangMonitorInfo.ahk
 
 /**
  * Enables administrative applications to retrieve statistical information about running COM+ applications.

@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10Device.ahk
+#Include .\D3D10_SHADER_RESOURCE_VIEW_DESC1.ahk
 #Include .\ID3D10ShaderResourceView1.ahk
+#Include .\D3D10_FEATURE_LEVEL1.ahk
+#Include .\ID3D10Resource.ahk
+#Include .\D3D10_BLEND_DESC1.ahk
 #Include .\ID3D10BlendState1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10Device.ahk
 
 /**
  * The device interface represents a virtual adapter for Direct3D 10.1; it is used to perform rendering and create Direct3D resources.

@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\TERMINAL_DIRECTION.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumTerminal.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ITTerminal.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITStream interfaces expose methods that allow an application to retrieve information on a stream; to start, pause, or stop the stream; to select or unselect terminals on a stream; and to obtain a list of terminals selected on the stream.
@@ -92,7 +95,7 @@ class ITStream extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_name
      */
     get_Name() {
-        ppName := BSTR()
+        ppName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", ppName, "HRESULT")
         return ppName
     }

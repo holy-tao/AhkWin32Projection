@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The WMSCRIPTFORMAT structure describes the type of script data used in a script stream.
@@ -7,16 +8,19 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
 class WMSCRIPTFORMAT extends Win32Struct {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * GUID identifying the type of script commands in a script stream. Always set to WMSCRIPTTYPE_TwoStrings.
-     * @type {Pointer}
+     * @type {Guid}
      */
     scriptType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__scriptType"))
+                this.__scriptType := Guid(0, this)
+            return this.__scriptType
+        }
     }
 }

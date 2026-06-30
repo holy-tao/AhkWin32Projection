@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\..\..\Guid.ahk
 #Include ..\System\Com\IUnknown.ahk
+#Include ..\Foundation\BOOL.ahk
+#Include ..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -66,9 +69,8 @@ class IMLangString extends IUnknown {
     }
 
     /**
-     * Returns the length, in bytes, of a valid security identifier (SID).
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
      */
     GetLength() {
         result := ComCall(4, this, "int*", &plLen := 0, "HRESULT")

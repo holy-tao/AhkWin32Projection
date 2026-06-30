@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
 #Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
 #Include ..\..\Foundation\RECTL.ahk
-#Include .\DDBLTFX.ahk
 #Include .\IDirectDrawSurface.ahk
 #Include .\DDCOLORKEY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
+#Include .\DDBLTFX.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

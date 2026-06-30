@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IUIAutomationCondition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a condition made up of multiple conditions, at least one of which must be true.

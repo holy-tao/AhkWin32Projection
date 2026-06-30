@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SMDATA.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A callback interface that exposes a method that receives messages from a menu band.

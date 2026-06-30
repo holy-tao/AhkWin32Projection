@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BATTERY_REPORTING_SCALE.ahk
 #Include .\SYSTEM_POWER_STATE.ahk
 

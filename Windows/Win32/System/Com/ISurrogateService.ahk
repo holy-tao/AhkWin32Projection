@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ApplicationType.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ShutdownType.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IProcessLock.ahk
 
 /**
  * Used to initialize, launch, and release a COM+ application. You can also refresh the catalog and shut down the process.

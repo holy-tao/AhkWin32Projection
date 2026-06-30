@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITextProvider.ahk
 #Include .\ITextRangeProvider.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITextProvider.ahk
 
 /**
  * Extends the ITextProvider interface to enable Microsoft UI Automation providers to expose programmatic text-edit actions.

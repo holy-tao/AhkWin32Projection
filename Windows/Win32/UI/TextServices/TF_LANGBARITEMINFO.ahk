@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The TF_LANGBARITEMINFO structure is used to hold information about a language bar item.
@@ -7,28 +8,34 @@
  * @namespace Windows.Win32.UI.TextServices
  */
 class TF_LANGBARITEMINFO extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the <b>CLSID</b> of the text service that owns the language bar item. This can be CLSID_NULL if the item is not provided by a text service.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidService {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__clsidService"))
+                this.__clsidService := Guid(0, this)
+            return this.__clsidService
+        }
     }
 
     /**
      * Contains a <b>GUID</b> value that identifies the language bar item.
      * 
      * Starting with Windows 8, this value should be GUID_LBI_INPUTMODE (or the language bar item will be ignored). For more information, see [Third-party input method editors](https://docs.microsoft.com/en-us/windows/win32/w8cookbook/third-party-input-method-editors#manifestation) in the Compatibility cookbook for Windows.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidItem {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidItem"))
+                this.__guidItem := Guid(16, this)
+            return this.__guidItem
+        }
     }
 
     /**
@@ -36,8 +43,8 @@ class TF_LANGBARITEMINFO extends Win32Struct {
      * @type {Integer}
      */
     dwStyle {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -47,8 +54,8 @@ class TF_LANGBARITEMINFO extends Win32Struct {
      * @type {Integer}
      */
     ulSort {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -56,7 +63,7 @@ class TF_LANGBARITEMINFO extends Win32Struct {
      * @type {String}
      */
     szDescription {
-        get => StrGet(this.ptr + 24, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 31, "UTF-16")
+        get => StrGet(this.ptr + 40, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 40, 31, "UTF-16")
     }
 }

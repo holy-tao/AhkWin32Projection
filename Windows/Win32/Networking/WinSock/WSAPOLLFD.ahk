@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET.ahk
 #Include .\WSAPOLL_EVENT_FLAGS.ahk
+#Include .\SOCKET.ahk
 
 /**
  * Stores socket information used by the WSAPoll function.

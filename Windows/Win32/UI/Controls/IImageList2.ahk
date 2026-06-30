@@ -2,6 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IImageList.ahk
+#Include .\IMAGELISTSTATS.ahk
+#Include .\IMAGELISTDRAWPARAMS.ahk
+#Include .\IMAGELIST_CREATION_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Extends IImageList by providing additional methods for manipulating and interacting with image lists.

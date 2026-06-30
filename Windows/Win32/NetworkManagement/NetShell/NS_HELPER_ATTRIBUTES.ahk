@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Provides attributes of a helper.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetShell
  */
 class NS_HELPER_ATTRIBUTES extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -37,11 +38,14 @@ class NS_HELPER_ATTRIBUTES extends Win32Struct {
 
     /**
      * The GUID of the helper.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidHelper {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidHelper"))
+                this.__guidHelper := Guid(8, this)
+            return this.__guidHelper
+        }
     }
 
     /**
@@ -50,8 +54,8 @@ class NS_HELPER_ATTRIBUTES extends Win32Struct {
      * @type {Pointer<PNS_HELPER_START_FN>}
      */
     pfnStart {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -60,7 +64,7 @@ class NS_HELPER_ATTRIBUTES extends Win32Struct {
      * @type {Pointer<PNS_HELPER_STOP_FN>}
      */
     pfnStop {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IImageDecodeEventSink.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -146,10 +149,9 @@ class IImageDecodeFilter extends IUnknown {
     }
 
     /**
-     * Eliminates the cache and ends asynchronous I/O with the DLL.
+     * 
      * @param {HRESULT} hrStatus 
-     * @returns {HRESULT} Returns <b>TRUE</b> if the function succeeds; otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-terminatecache
+     * @returns {HRESULT} 
      */
     Terminate(hrStatus) {
         result := ComCall(5, this, "int", hrStatus, "HRESULT")

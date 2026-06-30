@@ -261,8 +261,8 @@ class GeneratedStructSmokeTests {
         NonAnonymousUnions_AreNotFlattened() {
             test := NVME_OCP_DEVICE_CAPABILITIES_LOG()
 
-            Assert.Equals(type(test.OobMgmtSupport), "NVME_OCP_DEVICE_CAPABILITIES_LOG._OobMgmtSupport_e__Union")
-            Assert.Equals(type(test.WriteZeroesCommand), "NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteZeroesCommand_e__Union")
+            Assert.Equals(type(test.OobMgmtSupport), "NVME_OCP_DEVICE_CAPABILITIES_LOG._OobMgmtSupport")
+            Assert.Equals(type(test.WriteZeroesCommand), "NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteZeroesCommand")
         }
 
         NonAnonymousUnions_AreProjectedCorrectly() {

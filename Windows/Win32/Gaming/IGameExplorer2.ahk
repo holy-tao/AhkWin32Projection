@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\Foundation\PWSTR.ahk
+#Include .\GAME_INSTALL_SCOPE.ahk
 #Include ..\System\Com\IUnknown.ahk
+#Include ..\Foundation\BOOL.ahk
+#Include ..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Gaming
@@ -55,10 +59,9 @@ class IGameExplorer2 extends IUnknown {
     }
 
     /**
-     * Determines whether all values from a Sample, Gather, or Load operation accessed mapped tiles in a tiled resource.
+     * 
      * @param {PWSTR} binaryGDFPath 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/checkaccessfullymapped
      */
     CheckAccess(binaryGDFPath) {
         binaryGDFPath := binaryGDFPath is String ? StrPtr(binaryGDFPath) : binaryGDFPath

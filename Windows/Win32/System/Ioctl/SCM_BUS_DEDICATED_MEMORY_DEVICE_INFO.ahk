@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -43,19 +44,22 @@ class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     DeviceGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__DeviceGuid"))
+                this.__DeviceGuid := Guid(0, this)
+            return this.__DeviceGuid
+        }
     }
 
     /**
      * @type {Integer}
      */
     DeviceNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -64,7 +68,7 @@ class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO extends Win32Struct {
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO._Flags(12, this)
+                this.__Flags := SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO._Flags(20, this)
             return this.__Flags
         }
     }
@@ -73,7 +77,7 @@ class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO extends Win32Struct {
      * @type {Integer}
      */
     DeviceSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

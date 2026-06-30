@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOBOBJECT_BASIC_LIMIT_INFORMATION.ahk
 #Include .\JOB_OBJECT_LIMIT.ahk
+#Include .\JOBOBJECT_BASIC_LIMIT_INFORMATION.ahk
 #Include ..\Threading\IO_COUNTERS.ahk
 
 /**

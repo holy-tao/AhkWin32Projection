@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FsrmCommitOptions.ahk
 #Include .\IFsrmMutableCollection.ahk
 #Include .\IFsrmCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a collection of FSRM objects that can have the same type of objects added to or removed from the collection. All objects in the collection can also be committed in a single batch operation.

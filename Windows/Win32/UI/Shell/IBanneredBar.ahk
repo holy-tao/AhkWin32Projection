@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -48,14 +49,9 @@ class IBanneredBar extends IUnknown {
     }
 
     /**
-     * The SetBitmapBits function sets the bits of color data for a bitmap to the specified values.
-     * @remarks
-     * The array identified by <i>lpBits</i> must be WORD aligned.
-     * @param {HBITMAP} _hBitmap 
-     * @returns {HRESULT} If the function succeeds, the return value is the number of bytes used in setting the bitmap bits.
      * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbitmapbits
+     * @param {HBITMAP} _hBitmap 
+     * @returns {HRESULT} 
      */
     SetBitmap(_hBitmap) {
         _hBitmap := _hBitmap is Win32Handle ? NumGet(_hBitmap, "ptr") : _hBitmap
@@ -65,12 +61,11 @@ class IBanneredBar extends IUnknown {
     }
 
     /**
-     * The GetBitmapBits function copies the bitmap bits of a specified device-dependent bitmap into a buffer.
+     * 
      * @returns {HBITMAP} 
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbitmapbits
      */
     GetBitmap() {
-        phBitmap := HBITMAP()
+        phBitmap := HBITMAP({Value: 0}, True)
         result := ComCall(6, this, "ptr", phBitmap, "HRESULT")
         return phBitmap
     }

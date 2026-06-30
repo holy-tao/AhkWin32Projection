@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
 class ImgErrorInfo extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -22,19 +23,22 @@ class ImgErrorInfo extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(8, this)
+            return this.__guid
+        }
     }
 
     /**
      * @type {Integer}
      */
     helpContext {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -43,7 +47,7 @@ class ImgErrorInfo extends Win32Struct {
     helpFile {
         get {
             if(!this.HasProp("__helpFile"))
-                this.__helpFile := BSTR(24, this)
+                this.__helpFile := BSTR(32, this)
             return this.__helpFile
         }
     }
@@ -54,7 +58,7 @@ class ImgErrorInfo extends Win32Struct {
     source {
         get {
             if(!this.HasProp("__source"))
-                this.__source := BSTR(32, this)
+                this.__source := BSTR(40, this)
             return this.__source
         }
     }
@@ -65,33 +69,36 @@ class ImgErrorInfo extends Win32Struct {
     devDescription {
         get {
             if(!this.HasProp("__devDescription"))
-                this.__devDescription := BSTR(40, this)
+                this.__devDescription := BSTR(48, this)
             return this.__devDescription
         }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     errorID {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__errorID"))
+                this.__errorID := Guid(56, this)
+            return this.__errorID
+        }
     }
 
     /**
      * @type {Integer}
      */
     cUserParameters {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {Pointer<BSTR>}
      */
     aUserParameters {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -100,7 +107,7 @@ class ImgErrorInfo extends Win32Struct {
     userFallback {
         get {
             if(!this.HasProp("__userFallback"))
-                this.__userFallback := BSTR(72, this)
+                this.__userFallback := BSTR(88, this)
             return this.__userFallback
         }
     }
@@ -109,7 +116,7 @@ class ImgErrorInfo extends Win32Struct {
      * @type {Integer}
      */
     exceptionID {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 }

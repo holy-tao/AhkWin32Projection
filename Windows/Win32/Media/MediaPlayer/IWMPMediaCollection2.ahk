@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMPMediaCollection.ahk
-#Include .\IWMPQuery.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWMPPlaylist.ahk
+#Include .\IWMPMediaCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IWMPQuery.ahk
 #Include .\IWMPStringCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMPMediaCollection2 interface provides methods that supplement the IWMPMediaCollection interface.

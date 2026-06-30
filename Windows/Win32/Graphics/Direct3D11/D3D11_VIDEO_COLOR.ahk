@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_VIDEO_COLOR_YCbCrA.ahk
 #Include .\D3D11_VIDEO_COLOR_RGBA.ahk
+#Include .\D3D11_VIDEO_COLOR_YCbCrA.ahk
 
 /**
  * Defines a color value for Microsoft Direct3D 11 video.

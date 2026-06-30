@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\APO_FLAG.ahk
 
 /**
@@ -8,17 +9,20 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class APO_REG_PROPERTIES extends Win32Struct {
-    static sizeof => 1080
+    static sizeof => 1088
 
     static packingSize => 8
 
     /**
      * The class ID for this APO.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(0, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -26,8 +30,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {APO_FLAG}
      */
     Flags {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -35,8 +39,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {String}
      */
     szFriendlyName {
-        get => StrGet(this.ptr + 12, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 255, "UTF-16")
+        get => StrGet(this.ptr + 20, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 20, 255, "UTF-16")
     }
 
     /**
@@ -44,8 +48,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {String}
      */
     szCopyrightInfo {
-        get => StrGet(this.ptr + 524, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 524, 255, "UTF-16")
+        get => StrGet(this.ptr + 532, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 532, 255, "UTF-16")
     }
 
     /**
@@ -53,8 +57,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     u32MajorVersion {
-        get => NumGet(this, 1036, "uint")
-        set => NumPut("uint", value, this, 1036)
+        get => NumGet(this, 1044, "uint")
+        set => NumPut("uint", value, this, 1044)
     }
 
     /**
@@ -62,8 +66,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     u32MinorVersion {
-        get => NumGet(this, 1040, "uint")
-        set => NumPut("uint", value, this, 1040)
+        get => NumGet(this, 1048, "uint")
+        set => NumPut("uint", value, this, 1048)
     }
 
     /**
@@ -71,8 +75,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     u32MinInputConnections {
-        get => NumGet(this, 1044, "uint")
-        set => NumPut("uint", value, this, 1044)
+        get => NumGet(this, 1052, "uint")
+        set => NumPut("uint", value, this, 1052)
     }
 
     /**
@@ -80,8 +84,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     u32MaxInputConnections {
-        get => NumGet(this, 1048, "uint")
-        set => NumPut("uint", value, this, 1048)
+        get => NumGet(this, 1056, "uint")
+        set => NumPut("uint", value, this, 1056)
     }
 
     /**
@@ -89,8 +93,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     u32MinOutputConnections {
-        get => NumGet(this, 1052, "uint")
-        set => NumPut("uint", value, this, 1052)
+        get => NumGet(this, 1060, "uint")
+        set => NumPut("uint", value, this, 1060)
     }
 
     /**
@@ -98,8 +102,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     u32MaxOutputConnections {
-        get => NumGet(this, 1056, "uint")
-        set => NumPut("uint", value, this, 1056)
+        get => NumGet(this, 1064, "uint")
+        set => NumPut("uint", value, this, 1064)
     }
 
     /**
@@ -107,8 +111,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     u32MaxInstances {
-        get => NumGet(this, 1060, "uint")
-        set => NumPut("uint", value, this, 1060)
+        get => NumGet(this, 1068, "uint")
+        set => NumPut("uint", value, this, 1068)
     }
 
     /**
@@ -116,8 +120,8 @@ class APO_REG_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     u32NumAPOInterfaces {
-        get => NumGet(this, 1064, "uint")
-        set => NumPut("uint", value, this, 1064)
+        get => NumGet(this, 1072, "uint")
+        set => NumPut("uint", value, this, 1072)
     }
 
     /**
@@ -126,7 +130,7 @@ class APO_REG_PROPERTIES extends Win32Struct {
     iidAPOInterfaceList {
         get {
             if(!this.HasProp("__iidAPOInterfaceListProxyArray"))
-                this.__iidAPOInterfaceListProxyArray := Win32FixedArray(this.ptr + 1072, 1, Primitive, "ptr")
+                this.__iidAPOInterfaceListProxyArray := Win32FixedArray(this.ptr + 1080, 1, Primitive, "ptr")
             return this.__iidAPOInterfaceListProxyArray
         }
     }

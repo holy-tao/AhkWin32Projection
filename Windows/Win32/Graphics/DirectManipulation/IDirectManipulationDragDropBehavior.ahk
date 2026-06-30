@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DIRECTMANIPULATION_DRAG_DROP_STATUS.ahk
+#Include .\DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents behaviors for drag and drop interactions, which are triggered by cross-slide or press-and-hold gestures.

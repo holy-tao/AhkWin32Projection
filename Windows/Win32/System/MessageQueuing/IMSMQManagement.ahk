@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -92,19 +94,11 @@ class IMSMQManagement extends IDispatch {
     }
 
     /**
-     * Initializes the trace.
-     * @remarks
-     * Exstrace.dll is an optional component that installs with the Simple Mail Transfer Protocol (SMTP) and the Network News Transfer Protocol (NNTP).
      * 
-     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {Pointer<VARIANT>} Machine 
      * @param {Pointer<VARIANT>} _Pathname 
      * @param {Pointer<VARIANT>} FormatName 
-     * @returns {HRESULT} This function has no parameters.
-     * 
-     * 
-     * This function returns **TRUE** if the function succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/-initasynctrace
+     * @returns {HRESULT} 
      */
     Init(Machine, _Pathname, FormatName) {
         result := ComCall(7, this, "ptr", Machine, "ptr", _Pathname, "ptr", FormatName, "HRESULT")
@@ -116,7 +110,7 @@ class IMSMQManagement extends IDispatch {
      * @returns {BSTR} 
      */
     get_FormatName() {
-        pbstrFormatName := BSTR()
+        pbstrFormatName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrFormatName, "HRESULT")
         return pbstrFormatName
     }
@@ -126,7 +120,7 @@ class IMSMQManagement extends IDispatch {
      * @returns {BSTR} 
      */
     get_Machine() {
-        pbstrMachine := BSTR()
+        pbstrMachine := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrMachine, "HRESULT")
         return pbstrMachine
     }

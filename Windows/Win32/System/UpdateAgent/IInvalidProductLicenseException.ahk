@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUpdateException.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUpdateException.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Encapsulates the exception that is thrown when an invalid license is detected for a product.
@@ -43,7 +44,7 @@ class IInvalidProductLicenseException extends IUpdateException {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinvalidproductlicenseexception-get_product
      */
     get_Product() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", retval, "HRESULT")
         return retval
     }

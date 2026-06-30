@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The OPAQUECOMMAND structure contains data for commands that are passed through Windows Media Device Manager to a device but are not intended to be acted upon by Windows Media Device Manager.
@@ -7,16 +8,19 @@
  * @namespace Windows.Win32.Media.DeviceManager
  */
 class OPAQUECOMMAND extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidCommand {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidCommand"))
+                this.__guidCommand := Guid(0, this)
+            return this.__guidCommand
+        }
     }
 
     /**
@@ -24,8 +28,8 @@ class OPAQUECOMMAND extends Win32Struct {
      * @type {Integer}
      */
     dwDataLen {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -38,8 +42,8 @@ class OPAQUECOMMAND extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     pData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -48,7 +52,7 @@ class OPAQUECOMMAND extends Win32Struct {
     abMAC {
         get {
             if(!this.HasProp("__abMACProxyArray"))
-                this.__abMACProxyArray := Win32FixedArray(this.ptr + 24, 20, Primitive, "char")
+                this.__abMACProxyArray := Win32FixedArray(this.ptr + 32, 20, Primitive, "char")
             return this.__abMACProxyArray
         }
     }

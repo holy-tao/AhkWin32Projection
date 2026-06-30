@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\IStaticPortMappingCollection.ahk
-#Include .\IDynamicPortMappingCollection.ahk
 #Include .\INATEventManager.ahk
+#Include .\IDynamicPortMappingCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IStaticPortMappingCollection.ahk
 
 /**
  * The IUPnPNAT interface is the primary interface for managing Network Address Translation (NAT) with UPnP. The IUPnPNAT interface provides access directly or indirectly to all the other interfaces in the NAT API with UPnP technology.

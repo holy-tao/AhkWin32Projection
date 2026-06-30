@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\MFARGB.ahk
+#Include .\MF_TIMED_TEXT_FONT_STYLE.ahk
+#Include .\MF_TIMED_TEXT_ALIGNMENT.ahk
+#Include .\MF_TIMED_TEXT_UNIT_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents the style for timed text.

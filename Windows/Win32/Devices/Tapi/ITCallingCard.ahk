@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITCallingCard interface provides methods to retrieve information concerning telephony calling cards.
@@ -121,7 +122,7 @@ class ITCallingCard extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_cardname
      */
     get_CardName() {
-        ppCardName := BSTR()
+        ppCardName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", ppCardName, "HRESULT")
         return ppCardName
     }
@@ -135,7 +136,7 @@ class ITCallingCard extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_sameareadialingrule
      */
     get_SameAreaDialingRule() {
-        ppRule := BSTR()
+        ppRule := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", ppRule, "HRESULT")
         return ppRule
     }
@@ -149,7 +150,7 @@ class ITCallingCard extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_longdistancedialingrule
      */
     get_LongDistanceDialingRule() {
-        ppRule := BSTR()
+        ppRule := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", ppRule, "HRESULT")
         return ppRule
     }
@@ -163,7 +164,7 @@ class ITCallingCard extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_internationaldialingrule
      */
     get_InternationalDialingRule() {
-        ppRule := BSTR()
+        ppRule := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", ppRule, "HRESULT")
         return ppRule
     }

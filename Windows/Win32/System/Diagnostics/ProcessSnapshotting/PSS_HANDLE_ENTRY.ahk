@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\PSS_HANDLE_FLAGS.ahk
 #Include .\PSS_OBJECT_TYPE.ahk
+#Include .\PSS_HANDLE_FLAGS.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Holds information about a handle returned by PssWalkSnapshot.
@@ -17,7 +19,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct {
 
     static packingSize => 8
 
-    class _TypeSpecificInformation_e__Union extends Win32Struct {
+    class _TypeSpecificInformation extends Win32Struct {
         static sizeof => 48
         static packingSize => 8
 
@@ -265,7 +267,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct {
         Process {
             get {
                 if(!this.HasProp("__Process"))
-                    this.__Process := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Process(0, this)
+                    this.__Process := PSS_HANDLE_ENTRY._TypeSpecificInformation._Process(0, this)
                 return this.__Process
             }
         }
@@ -276,7 +278,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct {
         Thread {
             get {
                 if(!this.HasProp("__Thread"))
-                    this.__Thread := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Thread(0, this)
+                    this.__Thread := PSS_HANDLE_ENTRY._TypeSpecificInformation._Thread(0, this)
                 return this.__Thread
             }
         }
@@ -287,7 +289,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct {
         Mutant {
             get {
                 if(!this.HasProp("__Mutant"))
-                    this.__Mutant := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Mutant(0, this)
+                    this.__Mutant := PSS_HANDLE_ENTRY._TypeSpecificInformation._Mutant(0, this)
                 return this.__Mutant
             }
         }
@@ -298,7 +300,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct {
         Event {
             get {
                 if(!this.HasProp("__Event"))
-                    this.__Event := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Event(0, this)
+                    this.__Event := PSS_HANDLE_ENTRY._TypeSpecificInformation._Event(0, this)
                 return this.__Event
             }
         }
@@ -309,7 +311,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct {
         Section {
             get {
                 if(!this.HasProp("__Section"))
-                    this.__Section := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Section(0, this)
+                    this.__Section := PSS_HANDLE_ENTRY._TypeSpecificInformation._Section(0, this)
                 return this.__Section
             }
         }
@@ -320,7 +322,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct {
         Semaphore {
             get {
                 if(!this.HasProp("__Semaphore"))
-                    this.__Semaphore := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union._Semaphore(0, this)
+                    this.__Semaphore := PSS_HANDLE_ENTRY._TypeSpecificInformation._Semaphore(0, this)
                 return this.__Semaphore
             }
         }
@@ -472,12 +474,12 @@ class PSS_HANDLE_ENTRY extends Win32Struct {
 
     /**
      * Type-specific information.
-     * @type {_TypeSpecificInformation_e__Union}
+     * @type {_TypeSpecificInformation}
      */
     TypeSpecificInformation {
         get {
             if(!this.HasProp("__TypeSpecificInformation"))
-                this.__TypeSpecificInformation := PSS_HANDLE_ENTRY._TypeSpecificInformation_e__Union(88, this)
+                this.__TypeSpecificInformation := PSS_HANDLE_ENTRY._TypeSpecificInformation(88, this)
             return this.__TypeSpecificInformation
         }
     }

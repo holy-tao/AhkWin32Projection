@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * For all flags with a value in the upper word, set or clear the flag.
- * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatstore
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  */
 class CRYPTCAT_OPEN_FLAGS extends Win32BitflagEnum {

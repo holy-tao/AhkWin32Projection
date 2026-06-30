@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 #Include .\SHARE_TYPE.ahk
 #Include .\SHARE_INFO_PERMISSIONS.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Contains information about the shared resource. It is identical to the SHARE_INFO_502 structure, except that it also contains the server name.

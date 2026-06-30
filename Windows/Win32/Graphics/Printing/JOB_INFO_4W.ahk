@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\DEVMODEW.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\Gdi\DEVMODEW.ahk
 
 /**
  * Describes a full set of values associated with a job and supports large spool files with sizes expressed with 64 bits.

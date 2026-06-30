@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Device6.ahk
 #Include .\ID2D1DeviceContext7.ahk
+#Include .\D2D1_DEVICE_CONTEXT_OPTIONS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D

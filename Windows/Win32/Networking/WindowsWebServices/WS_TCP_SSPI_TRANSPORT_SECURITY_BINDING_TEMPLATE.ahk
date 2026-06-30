@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTY.ahk
-#Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
 
 /**
  * The security binding template for specifying the use of Windows SSPI protocol based transport security.

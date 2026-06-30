@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDXGIDevice.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * An IDXGIDevice1 interface implements a derived class for DXGI objects that produce image data.

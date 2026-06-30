@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertProperty.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICertProperty.ahk
 
 /**
  * Represents a certificate property that contains the Domain Naming System (DNS) name of the computer on which the request was created.
@@ -95,7 +96,7 @@ class ICertPropertyRequestOriginator extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyrequestoriginator-get_requestoriginator
      */
     get_RequestOriginator() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pValue, "HRESULT")
         return pValue
     }

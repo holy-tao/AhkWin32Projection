@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FsrmEnumOptions.ahk
 #Include .\IFsrmFileGroup.ahk
-#Include .\IFsrmCommittableCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFsrmCommittableCollection.ahk
 
 /**
  * Used to manage file group objects.
@@ -114,7 +117,7 @@ class IFsrmFileGroupManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups
      */
     ExportFileGroups(fileGroupNamesArray) {
-        serializedFileGroups := BSTR()
+        serializedFileGroups := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", fileGroupNamesArray, "ptr", serializedFileGroups, "HRESULT")
         return serializedFileGroups
     }

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IScriptEntry.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IScriptEntry.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -33,7 +35,7 @@ class IScriptScriptlet extends IScriptEntry {
      * @returns {BSTR} 
      */
     GetSubItemName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -55,7 +57,7 @@ class IScriptScriptlet extends IScriptEntry {
      * @returns {BSTR} 
      */
     GetEventName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }
@@ -77,7 +79,7 @@ class IScriptScriptlet extends IScriptEntry {
      * @returns {BSTR} 
      */
     GetSimpleEventName() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }

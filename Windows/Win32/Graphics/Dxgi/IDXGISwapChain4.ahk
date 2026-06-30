@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDXGISwapChain3.ahk
+#Include .\DXGI_HDR_METADATA_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface exposes a single method for setting video metadata.

@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IDxcOptimizerPass.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IDxcBlob.ahk
+#Include .\IDxcBlobEncoding.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

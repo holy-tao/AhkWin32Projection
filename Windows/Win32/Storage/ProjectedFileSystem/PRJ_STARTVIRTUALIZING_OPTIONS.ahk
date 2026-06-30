@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PRJ_STARTVIRTUALIZING_FLAGS.ahk
 #Include .\PRJ_NOTIFICATION_MAPPING.ahk
+#Include .\PRJ_STARTVIRTUALIZING_FLAGS.ahk
 
 /**
  * Options to provide when starting a virtualization instance.

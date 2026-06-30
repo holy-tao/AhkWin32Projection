@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\IStream.ahk
+#Include ..\CO_MARSHALING_CONTEXT_ATTRIBUTES.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMarshalingStream (objidlbase.h) interface provides additional information about the marshaling context to custom-marshaled objects and unmarshalers.

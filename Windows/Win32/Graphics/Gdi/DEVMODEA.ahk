@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVMODE_FIELD_FLAGS.ahk
-#Include ..\..\Foundation\POINTL.ahk
 #Include .\DEVMODE_DISPLAY_ORIENTATION.ahk
+#Include ..\..\Foundation\POINTL.ahk
 #Include .\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk
-#Include .\DEVMODE_COLOR.ahk
 #Include .\DEVMODE_DUPLEX.ahk
-#Include .\DEVMODE_TRUETYPE_OPTION.ahk
 #Include .\DEVMODE_COLLATE.ahk
+#Include .\DEVMODE_COLOR.ahk
+#Include .\DEVMODE_FIELD_FLAGS.ahk
+#Include .\DEVMODE_TRUETYPE_OPTION.ahk
 
 /**
  * The DEVMODE data structure contains information about the initialization and environment of a printer or a display device.

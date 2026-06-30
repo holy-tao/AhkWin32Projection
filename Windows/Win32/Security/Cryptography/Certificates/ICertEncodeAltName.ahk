@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\CERT_ALT_NAME.ahk
 
 /**
  * Provides methods for handling alternate names used in certificate extensions.
@@ -76,7 +78,7 @@ class ICertEncodeAltName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-getname
      */
     GetName(NameIndex) {
-        pstrName := BSTR()
+        pstrName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", NameIndex, "ptr", pstrName, "HRESULT")
         return pstrName
     }
@@ -121,7 +123,7 @@ class ICertEncodeAltName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-encode
      */
     Encode() {
-        pstrBinary := BSTR()
+        pstrBinary := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pstrBinary, "HRESULT")
         return pstrBinary
     }

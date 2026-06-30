@@ -1,20 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class DEVICEDUMP_SECTION_HEADER extends Win32Struct {
-    static sizeof => 240
+    static sizeof => 244
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidDeviceDataId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidDeviceDataId"))
+                this.__guidDeviceDataId := Guid(0, this)
+            return this.__guidDeviceDataId
+        }
     }
 
     /**
@@ -23,7 +27,7 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct {
     sOrganizationID {
         get {
             if(!this.HasProp("__sOrganizationIDProxyArray"))
-                this.__sOrganizationIDProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
+                this.__sOrganizationIDProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
             return this.__sOrganizationIDProxyArray
         }
     }
@@ -32,8 +36,8 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct {
      * @type {Integer}
      */
     dwFirmwareRevision {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -42,7 +46,7 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct {
     sModelNumber {
         get {
             if(!this.HasProp("__sModelNumberProxyArray"))
-                this.__sModelNumberProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "char")
+                this.__sModelNumberProxyArray := Win32FixedArray(this.ptr + 36, 32, Primitive, "char")
             return this.__sModelNumberProxyArray
         }
     }
@@ -53,7 +57,7 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct {
     szDeviceManufacturingID {
         get {
             if(!this.HasProp("__szDeviceManufacturingIDProxyArray"))
-                this.__szDeviceManufacturingIDProxyArray := Win32FixedArray(this.ptr + 60, 32, Primitive, "char")
+                this.__szDeviceManufacturingIDProxyArray := Win32FixedArray(this.ptr + 68, 32, Primitive, "char")
             return this.__szDeviceManufacturingIDProxyArray
         }
     }
@@ -62,24 +66,24 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct {
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
      * @type {Integer}
      */
     bRestrictedPrivateDataVersion {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     dwFirmwareIssueId {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
@@ -88,7 +92,7 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct {
     szIssueDescriptionString {
         get {
             if(!this.HasProp("__szIssueDescriptionStringProxyArray"))
-                this.__szIssueDescriptionStringProxyArray := Win32FixedArray(this.ptr + 104, 132, Primitive, "char")
+                this.__szIssueDescriptionStringProxyArray := Win32FixedArray(this.ptr + 112, 132, Primitive, "char")
             return this.__szIssueDescriptionStringProxyArray
         }
     }

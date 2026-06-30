@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\UNSIGNED_RATIO.ahk
 #Include .\DWM_SOURCE_FRAME_SAMPLING.ahk
+#Include .\UNSIGNED_RATIO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies Desktop Window Manager (DWM) video frame parameters for frame composition. Used by the DwmSetPresentParameters function.

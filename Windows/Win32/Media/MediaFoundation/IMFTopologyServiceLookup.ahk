@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MF_SERVICE_LOOKUP_TYPE.ahk
 
 /**
  * Enables a custom video mixer or video presenter to get interface pointers from the Enhanced Video Renderer (EVR).

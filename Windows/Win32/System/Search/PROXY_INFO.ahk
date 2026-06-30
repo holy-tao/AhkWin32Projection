@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PROXY_ACCESS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Stores information about a proxy. Used by ISearchProtocol.

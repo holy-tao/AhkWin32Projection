@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_INFO.ahk
 #Include .\IP_ADDR_STRING.ahk
 #Include .\IP_ADDRESS_STRING.ahk
+#Include .\IP_ADAPTER_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a particular network adapter on the local computer.

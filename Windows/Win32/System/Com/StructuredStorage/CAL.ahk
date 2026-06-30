@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Deprecated. Represents an instant in time, typically expressed as a date and time of day and a corresponding calendar.
- * @see https://learn.microsoft.com/windows/win32/Intl/caldatetime
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
 class CAL extends Win32Struct {

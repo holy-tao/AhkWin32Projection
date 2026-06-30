@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SRestriction.ahk
 #Include .\IMAPIProp.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IMAPITable.ahk
+#Include .\SBinaryArray.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * IMAPIContainerIMAPIProp manages high-level operations on container objects such as address books, distribution lists, and folders.

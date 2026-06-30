@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains information about a date and time picker (DTP) control.

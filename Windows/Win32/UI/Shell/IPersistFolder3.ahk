@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IPersistFolder2.ahk
+#Include ..\..\System\Com\IBindCtx.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\PERSIST_FOLDER_TARGET_INFO.ahk
 
 /**

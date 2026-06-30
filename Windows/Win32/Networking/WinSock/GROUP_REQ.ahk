@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR_STORAGE.ahk
 #Include .\ADDRESS_FAMILY.ahk
+#Include .\SOCKADDR_STORAGE.ahk
 
 /**
  * Provides multicast group information for IPv6 or IPv4 addresses.

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\NMHDR.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include .\OPENFILENAMEA.ahk
+#Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a WM_NOTIFY message sent to an OFNHookProc hook procedure for an Open or Save As dialog box. The lParam parameter of the WM_NOTIFY message is a pointer to an OFNOTIFY structure. (ANSI)

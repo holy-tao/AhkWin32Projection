@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include .\LVHITTESTINFO_FLAGS.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * Contains information about a hit test.

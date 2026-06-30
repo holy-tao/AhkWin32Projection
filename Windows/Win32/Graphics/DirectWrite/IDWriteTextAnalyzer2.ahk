@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_SCRIPT_ANALYSIS.ahk
+#Include .\DWRITE_GLYPH_ORIENTATION_ANGLE.ahk
+#Include .\IDWriteFontFace.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IDWriteTextAnalyzer1.ahk
+#Include .\DWRITE_FONT_FEATURE_TAG.ahk
 #Include .\DWRITE_MATRIX.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Analyzes various text properties for complex script processing.

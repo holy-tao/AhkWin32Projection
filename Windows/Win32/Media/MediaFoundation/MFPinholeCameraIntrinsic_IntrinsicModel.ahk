@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MFCameraIntrinsic_DistortionModel.ahk
 #Include .\MFCameraIntrinsic_PinholeCameraModel.ahk
 #Include .\MF_FLOAT2.ahk
-#Include .\MFCameraIntrinsic_DistortionModel.ahk
 
 /**
  * Represents a pinhole camera intrinsic model for a specified resolution.

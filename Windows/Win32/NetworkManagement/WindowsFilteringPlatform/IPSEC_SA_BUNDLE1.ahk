@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
-#Include .\IPSEC_SA_LIFETIME0.ahk
-#Include .\IPSEC_ID0.ahk
-#Include .\IPSEC_SA0.ahk
-#Include .\IPSEC_KEYMODULE_STATE0.ahk
-#Include .\FWP_IP_VERSION.ahk
 #Include .\IPSEC_PFS_GROUP.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IPSEC_ID0.ahk
+#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
+#Include .\IPSEC_KEYMODULE_STATE0.ahk
+#Include .\IPSEC_SA_LIFETIME0.ahk
+#Include .\IPSEC_SA0.ahk
 
 /**
  * Is used to store information about an IPsec security association (SA) bundle. (IPSEC_SA_BUNDLE1)
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class IPSEC_SA_BUNDLE1 extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -158,18 +159,21 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct {
 
     /**
      * SA lookup context which is propagated from the SA to data connections flowing over that SA. It is made available to any application that queries socket security properties using the Winsock API <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsaquerysocketsecurity">WSAQuerySocketSecurity</a> function, allowing the application to obtain detailed IPsec authentication information for its connection.
-     * @type {Pointer}
+     * @type {Guid}
      */
     saLookupContext {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get {
+            if(!this.HasProp("__saLookupContext"))
+                this.__saLookupContext := Guid(84, this)
+            return this.__saLookupContext
+        }
     }
 
     /**
      * @type {Integer}
      */
     qmFilterId {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 }

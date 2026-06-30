@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMediaFilter.ahk
-#Include .\IEnumPins.ahk
+#Include .\IFilterGraph.ahk
 #Include .\IPin.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FILTER_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IEnumPins.ahk
+#Include .\IMediaFilter.ahk
 
 /**
  * The IBaseFilter interface is the primary interface for DirectShow filters.

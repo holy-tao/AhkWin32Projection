@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SEC_APPLICATION_PROTOCOL_LIST.ahk
 #Include .\SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT.ahk
+#Include .\SEC_APPLICATION_PROTOCOL_LIST.ahk
 
 /**
  * Stores an array of application protocol lists.

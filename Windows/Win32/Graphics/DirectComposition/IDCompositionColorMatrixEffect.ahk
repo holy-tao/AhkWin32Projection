@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct2D\Common\D2D_MATRIX_5X4_F.ahk
+#Include ..\Direct2D\Common\D2D1_COLORMATRIX_ALPHA_MODE.ahk
 #Include .\IDCompositionFilterEffect.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The color matrix effect alters the RGBA values of a bitmap.

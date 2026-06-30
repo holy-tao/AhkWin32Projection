@@ -9,7 +9,7 @@ class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 4
 
-    class _Attributes_e__Union extends Win32Struct {
+    class _Attributes extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -50,12 +50,12 @@ class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_Attributes_e__Union}
+     * @type {_Attributes}
      */
     Attributes {
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := IMAGE_DELAYLOAD_DESCRIPTOR._Attributes_e__Union(0, this)
+                this.__Attributes := IMAGE_DELAYLOAD_DESCRIPTOR._Attributes(0, this)
             return this.__Attributes
         }
     }

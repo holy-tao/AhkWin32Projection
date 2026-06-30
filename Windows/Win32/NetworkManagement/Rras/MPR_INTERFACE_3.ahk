@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
 #Include .\ROUTER_CONNECTION_STATE.ahk
 #Include .\MPR_INTERFACE_DIAL_MODE.ahk
-#Include .\MPR_ET.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\MPR_VS.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MPR_ET.ahk
 
 /**
  * Contains data for a router demand-dial interface. (MPR_INTERFACE_3)
@@ -30,7 +33,7 @@
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
 class MPR_INTERFACE_3 extends Win32Struct {
-    static sizeof => 2528
+    static sizeof => 2536
 
     static packingSize => 8
 
@@ -811,19 +814,22 @@ class MPR_INTERFACE_3 extends Win32Struct {
 
     /**
      * The globally unique identifier (GUID) that represents this phone-book entry. This member is read-only.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidId {
-        get => NumGet(this, 2472, "ptr")
-        set => NumPut("ptr", value, this, 2472)
+        get {
+            if(!this.HasProp("__guidId"))
+                this.__guidId := Guid(2472, this)
+            return this.__guidId
+        }
     }
 
     /**
      * @type {MPR_VS}
      */
     dwVpnStrategy {
-        get => NumGet(this, 2480, "uint")
-        set => NumPut("uint", value, this, 2480)
+        get => NumGet(this, 2488, "uint")
+        set => NumPut("uint", value, this, 2488)
     }
 
     /**
@@ -831,8 +837,8 @@ class MPR_INTERFACE_3 extends Win32Struct {
      * @type {Integer}
      */
     AddressCount {
-        get => NumGet(this, 2484, "uint")
-        set => NumPut("uint", value, this, 2484)
+        get => NumGet(this, 2492, "uint")
+        set => NumPut("uint", value, this, 2492)
     }
 
     /**
@@ -842,7 +848,7 @@ class MPR_INTERFACE_3 extends Win32Struct {
     ipv6addrDns {
         get {
             if(!this.HasProp("__ipv6addrDns"))
-                this.__ipv6addrDns := IN6_ADDR(2488, this)
+                this.__ipv6addrDns := IN6_ADDR(2496, this)
             return this.__ipv6addrDns
         }
     }
@@ -854,7 +860,7 @@ class MPR_INTERFACE_3 extends Win32Struct {
     ipv6addrDnsAlt {
         get {
             if(!this.HasProp("__ipv6addrDnsAlt"))
-                this.__ipv6addrDnsAlt := IN6_ADDR(2504, this)
+                this.__ipv6addrDnsAlt := IN6_ADDR(2512, this)
             return this.__ipv6addrDnsAlt
         }
     }
@@ -864,7 +870,7 @@ class MPR_INTERFACE_3 extends Win32Struct {
      * @type {Pointer<IN6_ADDR>}
      */
     ipv6addr {
-        get => NumGet(this, 2520, "ptr")
-        set => NumPut("ptr", value, this, 2520)
+        get => NumGet(this, 2528, "ptr")
+        set => NumPut("ptr", value, this, 2528)
     }
 }

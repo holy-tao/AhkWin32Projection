@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\XPS_GLYPH_INDEX.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\XPS_GLYPH_MAPPING.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\XPS_GLYPH_INDEX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows batch modification of properties that affect the text content in an IXpsOMGlyphs interface.

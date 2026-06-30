@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DLIGHTINGELEMENT.ahk
 #Include .\D3DTLVERTEX.ahk
+#Include .\D3DLIGHTINGELEMENT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9

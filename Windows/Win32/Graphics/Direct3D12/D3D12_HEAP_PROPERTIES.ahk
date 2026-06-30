@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_HEAP_TYPE.ahk
 #Include .\D3D12_CPU_PAGE_PROPERTY.ahk
+#Include .\D3D12_HEAP_TYPE.ahk
 #Include .\D3D12_MEMORY_POOL.ahk
 
 /**

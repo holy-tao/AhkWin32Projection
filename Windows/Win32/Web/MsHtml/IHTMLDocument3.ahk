@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLDOMNode.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLDocument2.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLDOMNode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLElementCollection.ahk
 
 /**
@@ -218,7 +220,7 @@ class IHTMLDocument3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_uniqueID() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", p, "HRESULT")
         return p
     }
@@ -406,7 +408,7 @@ class IHTMLDocument3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_dir() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", p, "HRESULT")
         return p
     }
@@ -505,7 +507,7 @@ class IHTMLDocument3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_baseUrl() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", p, "HRESULT")
         return p
     }

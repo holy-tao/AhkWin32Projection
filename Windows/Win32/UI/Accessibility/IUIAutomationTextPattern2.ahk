@@ -3,6 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUIAutomationTextPattern.ahk
 #Include .\IUIAutomationTextRange.ahk
+#Include .\IUIAutomationElement.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomationTextPattern interface.

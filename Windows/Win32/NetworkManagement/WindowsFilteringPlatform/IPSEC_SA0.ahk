@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_TRANSFORM_TYPE.ahk
 #Include .\IPSEC_SA_AUTH_INFORMATION0.ahk
 #Include .\IPSEC_SA_CIPHER_INFORMATION0.ahk
 #Include .\IPSEC_SA_AUTH_AND_CIPHER_INFORMATION0.ahk
+#Include .\IPSEC_TRANSFORM_TYPE.ahk
 
 /**
  * Is used to store information about an IPsec security association (SA).

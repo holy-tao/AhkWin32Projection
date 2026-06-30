@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\..\..\Guid.ahk
 
 /**
  * The NLSVERSIONINFO structure (winnls.h) is deprecated and should not be used.
@@ -11,9 +12,9 @@
  * @namespace Windows.Win32.Globalization
  */
 class NLSVERSIONINFO extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size, in bytes, of the structure.
@@ -51,10 +52,13 @@ class NLSVERSIONINFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidCustomVersion {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidCustomVersion"))
+                this.__guidCustomVersion := Guid(16, this)
+            return this.__guidCustomVersion
+        }
     }
 }

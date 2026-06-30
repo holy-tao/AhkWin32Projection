@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_CHANNEL_HINT.ahk
 #Include .\DOT11_SSID.ahk
+#Include .\DOT11_PHY_TYPE.ahk
 #Include .\DOT11_CIPHER_ALGORITHM.ahk
 #Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CHANNEL_HINT.ahk
-#Include .\DOT11_PHY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

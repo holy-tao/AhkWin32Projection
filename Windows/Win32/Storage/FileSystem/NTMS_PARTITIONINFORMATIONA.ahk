@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The NTMS_PARTITIONINFORMATION structure defines the properties specific to the side object. (ANSI)
@@ -19,34 +20,40 @@
  * @charset ANSI
  */
 class NTMS_PARTITIONINFORMATIONA extends Win32Struct {
-    static sizeof => 624
+    static sizeof => 640
 
     static packingSize => 8
 
     /**
      * Unique physical media identifier for the medium that contains this side.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PhysicalMedia {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__PhysicalMedia"))
+                this.__PhysicalMedia := Guid(0, this)
+            return this.__PhysicalMedia
+        }
     }
 
     /**
      * Unique logical media identifier (LMID) for a piece of logical media that contains this side. This parameter is a <b>NULL</b> if the side is not allocated.
-     * @type {Pointer}
+     * @type {Guid}
      */
     LogicalMedia {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__LogicalMedia"))
+                this.__LogicalMedia := Guid(16, this)
+            return this.__LogicalMedia
+        }
     }
 
     /**
      * @type {Integer}
      */
     State {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -54,8 +61,8 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     Side {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
+        get => NumGet(this, 36, "ushort")
+        set => NumPut("ushort", value, this, 36)
     }
 
     /**
@@ -63,8 +70,8 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     dwOmidLabelIdLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -74,7 +81,7 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct {
     OmidLabelId {
         get {
             if(!this.HasProp("__OmidLabelIdProxyArray"))
-                this.__OmidLabelIdProxyArray := Win32FixedArray(this.ptr + 28, 255, Primitive, "char")
+                this.__OmidLabelIdProxyArray := Win32FixedArray(this.ptr + 44, 255, Primitive, "char")
             return this.__OmidLabelIdProxyArray
         }
     }
@@ -84,8 +91,8 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szOmidLabelType {
-        get => StrGet(this.ptr + 283, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 283, 63, "UTF-8")
+        get => StrGet(this.ptr + 299, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 299, 63, "UTF-8")
     }
 
     /**
@@ -93,8 +100,8 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szOmidLabelInfo {
-        get => StrGet(this.ptr + 347, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 347, 255, "UTF-8")
+        get => StrGet(this.ptr + 363, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 363, 255, "UTF-8")
     }
 
     /**
@@ -102,8 +109,8 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     dwMountCount {
-        get => NumGet(this, 604, "uint")
-        set => NumPut("uint", value, this, 604)
+        get => NumGet(this, 620, "uint")
+        set => NumPut("uint", value, this, 620)
     }
 
     /**
@@ -111,8 +118,8 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     dwAllocateCount {
-        get => NumGet(this, 608, "uint")
-        set => NumPut("uint", value, this, 608)
+        get => NumGet(this, 624, "uint")
+        set => NumPut("uint", value, this, 624)
     }
 
     /**
@@ -120,7 +127,7 @@ class NTMS_PARTITIONINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     Capacity {
-        get => NumGet(this, 616, "int64")
-        set => NumPut("int64", value, this, 616)
+        get => NumGet(this, 632, "int64")
+        set => NumPut("int64", value, this, 632)
     }
 }

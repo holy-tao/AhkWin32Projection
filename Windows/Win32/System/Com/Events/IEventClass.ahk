@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Associates a class of event objects with the event interface those objects implement.
@@ -92,7 +93,7 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_eventclassid
      */
     get_EventClassID() {
-        pbstrEventClassID := BSTR()
+        pbstrEventClassID := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrEventClassID, "HRESULT")
         return pbstrEventClassID
     }
@@ -116,7 +117,7 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_eventclassname
      */
     get_EventClassName() {
-        pbstrEventClassName := BSTR()
+        pbstrEventClassName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrEventClassName, "HRESULT")
         return pbstrEventClassName
     }
@@ -140,7 +141,7 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_ownersid
      */
     get_OwnerSID() {
-        pbstrOwnerSID := BSTR()
+        pbstrOwnerSID := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrOwnerSID, "HRESULT")
         return pbstrOwnerSID
     }
@@ -164,7 +165,7 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_firinginterfaceid
      */
     get_FiringInterfaceID() {
-        pbstrFiringInterfaceID := BSTR()
+        pbstrFiringInterfaceID := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrFiringInterfaceID, "HRESULT")
         return pbstrFiringInterfaceID
     }
@@ -188,7 +189,7 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
+        pbstrDescription := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrDescription, "HRESULT")
         return pbstrDescription
     }
@@ -212,7 +213,7 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_customconfigclsid
      */
     get_CustomConfigCLSID() {
-        pbstrCustomConfigCLSID := BSTR()
+        pbstrCustomConfigCLSID := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrCustomConfigCLSID, "HRESULT")
         return pbstrCustomConfigCLSID
     }
@@ -236,7 +237,7 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_typelib
      */
     get_TypeLib() {
-        pbstrTypeLib := BSTR()
+        pbstrTypeLib := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pbstrTypeLib, "HRESULT")
         return pbstrTypeLib
     }

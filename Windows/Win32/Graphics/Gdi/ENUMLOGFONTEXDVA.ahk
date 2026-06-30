@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FONT_QUALITY.ahk
+#Include .\FONT_OUTPUT_PRECISION.ahk
+#Include .\FONT_CHARSET.ahk
 #Include .\ENUMLOGFONTEXA.ahk
 #Include .\LOGFONTA.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
 #Include .\FONT_CLIP_PRECISION.ahk
-#Include .\FONT_QUALITY.ahk
 #Include .\DESIGNVECTOR.ahk
 
 /**

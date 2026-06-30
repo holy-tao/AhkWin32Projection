@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDVBTuningSpace2.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\SpectralInversion.ahk
+#Include .\IDVBTuningSpace2.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDVBSTuningSpace interface is implemented on the DVBTuningSpace object and provides methods for working with tuning spaces with a DVBS network type.
@@ -147,7 +149,7 @@ class IDVBSTuningSpace extends IDVBTuningSpace2 {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-get_inputrange
      */
     get_InputRange() {
-        InputRange := BSTR()
+        InputRange := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", InputRange, "HRESULT")
         return InputRange
     }

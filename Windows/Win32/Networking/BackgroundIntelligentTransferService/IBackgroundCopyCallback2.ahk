@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBackgroundCopyFile.ahk
+#Include .\IBackgroundCopyJob.ahk
 #Include .\IBackgroundCopyCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Implement this interface to receive notification that a file has completed downloading.

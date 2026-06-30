@@ -9,7 +9,7 @@ class IMAGE_SYMBOL extends Win32Struct {
 
     static packingSize => 4
 
-    class _N_e__Union extends Win32Struct {
+    class _N extends Win32Struct {
         static sizeof => 8
         static packingSize => 2
 
@@ -51,7 +51,7 @@ class IMAGE_SYMBOL extends Win32Struct {
         Name {
             get {
                 if(!this.HasProp("__Name"))
-                    this.__Name := IMAGE_SYMBOL._N_e__Union._Name(0, this)
+                    this.__Name := IMAGE_SYMBOL._N._Name(0, this)
                 return this.__Name
             }
         }
@@ -69,12 +69,12 @@ class IMAGE_SYMBOL extends Win32Struct {
     }
 
     /**
-     * @type {_N_e__Union}
+     * @type {_N}
      */
     N {
         get {
             if(!this.HasProp("__N"))
-                this.__N := IMAGE_SYMBOL._N_e__Union(0, this)
+                this.__N := IMAGE_SYMBOL._N(0, this)
             return this.__N
         }
     }

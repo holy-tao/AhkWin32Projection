@@ -2,10 +2,12 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDxcBlobEncoding.ahk
-#Include .\IDxcBlobUtf16.ahk
-#Include .\IDxcBlob.ahk
 #Include .\IDxcVersionInfo.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\IDxcBlobEncoding.ahk
+#Include .\IDxcBlob.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IDxcBlobUtf16.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The TF_LANGUAGEPROFILE structure contains information about a language profile.
@@ -7,17 +9,20 @@
  * @namespace Windows.Win32.UI.TextServices
  */
 class TF_LANGUAGEPROFILE extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the class identifier of the text service within the language profile.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(0, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -25,17 +30,20 @@ class TF_LANGUAGEPROFILE extends Win32Struct {
      * @type {Integer}
      */
     langid {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 
     /**
      * Specifies the identifier of the category that the text service belongs to.
-     * @type {Pointer}
+     * @type {Guid}
      */
     catid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__catid"))
+                this.__catid := Guid(20, this)
+            return this.__catid
+        }
     }
 
     /**
@@ -43,16 +51,19 @@ class TF_LANGUAGEPROFILE extends Win32Struct {
      * @type {BOOL}
      */
     fActive {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
      * Specifies the identifier of the language profile.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidProfile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__guidProfile"))
+                this.__guidProfile := Guid(40, this)
+            return this.__guidProfile
+        }
     }
 }

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_MATRIX_3X2_F.ahk
 #Include .\IDXGISwapChain1.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\DXGI_MATRIX_3X2_F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends IDXGISwapChain1 with methods to support swap back buffer scaling and lower-latency swap chains.

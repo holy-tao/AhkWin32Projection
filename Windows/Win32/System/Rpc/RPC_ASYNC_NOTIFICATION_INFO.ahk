@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\IO\OVERLAPPED.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\IO\OVERLAPPED.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains notification information for asynchronous remote procedure calls. This notification information can be configured for I/O completion ports (IOC), Windows asynchronous procedure calls (APC), Windows messaging, and Windows event notification.

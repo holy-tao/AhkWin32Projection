@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WMT_INDEXER_TYPE.ahk
 #Include .\IWMIndexer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMIndexer2 interface enables you to change the settings of the indexer object to suit your needs.This interface is implemented as part of the indexer object.

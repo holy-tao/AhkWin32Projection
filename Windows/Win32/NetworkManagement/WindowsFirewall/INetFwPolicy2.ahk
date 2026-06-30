@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\NET_FW_MODIFY_STATE.ahk
 #Include .\INetFwRules.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\NET_FW_PROFILE_TYPE2.ahk
+#Include .\NET_FW_ACTION.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetFwServiceRestriction.ahk
 
 /**

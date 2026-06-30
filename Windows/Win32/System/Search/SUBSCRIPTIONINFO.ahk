@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SUBSCRIPTIONSCHEDULE.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SUBSCRIPTIONTYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SUBSCRIPTIONSCHEDULE.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
  */
 class SUBSCRIPTIONINFO extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -37,57 +39,44 @@ class SUBSCRIPTIONINFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     customGroupCookie {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__customGroupCookie"))
+                this.__customGroupCookie := Guid(12, this)
+            return this.__customGroupCookie
+        }
     }
 
     /**
      * @type {Pointer<Void>}
      */
     pTrigger {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     dwRecurseLevels {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     fWebcrawlerFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * @type {BOOL}
      */
     bMailNotification {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    bGleam {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    bChangesOnly {
         get => NumGet(this, 48, "int")
         set => NumPut("int", value, this, 48)
     }
@@ -95,17 +84,33 @@ class SUBSCRIPTIONINFO extends Win32Struct {
     /**
      * @type {BOOL}
      */
-    bNeedPassword {
+    bGleam {
         get => NumGet(this, 52, "int")
         set => NumPut("int", value, this, 52)
+    }
+
+    /**
+     * @type {BOOL}
+     */
+    bChangesOnly {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
+    }
+
+    /**
+     * @type {BOOL}
+     */
+    bNeedPassword {
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 
     /**
      * @type {Integer}
      */
     fChannelFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -114,7 +119,7 @@ class SUBSCRIPTIONINFO extends Win32Struct {
     bstrUserName {
         get {
             if(!this.HasProp("__bstrUserName"))
-                this.__bstrUserName := BSTR(64, this)
+                this.__bstrUserName := BSTR(72, this)
             return this.__bstrUserName
         }
     }
@@ -125,7 +130,7 @@ class SUBSCRIPTIONINFO extends Win32Struct {
     bstrPassword {
         get {
             if(!this.HasProp("__bstrPassword"))
-                this.__bstrPassword := BSTR(72, this)
+                this.__bstrPassword := BSTR(80, this)
             return this.__bstrPassword
         }
     }
@@ -136,7 +141,7 @@ class SUBSCRIPTIONINFO extends Win32Struct {
     bstrFriendlyName {
         get {
             if(!this.HasProp("__bstrFriendlyName"))
-                this.__bstrFriendlyName := BSTR(80, this)
+                this.__bstrFriendlyName := BSTR(88, this)
             return this.__bstrFriendlyName
         }
     }
@@ -145,36 +150,36 @@ class SUBSCRIPTIONINFO extends Win32Struct {
      * @type {Integer}
      */
     dwMaxSizeKB {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {SUBSCRIPTIONTYPE}
      */
     subType {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
+        get => NumGet(this, 100, "int")
+        set => NumPut("int", value, this, 100)
     }
 
     /**
      * @type {Integer}
      */
     fTaskFlags {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 104
+        this.cbSize := 112
     }
 }

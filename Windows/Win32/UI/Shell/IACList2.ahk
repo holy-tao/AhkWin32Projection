@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IACList.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IACList interface to enable clients of an autocomplete object to retrieve and set option flags.

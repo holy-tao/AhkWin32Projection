@@ -1,11 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include .\IMapMIMEToCLSID.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Storage\FileSystem\WIN32_FIND_DATAA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Threading\PROCESS_INFORMATION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMapMIMEToCLSID.ahk
+#Include ..\..\Graphics\Gdi\RGBQUAD.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\Storage\FileSystem\GET_FILEEX_INFO_LEVELS.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -2381,7 +2395,7 @@ class InternetExplorer {
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
 
-        phFile := HANDLE()
+        phFile := HANDLE({Value: 0}, True)
         result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", _hwnd, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "HRESULT")
         return phFile
     }
@@ -2391,7 +2405,7 @@ class InternetExplorer {
      * @returns {HKEY} 
      */
     static IEGetWriteableLowHKCU() {
-        pHKey := HKEY()
+        pHKey := HKEY({Value: 0}, True)
         result := DllCall("Ieframe.dll\IEGetWriteableLowHKCU", "ptr", pHKey, "HRESULT")
         return pHKey
     }
@@ -2833,7 +2847,7 @@ class InternetExplorer {
     static RatingObtainQuery(pszTargetUrl, dwUserData, fCallback) {
         pszTargetUrl := pszTargetUrl is String ? StrPtr(pszTargetUrl) : pszTargetUrl
 
-        phRatingObtainQuery := HANDLE()
+        phRatingObtainQuery := HANDLE({Value: 0}, True)
         result := DllCall("MSRATING.dll\RatingObtainQuery", "ptr", pszTargetUrl, "uint", dwUserData, "ptr", fCallback, "ptr", phRatingObtainQuery, "HRESULT")
         return phRatingObtainQuery
     }
@@ -2848,7 +2862,7 @@ class InternetExplorer {
     static RatingObtainQueryW(pszTargetUrl, dwUserData, fCallback) {
         pszTargetUrl := pszTargetUrl is String ? StrPtr(pszTargetUrl) : pszTargetUrl
 
-        phRatingObtainQuery := HANDLE()
+        phRatingObtainQuery := HANDLE({Value: 0}, True)
         result := DllCall("MSRATING.dll\RatingObtainQueryW", "ptr", pszTargetUrl, "uint", dwUserData, "ptr", fCallback, "ptr", phRatingObtainQuery, "HRESULT")
         return phRatingObtainQuery
     }

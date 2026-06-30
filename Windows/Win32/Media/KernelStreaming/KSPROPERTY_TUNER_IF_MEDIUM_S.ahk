@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSPROPERTY_TUNER_IF_MEDIUM_S extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -27,7 +28,7 @@ class KSPROPERTY_TUNER_IF_MEDIUM_S extends Win32Struct {
     IFMedium {
         get {
             if(!this.HasProp("__IFMedium"))
-                this.__IFMedium := KSIDENTIFIER(16, this)
+                this.__IFMedium := KSIDENTIFIER(24, this)
             return this.__IFMedium
         }
     }

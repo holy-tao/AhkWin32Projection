@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\UiaRect.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides Microsoft UI Automation accessibility information about a windowless rich edit control.

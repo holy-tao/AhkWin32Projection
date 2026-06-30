@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include .\IDebugDocumentContext.ahk
-#Include .\IDebugApplication32.ahk
 #Include .\IDebugApplicationNode.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IActiveScriptErrorDebug.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
+#Include .\IDebugApplication32.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -43,9 +46,8 @@ class IActiveScriptSiteDebug32 extends IUnknown {
     }
 
     /**
-     * Retrieves a pointer to the callback routine registered for the specified process. The address returned is in the virtual address space of the process.
+     * 
      * @returns {IDebugApplication32} 
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getapplicationrecoverycallback
      */
     GetApplication() {
         result := ComCall(4, this, "ptr*", &ppda := 0, "HRESULT")

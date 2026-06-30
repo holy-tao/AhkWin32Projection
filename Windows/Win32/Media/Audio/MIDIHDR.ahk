@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MIDIHDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The MIDIHDR structure defines the header used to identify a MIDI system-exclusive or stream buffer.

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SDP_TYPE.ahk
 #Include .\SDP_SPECIFICTYPE.ahk
 #Include .\SDP_LARGE_INTEGER_16.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SDP_TYPE.ahk
+#Include ..\..\Foundation\CHAR.ahk
 #Include .\SDP_ULARGE_INTEGER_16.ahk
 
 /**
@@ -15,7 +17,7 @@ class SDP_ELEMENT_DATA extends Win32Struct {
 
     static packingSize => 8
 
-    class _data_e__Union extends Win32Struct {
+    class _data extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -198,11 +200,14 @@ class SDP_ELEMENT_DATA extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         uuid128 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__uuid128"))
+                    this.__uuid128 := Guid(0, this)
+                return this.__uuid128
+            }
         }
 
         /**
@@ -227,7 +232,7 @@ class SDP_ELEMENT_DATA extends Win32Struct {
         string {
             get {
                 if(!this.HasProp("__string"))
-                    this.__string := SDP_ELEMENT_DATA._data_e__Union._string(0, this)
+                    this.__string := SDP_ELEMENT_DATA._data._string(0, this)
                 return this.__string
             }
         }
@@ -238,7 +243,7 @@ class SDP_ELEMENT_DATA extends Win32Struct {
         url {
             get {
                 if(!this.HasProp("__url"))
-                    this.__url := SDP_ELEMENT_DATA._data_e__Union._url(0, this)
+                    this.__url := SDP_ELEMENT_DATA._data._url(0, this)
                 return this.__url
             }
         }
@@ -249,7 +254,7 @@ class SDP_ELEMENT_DATA extends Win32Struct {
         sequence {
             get {
                 if(!this.HasProp("__sequence"))
-                    this.__sequence := SDP_ELEMENT_DATA._data_e__Union._sequence(0, this)
+                    this.__sequence := SDP_ELEMENT_DATA._data._sequence(0, this)
                 return this.__sequence
             }
         }
@@ -260,7 +265,7 @@ class SDP_ELEMENT_DATA extends Win32Struct {
         alternative {
             get {
                 if(!this.HasProp("__alternative"))
-                    this.__alternative := SDP_ELEMENT_DATA._data_e__Union._alternative(0, this)
+                    this.__alternative := SDP_ELEMENT_DATA._data._alternative(0, this)
                 return this.__alternative
             }
         }
@@ -309,12 +314,12 @@ class SDP_ELEMENT_DATA extends Win32Struct {
     }
 
     /**
-     * @type {_data_e__Union}
+     * @type {_data}
      */
     data {
         get {
             if(!this.HasProp("__data"))
-                this.__data := SDP_ELEMENT_DATA._data_e__Union(8, this)
+                this.__data := SDP_ELEMENT_DATA._data(8, this)
             return this.__data
         }
     }

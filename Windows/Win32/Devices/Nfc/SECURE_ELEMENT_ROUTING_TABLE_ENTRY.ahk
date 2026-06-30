@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SECURE_ELEMENT_ROUTING_TYPE.ahk
 #Include .\SECURE_ELEMENT_TECH_ROUTING_INFO.ahk
+#Include .\SECURE_ELEMENT_ROUTING_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SECURE_ELEMENT_PROTO_ROUTING_INFO.ahk
 #Include .\SECURE_ELEMENT_AID_ROUTING_INFO.ahk
 
@@ -11,7 +12,7 @@
 class SECURE_ELEMENT_ROUTING_TABLE_ENTRY extends Win32Struct {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {SECURE_ELEMENT_ROUTING_TYPE}
@@ -27,7 +28,7 @@ class SECURE_ELEMENT_ROUTING_TABLE_ENTRY extends Win32Struct {
     TechRoutingInfo {
         get {
             if(!this.HasProp("__TechRoutingInfo"))
-                this.__TechRoutingInfo := SECURE_ELEMENT_TECH_ROUTING_INFO(8, this)
+                this.__TechRoutingInfo := SECURE_ELEMENT_TECH_ROUTING_INFO(4, this)
             return this.__TechRoutingInfo
         }
     }
@@ -38,7 +39,7 @@ class SECURE_ELEMENT_ROUTING_TABLE_ENTRY extends Win32Struct {
     ProtoRoutingInfo {
         get {
             if(!this.HasProp("__ProtoRoutingInfo"))
-                this.__ProtoRoutingInfo := SECURE_ELEMENT_PROTO_ROUTING_INFO(8, this)
+                this.__ProtoRoutingInfo := SECURE_ELEMENT_PROTO_ROUTING_INFO(4, this)
             return this.__ProtoRoutingInfo
         }
     }
@@ -49,7 +50,7 @@ class SECURE_ELEMENT_ROUTING_TABLE_ENTRY extends Win32Struct {
     AidRoutingInfo {
         get {
             if(!this.HasProp("__AidRoutingInfo"))
-                this.__AidRoutingInfo := SECURE_ELEMENT_AID_ROUTING_INFO(8, this)
+                this.__AidRoutingInfo := SECURE_ELEMENT_AID_ROUTING_INFO(4, this)
             return this.__AidRoutingInfo
         }
     }

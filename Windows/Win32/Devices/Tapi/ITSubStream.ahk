@@ -3,8 +3,10 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumTerminal.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ITStream.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ITTerminal.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * An ITSubStream is a component of an ITStream, and gives an application finer control over the media streaming.

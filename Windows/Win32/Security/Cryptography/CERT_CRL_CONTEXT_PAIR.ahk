@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_CONTEXT.ahk
 #Include .\CRL_CONTEXT.ahk
+#Include .\CERT_CONTEXT.ahk
 
 /**
  * The CERT_CRL_CONTEXT_PAIR structure contains a certificate context and an associated CRL context.

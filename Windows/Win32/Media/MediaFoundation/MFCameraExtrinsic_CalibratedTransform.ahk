@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MF_FLOAT3.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\MF_QUATERNION.ahk
 
 /**
@@ -16,17 +17,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class MFCameraExtrinsic_CalibratedTransform extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A reference GUID identifying the calibration process for the data, allowing different consumers to identify calibration data from the same process.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CalibrationId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__CalibrationId"))
+                this.__CalibrationId := Guid(0, this)
+            return this.__CalibrationId
+        }
     }
 
     /**
@@ -36,7 +40,7 @@ class MFCameraExtrinsic_CalibratedTransform extends Win32Struct {
     Position {
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := MF_FLOAT3(8, this)
+                this.__Position := MF_FLOAT3(16, this)
             return this.__Position
         }
     }
@@ -48,7 +52,7 @@ class MFCameraExtrinsic_CalibratedTransform extends Win32Struct {
     Orientation {
         get {
             if(!this.HasProp("__Orientation"))
-                this.__Orientation := MF_QUATERNION(20, this)
+                this.__Orientation := MF_QUATERNION(28, this)
             return this.__Orientation
         }
     }

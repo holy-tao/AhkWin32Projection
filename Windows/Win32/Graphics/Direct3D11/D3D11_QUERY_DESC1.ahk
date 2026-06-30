@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_QUERY.ahk
 #Include .\D3D11_CONTEXT_TYPE.ahk
+#Include .\D3D11_QUERY.ahk
 
 /**
  * Describes a query. (D3D11_QUERY_DESC1)

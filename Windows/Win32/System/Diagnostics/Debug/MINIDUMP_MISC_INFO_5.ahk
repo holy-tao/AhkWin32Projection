@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
-#Include .\XSTATE_CONFIG_FEATURE_MSC_INFO.ahk
 #Include .\XSTATE_FEATURE.ahk
+#Include .\XSTATE_CONFIG_FEATURE_MSC_INFO.ahk
+#Include ..\..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_ROOT_PARAMETER_TYPE.ahk
-#Include .\D3D12_ROOT_DESCRIPTOR_TABLE1.ahk
-#Include .\D3D12_DESCRIPTOR_RANGE1.ahk
 #Include .\D3D12_ROOT_CONSTANTS.ahk
+#Include .\D3D12_ROOT_PARAMETER_TYPE.ahk
 #Include .\D3D12_ROOT_DESCRIPTOR1.ahk
 #Include .\D3D12_ROOT_DESCRIPTOR_FLAGS.ahk
+#Include .\D3D12_DESCRIPTOR_RANGE1.ahk
 #Include .\D3D12_SHADER_VISIBILITY.ahk
+#Include .\D3D12_ROOT_DESCRIPTOR_TABLE1.ahk
 
 /**
  * Describes the slot of a root signature version 1.1.

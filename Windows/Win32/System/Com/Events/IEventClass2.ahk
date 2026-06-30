@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IEventClass.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IEventClass.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to set and obtain data on event class objects. This interface extends the IEventClass interface.
@@ -68,7 +70,7 @@ class IEventClass2 extends IEventClass {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_publisherid
      */
     get_PublisherID() {
-        pbstrPublisherID := BSTR()
+        pbstrPublisherID := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pbstrPublisherID, "HRESULT")
         return pbstrPublisherID
     }
@@ -92,7 +94,7 @@ class IEventClass2 extends IEventClass {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_multiinterfacepublisherfilterclsid
      */
     get_MultiInterfacePublisherFilterCLSID() {
-        pbstrPubFilCLSID := BSTR()
+        pbstrPubFilCLSID := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pbstrPubFilCLSID, "HRESULT")
         return pbstrPubFilCLSID
     }

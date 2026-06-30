@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IPSEC_FAILURE_POINT.ahk
-#Include .\IKEEXT_EM_SA_STATE.ahk
-#Include .\IKEEXT_SA_ROLE.ahk
 #Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
+#Include .\IKEEXT_EM_SA_STATE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IKEEXT_SA_ROLE.ahk
 #Include .\IPSEC_TRAFFIC_TYPE.ahk
 
 /**

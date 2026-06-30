@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The LOCALGROUP_MEMBERS_INFO_3 structure contains the account name and domain name associated with a local group member.

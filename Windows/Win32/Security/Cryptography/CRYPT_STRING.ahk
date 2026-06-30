@@ -2,17 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Tries the following, in order: 
-  * 
-  * 
-  * 
-  * 
-  * <dl>
-  * <dd>CRYPT_STRING_BASE64HEADER</dd>
-  * <dd>CRYPT_STRING_BASE64</dd>
-  * <dd>CRYPT_STRING_BINARY</dd>
-  * </dl>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptstringtobinarya
  * @namespace Windows.Win32.Security.Cryptography
  */
 class CRYPT_STRING extends Win32Enum {

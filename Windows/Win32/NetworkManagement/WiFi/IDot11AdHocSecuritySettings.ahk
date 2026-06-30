@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DOT11_ADHOC_AUTH_ALGORITHM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DOT11_ADHOC_CIPHER_ALGORITHM.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Specifies the security settings for a wireless ad hoc network.

@@ -1,17 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextDocument.ahk
-#Include .\ITextDisplays.ahk
-#Include .\ITextFont2.ahk
-#Include .\ITextPara2.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITextSelection2.ahk
-#Include .\ITextStoryRanges2.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextStrings.ahk
 #Include .\ITextRange2.ahk
+#Include .\ITextDisplays.ahk
 #Include .\ITextStory.ahk
+#Include .\ITextSelection2.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\tomConstants.ahk
+#Include .\ITextPara2.ahk
+#Include .\ITextStoryRanges2.ahk
+#Include .\ITextFont2.ahk
+#Include .\ITextDocument.ahk
+#Include .\ITextStrings.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the ITextDocument interface, adding methods that enable the Input Method Editor (IME) to drive the rich edit control, and methods to retrieve other interfaces such as ITextDisplays, ITextRange2, ITextFont2, ITextPara2, and so on.
@@ -152,7 +154,7 @@ class ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getgenerator
      */
     GetGenerator() {
-        pbstr := BSTR()
+        pbstr := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", pbstr, "HRESULT")
         return pbstr
     }

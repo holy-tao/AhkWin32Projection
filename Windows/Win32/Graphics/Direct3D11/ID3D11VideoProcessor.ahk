@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.ahk
 #Include .\ID3D11DeviceChild.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk
 
 /**
  * Represents a video processor for Microsoft Direct3D 11.

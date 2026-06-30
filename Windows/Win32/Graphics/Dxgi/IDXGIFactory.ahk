@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIObject.ahk
-#Include .\IDXGIAdapter.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\IDXGIObject.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include .\DXGI_MWA_FLAGS.ahk
+#Include .\IDXGIAdapter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DXGI_SWAP_CHAIN_DESC.ahk
 #Include .\IDXGISwapChain.ahk
 
 /**

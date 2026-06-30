@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\ScriptDebugEvent.ahk
 #Include .\ScriptDebugPosition.ahk
+#Include .\ScriptDebugEvent.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -11,7 +11,7 @@ class ScriptDebugEventInformation extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -47,7 +47,7 @@ class ScriptDebugEventInformation extends Win32Struct {
         ExceptionInformation {
             get {
                 if(!this.HasProp("__ExceptionInformation"))
-                    this.__ExceptionInformation := ScriptDebugEventInformation._u_e__Union._ExceptionInformation(0, this)
+                    this.__ExceptionInformation := ScriptDebugEventInformation._u._ExceptionInformation(0, this)
                 return this.__ExceptionInformation
             }
         }
@@ -58,7 +58,7 @@ class ScriptDebugEventInformation extends Win32Struct {
         BreakpointInformation {
             get {
                 if(!this.HasProp("__BreakpointInformation"))
-                    this.__BreakpointInformation := ScriptDebugEventInformation._u_e__Union._BreakpointInformation(0, this)
+                    this.__BreakpointInformation := ScriptDebugEventInformation._u._BreakpointInformation(0, this)
                 return this.__BreakpointInformation
             }
         }
@@ -95,12 +95,12 @@ class ScriptDebugEventInformation extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := ScriptDebugEventInformation._u_e__Union(24, this)
+                this.__u := ScriptDebugEventInformation._u(24, this)
             return this.__u
         }
     }

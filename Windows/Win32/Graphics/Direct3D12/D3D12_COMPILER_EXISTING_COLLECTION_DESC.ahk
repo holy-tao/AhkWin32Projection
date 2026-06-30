@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12CompilerStateObject.ahk
 #Include .\D3D12_EXPORT_DESC.ahk
+#Include .\ID3D12CompilerStateObject.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

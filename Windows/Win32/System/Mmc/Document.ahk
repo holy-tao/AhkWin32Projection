@@ -1,23 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\Views.ahk
+#Include .\ScopeNamespace.ahk
 #Include .\SnapIns.ahk
 #Include .\View.ahk
+#Include .\_DocumentMode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\Views.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\Node.ahk
-#Include .\ScopeNamespace.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\Properties.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\_Application.ahk
+#Include .\Node.ahk
 
 /**
- * Specifies any additional documentation for the task.
- * @remarks
- * For scripting applications, additional task documentation is specified using the using the [**RegistrationInfo.Documentation**](registrationinfo-documentation.md) property.
- * 
- * For C++ applications, additional task documentation is specified using the using the [**IRegistrationInfo::Documentation**](/windows/desktop/api/taskschd/nf-taskschd-iregistrationinfo-get_documentation) property.
- * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-documentation-registrationinfotype-element
  * @namespace Windows.Win32.System.Mmc
  */
 class Document extends IDispatch {
@@ -120,11 +117,8 @@ class Document extends IDispatch {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * 
+     * @returns {HRESULT} 
      */
     Save() {
         result := ComCall(7, this, "HRESULT")
@@ -144,16 +138,9 @@ class Document extends IDispatch {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @param {BOOL} SaveChanges 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close(SaveChanges) {
         result := ComCall(9, this, "int", SaveChanges, "HRESULT")
@@ -192,7 +179,7 @@ class Document extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -214,7 +201,7 @@ class Document extends IDispatch {
      * @returns {BSTR} 
      */
     get_Location() {
-        _Location := BSTR()
+        _Location := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", _Location, "HRESULT")
         return _Location
     }

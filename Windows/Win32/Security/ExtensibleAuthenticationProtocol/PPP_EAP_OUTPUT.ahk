@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPP_EAP_ACTION.ahk
 #Include .\RAS_AUTH_ATTRIBUTE.ahk
 #Include .\NgcTicketContext.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\PPP_EAP_ACTION.ahk
 
 /**
  * The authentication protocol uses the PPP_EAP_OUTPUT structure to communicate requests and status information to the Connection Manager on return from calls to RasEapMakeMessage.

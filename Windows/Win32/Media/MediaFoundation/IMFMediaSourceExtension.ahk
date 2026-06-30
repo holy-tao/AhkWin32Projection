@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFSourceBufferNotify.ahk
+#Include .\MF_MSE_READY.ahk
 #Include .\IMFSourceBuffer.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFSourceBufferList.ahk
+#Include .\MF_MSE_ERROR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides functionality for the Media Source Extension (MSE).

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IServiceProvider.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Com\IServiceProvider.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the full local path to the authoring binary to be loaded into the WWAHost process.
@@ -43,7 +44,7 @@ class IWebApplicationAuthoringMode extends IServiceProvider {
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationauthoringmode-get_authoringclientbinary
      */
     get_AuthoringClientBinary() {
-        designModeDllPath := BSTR()
+        designModeDllPath := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", designModeDllPath, "HRESULT")
         return designModeDllPath
     }

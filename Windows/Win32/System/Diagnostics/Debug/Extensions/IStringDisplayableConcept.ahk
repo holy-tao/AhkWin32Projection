@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IKeyStore.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IModelObject.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -35,7 +38,7 @@ class IStringDisplayableConcept extends IUnknown {
      * @returns {BSTR} 
      */
     ToDisplayString(contextObject, metadata) {
-        displayString := BSTR()
+        displayString := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", contextObject, "ptr", metadata, "ptr", displayString, "HRESULT")
         return displayString
     }

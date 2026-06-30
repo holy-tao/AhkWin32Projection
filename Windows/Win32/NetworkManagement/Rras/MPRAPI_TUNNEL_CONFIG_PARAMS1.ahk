@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEV2_CONFIG_PARAMS.ahk
-#Include .\IKEV2_TUNNEL_CONFIG_PARAMS4.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
-#Include .\MPR_CERT_EKU.ahk
 #Include .\PPTP_CONFIG_PARAMS.ahk
-#Include .\L2TP_CONFIG_PARAMS1.ahk
 #Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
+#Include .\IKEV2_TUNNEL_CONFIG_PARAMS4.ahk
 #Include .\SSTP_CONFIG_PARAMS.ahk
-#Include .\SSTP_CERT_INFO.ahk
 #Include .\GRE_CONFIG_PARAMS0.ahk
+#Include .\MPR_CERT_EKU.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Include .\IKEV2_CONFIG_PARAMS.ahk
+#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SSTP_CERT_INFO.ahk
+#Include .\L2TP_CONFIG_PARAMS1.ahk
 
 /**
  * Used to get or set configuration of tunnel parameters on a RAS Server. (MPRAPI_TUNNEL_CONFIG_PARAMS1)

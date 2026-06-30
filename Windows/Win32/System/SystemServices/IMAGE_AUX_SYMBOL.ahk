@@ -14,7 +14,7 @@ class IMAGE_AUX_SYMBOL extends Win32Struct {
         static sizeof => 20
         static packingSize => 4
 
-        class _Misc_e__Union extends Win32Struct {
+        class _Misc extends Win32Struct {
             static sizeof => 4
             static packingSize => 2
 
@@ -45,7 +45,7 @@ class IMAGE_AUX_SYMBOL extends Win32Struct {
             LnSz {
                 get {
                     if(!this.HasProp("__LnSz"))
-                        this.__LnSz := IMAGE_AUX_SYMBOL._Sym._Misc_e__Union._LnSz(0, this)
+                        this.__LnSz := IMAGE_AUX_SYMBOL._Sym._Misc._LnSz(0, this)
                     return this.__LnSz
                 }
             }
@@ -59,7 +59,7 @@ class IMAGE_AUX_SYMBOL extends Win32Struct {
             }
         }
 
-        class _FcnAry_e__Union extends Win32Struct {
+        class _FcnAry extends Win32Struct {
             static sizeof => 8
             static packingSize => 4
 
@@ -106,7 +106,7 @@ class IMAGE_AUX_SYMBOL extends Win32Struct {
             Function {
                 get {
                     if(!this.HasProp("__Function"))
-                        this.__Function := IMAGE_AUX_SYMBOL._Sym._FcnAry_e__Union._Function(0, this)
+                        this.__Function := IMAGE_AUX_SYMBOL._Sym._FcnAry._Function(0, this)
                     return this.__Function
                 }
             }
@@ -117,7 +117,7 @@ class IMAGE_AUX_SYMBOL extends Win32Struct {
             Array {
                 get {
                     if(!this.HasProp("__Array"))
-                        this.__Array := IMAGE_AUX_SYMBOL._Sym._FcnAry_e__Union._Array(0, this)
+                        this.__Array := IMAGE_AUX_SYMBOL._Sym._FcnAry._Array(0, this)
                     return this.__Array
                 }
             }
@@ -132,23 +132,23 @@ class IMAGE_AUX_SYMBOL extends Win32Struct {
         }
 
         /**
-         * @type {_Misc_e__Union}
+         * @type {_Misc}
          */
         Misc {
             get {
                 if(!this.HasProp("__Misc"))
-                    this.__Misc := IMAGE_AUX_SYMBOL._Sym._Misc_e__Union(4, this)
+                    this.__Misc := IMAGE_AUX_SYMBOL._Sym._Misc(4, this)
                 return this.__Misc
             }
         }
 
         /**
-         * @type {_FcnAry_e__Union}
+         * @type {_FcnAry}
          */
         FcnAry {
             get {
                 if(!this.HasProp("__FcnAry"))
-                    this.__FcnAry := IMAGE_AUX_SYMBOL._Sym._FcnAry_e__Union(8, this)
+                    this.__FcnAry := IMAGE_AUX_SYMBOL._Sym._FcnAry(8, this)
                 return this.__FcnAry
             }
         }

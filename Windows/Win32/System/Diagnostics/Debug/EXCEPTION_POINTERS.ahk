@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EXCEPTION_RECORD.ahk
 #Include .\CONTEXT.ahk
+#Include .\EXCEPTION_RECORD.ahk
 
 /**
  * Contains an exception record with a machine-independent description of an exception and a context record with a machine-dependent description of the processor context at the time of the exception.

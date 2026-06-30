@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\CERT_PROPERTY_TYPE.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\CERT_IMPORT_FLAGS.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides administration functionality for properly authorized clients.
@@ -340,7 +344,7 @@ class ICertAdmin extends IDispatch {
     GetCRL(strConfig, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pstrCRL := BSTR()
+        pstrCRL := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", strConfig, "int", Flags, "ptr", pstrCRL, "HRESULT")
         return pstrCRL
     }

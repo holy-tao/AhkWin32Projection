@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USB_DEVICE_DESCRIPTOR.ahk
-#Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
 #Include .\USB_COMPOSITE_FUNCTION_INFO.ahk
+#Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

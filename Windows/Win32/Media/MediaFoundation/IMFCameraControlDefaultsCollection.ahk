@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
 #Include .\IMFCameraControlDefaults.ahk
+#Include .\MF_CAMERA_CONTROL_CONFIGURATION_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a collection of camera controls.

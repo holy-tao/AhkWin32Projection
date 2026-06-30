@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -22,11 +23,10 @@ class ISpTask extends Win32ComInterface {
     static VTableNames => ["Execute"]
 
     /**
-     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
+     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {Pointer<Integer>} pfContinueProcessing 
-     * @returns {HRESULT} This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
+     * @returns {HRESULT} 
      */
     Execute(pvTaskData, pfContinueProcessing) {
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"

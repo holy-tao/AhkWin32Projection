@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataHandlerInfo.ahk
 #Include .\IWICMetadataWriter.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IWICMetadataHandlerInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that provide basic information about the registered metadata writer.

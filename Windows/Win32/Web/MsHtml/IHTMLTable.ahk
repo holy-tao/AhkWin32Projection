@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLElementCollection.ahk
 #Include .\IHTMLTableSection.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLTableCaption.ahk
+#Include .\IHTMLElementCollection.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -264,7 +265,7 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_frame() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -286,7 +287,7 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_rules() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -348,7 +349,7 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_background() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -450,7 +451,7 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", p, "HRESULT")
         return p
     }
@@ -665,7 +666,7 @@ class IHTMLTable extends IDispatch {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(53, this, "ptr", p, "HRESULT")
         return p
     }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFsrmPipelineModuleImplementation.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmPropertyBag.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Storage modules implement this interface.

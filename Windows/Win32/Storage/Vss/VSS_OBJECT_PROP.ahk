@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VSS_OBJECT_TYPE.ahk
-#Include .\VSS_OBJECT_UNION.ahk
-#Include .\VSS_SNAPSHOT_PROP.ahk
-#Include .\VSS_SNAPSHOT_STATE.ahk
-#Include .\VSS_PROVIDER_PROP.ahk
 #Include .\VSS_PROVIDER_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\VSS_OBJECT_UNION.ahk
+#Include .\VSS_PROVIDER_PROP.ahk
+#Include .\VSS_SNAPSHOT_STATE.ahk
+#Include .\VSS_SNAPSHOT_PROP.ahk
 
 /**
  * Defines the properties of a provider, volume, shadow copy, or shadow copy set.
@@ -28,7 +29,7 @@
  * @namespace Windows.Win32.Storage.Vss
  */
 class VSS_OBJECT_PROP extends Win32Struct {
-    static sizeof => 160
+    static sizeof => 208
 
     static packingSize => 8
 

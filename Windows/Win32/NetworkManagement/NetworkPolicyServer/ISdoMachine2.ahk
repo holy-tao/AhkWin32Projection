@@ -2,7 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISdoMachine.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
@@ -78,12 +81,8 @@ class ISdoMachine2 extends ISdoMachine {
     }
 
     /**
-     * The ReloadZone method reloads the DNS Zone from its database.
-     * @returns {HRESULT} This method has no parameters.
      * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-zone-reloadzone
+     * @returns {HRESULT} 
      */
     Reload() {
         result := ComCall(20, this, "HRESULT")

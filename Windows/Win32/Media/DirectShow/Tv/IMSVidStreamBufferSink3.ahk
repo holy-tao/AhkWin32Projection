@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidStreamBufferSink2.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IMSVidStreamBufferSink2.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidStreamBufferSink3 interface represents the Stream Buffer Sink filter within the Video Control.
@@ -186,7 +187,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_audioanalysisfilter
      */
     get_AudioAnalysisFilter() {
-        pszCLSID := BSTR()
+        pszCLSID := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", pszCLSID, "HRESULT")
         return pszCLSID
     }
@@ -232,7 +233,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_videoanalysisfilter
      */
     get_VideoAnalysisFilter() {
-        pszCLSID := BSTR()
+        pszCLSID := BSTR({Value: 0}, True)
         result := ComCall(33, this, "ptr", pszCLSID, "HRESULT")
         return pszCLSID
     }
@@ -278,7 +279,7 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_dataanalysisfilter
      */
     get_DataAnalysisFilter() {
-        pszCLSID := BSTR()
+        pszCLSID := BSTR({Value: 0}, True)
         result := ComCall(37, this, "ptr", pszCLSID, "HRESULT")
         return pszCLSID
     }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_COMPILER_VALUE_TYPE.ahk
 #Include .\D3D12_COMPILER_CACHE_VALUE.ahk
+#Include .\D3D12_COMPILER_VALUE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPresentationBuffer.ahk
+#Include ..\Dxgi\Common\DXGI_ALPHA_MODE.ahk
+#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 #Include .\IPresentationContent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PresentationTransform.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Describes an `IPresentationContent` with a single bound buffer, that can be shared with the system compositor and displayed as content in the global visual tree.

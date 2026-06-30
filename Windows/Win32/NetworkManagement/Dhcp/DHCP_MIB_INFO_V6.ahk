@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DATE_TIME.ahk
 #Include .\SCOPE_MIB_INFO_V6.ahk
+#Include .\DATE_TIME.ahk
 
 /**
  * Contains statistics for the DHCPv6 server.

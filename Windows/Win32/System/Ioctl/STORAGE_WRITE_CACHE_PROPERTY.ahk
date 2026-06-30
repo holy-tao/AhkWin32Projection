@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WRITE_CACHE_TYPE.ahk
-#Include .\WRITE_CACHE_ENABLE.ahk
 #Include .\WRITE_CACHE_CHANGE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\WRITE_THROUGH.ahk
+#Include .\WRITE_CACHE_ENABLE.ahk
+#Include .\WRITE_CACHE_TYPE.ahk
 
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve information about a device's write cache property.

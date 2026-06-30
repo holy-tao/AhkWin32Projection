@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\GETTEXTEX_FLAGS.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information used in getting text from a rich edit control. This structure used with the EM_GETTEXTEX message.

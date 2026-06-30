@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Attribute.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509Attribute.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an attribute that contains the certificate being renewed. This attribute is automatically placed in the PKCS
@@ -101,7 +103,7 @@ class IX509AttributeRenewalCertificate extends IX509Attribute {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributerenewalcertificate-get_renewalcertificate
      */
     get_RenewalCertificate(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

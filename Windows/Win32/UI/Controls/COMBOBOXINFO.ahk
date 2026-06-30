@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\COMBOBOXINFO_BUTTON_STATE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\COMBOBOXINFO_BUTTON_STATE.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains combo box status information.

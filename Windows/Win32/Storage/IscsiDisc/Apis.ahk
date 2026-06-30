@@ -1,6 +1,31 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\PERSISTENT_ISCSI_LOGIN_INFOW.ahk
+#Include .\TARGET_INFORMATION_CLASS.ahk
+#Include .\ISCSI_SESSION_INFOA.ahk
+#Include .\ISCSI_SESSION_INFO_EX.ahk
+#Include .\ISCSI_TARGET_MAPPINGA.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\ISCSI_TARGET_PORTAL_GROUPA.ahk
+#Include .\ISCSI_SESSION_INFOW.ahk
+#Include .\ISCSI_DEVICE_ON_SESSIONW.ahk
+#Include .\ISCSI_TARGET_MAPPINGW.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ISCSI_TARGET_PORTAL_INFO_EXA.ahk
+#Include .\ISCSI_TARGET_PORTAL_INFO_EXW.ahk
+#Include .\ISCSI_TARGET_PORTAL_GROUPW.ahk
+#Include .\IKE_AUTHENTICATION_INFORMATION.ahk
+#Include .\ISCSI_VERSION_INFO.ahk
+#Include .\ISCSI_TARGET_PORTAL_INFOA.ahk
+#Include .\PERSISTENT_ISCSI_LOGIN_INFOA.ahk
+#Include .\ISCSI_TARGET_PORTALA.ahk
+#Include .\ISCSI_UNIQUE_SESSION_ID.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\ISCSI_DEVICE_ON_SESSIONA.ahk
+#Include .\ISCSI_TARGET_PORTAL_INFOW.ahk
+#Include .\ISCSI_TARGET_PORTALW.ahk
+#Include .\ISCSI_LOGIN_OPTIONS.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

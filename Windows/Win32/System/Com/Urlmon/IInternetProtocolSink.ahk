@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\PROTOCOLDATA.ahk
 #Include ..\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -28,23 +31,9 @@ class IInternetProtocolSink extends IUnknown {
     static VTableNames => ["Switch", "ReportProgress", "ReportData", "ReportResult"]
 
     /**
-     * Makes the specified desktop visible and activates it. This enables the desktop to receive input from the user.
-     * @remarks
-     * The 
-     * <b>SwitchDesktop</b> function fails if the desktop belongs to an invisible window station. 
-     * <b>SwitchDesktop</b> also fails when called from a process that is associated with a secured desktop such as the WinLogon and ScreenSaver desktops. Processes that are associated with a secured desktop include custom UserInit processes. Such calls typically fail with an "access denied" error.
+     * 
      * @param {Pointer<PROTOCOLDATA>} pProtocolData 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. However, 
-     * <b>SwitchDesktop</b> only sets the last error for the following cases:
-     * 
-     * <ul>
-     * <li>When the desktop belongs to an invisible window station</li>
-     * <li>When <i>hDesktop</i> is an invalid handle, refers to a destroyed desktop, or belongs to a different session than that of the calling process</li>
-     * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-switchdesktop
+     * @returns {HRESULT} 
      */
     Switch(pProtocolData) {
         result := ComCall(3, this, "ptr", pProtocolData, "HRESULT")

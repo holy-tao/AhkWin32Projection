@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\UI_CONVERT_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\UI_CONVERT_FLAGS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRSRC.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Convert dialog box, and space for the library to return information when the dialog box is dismissed. (Unicode)
@@ -16,7 +20,7 @@
  * @charset Unicode
  */
 class OLEUICONVERTW extends Win32Struct {
-    static sizeof => 160
+    static sizeof => 192
 
     static packingSize => 8
 
@@ -218,38 +222,50 @@ class OLEUICONVERTW extends Win32Struct {
 
     /**
      * The CLSID of the object to be converted or activated. This member is set on input.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(64, this)
+            return this.__clsid
+        }
     }
 
     /**
      * The CLSID to use as the default class when <b>Convert To</b> is selected. This member is ignored if the <b>dwFlags</b> member does not include CF_SETCONVERTDEFAULT. This member is set on input.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidConvertDefault {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get {
+            if(!this.HasProp("__clsidConvertDefault"))
+                this.__clsidConvertDefault := Guid(80, this)
+            return this.__clsidConvertDefault
+        }
     }
 
     /**
      * The CLSID to use as the default class when <b>Activate As</b> is selected. This member is ignored if the <b>dwFlags</b> member does not include CF_SETACTIVATEDEFAULT. This member is set on input.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidActivateDefault {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get {
+            if(!this.HasProp("__clsidActivateDefault"))
+                this.__clsidActivateDefault := Guid(96, this)
+            return this.__clsidActivateDefault
+        }
     }
 
     /**
      * The CLSID of the selected class. This member is set on output.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidNew {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get {
+            if(!this.HasProp("__clsidNew"))
+                this.__clsidNew := Guid(112, this)
+            return this.__clsidNew
+        }
     }
 
     /**
@@ -257,8 +273,8 @@ class OLEUICONVERTW extends Win32Struct {
      * @type {Integer}
      */
     dvAspect {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -266,8 +282,8 @@ class OLEUICONVERTW extends Win32Struct {
      * @type {Integer}
      */
     wFormat {
-        get => NumGet(this, 100, "ushort")
-        set => NumPut("ushort", value, this, 100)
+        get => NumGet(this, 132, "ushort")
+        set => NumPut("ushort", value, this, 132)
     }
 
     /**
@@ -275,8 +291,8 @@ class OLEUICONVERTW extends Win32Struct {
      * @type {BOOL}
      */
     fIsLinkedObject {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -286,7 +302,7 @@ class OLEUICONVERTW extends Win32Struct {
     hMetaPict {
         get {
             if(!this.HasProp("__hMetaPict"))
-                this.__hMetaPict := HGLOBAL(112, this)
+                this.__hMetaPict := HGLOBAL(144, this)
             return this.__hMetaPict
         }
     }
@@ -296,8 +312,8 @@ class OLEUICONVERTW extends Win32Struct {
      * @type {PWSTR}
      */
     lpszUserType {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
@@ -305,8 +321,8 @@ class OLEUICONVERTW extends Win32Struct {
      * @type {BOOL}
      */
     fObjectsIconChanged {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
+        get => NumGet(this, 160, "int")
+        set => NumPut("int", value, this, 160)
     }
 
     /**
@@ -314,8 +330,8 @@ class OLEUICONVERTW extends Win32Struct {
      * @type {PWSTR}
      */
     lpszDefLabel {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
@@ -323,8 +339,8 @@ class OLEUICONVERTW extends Win32Struct {
      * @type {Integer}
      */
     cClsidExclude {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 176, "uint")
+        set => NumPut("uint", value, this, 176)
     }
 
     /**
@@ -332,7 +348,7 @@ class OLEUICONVERTW extends Win32Struct {
      * @type {Pointer<Guid>}
      */
     lpClsidExclude {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 }

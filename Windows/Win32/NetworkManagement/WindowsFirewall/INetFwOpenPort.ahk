@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\NET_FW_SCOPE.ahk
+#Include .\NET_FW_IP_VERSION.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\NET_FW_IP_PROTOCOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The INetFwOpenPort interface provides access to the properties of a port that has been opened in the firewall.
@@ -117,7 +122,7 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", name, "HRESULT")
         return name
     }
@@ -269,7 +274,7 @@ class INetFwOpenPort extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_remoteaddresses
      */
     get_RemoteAddresses() {
-        remoteAddrs := BSTR()
+        remoteAddrs := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", remoteAddrs, "HRESULT")
         return remoteAddrs
     }

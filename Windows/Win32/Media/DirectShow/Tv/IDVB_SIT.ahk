@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ISectionList.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\IMpeg2Data.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\IGenericDescriptor.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.

@@ -41,7 +41,7 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct {
         set => NumPut("char", value, this, 6)
     }
 
-    class _Flags_e__Union extends Win32Struct {
+    class _Flags extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -100,12 +100,12 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct {
     }
 
     /**
-     * @type {_Flags_e__Union}
+     * @type {_Flags}
      */
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := PROCESSOR_PERFSTATE_POLICY._Flags_e__Union(7, this)
+                this.__Flags := PROCESSOR_PERFSTATE_POLICY._Flags(7, this)
             return this.__Flags
         }
     }

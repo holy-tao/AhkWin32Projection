@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXpsPrintJob.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\IXpsPrintJobStream.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\IXpsOMPackageTarget.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Xps.Printing

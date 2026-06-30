@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\CONTEXT.ahk
 #Include .\CONTEXT_FLAGS.ahk
 #Include .\ARM64_NT_NEON128.ahk
+#Include .\CONTEXT.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains extended thread information for the MiniDumpCallback function when the callback type is ThreadExCallback.

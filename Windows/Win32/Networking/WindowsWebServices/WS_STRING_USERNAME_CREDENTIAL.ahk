@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_USERNAME_CREDENTIAL.ahk
-#Include .\WS_USERNAME_CREDENTIAL_TYPE.ahk
 #Include .\WS_STRING.ahk
+#Include .\WS_USERNAME_CREDENTIAL_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WS_USERNAME_CREDENTIAL.ahk
 
 /**
  * The type for supplying a username/password pair as strings.

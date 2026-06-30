@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Image.ahk
+#Include Common\D2D_POINT_2F.ahk
 #Include .\ID2D1CommandSink4.ahk
+#Include Common\D2D_RECT_F.ahk
+#Include .\D2D1_INTERPOLATION_MODE.ahk
+#Include Common\D2D1_BLEND_MODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface performs all the same functions as the existing ID2D1CommandSink4 interface, plus it enables access to the BlendImage method.

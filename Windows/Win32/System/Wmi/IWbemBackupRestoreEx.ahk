@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWbemBackupRestore.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWbemBackupRestoreEx interface backs up and restores the contents of the repository.

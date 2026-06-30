@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npfmxeditperm">NPFMXEditPerm</see>, <see href="https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npfmxgetpermhelp">NPFMXGetPermHelp</see>.
  * @namespace Windows.Win32.NetworkManagement.WNet
  */
 class WNPERM_DLG extends Win32Enum {

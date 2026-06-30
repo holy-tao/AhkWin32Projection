@@ -10,7 +10,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 24
         static packingSize => 4
 
@@ -404,7 +404,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
         Polled {
             get {
                 if(!this.HasProp("__Polled"))
-                    this.__Polled := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Polled(0, this)
+                    this.__Polled := WHEA_NOTIFICATION_DESCRIPTOR._u._Polled(0, this)
                 return this.__Polled
             }
         }
@@ -415,7 +415,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
         Interrupt {
             get {
                 if(!this.HasProp("__Interrupt"))
-                    this.__Interrupt := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Interrupt(0, this)
+                    this.__Interrupt := WHEA_NOTIFICATION_DESCRIPTOR._u._Interrupt(0, this)
                 return this.__Interrupt
             }
         }
@@ -426,7 +426,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
         LocalInterrupt {
             get {
                 if(!this.HasProp("__LocalInterrupt"))
-                    this.__LocalInterrupt := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._LocalInterrupt(0, this)
+                    this.__LocalInterrupt := WHEA_NOTIFICATION_DESCRIPTOR._u._LocalInterrupt(0, this)
                 return this.__LocalInterrupt
             }
         }
@@ -437,7 +437,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
         Sci {
             get {
                 if(!this.HasProp("__Sci"))
-                    this.__Sci := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Sci(0, this)
+                    this.__Sci := WHEA_NOTIFICATION_DESCRIPTOR._u._Sci(0, this)
                 return this.__Sci
             }
         }
@@ -448,7 +448,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
         Nmi {
             get {
                 if(!this.HasProp("__Nmi"))
-                    this.__Nmi := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Nmi(0, this)
+                    this.__Nmi := WHEA_NOTIFICATION_DESCRIPTOR._u._Nmi(0, this)
                 return this.__Nmi
             }
         }
@@ -459,7 +459,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
         Sea {
             get {
                 if(!this.HasProp("__Sea"))
-                    this.__Sea := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Sea(0, this)
+                    this.__Sea := WHEA_NOTIFICATION_DESCRIPTOR._u._Sea(0, this)
                 return this.__Sea
             }
         }
@@ -470,7 +470,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
         Sei {
             get {
                 if(!this.HasProp("__Sei"))
-                    this.__Sei := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Sei(0, this)
+                    this.__Sei := WHEA_NOTIFICATION_DESCRIPTOR._u._Sei(0, this)
                 return this.__Sei
             }
         }
@@ -481,7 +481,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
         Gsiv {
             get {
                 if(!this.HasProp("__Gsiv"))
-                    this.__Gsiv := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union._Gsiv(0, this)
+                    this.__Gsiv := WHEA_NOTIFICATION_DESCRIPTOR._u._Gsiv(0, this)
                 return this.__Gsiv
             }
         }
@@ -515,12 +515,12 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := WHEA_NOTIFICATION_DESCRIPTOR._u_e__Union(8, this)
+                this.__u := WHEA_NOTIFICATION_DESCRIPTOR._u(8, this)
             return this.__u
         }
     }

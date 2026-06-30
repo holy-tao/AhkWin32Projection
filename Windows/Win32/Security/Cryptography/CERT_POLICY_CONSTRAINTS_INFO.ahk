@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CERT_POLICY_CONSTRAINTS_INFO structure contains established policies for accepting certificates as trusted.

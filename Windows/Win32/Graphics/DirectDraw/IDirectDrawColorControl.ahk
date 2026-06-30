@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDCOLORCONTROL.ahk
 
 /**
  * Applications use the methods of the IDirectDrawColorControl interface to get and set color controls.

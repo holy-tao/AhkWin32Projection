@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes the capabilities of a biometric storage adapter.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_STORAGE_SCHEMA extends Win32Struct {
-    static sizeof => 1056
+    static sizeof => 1064
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The type of biometric measurement saved in the database.
@@ -22,20 +23,26 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct {
 
     /**
      * A GUID that identifies the database.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DatabaseId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__DatabaseId"))
+                this.__DatabaseId := Guid(4, this)
+            return this.__DatabaseId
+        }
     }
 
     /**
      * A GUID that identifies the format of the templates in the database.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DataFormat {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__DataFormat"))
+                this.__DataFormat := Guid(20, this)
+            return this.__DataFormat
+        }
     }
 
     /**
@@ -56,8 +63,8 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct {
      * @type {Integer}
      */
     Attributes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -67,7 +74,7 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct {
     FilePath {
         get {
             if(!this.HasProp("__FilePathProxyArray"))
-                this.__FilePathProxyArray := Win32FixedArray(this.ptr + 28, 256, Primitive, "ushort")
+                this.__FilePathProxyArray := Win32FixedArray(this.ptr + 40, 256, Primitive, "ushort")
             return this.__FilePathProxyArray
         }
     }
@@ -79,7 +86,7 @@ class WINBIO_STORAGE_SCHEMA extends Win32Struct {
     ConnectionString {
         get {
             if(!this.HasProp("__ConnectionStringProxyArray"))
-                this.__ConnectionStringProxyArray := Win32FixedArray(this.ptr + 540, 256, Primitive, "ushort")
+                this.__ConnectionStringProxyArray := Win32FixedArray(this.ptr + 552, 256, Primitive, "ushort")
             return this.__ConnectionStringProxyArray
         }
     }

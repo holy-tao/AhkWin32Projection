@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_RSTMAP_W.ahk
 #Include .\JET_LGPOS.ahk
 #Include .\JET_LOGTIME.ahk
+#Include .\JET_RSTMAP_W.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet

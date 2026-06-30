@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextHost.ahk
+#Include ..\..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Graphics\Gdi\HPALETTE.ahk
+#Include .\ITextHost.ahk
 #Include ..\..\WindowsAndMessaging\HCURSOR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\RECT.ahk
 
 /**
  * The ITextHost2 interface extends the ITextHost interface.

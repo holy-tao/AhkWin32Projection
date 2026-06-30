@@ -1,18 +1,28 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ID3D11VideoDecoder.ahk
-#Include .\ID3D11VideoProcessor.ahk
-#Include .\ID3D11AuthenticatedChannel.ahk
-#Include .\ID3D11CryptoSession.ahk
+#Include .\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D11_VIDEO_DECODER_DESC.ahk
+#Include .\D3D11_AUTHENTICATED_CHANNEL_TYPE.ahk
 #Include .\ID3D11VideoDecoderOutputView.ahk
-#Include .\ID3D11VideoProcessorInputView.ahk
 #Include .\ID3D11VideoProcessorOutputView.ahk
 #Include .\ID3D11VideoProcessorEnumerator.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\D3D11_VIDEO_DECODER_CONFIG.ahk
-#Include .\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ID3D11Resource.ahk
+#Include .\D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC.ahk
+#Include .\ID3D11AuthenticatedChannel.ahk
+#Include .\ID3D11VideoProcessorInputView.ahk
+#Include .\ID3D11VideoProcessor.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC.ahk
+#Include .\ID3D11CryptoSession.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the video decoding and video processing capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoDevice)

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WNODE_HEADER.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class WNODE_EVENT_ITEM extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 

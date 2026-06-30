@@ -4,6 +4,7 @@
 #Include ..\Com\IDispatch.ahk
 #Include .\IMsmDependency.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

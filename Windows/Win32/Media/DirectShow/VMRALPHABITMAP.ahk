@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\NORMALIZEDRECT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The VMRALPHABITMAP structure is used in the VMR-7 filter's IVMRMixerBitmap methods when the application is providing a static alpha-blended bitmap to be displayed on the composited video frame.

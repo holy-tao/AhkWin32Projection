@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IADs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsComputer interface is a dual interface that inherits from IADs.
@@ -170,7 +171,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_ComputerID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -180,7 +181,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_Site() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -190,7 +191,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_Description() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -212,7 +213,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_Location() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -234,7 +235,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_PrimaryUser() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -256,7 +257,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_Owner() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -278,7 +279,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_Division() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -300,7 +301,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_Department() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -322,7 +323,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_Role() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -344,7 +345,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_OperatingSystem() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -366,7 +367,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_OperatingSystemVersion() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -388,7 +389,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_Model() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -410,7 +411,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_Processor() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(42, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -432,7 +433,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_ProcessorCount() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -454,7 +455,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_MemorySize() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(46, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -476,7 +477,7 @@ class IADsComputer extends IADs {
      * @returns {BSTR} 
      */
     get_StorageCapacity() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(48, this, "ptr", retval, "HRESULT")
         return retval
     }

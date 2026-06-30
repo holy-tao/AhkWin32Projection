@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLRES_V1_FUNCTIONS.ahk
-#Include .\CLRES_V2_FUNCTIONS.ahk
 #Include .\CLRES_V3_FUNCTIONS.ahk
+#Include .\CLRES_V2_FUNCTIONS.ahk
+#Include .\CLRES_V1_FUNCTIONS.ahk
 #Include .\CLRES_V4_FUNCTIONS.ahk
 
 /**

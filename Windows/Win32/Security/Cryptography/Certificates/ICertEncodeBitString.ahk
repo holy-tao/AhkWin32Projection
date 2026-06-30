@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for handling bit strings used in certificate extensions.
@@ -65,7 +66,7 @@ class ICertEncodeBitString extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-getbitstring
      */
     GetBitString() {
-        pstrBitString := BSTR()
+        pstrBitString := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pstrBitString, "HRESULT")
         return pstrBitString
     }
@@ -80,7 +81,7 @@ class ICertEncodeBitString extends IDispatch {
     Encode(BitCount, strBitString) {
         strBitString := strBitString is String ? BSTR.Alloc(strBitString).Value : strBitString
 
-        pstrBinary := BSTR()
+        pstrBinary := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", BitCount, "ptr", strBitString, "ptr", pstrBinary, "HRESULT")
         return pstrBinary
     }

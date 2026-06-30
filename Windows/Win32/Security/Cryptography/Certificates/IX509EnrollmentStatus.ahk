@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\EnrollmentSelectionStatus.ahk
+#Include .\EnrollmentEnrollStatus.ahk
+#Include .\EnrollmentDisplayStatus.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IX509EnrollmentStatus interface can be used to specify or retrieve detailed error information about a certificate enrollment transaction.
@@ -100,7 +104,7 @@ class IX509EnrollmentStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_text
      */
     get_Text() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -218,7 +222,7 @@ class IX509EnrollmentStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_errortext
      */
     get_ErrorText() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pValue, "HRESULT")
         return pValue
     }

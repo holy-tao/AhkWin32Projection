@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ONEX_AUTH_IDENTITY.ahk
 #Include .\ONEX_VARIABLE_BLOB.ahk
+#Include .\ONEX_AUTH_IDENTITY.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

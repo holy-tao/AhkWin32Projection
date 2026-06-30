@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\MBN_REGISTER_STATE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MBN_REGISTER_MODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to network registration data.
@@ -76,7 +80,7 @@ class IMbnRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getproviderid
      */
     GetProviderID() {
-        providerID := BSTR()
+        providerID := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", providerID, "HRESULT")
         return providerID
     }
@@ -91,7 +95,7 @@ class IMbnRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getprovidername
      */
     GetProviderName() {
-        providerName := BSTR()
+        providerName := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", providerName, "HRESULT")
         return providerName
     }
@@ -108,7 +112,7 @@ class IMbnRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getroamingtext
      */
     GetRoamingText() {
-        roamingText := BSTR()
+        roamingText := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", roamingText, "HRESULT")
         return roamingText
     }

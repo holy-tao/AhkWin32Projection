@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_X64_VP_EXECUTION_STATE.ahk
 #Include .\WHV_X64_SEGMENT_REGISTER.ahk
+#Include .\WHV_X64_VP_EXECUTION_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

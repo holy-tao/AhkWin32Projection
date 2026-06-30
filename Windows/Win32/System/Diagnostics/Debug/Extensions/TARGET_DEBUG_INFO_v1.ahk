@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\OS_INFO_v1.ahk
 #Include .\OS_TYPE.ahk
 #Include .\CPU_INFO_v1.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALL.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALPHA.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_AMD64.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_IA64.ahk
-#Include .\DEBUG_PROCESSOR_IDENTIFICATION_X86.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_ARM.ahk
+#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALL.ahk
 #Include .\DEBUG_PROCESSOR_IDENTIFICATION_ARM64.ahk
+#Include .\OS_INFO_v1.ahk
+#Include .\DEBUG_PROCESSOR_IDENTIFICATION_X86.ahk
+#Include .\DEBUG_PROCESSOR_IDENTIFICATION_IA64.ahk
+#Include .\DEBUG_PROCESSOR_IDENTIFICATION_ALPHA.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

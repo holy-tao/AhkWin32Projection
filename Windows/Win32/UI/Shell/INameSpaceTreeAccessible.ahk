@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that perform accessibility actions on a Shell item from a namespace tree control.
@@ -46,7 +48,7 @@ class INameSpaceTreeAccessible extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreeaccessible-ongetdefaultaccessibilityaction
      */
     OnGetDefaultAccessibilityAction(psi) {
-        pbstrDefaultAction := BSTR()
+        pbstrDefaultAction := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", psi, "ptr", pbstrDefaultAction, "HRESULT")
         return pbstrDefaultAction
     }

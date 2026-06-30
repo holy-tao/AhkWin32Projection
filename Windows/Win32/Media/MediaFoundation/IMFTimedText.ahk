@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMFByteStream.ahk
+#Include .\IMFTimedTextNotify.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFTimedTextTrack.ahk
 #Include .\IMFTimedTextTrackList.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MF_TIMED_TEXT_TRACK_KIND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFTimedTextTrack.ahk
 
 /**
  * A timed-text object represents a component of timed text.

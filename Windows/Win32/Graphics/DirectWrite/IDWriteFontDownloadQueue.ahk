@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IDWriteFontDownloadListener.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Interface that enqueues download requests for remote fonts, characters, glyphs, and font fragments.

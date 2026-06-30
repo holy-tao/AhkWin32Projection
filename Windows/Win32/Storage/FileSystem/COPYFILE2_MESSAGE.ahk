@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\COPYFILE2_MESSAGE_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\COPYFILE2_COPY_PHASE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Passed to the CopyFile2ProgressRoutine callback function with information about a pending copy operation.
@@ -19,7 +20,7 @@ class COPYFILE2_MESSAGE extends Win32Struct {
 
     static packingSize => 8
 
-    class _Info_e__Union extends Win32Struct {
+    class _Info extends Win32Struct {
         static sizeof => 72
         static packingSize => 8
 
@@ -419,7 +420,7 @@ class COPYFILE2_MESSAGE extends Win32Struct {
         ChunkStarted {
             get {
                 if(!this.HasProp("__ChunkStarted"))
-                    this.__ChunkStarted := COPYFILE2_MESSAGE._Info_e__Union._ChunkStarted(0, this)
+                    this.__ChunkStarted := COPYFILE2_MESSAGE._Info._ChunkStarted(0, this)
                 return this.__ChunkStarted
             }
         }
@@ -430,7 +431,7 @@ class COPYFILE2_MESSAGE extends Win32Struct {
         ChunkFinished {
             get {
                 if(!this.HasProp("__ChunkFinished"))
-                    this.__ChunkFinished := COPYFILE2_MESSAGE._Info_e__Union._ChunkFinished(0, this)
+                    this.__ChunkFinished := COPYFILE2_MESSAGE._Info._ChunkFinished(0, this)
                 return this.__ChunkFinished
             }
         }
@@ -441,7 +442,7 @@ class COPYFILE2_MESSAGE extends Win32Struct {
         StreamStarted {
             get {
                 if(!this.HasProp("__StreamStarted"))
-                    this.__StreamStarted := COPYFILE2_MESSAGE._Info_e__Union._StreamStarted(0, this)
+                    this.__StreamStarted := COPYFILE2_MESSAGE._Info._StreamStarted(0, this)
                 return this.__StreamStarted
             }
         }
@@ -452,7 +453,7 @@ class COPYFILE2_MESSAGE extends Win32Struct {
         StreamFinished {
             get {
                 if(!this.HasProp("__StreamFinished"))
-                    this.__StreamFinished := COPYFILE2_MESSAGE._Info_e__Union._StreamFinished(0, this)
+                    this.__StreamFinished := COPYFILE2_MESSAGE._Info._StreamFinished(0, this)
                 return this.__StreamFinished
             }
         }
@@ -463,7 +464,7 @@ class COPYFILE2_MESSAGE extends Win32Struct {
         PollContinue {
             get {
                 if(!this.HasProp("__PollContinue"))
-                    this.__PollContinue := COPYFILE2_MESSAGE._Info_e__Union._PollContinue(0, this)
+                    this.__PollContinue := COPYFILE2_MESSAGE._Info._PollContinue(0, this)
                 return this.__PollContinue
             }
         }
@@ -474,7 +475,7 @@ class COPYFILE2_MESSAGE extends Win32Struct {
         Error {
             get {
                 if(!this.HasProp("__Error"))
-                    this.__Error := COPYFILE2_MESSAGE._Info_e__Union._Error(0, this)
+                    this.__Error := COPYFILE2_MESSAGE._Info._Error(0, this)
                 return this.__Error
             }
         }
@@ -586,12 +587,12 @@ class COPYFILE2_MESSAGE extends Win32Struct {
     }
 
     /**
-     * @type {_Info_e__Union}
+     * @type {_Info}
      */
     Info {
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := COPYFILE2_MESSAGE._Info_e__Union(8, this)
+                this.__Info := COPYFILE2_MESSAGE._Info(8, this)
             return this.__Info
         }
     }

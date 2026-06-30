@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Locality four.
- * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsip_submit_command
  * @namespace Windows.Win32.System.TpmBaseServices
  */
 class TBS_COMMAND_LOCALITY extends Win32Enum {

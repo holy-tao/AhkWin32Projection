@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include .\IGPMTrustee.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\GPMPermissionType.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMPermission interface contains methods to retrieve permission-related properties when using the GPMC.

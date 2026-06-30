@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WNODE_HEADER.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\EVENT_TRACE_FLAG.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * The EVENT_TRACE_PROPERTIES structure contains information about an event tracing session and is used with APIs such as StartTrace and ControlTrace.
@@ -47,7 +48,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class EVENT_TRACE_PROPERTIES extends Win32Struct {
-    static sizeof => 112
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -108,8 +109,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     BufferSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -147,8 +148,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     MinimumBuffers {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -178,8 +179,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     MaximumBuffers {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -198,8 +199,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     MaximumFileSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -226,8 +227,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     LogFileMode {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -253,8 +254,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     FlushTimer {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -269,24 +270,24 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {EVENT_TRACE_FLAG}
      */
     EnableFlags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     AgeLimit {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     FlushThreshold {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -295,8 +296,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     NumberOfBuffers {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -305,8 +306,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     FreeBuffers {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -314,8 +315,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     EventsLost {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -323,8 +324,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     BuffersWritten {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
@@ -332,8 +333,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     LogBuffersLost {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -342,8 +343,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     RealTimeBuffersLost {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
@@ -353,7 +354,7 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
     LoggerThreadId {
         get {
             if(!this.HasProp("__LoggerThreadId"))
-                this.__LoggerThreadId := HANDLE(96, this)
+                this.__LoggerThreadId := HANDLE(104, this)
             return this.__LoggerThreadId
         }
     }
@@ -392,8 +393,8 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     LogFileNameOffset {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -419,7 +420,7 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct {
      * @type {Integer}
      */
     LoggerNameOffset {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 }

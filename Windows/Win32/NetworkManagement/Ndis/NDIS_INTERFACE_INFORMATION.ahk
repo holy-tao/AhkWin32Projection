@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NET_IF_OPER_STATUS.ahk
-#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\NET_IF_MEDIA_DUPLEX_STATE.ahk
+#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include .\NET_IF_COMPARTMENT_ID.ahk
+#Include .\NET_IF_OPER_STATUS.ahk
 
 /**
  * The NDIS_INTERFACE_INFORMATION structure provides information about a network interface for the OID_GEN_INTERFACE_INFO OID.

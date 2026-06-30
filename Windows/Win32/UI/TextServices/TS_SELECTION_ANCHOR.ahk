@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IAnchor.ahk
 #Include .\TS_SELECTIONSTYLE.ahk
 #Include .\TsActiveSelEnd.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IAnchor.ahk
 
 /**
  * The TS_SELECTION_ANCHOR structure contains anchor-based text selection data.

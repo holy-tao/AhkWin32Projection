@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\EXCEPTION_POINTERS.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the exception information written to the minidump file by the MiniDumpWriteDump function.

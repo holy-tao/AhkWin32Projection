@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STGMEDIUM.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\IStream.ahk
 #Include StructuredStorage\IStorage.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include .\STGMEDIUM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 #Include .\IUnknown.ahk
+#Include .\IStream.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * @namespace Windows.Win32.System.Com

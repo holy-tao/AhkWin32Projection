@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WINML_TENSOR_DATA_TYPE.ahk
 #Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\WINML_TENSOR_DATA_TYPE.ahk
 
 /**
  * Contains description properties of the resource binding.

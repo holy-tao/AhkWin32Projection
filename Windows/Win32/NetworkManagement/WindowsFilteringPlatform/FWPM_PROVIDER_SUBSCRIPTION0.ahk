@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FWPM_PROVIDER_ENUM_TEMPLATE0.ahk
 
 /**
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_PROVIDER_SUBSCRIPTION0 extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -70,10 +71,13 @@ class FWPM_PROVIDER_SUBSCRIPTION0 extends Win32Struct {
 
     /**
      * Uniquely identifies the session.
-     * @type {Pointer}
+     * @type {Guid}
      */
     sessionKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__sessionKey"))
+                this.__sessionKey := Guid(12, this)
+            return this.__sessionKey
+        }
     }
 }

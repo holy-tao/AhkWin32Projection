@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
 #Include .\D3D_OMAC.ahk
+#Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS.ahk
 
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
 class D3DAUTHENTICATEDCHANNEL_CONFIGUREPROTECTION extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -34,7 +35,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREPROTECTION extends Win32Struct {
     Protections {
         get {
             if(!this.HasProp("__Protections"))
-                this.__Protections := D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS(40, this)
+                this.__Protections := D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS(48, this)
             return this.__Protections
         }
     }

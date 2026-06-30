@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Include .\DISPPARAMS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include .\ITypeInfo.ahk
+#Include .\DISPATCH_FLAGS.ahk
+#Include .\IUnknown.ahk
+#Include .\EXCEPINFO.ahk
 
 /**
  * Exposes objects, methods and properties to programming tools and other applications that support Automation.

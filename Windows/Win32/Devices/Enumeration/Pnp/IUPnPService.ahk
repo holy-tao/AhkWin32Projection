@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IUPnPService interface enables an application to query state variables and invoke actions on an instance of a service.
@@ -246,7 +248,7 @@ class IUPnPService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservice-get_servicetypeidentifier
      */
     get_ServiceTypeIdentifier() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -300,7 +302,7 @@ class IUPnPService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservice-get_id
      */
     get_Id() {
-        pbstrId := BSTR()
+        pbstrId := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrId, "HRESULT")
         return pbstrId
     }

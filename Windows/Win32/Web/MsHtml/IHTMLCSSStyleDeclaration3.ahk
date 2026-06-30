@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -206,7 +207,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_flex() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -228,7 +229,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_flexDirection() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -250,7 +251,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_flexWrap() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -272,7 +273,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_flexFlow() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -354,7 +355,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_justifyContent() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -376,7 +377,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_alignItems() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -398,7 +399,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_alignSelf() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -420,7 +421,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_alignContent() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", p, "HRESULT")
         return p
     }
@@ -442,7 +443,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderImage() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", p, "HRESULT")
         return p
     }
@@ -464,7 +465,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderImageSource() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", p, "HRESULT")
         return p
     }
@@ -486,7 +487,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderImageSlice() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", p, "HRESULT")
         return p
     }
@@ -508,7 +509,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderImageWidth() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", p, "HRESULT")
         return p
     }
@@ -530,7 +531,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderImageOutset() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", p, "HRESULT")
         return p
     }
@@ -552,7 +553,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderImageRepeat() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", p, "HRESULT")
         return p
     }
@@ -574,7 +575,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msImeAlign() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(42, this, "ptr", p, "HRESULT")
         return p
     }
@@ -596,7 +597,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msTextCombineHorizontal() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", p, "HRESULT")
         return p
     }
@@ -618,7 +619,7 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_touchAction() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(46, this, "ptr", p, "HRESULT")
         return p
     }

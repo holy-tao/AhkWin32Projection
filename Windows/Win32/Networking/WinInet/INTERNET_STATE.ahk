@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Network requests are being made.
- * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_connected_info
  * @namespace Windows.Win32.Networking.WinInet
  */
 class INTERNET_STATE extends Win32Enum {

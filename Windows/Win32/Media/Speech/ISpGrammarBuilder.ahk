@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SPPROPERTYINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SPSTATEHANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SPGRAMMARWORDTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -118,15 +124,11 @@ class ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * Adds a SYSTEM_RESOURCE_ATTRIBUTE_ACEaccess control entry (ACE) to the end of a system access control list (SACL).
+     * 
      * @param {SPSTATEHANDLE} hRuleState 
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceValue 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>.
-     * 
-     * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addresourceattributeace
+     * @returns {HRESULT} 
      */
     AddResource(hRuleState, pszResourceName, pszResourceValue) {
         hRuleState := hRuleState is Win32Handle ? NumGet(hRuleState, "ptr") : hRuleState
@@ -138,17 +140,9 @@ class ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
+     * 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
-     * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
+     * @returns {HRESULT} 
      */
     Commit(dwReserved) {
         result := ComCall(10, this, "uint", dwReserved, "HRESULT")

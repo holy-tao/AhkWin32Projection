@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include .\IDebugHostFunctionIntrospection.ahk
 #Include .\IDebugHostFunctionLocalDetailsEnumerator.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

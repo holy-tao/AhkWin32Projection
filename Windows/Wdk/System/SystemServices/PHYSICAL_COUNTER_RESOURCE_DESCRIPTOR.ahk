@@ -10,7 +10,7 @@ class PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -49,7 +49,7 @@ class PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR extends Win32Struct {
         Range {
             get {
                 if(!this.HasProp("__Range"))
-                    this.__Range := PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR._u_e__Union._Range(0, this)
+                    this.__Range := PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR._u._Range(0, this)
                 return this.__Range
             }
         }
@@ -96,12 +96,12 @@ class PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR._u_e__Union(8, this)
+                this.__u := PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR._u(8, this)
             return this.__u
         }
     }

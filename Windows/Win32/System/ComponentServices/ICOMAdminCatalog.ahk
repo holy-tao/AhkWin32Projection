@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\COMAdminApplicationInstallOptions.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\SAFEARRAY.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\COMAdminApplicationExportOptions.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Initiates a session to do programmatic COM+ administration, access collections in the catalog, install COM+ applications and components, start and stop services, and connect to remote servers.

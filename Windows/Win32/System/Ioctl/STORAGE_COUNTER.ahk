@@ -10,7 +10,7 @@ class STORAGE_COUNTER extends Win32Struct {
 
     static packingSize => 8
 
-    class _Value_e__Union extends Win32Struct {
+    class _Value extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -41,7 +41,7 @@ class STORAGE_COUNTER extends Win32Struct {
         ManufactureDate {
             get {
                 if(!this.HasProp("__ManufactureDate"))
-                    this.__ManufactureDate := STORAGE_COUNTER._Value_e__Union._ManufactureDate(0, this)
+                    this.__ManufactureDate := STORAGE_COUNTER._Value._ManufactureDate(0, this)
                 return this.__ManufactureDate
             }
         }
@@ -64,12 +64,12 @@ class STORAGE_COUNTER extends Win32Struct {
     }
 
     /**
-     * @type {_Value_e__Union}
+     * @type {_Value}
      */
     Value {
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := STORAGE_COUNTER._Value_e__Union(8, this)
+                this.__Value := STORAGE_COUNTER._Value(8, this)
             return this.__Value
         }
     }

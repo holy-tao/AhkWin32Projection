@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Not supported.Supplies a caller with an event that will be signaled by the called object to denote cancellation of a task.
@@ -40,7 +41,7 @@ class IObjectWithCancelEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithcancelevent-getcancelevent
      */
     GetCancelEvent() {
-        phEvent := HANDLE()
+        phEvent := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "ptr", phEvent, "HRESULT")
         return phEvent
     }

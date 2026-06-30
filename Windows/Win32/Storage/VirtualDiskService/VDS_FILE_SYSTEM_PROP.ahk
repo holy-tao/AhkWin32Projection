@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_FILE_SYSTEM_TYPE.ahk
 
 /**
@@ -25,11 +27,14 @@ class VDS_FILE_SYSTEM_PROP extends Win32Struct {
 
     /**
      * The GUID of the volume object containing the file system.
-     * @type {Pointer}
+     * @type {Guid}
      */
     volumeId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__volumeId"))
+                this.__volumeId := Guid(4, this)
+            return this.__volumeId
+        }
     }
 
     /**
@@ -37,8 +42,8 @@ class VDS_FILE_SYSTEM_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**

@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Vhd\OPEN_VIRTUAL_DISK_FLAG.ahk
 #Include .\IVdsOpenVDisk.ahk
+#Include ..\Vhd\VIRTUAL_DISK_ACCESS_MASK.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_VDISK_PROPERTIES.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IVdsVolume.ahk
 
 /**

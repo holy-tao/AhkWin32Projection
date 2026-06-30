@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_VERSION.ahk
-#Include .\HTTP_RESPONSE_HEADERS.ahk
-#Include .\HTTP_UNKNOWN_HEADER.ahk
 #Include .\HTTP_KNOWN_HEADER.ahk
+#Include .\HTTP_UNKNOWN_HEADER.ahk
+#Include .\HTTP_RESPONSE_HEADERS.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\HTTP_DATA_CHUNK.ahk
+#Include .\HTTP_VERSION.ahk
 
 /**
  * Contains data associated with an HTTP response.

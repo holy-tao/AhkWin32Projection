@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMShareable.ahk
 #Include .\XPS_MATRIX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IXpsOMShareable.ahk
 
 /**
  * Specifies an affine matrix transform that can be applied to other objects in the object model.

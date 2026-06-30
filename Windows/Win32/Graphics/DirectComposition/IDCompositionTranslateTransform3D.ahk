@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionAnimation.ahk
 #Include .\IDCompositionTransform3D.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a 3D transformation that affects the offset of a visual along the x-axis, y-axis, and z-axis.

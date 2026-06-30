@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
+#Include .\ID3D11ModuleInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A linker interface is used to link a shader module.

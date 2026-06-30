@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
 #Include .\D3D11_USAGE.ahk
+#Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
 
 /**
  * Describes a 2D texture. (D3D11_TEXTURE2D_DESC)

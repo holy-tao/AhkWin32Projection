@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IGPMGPO.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMGPO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMGPO2 interface supports methods that enable you to manage Group Policy objects (GPOs) and Starter Group Policy objects in the directory service.
@@ -43,7 +44,7 @@ class IGPMGPO2 extends IGPMGPO {
      * @returns {BSTR} 
      */
     get_Description() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", pVal, "HRESULT")
         return pVal
     }

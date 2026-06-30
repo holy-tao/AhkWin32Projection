@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IRQ_DEVICE_POLICY.ahk
 #Include .\IRQ_PRIORITY.ahk
+#Include .\IRQ_DEVICE_POLICY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
@@ -11,7 +11,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
 
@@ -481,7 +481,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         Port {
             get {
                 if(!this.HasProp("__Port"))
-                    this.__Port := IO_RESOURCE_DESCRIPTOR._u_e__Union._Port(0, this)
+                    this.__Port := IO_RESOURCE_DESCRIPTOR._u._Port(0, this)
                 return this.__Port
             }
         }
@@ -492,7 +492,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         Memory {
             get {
                 if(!this.HasProp("__Memory"))
-                    this.__Memory := IO_RESOURCE_DESCRIPTOR._u_e__Union._Memory(0, this)
+                    this.__Memory := IO_RESOURCE_DESCRIPTOR._u._Memory(0, this)
                 return this.__Memory
             }
         }
@@ -503,7 +503,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         Interrupt {
             get {
                 if(!this.HasProp("__Interrupt"))
-                    this.__Interrupt := IO_RESOURCE_DESCRIPTOR._u_e__Union._Interrupt(0, this)
+                    this.__Interrupt := IO_RESOURCE_DESCRIPTOR._u._Interrupt(0, this)
                 return this.__Interrupt
             }
         }
@@ -514,7 +514,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         Dma {
             get {
                 if(!this.HasProp("__Dma"))
-                    this.__Dma := IO_RESOURCE_DESCRIPTOR._u_e__Union._Dma(0, this)
+                    this.__Dma := IO_RESOURCE_DESCRIPTOR._u._Dma(0, this)
                 return this.__Dma
             }
         }
@@ -525,7 +525,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         DmaV3 {
             get {
                 if(!this.HasProp("__DmaV3"))
-                    this.__DmaV3 := IO_RESOURCE_DESCRIPTOR._u_e__Union._DmaV3(0, this)
+                    this.__DmaV3 := IO_RESOURCE_DESCRIPTOR._u._DmaV3(0, this)
                 return this.__DmaV3
             }
         }
@@ -536,7 +536,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         Generic {
             get {
                 if(!this.HasProp("__Generic"))
-                    this.__Generic := IO_RESOURCE_DESCRIPTOR._u_e__Union._Generic(0, this)
+                    this.__Generic := IO_RESOURCE_DESCRIPTOR._u._Generic(0, this)
                 return this.__Generic
             }
         }
@@ -547,7 +547,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         DevicePrivate {
             get {
                 if(!this.HasProp("__DevicePrivate"))
-                    this.__DevicePrivate := IO_RESOURCE_DESCRIPTOR._u_e__Union._DevicePrivate(0, this)
+                    this.__DevicePrivate := IO_RESOURCE_DESCRIPTOR._u._DevicePrivate(0, this)
                 return this.__DevicePrivate
             }
         }
@@ -558,7 +558,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         BusNumber {
             get {
                 if(!this.HasProp("__BusNumber"))
-                    this.__BusNumber := IO_RESOURCE_DESCRIPTOR._u_e__Union._BusNumber(0, this)
+                    this.__BusNumber := IO_RESOURCE_DESCRIPTOR._u._BusNumber(0, this)
                 return this.__BusNumber
             }
         }
@@ -569,7 +569,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         ConfigData {
             get {
                 if(!this.HasProp("__ConfigData"))
-                    this.__ConfigData := IO_RESOURCE_DESCRIPTOR._u_e__Union._ConfigData(0, this)
+                    this.__ConfigData := IO_RESOURCE_DESCRIPTOR._u._ConfigData(0, this)
                 return this.__ConfigData
             }
         }
@@ -580,7 +580,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         Memory40 {
             get {
                 if(!this.HasProp("__Memory40"))
-                    this.__Memory40 := IO_RESOURCE_DESCRIPTOR._u_e__Union._Memory40(0, this)
+                    this.__Memory40 := IO_RESOURCE_DESCRIPTOR._u._Memory40(0, this)
                 return this.__Memory40
             }
         }
@@ -591,7 +591,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         Memory48 {
             get {
                 if(!this.HasProp("__Memory48"))
-                    this.__Memory48 := IO_RESOURCE_DESCRIPTOR._u_e__Union._Memory48(0, this)
+                    this.__Memory48 := IO_RESOURCE_DESCRIPTOR._u._Memory48(0, this)
                 return this.__Memory48
             }
         }
@@ -602,7 +602,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         Memory64 {
             get {
                 if(!this.HasProp("__Memory64"))
-                    this.__Memory64 := IO_RESOURCE_DESCRIPTOR._u_e__Union._Memory64(0, this)
+                    this.__Memory64 := IO_RESOURCE_DESCRIPTOR._u._Memory64(0, this)
                 return this.__Memory64
             }
         }
@@ -613,7 +613,7 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
         Connection {
             get {
                 if(!this.HasProp("__Connection"))
-                    this.__Connection := IO_RESOURCE_DESCRIPTOR._u_e__Union._Connection(0, this)
+                    this.__Connection := IO_RESOURCE_DESCRIPTOR._u._Connection(0, this)
                 return this.__Connection
             }
         }
@@ -668,12 +668,12 @@ class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := IO_RESOURCE_DESCRIPTOR._u_e__Union(8, this)
+                this.__u := IO_RESOURCE_DESCRIPTOR._u(8, this)
             return this.__u
         }
     }

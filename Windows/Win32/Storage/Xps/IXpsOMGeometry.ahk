@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMShareable.ahk
-#Include .\IXpsOMGeometryFigureCollection.ahk
 #Include .\IXpsOMMatrixTransform.ahk
+#Include .\IXpsOMGeometryFigureCollection.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\XPS_FILL_RULE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IXpsOMShareable.ahk
 
 /**
  * Describes the shape of a path or of a clipping region.

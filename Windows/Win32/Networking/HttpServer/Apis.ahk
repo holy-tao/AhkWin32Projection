@@ -1,5 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HTTP_DATA_CHUNK.ahk
+#Include .\HTTP_INITIALIZE.ahk
+#Include .\HTTPAPI_VERSION.ahk
+#Include .\HTTP_REQUEST_QUEUE_HANDLE.ahk
+#Include .\HTTP_LOG_DATA.ahk
+#Include .\HTTP_CACHE_POLICY.ahk
+#Include .\HTTP_SERVER_PROPERTY.ahk
+#Include .\HTTP_RESPONSE_V2.ahk
+#Include .\HTTP_REQUEST_PROPERTY.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include .\HTTP_VERB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\HTTP_RECEIVE_HTTP_REQUEST_FLAGS.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include .\HTTP_BYTE_RANGE.ahk
+#Include .\HTTP_FEATURE_ID.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\HTTP_REQUEST_HEADERS.ahk
+#Include .\HTTP_SERVICE_CONFIG_ID.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\HTTP_DELEGATE_REQUEST_PROPERTY_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer

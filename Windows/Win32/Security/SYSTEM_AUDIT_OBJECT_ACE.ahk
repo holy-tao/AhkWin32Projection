@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\ACE_HEADER.ahk
 #Include .\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
+#Include ..\..\..\Guid.ahk
+#Include .\ACE_HEADER.ahk
 
 /**
  * Defines an access control entry (ACE) for a system access control list (SACL).
@@ -20,9 +21,9 @@
  * @namespace Windows.Win32.Security
  */
 class SYSTEM_AUDIT_OBJECT_ACE extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An 
@@ -65,11 +66,14 @@ class SYSTEM_AUDIT_OBJECT_ACE extends Win32Struct {
      * This member is valid only if the ACE_OBJECT_TYPE_PRESENT bit is set in the <b>Flags</b> member. Otherwise, <b>ObjectType</b> is ignored.
      * 
      * The purpose of this GUID depends on the access rights specified in the <b>Mask</b> member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ObjectType"))
+                this.__ObjectType := Guid(12, this)
+            return this.__ObjectType
+        }
     }
 
     /**
@@ -82,11 +86,14 @@ class SYSTEM_AUDIT_OBJECT_ACE extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a>, as well as by any protection against inheritance placed on the child objects.
      * 
      * The offset of this member can vary. If the <b>Flags</b> member does not contain the ACE_OBJECT_TYPE_PRESENT flag, the <b>InheritedObjectType</b> member starts at the offset specified by the <b>ObjectType</b> member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InheritedObjectType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__InheritedObjectType"))
+                this.__InheritedObjectType := Guid(28, this)
+            return this.__InheritedObjectType
+        }
     }
 
     /**
@@ -96,7 +103,7 @@ class SYSTEM_AUDIT_OBJECT_ACE extends Win32Struct {
      * @type {Integer}
      */
     SidStart {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

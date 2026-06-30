@@ -1,17 +1,76 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\CONDITION_VARIABLE.ahk
-#Include .\SRWLOCK.ahk
-#Include .\INIT_ONCE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\PTP_POOL.ahk
-#Include .\PTP_CLEANUP_GROUP.ahk
-#Include .\PTP_WORK.ahk
+#Include .\STARTUPINFOW.ahk
+#Include .\PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE.ahk
+#Include .\CRITICAL_SECTION.ahk
+#Include .\UMS_SCHEDULER_STARTUP_INFO.ahk
 #Include .\PTP_TIMER.ahk
+#Include .\AVRT_PRIORITY.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\PTP_WAIT.ahk
-#Include .\PTP_IO.ahk
-#Include .\AVRT_TASK_HANDLE.ahk
+#Include .\THREAD_PRIORITY.ahk
+#Include .\PROCESS_NAME_FORMAT.ahk
+#Include .\PROCESS_DEP_FLAGS.ahk
+#Include .\TP_CALLBACK_ENVIRON_V3.ahk
+#Include .\SRWLOCK.ahk
+#Include .\IRtwqAsyncCallback.ahk
+#Include .\INIT_ONCE.ahk
+#Include .\PTP_CLEANUP_GROUP.ahk
 #Include .\IRtwqAsyncResult.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\LPPROC_THREAD_ATTRIBUTE_LIST.ahk
+#Include .\PTP_CALLBACK_INSTANCE.ahk
+#Include .\PROCESS_AFFINITY_AUTO_UPDATE_FLAGS.ahk
+#Include .\IO_COUNTERS.ahk
+#Include .\PTP_POOL.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\TP_POOL_STACK_INFORMATION.ahk
+#Include ..\SystemInformation\GROUP_AFFINITY.ahk
+#Include .\QUEUE_USER_APC_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PROCESS_INFORMATION_CLASS.ahk
+#Include .\THREAD_INFORMATION_CLASS.ahk
+#Include ..\SystemInformation\IMAGE_FILE_MACHINE.ahk
+#Include .\PROCESS_ACCESS_RIGHTS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\UMS_THREAD_INFO_CLASS.ahk
+#Include .\PROCESS_MITIGATION_POLICY.ahk
+#Include ..\Kernel\SLIST_ENTRY.ahk
+#Include .\AVRT_THREAD_ORDERING_GROUP_HANDLE.ahk
+#Include .\CREATE_PROCESS_LOGON_FLAGS.ahk
+#Include .\WORKER_THREAD_FLAGS.ahk
+#Include .\PROCESS_DYNAMIC_EH_CONTINUATION_TARGET.ahk
+#Include ..\..\Foundation\WAIT_EVENT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\AVRT_TASK_HANDLE.ahk
+#Include .\SYNCHRONIZATION_ACCESS_RIGHTS.ahk
+#Include .\PROCESSOR_FEATURE_ID.ahk
+#Include .\IRtwqPlatformEvents.ahk
+#Include .\CONDITION_VARIABLE.ahk
+#Include .\UMS_SYSTEM_THREAD_INFORMATION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CREATE_EVENT.ahk
+#Include .\REASON_CONTEXT.ahk
+#Include .\GET_GUI_RESOURCES_FLAGS.ahk
+#Include .\PROCESS_CREATION_FLAGS.ahk
+#Include .\STARTUPINFOA.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include .\RTWQ_WORKQUEUE_TYPE.ahk
+#Include .\SYNCHRONIZATION_BARRIER.ahk
+#Include ..\..\Security\TOKEN_ACCESS_MASK.ahk
+#Include .\PTP_IO.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\THREAD_CREATION_FLAGS.ahk
+#Include ..\Kernel\PROCESSOR_NUMBER.ahk
+#Include .\PROCESS_INFORMATION.ahk
+#Include .\PTP_WORK.ahk
+#Include ..\..\Security\PSID.ahk
+#Include .\THREAD_ACCESS_RIGHTS.ahk
+#Include ..\Kernel\SLIST_HEADER.ahk
+#Include .\MACHINE_ATTRIBUTES.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -11644,7 +11703,7 @@ class Threading {
     static RtwqJoinWorkQueue(workQueueId, hFile) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
-        out := HANDLE()
+        out := HANDLE({Value: 0}, True)
         result := DllCall("RTWorkQ.dll\RtwqJoinWorkQueue", "uint", workQueueId, "ptr", hFile, "ptr", out, "HRESULT")
         return out
     }
@@ -12044,7 +12103,7 @@ class Threading {
      * @since windows10.0.10240
      */
     static RtwqSetDeadline(workQueueId, deadlineInHNS) {
-        pRequest := HANDLE()
+        pRequest := HANDLE({Value: 0}, True)
         result := DllCall("RTWorkQ.dll\RtwqSetDeadline", "uint", workQueueId, "int64", deadlineInHNS, "ptr", pRequest, "HRESULT")
         return pRequest
     }
@@ -12063,7 +12122,7 @@ class Threading {
      * @since windows10.0.10240
      */
     static RtwqSetDeadline2(workQueueId, deadlineInHNS, preDeadlineInHNS) {
-        pRequest := HANDLE()
+        pRequest := HANDLE({Value: 0}, True)
         result := DllCall("RTWorkQ.dll\RtwqSetDeadline2", "uint", workQueueId, "int64", deadlineInHNS, "int64", preDeadlineInHNS, "ptr", pRequest, "HRESULT")
         return pRequest
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IO_RANGE.ahk
 #Include .\IO_DES.ahk
 #Include .\IOD_DESFLAGS.ahk
-#Include .\IO_RANGE.ahk
 
 /**
  * The IO_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes I/O port usage for a device instance.

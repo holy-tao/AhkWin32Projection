@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\ILockBytes.ahk
 #Include ..\IUnknown.ahk
+#Include ..\StorageLayout.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ILayoutStorage interface enables an application to optimize the layout of its compound files for efficient downloading across a slow link.

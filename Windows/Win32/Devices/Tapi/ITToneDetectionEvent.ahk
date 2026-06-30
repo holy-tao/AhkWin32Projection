@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITToneDetectionEvent interface exposes methods that allow an application to retrieve information about a tone detection event.

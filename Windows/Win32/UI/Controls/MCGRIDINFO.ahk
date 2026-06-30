@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MCGRIDINFO_PART.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\MCGRIDINFO_FLAGS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\MCGRIDINFO_PART.ahk
 
 /**
  * Contains information about part of a calendar control.

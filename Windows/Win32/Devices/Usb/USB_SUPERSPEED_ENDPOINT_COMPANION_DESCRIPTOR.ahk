@@ -9,7 +9,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 2
 
-    class _bmAttributes_e__Union extends Win32Struct {
+    class _bmAttributes extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -100,7 +100,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct {
         Bulk {
             get {
                 if(!this.HasProp("__Bulk"))
-                    this.__Bulk := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes_e__Union._Bulk(0, this)
+                    this.__Bulk := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes._Bulk(0, this)
                 return this.__Bulk
             }
         }
@@ -111,7 +111,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct {
         Isochronous {
             get {
                 if(!this.HasProp("__Isochronous"))
-                    this.__Isochronous := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes_e__Union._Isochronous(0, this)
+                    this.__Isochronous := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes._Isochronous(0, this)
                 return this.__Isochronous
             }
         }
@@ -142,12 +142,12 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_bmAttributes_e__Union}
+     * @type {_bmAttributes}
      */
     bmAttributes {
         get {
             if(!this.HasProp("__bmAttributes"))
-                this.__bmAttributes := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes_e__Union(3, this)
+                this.__bmAttributes := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes(3, this)
             return this.__bmAttributes
         }
     }

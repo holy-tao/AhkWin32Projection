@@ -3,6 +3,10 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IBaseFilter.ahk
 #Include .\IMediaStream.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IAMMediaStream.ahk
 
 /**
  * Note  This interface is deprecated. New applications should not use it. The IMediaStreamFilter interface is supported by the Media Stream filter, which is used internally by the multimedia stream object. Applications should not use this interface.

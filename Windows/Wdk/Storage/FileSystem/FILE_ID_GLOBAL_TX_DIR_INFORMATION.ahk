@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
 class FILE_ID_GLOBAL_TX_DIR_INFORMATION extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -98,26 +99,29 @@ class FILE_ID_GLOBAL_TX_DIR_INFORMATION extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     LockingTransactionId {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get {
+            if(!this.HasProp("__LockingTransactionId"))
+                this.__LockingTransactionId := Guid(72, this)
+            return this.__LockingTransactionId
+        }
     }
 
     /**
      * @type {Integer}
      */
     TxInfoFlags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {String}
      */
     FileName {
-        get => StrGet(this.ptr + 84, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 84, 0, "UTF-16")
+        get => StrGet(this.ptr + 92, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 92, 0, "UTF-16")
     }
 }

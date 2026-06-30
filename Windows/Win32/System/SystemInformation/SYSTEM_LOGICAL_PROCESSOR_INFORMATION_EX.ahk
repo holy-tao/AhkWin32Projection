@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOGICAL_PROCESSOR_RELATIONSHIP.ahk
-#Include .\PROCESSOR_RELATIONSHIP.ahk
-#Include .\GROUP_AFFINITY.ahk
-#Include .\NUMA_NODE_RELATIONSHIP.ahk
-#Include .\CACHE_RELATIONSHIP.ahk
 #Include .\PROCESSOR_CACHE_TYPE.ahk
-#Include .\GROUP_RELATIONSHIP.ahk
+#Include .\LOGICAL_PROCESSOR_RELATIONSHIP.ahk
 #Include .\PROCESSOR_GROUP_INFO.ahk
+#Include .\GROUP_RELATIONSHIP.ahk
+#Include .\NUMA_NODE_RELATIONSHIP.ahk
+#Include .\PROCESSOR_RELATIONSHIP.ahk
+#Include .\CACHE_RELATIONSHIP.ahk
+#Include .\GROUP_AFFINITY.ahk
 
 /**
  * Contains information about the relationships of logical processors and related hardware. The GetLogicalProcessorInformationEx function uses this structure.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IFsrmActionEmail.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to limit the number of expired files listed in the email notification.

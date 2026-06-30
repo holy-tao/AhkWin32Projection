@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DIRECTMANIPULATION_SNAPPOINT_TYPE.ahk
+#Include .\DIRECTMANIPULATION_MOTION_TYPES.ahk
+#Include .\DIRECTMANIPULATION_SNAPPOINT_COORDINATE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DIRECTMANIPULATION_VERTICALALIGNMENT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DIRECTMANIPULATION_HORIZONTALALIGNMENT.ahk
 
 /**
  * Encapsulates the primary content inside a viewport.

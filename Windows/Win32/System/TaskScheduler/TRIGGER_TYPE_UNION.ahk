@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MONTHLYDOW.ahk
 #Include .\DAILY.ahk
 #Include .\WEEKLY.ahk
 #Include .\MONTHLYDATE.ahk
-#Include .\MONTHLYDOW.ahk
 
 /**
  * Defines the invocation schedule of the trigger within the Type member of a TASK_TRIGGER structure.

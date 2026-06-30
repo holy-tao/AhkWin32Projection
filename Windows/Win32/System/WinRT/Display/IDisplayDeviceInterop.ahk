@@ -1,26 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IInspectable.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Security\SECURITY_ATTRIBUTES.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\HSTRING.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
- * For a [DisplaySurface](/uwp/api/windows.devices.display.core.displaysurface) or a [DisplayFence](/uwp/api/windows.devices.display.core.displayfence) object, creates a shared handle that can be used for interop with Direct3D or other graphics APIs.
- * @remarks
- * The handle returned by **CreateSharedHandle** can be used in any function that requires an "NT handle" to a GPU surface or fence (depending on what object was passed), provided that the caller has been granted access. Here are some examples.
- * 
- * * Share surfaces and fences with Direct3D 12 using [ID3D12Device::OpenSharedHandle](../d3d12/nf-d3d12-id3d12device-opensharedhandle.md).
- * * Share surfaces with Direct3D 11 using [ID3D11Device1::OpenSharedResource](../d3d11_1/nf-d3d11_1-id3d11device1-opensharedresource1.md).
- * * Share fences with Direct3D 11 using [ID3D11Device5::OpenSharedFence](../d3d11_4/nf-d3d11_4-id3d11device5-opensharedfence.md).
- * 
- * Multiple processes can have handles of the same object, enabling use of the object for interprocess synchronization or sharing. The following object-sharing mechanisms are available.
- * 
- * * A child process created by the [CreateProcess](../processthreadsapi/nf-processthreadsapi-createprocessa.md) function can inherit a handle to a surface or fence object if the *pSecurityAttributes* parameter of **CreateSharedHandle** enables inheritance.
- * * A process can specify the object handle in a call to the [DuplicateHandle](../handleapi/nf-handleapi-duplicatehandle.md) function to create a duplicate handle that can be used by another process.
- * * A process can specify the name of the object in a call to the [OpenSharedHandle](nf-windows-devices-display-core-interop-idisplaydeviceinterop-opensharedhandle.md) or [ID3D12Device::OpenSharedHandleByName](../d3d12/nf-d3d12-id3d12device-opensharedhandlebyname.md) function.
- * 
- * Use the [CloseHandle](../handleapi/nf-handleapi-closehandle.md) function to close the handle. The system closes the handle automatically when the process terminates. The object is destroyed when its last handle has been closed and its last interface reference has been released.
- * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaydeviceinterop-createsharedhandle
  * @namespace Windows.Win32.System.WinRT.Display
  */
 class IDisplayDeviceInterop extends IUnknown {
@@ -89,7 +78,7 @@ class IDisplayDeviceInterop extends IUnknown {
     CreateSharedHandle(pObject, pSecurityAttributes, Access, Name) {
         Name := Name is Win32Handle ? NumGet(Name, "ptr") : Name
 
-        pHandle := HANDLE()
+        pHandle := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "ptr", pObject, "ptr", pSecurityAttributes, "uint", Access, "ptr", Name, "ptr", pHandle, "HRESULT")
         return pHandle
     }

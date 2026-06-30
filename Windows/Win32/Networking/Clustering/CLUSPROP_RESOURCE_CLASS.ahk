@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUSTER_RESOURCE_CLASS.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
+#Include .\CLUSPROP_VALUE.ahk
 
 /**
  * Describes a resource class.

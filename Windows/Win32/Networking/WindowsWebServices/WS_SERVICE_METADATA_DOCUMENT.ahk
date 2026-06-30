@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
 #Include .\WS_STRING.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * Specifies the individual documents that make up the service metadata.

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVD_AUDIO_APPMODE.ahk
 #Include .\DVD_AUDIO_FORMAT.ahk
+#Include .\DVD_AUDIO_APPMODE.ahk
 #Include .\DVD_AUDIO_LANG_EXT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DVD_AudioAttributes structure is used in IDvdInfo2::GetAudioAttributes to receive the various audio attributes of the disc.

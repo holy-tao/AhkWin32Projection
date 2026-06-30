@@ -1,15 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HANDLE_PTR.ahk
 #Include .\IWTSProtocolLogonErrorRedirector.ahk
-#Include .\WTS_CLIENT_DATA.ahk
-#Include .\WTS_USER_CREDENTIAL.ahk
-#Include .\IWTSProtocolLicenseConnection.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WTS_SESSION_ID.ahk
-#Include .\WTS_PROTOCOL_STATUS.ahk
-#Include .\WTS_PROPERTY_VALUE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWTSProtocolShadowConnection.ahk
+#Include .\WTS_PROTOCOL_STATUS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WTS_USER_DATA.ahk
+#Include .\WTS_POLICY_DATA.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IWTSProtocolLicenseConnection.ahk
+#Include .\WTS_CLIENT_DATA.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\WTS_PROPERTY_VALUE.ahk
+#Include .\WTS_USER_CREDENTIAL.ahk
 
 /**
  * IWTSProtocolConnection is no longer available. Instead, use IWRdsProtocolConnection.

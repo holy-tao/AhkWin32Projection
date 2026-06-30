@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores.
@@ -77,7 +78,7 @@ class IWMPContentContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getprice
      */
     GetPrice() {
-        pbstrPrice := BSTR()
+        pbstrPrice := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pbstrPrice, "HRESULT")
         return pbstrPrice
     }
@@ -88,7 +89,7 @@ class IWMPContentContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-gettype
      */
     GetType() {
-        pbstrType := BSTR()
+        pbstrType := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pbstrType, "HRESULT")
         return pbstrType
     }
@@ -133,7 +134,7 @@ class IWMPContentContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentprice
      */
     GetContentPrice(idxContent) {
-        pbstrPrice := BSTR()
+        pbstrPrice := BSTR({Value: 0}, True)
         result := ComCall(7, this, "uint", idxContent, "ptr", pbstrPrice, "HRESULT")
         return pbstrPrice
     }

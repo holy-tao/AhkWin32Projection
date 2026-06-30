@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_BSS_ENTRY.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_PHY_TYPE.ahk
 #Include .\WLAN_RATE_SET.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_SSID.ahk
+#Include .\DOT11_PHY_TYPE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\WLAN_BSS_ENTRY.ahk
 
 /**
  * Contains a list of basic service set (BSS) entries.

@@ -3,6 +3,7 @@
 #Include ..\..\System\Console\CHAR_INFO.ahk
 #Include .\FONT_IMAGE_INFO.ahk
 #Include ..\..\System\Console\COORD.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display

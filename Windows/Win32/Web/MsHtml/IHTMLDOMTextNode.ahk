@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLDOMNode.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -67,7 +68,7 @@ class IHTMLDOMTextNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_data() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -77,7 +78,7 @@ class IHTMLDOMTextNode extends IDispatch {
      * @returns {BSTR} 
      */
     toString() {
-        _String := BSTR()
+        _String := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", _String, "HRESULT")
         return _String
     }

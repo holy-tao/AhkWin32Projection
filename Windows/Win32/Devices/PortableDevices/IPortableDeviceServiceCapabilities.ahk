@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IPortableDeviceKeyCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPortableDevicePropVariantCollection.ahk
-#Include .\IPortableDeviceValues.ahk
-#Include .\IPortableDeviceKeyCollection.ahk
 #Include .\IPortableDeviceValuesCollection.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include .\IPortableDeviceValues.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Retrieves information describing the capabilities of a service.

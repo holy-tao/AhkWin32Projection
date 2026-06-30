@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DAuthenticatedChannel9.ahk
+#Include ..\..\Graphics\Direct3D9\D3DAUTHENTICATEDCHANNELTYPE.ahk
 #Include .\IDirect3DCryptoSession9.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3DCONTENTPROTECTIONCAPS.ahk
+#Include .\IDirect3DAuthenticatedChannel9.ahk
 
 /**
  * Enables an application to use content protection and encryption services implemented by a graphics driver.To get a pointer to this interface, call QueryInterface on a D3D9Ex device.

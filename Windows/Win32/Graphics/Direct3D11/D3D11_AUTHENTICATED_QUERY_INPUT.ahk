@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -205,11 +206,14 @@ class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
+     * @type {Guid}
      */
     QueryType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__QueryType"))
+                this.__QueryType := Guid(0, this)
+            return this.__QueryType
+        }
     }
 
     /**
@@ -219,7 +223,7 @@ class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct {
     hChannel {
         get {
             if(!this.HasProp("__hChannel"))
-                this.__hChannel := HANDLE(8, this)
+                this.__hChannel := HANDLE(16, this)
             return this.__hChannel
         }
     }
@@ -229,7 +233,7 @@ class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct {
      * @type {Integer}
      */
     SequenceNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

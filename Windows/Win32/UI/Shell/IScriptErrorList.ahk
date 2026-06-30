@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -96,7 +98,7 @@ class IScriptErrorList extends IDispatch {
      * @returns {BSTR} 
      */
     getErrorMsg() {
-        _pstr := BSTR()
+        _pstr := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", _pstr, "HRESULT")
         return _pstr
     }
@@ -106,7 +108,7 @@ class IScriptErrorList extends IDispatch {
      * @returns {BSTR} 
      */
     getErrorUrl() {
-        _pstr := BSTR()
+        _pstr := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", _pstr, "HRESULT")
         return _pstr
     }

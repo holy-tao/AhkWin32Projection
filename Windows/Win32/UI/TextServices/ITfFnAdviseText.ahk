@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfRange.ahk
 #Include .\ITfFunction.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ITfLMLattice.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfFnAdviseText interface is implemented by a text service and used by the TSF manager to supply notifications when the text or lattice element in a context changes.

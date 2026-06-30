@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include ..\..\Win32\Foundation\HANDLE.ahk
 #Include ..\..\Win32\Foundation\NTSTATUS.ahk
+#Include .\OBJECT_INFORMATION_CLASS.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation

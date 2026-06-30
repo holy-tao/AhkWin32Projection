@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\Folder.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\FolderItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the Folder object to support offline folders.

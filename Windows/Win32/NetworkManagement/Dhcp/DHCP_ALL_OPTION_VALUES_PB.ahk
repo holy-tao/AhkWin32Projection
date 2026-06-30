@@ -31,7 +31,7 @@ class DHCP_ALL_OPTION_VALUES_PB extends Win32Struct {
 
     /**
      * Pointer to a list of [DHCP_OPTION_VALUE_ARRAY](/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_value_array) structures that contain the set of all option values for specific vendor/policy pairs. There is one element per pair.
-     * @type {Pointer<_Anonymous_e__Struct>}
+     * @type {Pointer<_Anonymous>}
      */
     Options {
         get => NumGet(this, 8, "ptr")

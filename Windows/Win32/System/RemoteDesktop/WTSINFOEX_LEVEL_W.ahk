@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTSINFOEX_LEVEL1_W.ahk
 #Include .\WTS_CONNECTSTATE_CLASS.ahk
+#Include .\WTSINFOEX_LEVEL1_W.ahk
 
 /**
  * Contains a WTSINFOEX_LEVEL1 structure that contains extended information about a Remote Desktop Services session. (Unicode)

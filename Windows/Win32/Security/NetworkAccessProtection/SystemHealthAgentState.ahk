@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ResultCodes.ahk
-#Include .\FailureCategory.ahk
 #Include .\FixupInfo.ahk
+#Include .\FailureCategory.ahk
+#Include .\ResultCodes.ahk
 #Include .\FixupState.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Stores the dynamic state of the SHA.

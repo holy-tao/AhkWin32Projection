@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IDataCollector.ahk
+#Include .\IValueMap.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IDataCollector.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DataCollectorType.ahk
 
 /**
  * Manages a collection of DataCollector objects.To get this interface, access the IDataCollectorSet::DataCollectors property.

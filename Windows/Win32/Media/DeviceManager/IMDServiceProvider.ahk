@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMDSPEnumDevice.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMDServiceProvider interface is the initial interface that Windows Media Device Manager uses to connect to your service provider.

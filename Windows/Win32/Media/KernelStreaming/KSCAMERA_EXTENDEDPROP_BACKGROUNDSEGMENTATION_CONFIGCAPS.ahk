@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _MaxFrameRate extends Win32Struct {
         static sizeof => 8
@@ -65,10 +66,13 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     SubType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__SubType"))
+                this.__SubType := Guid(24, this)
+            return this.__SubType
+        }
     }
 }

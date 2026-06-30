@@ -1,7 +1,33 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\SC_ENUM_TYPE.ahk
 #Include .\SC_HANDLE.ahk
+#Include .\SERVICE_NOTIFY.ahk
+#Include .\SERVICE_NOTIFY_2W.ahk
+#Include .\SC_STATUS_TYPE.ahk
+#Include .\ENUM_SERVICE_TYPE.ahk
+#Include .\SC_EVENT_TYPE.ahk
+#Include .\SERVICE_START_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SERVICE_REGISTRY_STATE_TYPE.ahk
+#Include .\SERVICE_CONFIG.ahk
+#Include .\SERVICE_SHARED_DIRECTORY_TYPE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SERVICE_ERROR.ahk
+#Include ..\..\Security\OBJECT_SECURITY_INFORMATION.ahk
+#Include .\SERVICE_STATUS.ahk
+#Include .\SERVICE_DIRECTORY_TYPE.ahk
+#Include .\SERVICE_TABLE_ENTRYW.ahk
+#Include .\SERVICE_TABLE_ENTRYA.ahk
+#Include .\PSC_NOTIFICATION_REGISTRATION.ahk
+#Include .\SERVICE_NOTIFY_2A.ahk
+#Include .\SERVICE_SHARED_REGISTRY_STATE_TYPE.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\Registry\HKEY.ahk
+#Include .\ENUM_SERVICE_STATE.ahk
 #Include .\SERVICE_STATUS_HANDLE.ahk
 
 /**

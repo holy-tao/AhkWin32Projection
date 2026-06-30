@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_X509DATA_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_ISSUER_SERIAL.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_BLOB.ahk
-#Include .\CRYPT_XML_CHARSET.ahk
+#Include .\CRYPT_XML_X509DATA_TYPE.ahk
 
 /**
  * Represents X.509 data that is to be encoded in an X509Data named element.

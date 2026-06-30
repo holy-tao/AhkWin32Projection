@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\PEER_DATA.ahk
 
 /**
@@ -12,17 +14,20 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_APPLICATION extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
      * The GUID value under which the application is registered with the local computer.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -33,7 +38,7 @@ class PEER_APPLICATION extends Win32Struct {
     data {
         get {
             if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(8, this)
+                this.__data := PEER_DATA(16, this)
             return this.__data
         }
     }
@@ -43,7 +48,7 @@ class PEER_APPLICATION extends Win32Struct {
      * @type {PWSTR}
      */
     pwzDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

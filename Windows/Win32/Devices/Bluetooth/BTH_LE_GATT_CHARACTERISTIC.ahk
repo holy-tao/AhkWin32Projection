@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BTH_LE_UUID.ahk
 
 /**
@@ -8,9 +10,9 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The handle to the Bluetooth LE GATT profile service.
@@ -28,7 +30,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct {
     CharacteristicUuid {
         get {
             if(!this.HasProp("__CharacteristicUuid"))
-                this.__CharacteristicUuid := BTH_LE_UUID(8, this)
+                this.__CharacteristicUuid := BTH_LE_UUID(4, this)
             return this.__CharacteristicUuid
         }
     }

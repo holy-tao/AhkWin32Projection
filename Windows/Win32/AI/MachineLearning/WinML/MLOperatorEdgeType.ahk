@@ -24,5 +24,5 @@ class MLOperatorEdgeType extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
-    static Primitive => 3
+    static Win32Primitive => 3
 }

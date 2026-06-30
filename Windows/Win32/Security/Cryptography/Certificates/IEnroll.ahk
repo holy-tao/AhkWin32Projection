@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\CERT_CONTEXT.ahk
+#Include ..\CERT_EXTENSIONS.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\CRYPT_ATTRIBUTES.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\HCERTSTORE.ahk
 

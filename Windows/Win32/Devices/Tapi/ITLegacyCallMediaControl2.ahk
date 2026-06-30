@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITLegacyCallMediaControl.ahk
-#Include .\ITDetectTone.ahk
-#Include .\ITCustomTone.ahk
+#Include .\ITCollection2.ahk
+#Include .\TAPI_CUSTOMTONE.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITLegacyCallMediaControl.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ITDetectTone.ahk
+#Include .\TAPI_DETECTTONE.ahk
+#Include .\TAPI_TONEMODE.ahk
+#Include .\ITCustomTone.ahk
 
 /**
  * The ITLegacyCallMediaControl2 interface is an extension of the ITLegacyCallMediaControl interface. ITLegacyCallMediaControl2 provides additional methods, primarily for tone detection and generation.

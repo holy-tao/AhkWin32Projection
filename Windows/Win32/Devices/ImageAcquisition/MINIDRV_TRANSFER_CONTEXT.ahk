@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IWiaMiniDrvCallBack.ahk
 
 /**
@@ -67,19 +69,22 @@ class MINIDRV_TRANSFER_CONTEXT extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidFormatID {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__guidFormatID"))
+                this.__guidFormatID := Guid(28, this)
+            return this.__guidFormatID
+        }
     }
 
     /**
      * @type {Integer}
      */
     tymed {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**

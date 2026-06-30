@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFSampleGrabberSinkCallback.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IMFSampleGrabberSinkCallback interface.

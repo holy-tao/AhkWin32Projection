@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Image.ahk
+#Include .\ID2D1CommandSink.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a sequence of commands that can be recorded and played back.

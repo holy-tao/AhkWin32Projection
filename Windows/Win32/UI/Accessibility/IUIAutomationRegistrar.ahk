@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\UIAutomationPatternInfo.ahk
+#Include .\UIAutomationPropertyInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\UIAutomationEventInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods for registering new control patterns, properties, and events.

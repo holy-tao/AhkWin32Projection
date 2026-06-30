@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\REGISTRATION_INFORMATION_CLASS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\MANAGEMENT_SERVICE_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Management.MobileDeviceManagementRegistration

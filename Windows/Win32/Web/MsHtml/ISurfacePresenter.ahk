@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -28,11 +32,10 @@ class ISurfacePresenter extends IUnknown {
     static VTableNames => ["Present", "GetBuffer", "IsCurrent"]
 
     /**
-     * Represents an arbitrary affine 2D transformation defined by a 3-by-2 matrix. (PresentationTransform)
+     * 
      * @param {Integer} uBuffer 
      * @param {Pointer<RECT>} pDirty 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentationtypes/ns-presentationtypes-presentationtransform
      */
     Present(uBuffer, pDirty) {
         result := ComCall(3, this, "uint", uBuffer, "ptr", pDirty, "HRESULT")
@@ -40,13 +43,10 @@ class ISurfacePresenter extends IUnknown {
     }
 
     /**
-     * Retrieves a pointer to the buffer bitmap if the buffer is a device-independent bitmap (DIB).
-     * @remarks
-     * The number of bits per pixel depends on the pixel format passed to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
+     * 
      * @param {Integer} backBufferIndex 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpaintbits
      */
     GetBuffer(backBufferIndex, riid) {
         result := ComCall(4, this, "uint", backBufferIndex, "ptr", riid, "ptr*", &ppBuffer := 0, "HRESULT")

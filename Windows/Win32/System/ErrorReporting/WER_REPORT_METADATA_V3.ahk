@@ -2,13 +2,15 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WER_REPORT_SIGNATURE.ahk
 #Include .\WER_REPORT_PARAMETER.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
  */
 class WER_REPORT_METADATA_V3 extends Win32Struct {
-    static sizeof => 11080
+    static sizeof => 11104
 
     static packingSize => 8
 
@@ -24,19 +26,25 @@ class WER_REPORT_METADATA_V3 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     BucketId {
-        get => NumGet(this, 7912, "ptr")
-        set => NumPut("ptr", value, this, 7912)
+        get {
+            if(!this.HasProp("__BucketId"))
+                this.__BucketId := Guid(7912, this)
+            return this.__BucketId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ReportId {
-        get => NumGet(this, 7920, "ptr")
-        set => NumPut("ptr", value, this, 7920)
+        get {
+            if(!this.HasProp("__ReportId"))
+                this.__ReportId := Guid(7928, this)
+            return this.__ReportId
+        }
     }
 
     /**
@@ -45,7 +53,7 @@ class WER_REPORT_METADATA_V3 extends Win32Struct {
     CreationTime {
         get {
             if(!this.HasProp("__CreationTime"))
-                this.__CreationTime := FILETIME(7928, this)
+                this.__CreationTime := FILETIME(7944, this)
             return this.__CreationTime
         }
     }
@@ -54,103 +62,106 @@ class WER_REPORT_METADATA_V3 extends Win32Struct {
      * @type {Integer}
      */
     SizeInBytes {
-        get => NumGet(this, 7936, "uint")
-        set => NumPut("uint", value, this, 7936)
+        get => NumGet(this, 7952, "uint")
+        set => NumPut("uint", value, this, 7952)
     }
 
     /**
      * @type {String}
      */
     CabId {
-        get => StrGet(this.ptr + 7944, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 7944, 259, "UTF-16")
+        get => StrGet(this.ptr + 7960, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 7960, 259, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     ReportStatus {
-        get => NumGet(this, 8464, "uint")
-        set => NumPut("uint", value, this, 8464)
+        get => NumGet(this, 8480, "uint")
+        set => NumPut("uint", value, this, 8480)
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ReportIntegratorId {
-        get => NumGet(this, 8472, "ptr")
-        set => NumPut("ptr", value, this, 8472)
+        get {
+            if(!this.HasProp("__ReportIntegratorId"))
+                this.__ReportIntegratorId := Guid(8484, this)
+            return this.__ReportIntegratorId
+        }
     }
 
     /**
      * @type {Integer}
      */
     NumberOfFiles {
-        get => NumGet(this, 8480, "uint")
-        set => NumPut("uint", value, this, 8480)
+        get => NumGet(this, 8500, "uint")
+        set => NumPut("uint", value, this, 8500)
     }
 
     /**
      * @type {Integer}
      */
     SizeOfFileNames {
-        get => NumGet(this, 8484, "uint")
-        set => NumPut("uint", value, this, 8484)
+        get => NumGet(this, 8504, "uint")
+        set => NumPut("uint", value, this, 8504)
     }
 
     /**
      * @type {PWSTR}
      */
     FileNames {
-        get => NumGet(this, 8488, "ptr")
-        set => NumPut("ptr", value, this, 8488)
+        get => NumGet(this, 8512, "ptr")
+        set => NumPut("ptr", value, this, 8512)
     }
 
     /**
      * @type {String}
      */
     FriendlyEventName {
-        get => StrGet(this.ptr + 8496, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8496, 127, "UTF-16")
+        get => StrGet(this.ptr + 8520, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 8520, 127, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     ApplicationName {
-        get => StrGet(this.ptr + 8752, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8752, 127, "UTF-16")
+        get => StrGet(this.ptr + 8776, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 8776, 127, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     ApplicationPath {
-        get => StrGet(this.ptr + 9008, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 9008, 259, "UTF-16")
+        get => StrGet(this.ptr + 9032, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 9032, 259, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     Description {
-        get => StrGet(this.ptr + 9528, 511, "UTF-16")
-        set => StrPut(value, this.ptr + 9528, 511, "UTF-16")
+        get => StrGet(this.ptr + 9552, 511, "UTF-16")
+        set => StrPut(value, this.ptr + 9552, 511, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     BucketIdString {
-        get => StrGet(this.ptr + 10552, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 10552, 259, "UTF-16")
+        get => StrGet(this.ptr + 10576, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 10576, 259, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     LegacyBucketId {
-        get => NumGet(this, 11072, "uint")
-        set => NumPut("uint", value, this, 11072)
+        get => NumGet(this, 11096, "uint")
+        set => NumPut("uint", value, this, 11096)
     }
 }

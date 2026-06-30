@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectXVideoAccelerationService.ahk
+#Include .\DXVA2_VideoDesc.ahk
 #Include .\IDirectXVideoDecoder.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IDirectXVideoAccelerationService.ahk
+#Include .\DXVA2_ConfigPictureDecode.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 
 /**
  * Provides access to DirectX Video Acceleration (DXVA) decoder services.

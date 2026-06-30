@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Disables the DTR line when the device is opened and leaves it disabled.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-dcb
  * @namespace Windows.Win32.Devices.Tapi
  */
 class DTR extends Win32Struct {

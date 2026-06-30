@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_NET_EVENT_HEADER1.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWP_AF.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
 #Include .\FWPM_NET_EVENT_TYPE.ahk
-#Include .\FWPM_NET_EVENT_IKEEXT_MM_FAILURE1.ahk
-#Include .\FWPM_NET_EVENT_IKEEXT_QM_FAILURE0.ahk
-#Include .\FWPM_NET_EVENT_IKEEXT_EM_FAILURE1.ahk
 #Include .\FWPM_NET_EVENT_CLASSIFY_DROP1.ahk
-#Include .\FWPM_NET_EVENT_IPSEC_KERNEL_DROP0.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\FWPM_NET_EVENT_IKEEXT_QM_FAILURE0.ahk
 #Include .\FWPM_NET_EVENT_IPSEC_DOSP_DROP0.ahk
+#Include .\FWP_AF.ahk
+#Include .\FWP_BYTE_ARRAY16.ahk
+#Include .\FWPM_NET_EVENT_IKEEXT_MM_FAILURE1.ahk
+#Include .\FWPM_NET_EVENT_IPSEC_KERNEL_DROP0.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\FWPM_NET_EVENT_IKEEXT_EM_FAILURE1.ahk
+#Include .\FWP_BYTE_BLOB.ahk
+#Include .\FWP_BYTE_ARRAY6.ahk
+#Include .\FWPM_NET_EVENT_HEADER1.ahk
+#Include .\FWP_IP_VERSION.ahk
 
 /**
  * Contains information about all event types. (FWPM_NET_EVENT1)

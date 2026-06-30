@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPartBase.ahk
+#Include .\IXpsPartIterator.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IPartPrintTicket.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPartBase.ahk
 #Include .\IPrintWriteStream.ahk
-#Include .\IXpsPartIterator.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

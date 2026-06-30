@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
-#Include .\PIN_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PIN_DIRECTION.ahk
 #Include .\IEnumMediaTypes.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\PIN_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface is exposed by all input and output pins.The filter graph manager uses this interface to connect pins and perform flushing operations.

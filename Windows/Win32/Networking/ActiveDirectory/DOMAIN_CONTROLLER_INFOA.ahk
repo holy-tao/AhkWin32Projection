@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used with the DsGetDcName function to receive data about a domain controller. (ANSI)
@@ -11,7 +13,7 @@
  * @charset ANSI
  */
 class DOMAIN_CONTROLLER_INFOA extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -43,11 +45,14 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct {
 
     /**
      * The <b>GUID</b> of the domain. This member is zero if the domain controller does not have a Domain GUID; for example, the domain controller is not a Windows 2000 domain controller.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DomainGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__DomainGuid"))
+                this.__DomainGuid := Guid(20, this)
+            return this.__DomainGuid
+        }
     }
 
     /**
@@ -55,8 +60,8 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct {
      * @type {PSTR}
      */
     DomainName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -64,8 +69,8 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct {
      * @type {PSTR}
      */
     DnsForestName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -73,8 +78,8 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct {
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -82,8 +87,8 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct {
      * @type {PSTR}
      */
     DcSiteName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -91,7 +96,7 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct {
      * @type {PSTR}
      */
     ClientSiteName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

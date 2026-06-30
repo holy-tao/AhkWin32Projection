@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains an identifying value associated with a biometric template.
@@ -18,13 +19,13 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_IDENTITY extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
-    class _Value_e__Union extends Win32Struct {
+    class _Value extends Win32Struct {
         static sizeof => 72
-        static packingSize => 8
+        static packingSize => 4
 
         class _AccountSid extends Win32Struct {
             static sizeof => 72
@@ -67,11 +68,14 @@ class WINBIO_IDENTITY extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         TemplateGuid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__TemplateGuid"))
+                    this.__TemplateGuid := Guid(0, this)
+                return this.__TemplateGuid
+            }
         }
 
         /**
@@ -80,7 +84,7 @@ class WINBIO_IDENTITY extends Win32Struct {
         AccountSid {
             get {
                 if(!this.HasProp("__AccountSid"))
-                    this.__AccountSid := WINBIO_IDENTITY._Value_e__Union._AccountSid(0, this)
+                    this.__AccountSid := WINBIO_IDENTITY._Value._AccountSid(0, this)
                 return this.__AccountSid
             }
         }
@@ -117,12 +121,12 @@ class WINBIO_IDENTITY extends Win32Struct {
 
     /**
      * A union that can contain one of the following values:
-     * @type {_Value_e__Union}
+     * @type {_Value}
      */
     Value {
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := WINBIO_IDENTITY._Value_e__Union(8, this)
+                this.__Value := WINBIO_IDENTITY._Value(4, this)
             return this.__Value
         }
     }

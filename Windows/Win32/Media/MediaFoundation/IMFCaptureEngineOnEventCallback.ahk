@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaEvent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Callback interface for receiving events from the capture engine.

@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS.ahk
+#Include ..\SAFER_LEVEL_HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\SAFER_CODE_PROPERTIES_V2.ahk
+#Include .\SAFER_OBJECT_INFO_CLASS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SAFER_POLICY_INFO_CLASS.ahk
 
 /**
  * @namespace Windows.Win32.Security.AppLocker

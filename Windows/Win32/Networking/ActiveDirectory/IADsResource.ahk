@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IADs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsResource interface is a dual interface that inherits from IADs. It is designed to manage an open resource for a file service across a network.
@@ -65,7 +66,7 @@ class IADsResource extends IADs {
      * @returns {BSTR} 
      */
     get_User() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -75,7 +76,7 @@ class IADsResource extends IADs {
      * @returns {BSTR} 
      */
     get_UserPath() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -85,7 +86,7 @@ class IADsResource extends IADs {
      * @returns {BSTR} 
      */
     get_Path() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", retval, "HRESULT")
         return retval
     }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include .\IRemoteDebugApplication110.ahk
+#Include .\IDebugThreadCall64.ahk
+#Include ..\..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

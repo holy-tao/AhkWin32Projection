@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmAction.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IFsrmAction.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to generate a report in response to a quota or file screen event.
@@ -86,7 +88,7 @@ class IFsrmActionReport extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-get_mailto
      */
     get_MailTo() {
-        mailTo := BSTR()
+        mailTo := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", mailTo, "HRESULT")
         return mailTo
     }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include .\DEBUG_SYMBOL_PARAMETERS.ahk
 
 /**

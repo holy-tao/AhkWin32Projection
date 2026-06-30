@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
 #Include .\IKEV2_TUNNEL_CONFIG_PARAMS4.ahk
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
 #Include .\MPR_CERT_EKU.ahk
 
 /**

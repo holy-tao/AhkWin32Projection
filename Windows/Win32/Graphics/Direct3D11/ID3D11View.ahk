@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D11DeviceChild.ahk
+#Include .\ID3D11Resource.ahk
 
 /**
  * A view interface specifies the parts of a resource the pipeline can access during rendering. (ID3D11View)

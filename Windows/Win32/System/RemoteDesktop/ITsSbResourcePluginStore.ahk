@@ -1,10 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include .\ITsSbTarget.ahk
 #Include .\ITsSbSession.ahk
+#Include .\TARGET_STATE.ahk
+#Include .\TSSESSION_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ITsSbEnvironment.ahk
+#Include .\TS_SB_SORT_BY.ahk
 
 /**
  * Exposes methods that enable resource plug-ins to store objects such as sessions and targets.

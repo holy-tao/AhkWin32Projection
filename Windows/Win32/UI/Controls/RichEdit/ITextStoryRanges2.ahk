@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextStoryRanges.ahk
 #Include .\ITextRange2.ahk
+#Include .\ITextStoryRanges.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITextStoryRanges2 interface enumerates the stories in an ITextDocument.

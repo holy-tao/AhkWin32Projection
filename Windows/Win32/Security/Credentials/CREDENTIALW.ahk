@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRED_PERSIST.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\CREDENTIAL_ATTRIBUTEW.ahk
 #Include .\CRED_FLAGS.ahk
 #Include .\CRED_TYPE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\CRED_PERSIST.ahk
-#Include .\CREDENTIAL_ATTRIBUTEW.ahk
 
 /**
  * The CREDENTIAL structure contains an individual credential. (Unicode)

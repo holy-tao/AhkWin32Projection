@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to information about an item (cell) in a spreadsheet.
@@ -43,7 +45,7 @@ class ISpreadsheetItemProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-get_formula
      */
     get_Formula() {
-        pRetVal := BSTR()
+        pRetVal := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pRetVal, "HRESULT")
         return pRetVal
     }

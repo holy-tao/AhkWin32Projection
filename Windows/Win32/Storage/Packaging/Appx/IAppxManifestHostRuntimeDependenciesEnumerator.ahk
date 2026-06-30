@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\IAppxManifestHostRuntimeDependency.ahk
 
 /**
@@ -29,11 +31,8 @@ class IAppxManifestHostRuntimeDependenciesEnumerator extends IUnknown {
     static VTableNames => ["GetCurrent", "GetHasCurrent", "MoveNext"]
 
     /**
-     * The GetCurrentActCtx function returns the handle to the active activation context of the calling thread.
-     * @remarks
-     * The calling thread is responsible for releasing the handle of the returned activation context. This function can return a null handle if no activation contexts have been activated by this thread. This is not an error.
+     * 
      * @returns {IAppxManifestHostRuntimeDependency} 
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentactctx
      */
     GetCurrent() {
         result := ComCall(3, this, "ptr*", &hostRuntimeDependency := 0, "HRESULT")

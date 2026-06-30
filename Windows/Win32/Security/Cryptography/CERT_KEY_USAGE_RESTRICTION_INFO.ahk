@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_POLICY_ID.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
+#Include .\CERT_POLICY_ID.ahk
 
 /**
  * The CERT_KEY_USAGE_RESTRICTION_INFO structure contains restrictions imposed on the usage of a certificate's public key. This includes purposes for use of the key and policies under which the key can be used.

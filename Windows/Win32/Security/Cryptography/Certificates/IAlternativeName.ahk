@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\AlternativeNameType.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IObjectId.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Is used by an IX509ExtensionAlternativeNames object to represent an instance of an AlternativeNames extension.
@@ -308,7 +312,7 @@ class IAlternativeName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ialternativename-get_strvalue
      */
     get_StrValue() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -346,7 +350,7 @@ class IAlternativeName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ialternativename-get_rawdata
      */
     get_RawData(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(13, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

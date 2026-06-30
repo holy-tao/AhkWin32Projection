@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_ORIENTATION.ahk
 #Include .\D2D1_INTERPOLATION_MODE.ahk
 #Include .\D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS.ahk
+#Include .\D2D1_ORIENTATION.ahk
 
 /**
  * Properties of a transformed image source.

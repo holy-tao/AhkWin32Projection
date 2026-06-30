@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface represents a physical device. You use this interface to retrieve information about a CD and DVD device installed on the computer and to perform operations such as closing the tray or eject the media.
@@ -1456,7 +1459,7 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_activediscrecorder
      */
     get_ActiveDiscRecorder() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", value, "HRESULT")
         return value
     }
@@ -1467,7 +1470,7 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_vendorid
      */
     get_VendorId() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", value, "HRESULT")
         return value
     }
@@ -1478,7 +1481,7 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_productid
      */
     get_ProductId() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", value, "HRESULT")
         return value
     }
@@ -1489,7 +1492,7 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_productrevision
      */
     get_ProductRevision() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", value, "HRESULT")
         return value
     }
@@ -1502,7 +1505,7 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_volumename
      */
     get_VolumeName() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", value, "HRESULT")
         return value
     }
@@ -1600,7 +1603,7 @@ class IDiscRecorder2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_exclusiveaccessowner
      */
     get_ExclusiveAccessOwner() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", value, "HRESULT")
         return value
     }

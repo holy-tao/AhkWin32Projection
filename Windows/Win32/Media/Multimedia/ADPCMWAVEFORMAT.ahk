@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
 #Include .\ADPCMCOEFSET.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia

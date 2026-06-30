@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_CONTEXT.ahk
-#Include .\HCERTSTORE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\HCERTSTORE.ahk
+#Include .\CERT_CONTEXT.ahk
 
 /**
  * Is passed in calls to the CertVerifyRevocation function to assist in finding the issuer of the context to be verified.

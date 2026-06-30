@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WLAN_NOTIFICATION_SOURCES.ahk
 
 /**
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
 class L2_NOTIFICATION_DATA extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -49,11 +50,14 @@ class L2_NOTIFICATION_DATA extends Win32Struct {
      *      the WLAN adapter. For more information about this operation, see 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/l2cmn/ns-l2cmn-l2_notification_data">802.11 WLAN Adapter
      *      Arrival</a>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InterfaceGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__InterfaceGuid"))
+                this.__InterfaceGuid := Guid(8, this)
+            return this.__InterfaceGuid
+        }
     }
 
     /**
@@ -63,8 +67,8 @@ class L2_NOTIFICATION_DATA extends Win32Struct {
      * @type {Integer}
      */
     dwDataSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -77,7 +81,7 @@ class L2_NOTIFICATION_DATA extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

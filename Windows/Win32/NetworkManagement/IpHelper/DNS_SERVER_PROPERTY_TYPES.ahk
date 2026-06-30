@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_DOH_SERVER_SETTINGS.ahk
 #Include .\DNS_DOT_SERVER_SETTINGS.ahk
+#Include .\DNS_DOH_SERVER_SETTINGS.ahk
 
 /**
  * Contains a pointer to a DNS server property. The type of the property depends on the value of [DNS_SERVER_PROPERTY::Type](/windows/win32/api/netioapi/ns-netioapi-dns_server_property).

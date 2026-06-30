@@ -10,7 +10,7 @@ class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 8
         static packingSize => 4
 
@@ -55,19 +55,19 @@ class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM extends Win32Struct {
         s {
             get {
                 if(!this.HasProp("__s"))
-                    this.__s := SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM._u_e__Union._s(0, this)
+                    this.__s := SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM._u._s(0, this)
                 return this.__s
             }
         }
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM._u_e__Union(0, this)
+                this.__u := SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM._u(0, this)
             return this.__u
         }
     }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WLAN_INTERFACE_INFO.ahk
 #Include .\WLAN_INTERFACE_STATE.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Array of NIC interface information.
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
 class WLAN_INTERFACE_INFO_LIST extends Win32Struct {
-    static sizeof => 536
+    static sizeof => 540
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the number of items in the <b>InterfaceInfo</b> member.

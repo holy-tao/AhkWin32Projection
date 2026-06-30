@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HIMAGELIST.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\BUTTON_IMAGELIST_ALIGN.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains information about an image list that is used with a button control.

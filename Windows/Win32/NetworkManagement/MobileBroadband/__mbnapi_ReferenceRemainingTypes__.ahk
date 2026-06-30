@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MBN_PROVIDER_CONSTANTS.ahk
+#Include .\MBN_SIGNAL_CONSTANTS.ahk
+#Include .\MBN_PROVIDER_STATE.ahk
 #Include .\MBN_BAND_CLASS.ahk
 #Include .\MBN_CONTEXT_CONSTANTS.ahk
-#Include .\MBN_CTRL_CAPS.ahk
 #Include .\MBN_DATA_CLASS.ahk
-#Include .\MBN_INTERFACE_CAPS_CONSTANTS.ahk
-#Include .\MBN_PIN_CONSTANTS.ahk
-#Include .\MBN_PROVIDER_CONSTANTS.ahk
-#Include .\MBN_PROVIDER_STATE.ahk
-#Include .\MBN_REGISTRATION_CONSTANTS.ahk
-#Include .\MBN_SIGNAL_CONSTANTS.ahk
-#Include .\MBN_SMS_CAPS.ahk
 #Include .\WWAEXT_SMS_CONSTANTS.ahk
+#Include .\MBN_PIN_CONSTANTS.ahk
+#Include .\MBN_CTRL_CAPS.ahk
+#Include .\MBN_SMS_CAPS.ahk
 #Include .\MBN_SMS_STATUS_FLAG.ahk
+#Include .\MBN_REGISTRATION_CONSTANTS.ahk
+#Include .\MBN_INTERFACE_CAPS_CONSTANTS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband

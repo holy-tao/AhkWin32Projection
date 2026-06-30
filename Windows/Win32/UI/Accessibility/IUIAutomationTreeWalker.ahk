@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationElement.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationCacheRequest.ahk
 #Include .\IUIAutomationCondition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes properties and methods that UI Automation client applications use to view and navigate the UI Automation elements on the desktop.

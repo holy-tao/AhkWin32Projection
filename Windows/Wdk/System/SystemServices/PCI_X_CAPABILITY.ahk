@@ -9,7 +9,7 @@ class PCI_X_CAPABILITY extends Win32Struct {
 
     static packingSize => 8
 
-    class _Command_e__Union extends Win32Struct {
+    class _Command extends Win32Struct {
         static sizeof => 2
         static packingSize => 2
 
@@ -70,7 +70,7 @@ class PCI_X_CAPABILITY extends Win32Struct {
         bits {
             get {
                 if(!this.HasProp("__bits"))
-                    this.__bits := PCI_X_CAPABILITY._Command_e__Union._bits(0, this)
+                    this.__bits := PCI_X_CAPABILITY._Command._bits(0, this)
                 return this.__bits
             }
         }
@@ -84,7 +84,7 @@ class PCI_X_CAPABILITY extends Win32Struct {
         }
     }
 
-    class _Status_e__Union extends Win32Struct {
+    class _Status extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -234,7 +234,7 @@ class PCI_X_CAPABILITY extends Win32Struct {
         bits {
             get {
                 if(!this.HasProp("__bits"))
-                    this.__bits := PCI_X_CAPABILITY._Status_e__Union._bits(0, this)
+                    this.__bits := PCI_X_CAPABILITY._Status._bits(0, this)
                 return this.__bits
             }
         }
@@ -257,23 +257,23 @@ class PCI_X_CAPABILITY extends Win32Struct {
     }
 
     /**
-     * @type {_Command_e__Union}
+     * @type {_Command}
      */
     Command {
         get {
             if(!this.HasProp("__Command"))
-                this.__Command := PCI_X_CAPABILITY._Command_e__Union(8, this)
+                this.__Command := PCI_X_CAPABILITY._Command(8, this)
             return this.__Command
         }
     }
 
     /**
-     * @type {_Status_e__Union}
+     * @type {_Status}
      */
     Status {
         get {
             if(!this.HasProp("__Status"))
-                this.__Status := PCI_X_CAPABILITY._Status_e__Union(12, this)
+                this.__Status := PCI_X_CAPABILITY._Status(12, this)
             return this.__Status
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents the GUID of a connection, for purposes of connection-matching.
@@ -8,7 +9,7 @@
  * @architecture X64, Arm64
  */
 class WINHTTP_MATCH_CONNECTION_GUID extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -18,11 +19,14 @@ class WINHTTP_MATCH_CONNECTION_GUID extends Win32Struct {
      * A connection's **GUID**.
      * 
      * When **WINHTTP_OPTION_MATCH_CONNECTION_GUID** is set on a request, WinHttp attempts to serve the request on a connection matching *ConnectionGuid*.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ConnectionGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__ConnectionGuid"))
+                this.__ConnectionGuid := Guid(0, this)
+            return this.__ConnectionGuid
+        }
     }
 
     /**
@@ -34,7 +38,7 @@ class WINHTTP_MATCH_CONNECTION_GUID extends Win32Struct {
      * @type {Integer}
      */
     ullFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

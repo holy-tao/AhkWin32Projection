@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\ScriptDebugState.ahk
+#Include .\ScriptDebugEventFilter.ahk
+#Include .\ScriptDebugPosition.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDataModelScriptDebugClient.ahk
 #Include .\IDataModelScriptDebugStack.ahk
-#Include .\IDataModelScriptDebugBreakpoint.ahk
 #Include .\IDataModelScriptDebugBreakpointEnumerator.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include .\IDataModelScriptDebugBreakpoint.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -41,14 +46,11 @@ class IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
+     * 
      * @param {Pointer<ScriptDebugPosition>} currentPosition 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentpositionex
+     * @returns {HRESULT} 
      */
     GetCurrentPosition(currentPosition, positionSpanEnd, lineText) {
         result := ComCall(4, this, "ptr", currentPosition, "ptr", positionSpanEnd, "ptr", lineText, "HRESULT")

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Variant\VARENUM.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -11,7 +12,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
 
     static packingSize => 8
 
-    class _ValidVal_e__Union extends Win32Struct {
+    class _ValidVal extends Win32Struct {
         static sizeof => 32
         static packingSize => 8
 
@@ -148,7 +149,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
         }
 
         class _ListGuid extends Win32Struct {
-            static sizeof => 24
+            static sizeof => 32
             static packingSize => 8
 
             /**
@@ -160,19 +161,22 @@ class WIA_PROPERTY_INFO extends Win32Struct {
             }
 
             /**
-             * @type {Pointer}
+             * @type {Guid}
              */
             Nom {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
+                get {
+                    if(!this.HasProp("__Nom"))
+                        this.__Nom := Guid(4, this)
+                    return this.__Nom
+                }
             }
 
             /**
              * @type {Pointer<Guid>}
              */
             pList {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
+                get => NumGet(this, 24, "ptr")
+                set => NumPut("ptr", value, this, 24)
             }
         }
 
@@ -248,7 +252,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
         Range {
             get {
                 if(!this.HasProp("__Range"))
-                    this.__Range := WIA_PROPERTY_INFO._ValidVal_e__Union._Range(0, this)
+                    this.__Range := WIA_PROPERTY_INFO._ValidVal._Range(0, this)
                 return this.__Range
             }
         }
@@ -259,7 +263,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
         RangeFloat {
             get {
                 if(!this.HasProp("__RangeFloat"))
-                    this.__RangeFloat := WIA_PROPERTY_INFO._ValidVal_e__Union._RangeFloat(0, this)
+                    this.__RangeFloat := WIA_PROPERTY_INFO._ValidVal._RangeFloat(0, this)
                 return this.__RangeFloat
             }
         }
@@ -270,7 +274,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
         List {
             get {
                 if(!this.HasProp("__List"))
-                    this.__List := WIA_PROPERTY_INFO._ValidVal_e__Union._List(0, this)
+                    this.__List := WIA_PROPERTY_INFO._ValidVal._List(0, this)
                 return this.__List
             }
         }
@@ -281,7 +285,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
         ListFloat {
             get {
                 if(!this.HasProp("__ListFloat"))
-                    this.__ListFloat := WIA_PROPERTY_INFO._ValidVal_e__Union._ListFloat(0, this)
+                    this.__ListFloat := WIA_PROPERTY_INFO._ValidVal._ListFloat(0, this)
                 return this.__ListFloat
             }
         }
@@ -292,7 +296,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
         ListGuid {
             get {
                 if(!this.HasProp("__ListGuid"))
-                    this.__ListGuid := WIA_PROPERTY_INFO._ValidVal_e__Union._ListGuid(0, this)
+                    this.__ListGuid := WIA_PROPERTY_INFO._ValidVal._ListGuid(0, this)
                 return this.__ListGuid
             }
         }
@@ -303,7 +307,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
         ListBStr {
             get {
                 if(!this.HasProp("__ListBStr"))
-                    this.__ListBStr := WIA_PROPERTY_INFO._ValidVal_e__Union._ListBStr(0, this)
+                    this.__ListBStr := WIA_PROPERTY_INFO._ValidVal._ListBStr(0, this)
                 return this.__ListBStr
             }
         }
@@ -314,7 +318,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
         Flag {
             get {
                 if(!this.HasProp("__Flag"))
-                    this.__Flag := WIA_PROPERTY_INFO._ValidVal_e__Union._Flag(0, this)
+                    this.__Flag := WIA_PROPERTY_INFO._ValidVal._Flag(0, this)
                 return this.__Flag
             }
         }
@@ -325,7 +329,7 @@ class WIA_PROPERTY_INFO extends Win32Struct {
         None {
             get {
                 if(!this.HasProp("__None"))
-                    this.__None := WIA_PROPERTY_INFO._ValidVal_e__Union._None(0, this)
+                    this.__None := WIA_PROPERTY_INFO._ValidVal._None(0, this)
                 return this.__None
             }
         }
@@ -348,12 +352,12 @@ class WIA_PROPERTY_INFO extends Win32Struct {
     }
 
     /**
-     * @type {_ValidVal_e__Union}
+     * @type {_ValidVal}
      */
     ValidVal {
         get {
             if(!this.HasProp("__ValidVal"))
-                this.__ValidVal := WIA_PROPERTY_INFO._ValidVal_e__Union(8, this)
+                this.__ValidVal := WIA_PROPERTY_INFO._ValidVal(8, this)
             return this.__ValidVal
         }
     }

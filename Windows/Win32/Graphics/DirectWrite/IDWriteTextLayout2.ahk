@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextLayout1.ahk
 #Include .\DWRITE_TEXT_METRICS1.ahk
+#Include .\IDWriteTextLayout1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IDWriteFontFallback.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DWRITE_OPTICAL_ALIGNMENT.ahk
+#Include .\DWRITE_VERTICAL_GLYPH_ORIENTATION.ahk
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted. | IDWriteTextLayout2 interface

@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDot11AdHocNetwork.ahk
+#Include .\DOT11_ADHOC_NETWORK_CONNECTION_STATUS.ahk
 #Include .\IEnumDot11AdHocSecuritySettings.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IEnumDot11AdHocNetworks.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDot11AdHocNetwork.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a wireless network interface card (NIC).

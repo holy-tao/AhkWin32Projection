@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\GETPROPERTYSTOREFLAGS.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\IPropertyStoreFactory.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes a method to create a specified IPropertyStore object in circumstances where property access is potentially slow.

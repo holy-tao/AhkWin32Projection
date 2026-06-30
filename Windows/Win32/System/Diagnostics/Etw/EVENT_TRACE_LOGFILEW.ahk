@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_TRACE.ahk
-#Include .\EVENT_TRACE_HEADER.ahk
-#Include .\ETW_BUFFER_CONTEXT.ahk
 #Include .\TRACE_LOGFILE_HEADER.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\EVENT_TRACE_HEADER.ahk
 #Include ..\..\..\Foundation\SYSTEMTIME.ahk
+#Include .\EVENT_TRACE.ahk
+#Include .\ETW_BUFFER_CONTEXT.ahk
 
 /**
  * The EVENT_TRACE_LOGFILEW (Unicode) structure (evntrace.h) stores information about a trace data source.
@@ -55,7 +57,7 @@
  * @charset Unicode
  */
 class EVENT_TRACE_LOGFILEW extends Win32Struct {
-    static sizeof => 432
+    static sizeof => 448
 
     static packingSize => 8
 
@@ -174,7 +176,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
     LogfileHeader {
         get {
             if(!this.HasProp("__LogfileHeader"))
-                this.__LogfileHeader := TRACE_LOGFILE_HEADER(104, this)
+                this.__LogfileHeader := TRACE_LOGFILE_HEADER(120, this)
             return this.__LogfileHeader
         }
     }
@@ -188,8 +190,8 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * @type {Pointer<PEVENT_TRACE_BUFFER_CALLBACKW>}
      */
     BufferCallback {
-        get => NumGet(this, 384, "ptr")
-        set => NumPut("ptr", value, this, 384)
+        get => NumGet(this, 400, "ptr")
+        set => NumPut("ptr", value, this, 400)
     }
 
     /**
@@ -197,8 +199,8 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * @type {Integer}
      */
     BufferSize {
-        get => NumGet(this, 392, "uint")
-        set => NumPut("uint", value, this, 392)
+        get => NumGet(this, 408, "uint")
+        set => NumPut("uint", value, this, 408)
     }
 
     /**
@@ -207,8 +209,8 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * @type {Integer}
      */
     Filled {
-        get => NumGet(this, 396, "uint")
-        set => NumPut("uint", value, this, 396)
+        get => NumGet(this, 412, "uint")
+        set => NumPut("uint", value, this, 412)
     }
 
     /**
@@ -216,24 +218,24 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * @type {Integer}
      */
     EventsLost {
-        get => NumGet(this, 400, "uint")
-        set => NumPut("uint", value, this, 400)
+        get => NumGet(this, 416, "uint")
+        set => NumPut("uint", value, this, 416)
     }
 
     /**
      * @type {Pointer<PEVENT_CALLBACK>}
      */
     EventCallback {
-        get => NumGet(this, 408, "ptr")
-        set => NumPut("ptr", value, this, 408)
+        get => NumGet(this, 424, "ptr")
+        set => NumPut("ptr", value, this, 424)
     }
 
     /**
      * @type {Pointer<PEVENT_RECORD_CALLBACK>}
      */
     EventRecordCallback {
-        get => NumGet(this, 408, "ptr")
-        set => NumPut("ptr", value, this, 408)
+        get => NumGet(this, 424, "ptr")
+        set => NumPut("ptr", value, this, 424)
     }
 
     /**
@@ -242,8 +244,8 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * @type {Integer}
      */
     IsKernelTrace {
-        get => NumGet(this, 416, "uint")
-        set => NumPut("uint", value, this, 416)
+        get => NumGet(this, 432, "uint")
+        set => NumPut("uint", value, this, 432)
     }
 
     /**
@@ -259,7 +261,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * @type {Pointer<Void>}
      */
     Context {
-        get => NumGet(this, 424, "ptr")
-        set => NumPut("ptr", value, this, 424)
+        get => NumGet(this, 440, "ptr")
+        set => NumPut("ptr", value, this, 440)
     }
 }

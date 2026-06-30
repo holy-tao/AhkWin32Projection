@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RUNTIME_REPORT_HEADER.ahk
 #Include .\DRIVER_INFO_ENTRY.ahk
+#Include .\RUNTIME_REPORT_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -11,7 +11,7 @@ class DRIVER_RUNTIME_REPORT extends Win32Struct {
 
     static packingSize => 4
 
-    class _Flags_e__Union extends Win32Struct {
+    class _Flags extends Win32Struct {
         static sizeof => 2
         static packingSize => 2
 
@@ -81,12 +81,12 @@ class DRIVER_RUNTIME_REPORT extends Win32Struct {
     }
 
     /**
-     * @type {_Flags_e__Union}
+     * @type {_Flags}
      */
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := DRIVER_RUNTIME_REPORT._Flags_e__Union(10, this)
+                this.__Flags := DRIVER_RUNTIME_REPORT._Flags(10, this)
             return this.__Flags
         }
     }

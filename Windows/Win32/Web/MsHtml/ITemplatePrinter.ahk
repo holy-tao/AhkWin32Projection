@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -590,7 +593,7 @@ class ITemplatePrinter extends IDispatch {
      * @returns {BSTR} 
      */
     get_header() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", p, "HRESULT")
         return p
     }
@@ -612,7 +615,7 @@ class ITemplatePrinter extends IDispatch {
      * @returns {BSTR} 
      */
     get_footer() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(46, this, "ptr", p, "HRESULT")
         return p
     }

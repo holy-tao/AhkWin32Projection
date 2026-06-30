@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDRAWPALETTE_LCL.ahk
 #Include .\DDRAWI_DDRAWPALETTE_INT.ahk
+#Include .\DDRAWI_DDRAWPALETTE_LCL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

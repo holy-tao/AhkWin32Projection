@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\EXCEPTION_RECORD.ahk
+#Include ..\..\..\Foundation\NTSTATUS.ahk
 
 /**
  * Describes an exception. (EXCEPTION_RECORD)

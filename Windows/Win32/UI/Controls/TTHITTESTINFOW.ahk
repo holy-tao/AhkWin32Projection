@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include .\TTTOOLINFOW.ahk
 #Include .\TOOLTIP_FLAGS.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\TTTOOLINFOW.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains information that a tooltip control uses to determine whether a point is in the bounding rectangle of the specified tool. If the point is in the rectangle, the structure receives information about the tool. (Unicode)

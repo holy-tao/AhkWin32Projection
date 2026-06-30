@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_DISK_EXTENT_TYPE.ahk
 
 /**
@@ -23,17 +24,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_DISK_EXTENT extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 80
 
     static packingSize => 8
 
     /**
      * The GUID of the disk.
-     * @type {Pointer}
+     * @type {Guid}
      */
     diskId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__diskId"))
+                this.__diskId := Guid(0, this)
+            return this.__diskId
+        }
     }
 
     /**
@@ -41,8 +45,8 @@ class VDS_DISK_EXTENT extends Win32Struct {
      * @type {VDS_DISK_EXTENT_TYPE}
      */
     type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -50,8 +54,8 @@ class VDS_DISK_EXTENT extends Win32Struct {
      * @type {Integer}
      */
     ullOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -59,26 +63,32 @@ class VDS_DISK_EXTENT extends Win32Struct {
      * @type {Integer}
      */
     ullSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * The GUID of the volume to which the extent belongs.
-     * @type {Pointer}
+     * @type {Guid}
      */
     volumeId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__volumeId"))
+                this.__volumeId := Guid(40, this)
+            return this.__volumeId
+        }
     }
 
     /**
      * If the extent is from a volume, this member is the GUID of the plex to which the extent belongs.
-     * @type {Pointer}
+     * @type {Guid}
      */
     plexId {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__plexId"))
+                this.__plexId := Guid(56, this)
+            return this.__plexId
+        }
     }
 
     /**
@@ -86,7 +96,7 @@ class VDS_DISK_EXTENT extends Win32Struct {
      * @type {Integer}
      */
     memberIdx {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 }

@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_KEYINFO_TYPE.ahk
-#Include .\CRYPT_XML_KEY_VALUE.ahk
-#Include .\CRYPT_XML_KEY_VALUE_TYPE.ahk
 #Include .\CRYPT_XML_KEY_DSA_KEY_VALUE.ahk
+#Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_KEY_RSA_KEY_VALUE.ahk
-#Include .\CRYPT_XML_KEY_ECDSA_KEY_VALUE.ahk
-#Include .\CRYPT_XML_BLOB.ahk
-#Include .\CRYPT_XML_CHARSET.ahk
 #Include .\CRYPT_XML_X509DATA.ahk
+#Include .\CRYPT_XML_KEY_ECDSA_KEY_VALUE.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
+#Include .\CRYPT_XML_KEY_VALUE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_X509DATA_ITEM.ahk
+#Include .\CRYPT_XML_KEY_VALUE_TYPE.ahk
+#Include .\CRYPT_XML_KEYINFO_TYPE.ahk
 
 /**
  * Encapsulates key information data that corresponds to a KeyInfo element. The KeyInfo element enables the recipient to obtain the key needed to validate the signature.

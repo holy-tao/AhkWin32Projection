@@ -1,10 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DXVA2_VideoSample.ahk
+#Include .\DXVA2_VideoProcessBltParams.ahk
 #Include .\IDirectXVideoProcessorService.ahk
-#Include .\DXVA2_VideoProcessorCaps.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include .\DXVA2_VideoDesc.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DXVA2_ValueRange.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DXVA2_VideoProcessorCaps.ahk
 
 /**
  * Represents a DirectX Video Acceleration (DXVA) video processor device.

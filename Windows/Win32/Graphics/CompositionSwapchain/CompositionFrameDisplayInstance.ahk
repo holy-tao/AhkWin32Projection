@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LUID.ahk
+#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 #Include .\CompositionFrameInstanceKind.ahk
 #Include .\PresentationTransform.ahk
-#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include ..\..\Foundation\LUID.ahk
 
 /**
  * Represents a single instance of the content shown on a single output.

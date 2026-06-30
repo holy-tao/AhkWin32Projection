@@ -1,7 +1,40 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\SecHandle.ahk
+#Include .\CREDENTIALW.ahk
+#Include .\OPENCARDNAMEA.ahk
+#Include .\KeyCredentialManagerInfo.ahk
+#Include .\CREDUI_INFOA.ahk
+#Include .\CRED_TYPE.ahk
+#Include .\CREDUI_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CRED_PROTECTION_TYPE.ahk
+#Include .\CREDENTIALA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SCARD_READERSTATEW.ahk
+#Include .\KeyCredentialManagerOperationErrorStates.ahk
+#Include .\CRED_MARSHAL_TYPE.ahk
+#Include .\KeyCredentialManagerOperationType.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\CRED_ENUMERATE_FLAGS.ahk
+#Include .\CREDUI_INFOW.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\OPENCARDNAME_EXA.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\CREDENTIAL_TARGET_INFORMATIONA.ahk
+#Include .\SCARD_ATRMASK.ahk
+#Include .\CREDUIWIN_FLAGS.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\CREDENTIAL_TARGET_INFORMATIONW.ahk
+#Include .\SCARD_IO_REQUEST.ahk
+#Include .\SCARD_SCOPE.ahk
+#Include .\CRED_PACK_FLAGS.ahk
+#Include .\SCARD_READERSTATEA.ahk
+#Include .\OPENCARDNAMEW.ahk
+#Include .\OPENCARDNAME_EXW.ahk
 
 /**
  * @namespace Windows.Win32.Security.Credentials

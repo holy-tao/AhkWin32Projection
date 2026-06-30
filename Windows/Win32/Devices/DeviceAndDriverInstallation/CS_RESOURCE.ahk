@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CS_DES.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
 class CS_RESOURCE extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [CS_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-cs_des) structure.

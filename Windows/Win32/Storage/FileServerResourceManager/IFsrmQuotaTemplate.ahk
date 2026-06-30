@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmQuotaBase.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\FsrmTemplateApplyOptions.ahk
+#Include .\FsrmCommitOptions.ahk
 #Include .\IFsrmDerivedObjectsResult.ahk
+#Include .\IFsrmQuotaBase.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to configure templates from which new quota objects can be derived.
@@ -48,7 +51,7 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", name, "HRESULT")
         return name
     }

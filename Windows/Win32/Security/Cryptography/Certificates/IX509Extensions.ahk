@@ -4,6 +4,8 @@
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509Extension.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IX509Extensions interface defines the following methods and properties to manage a collection of IX509Extension objects.

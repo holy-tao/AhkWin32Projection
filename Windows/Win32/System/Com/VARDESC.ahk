@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\ELEMDESC.ahk
-#Include .\TYPEDESC.ahk
-#Include ..\Ole\ARRAYDESC.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include .\IDLDESC.ahk
-#Include .\IDLFLAGS.ahk
-#Include ..\Ole\PARAMDESC.ahk
 #Include ..\Ole\PARAMDESCEX.ahk
 #Include ..\Ole\PARAMFLAGS.ahk
+#Include ..\Ole\ARRAYDESC.ahk
+#Include .\IDLFLAGS.ahk
+#Include .\ELEMDESC.ahk
+#Include ..\Ole\PARAMDESC.ahk
+#Include ..\Variant\VARENUM.ahk
 #Include .\VARFLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\TYPEDESC.ahk
+#Include .\IDLDESC.ahk
 #Include .\VARKIND.ahk
 
 /**

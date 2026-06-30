@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WAVEHDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The WAVEHDR structure defines the header used to identify a waveform-audio buffer.

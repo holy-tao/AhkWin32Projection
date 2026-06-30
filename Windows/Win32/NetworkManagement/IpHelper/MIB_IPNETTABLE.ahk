@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPNETROW_LH.ahk
 #Include .\MIB_IPNET_TYPE.ahk
+#Include .\MIB_IPNETROW_LH.ahk
 
 /**
  * Contains a table of Address Resolution Protocol (ARP) entries for IPv4 addresses.

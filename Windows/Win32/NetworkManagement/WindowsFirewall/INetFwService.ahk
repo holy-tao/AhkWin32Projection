@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\NET_FW_IP_VERSION.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\NET_FW_SCOPE.ahk
+#Include .\NET_FW_SERVICE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\INetFwOpenPorts.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetFwService interface provides access to the properties of a service that may be authorized to listen through the firewall.
@@ -103,7 +108,7 @@ class INetFwService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", name, "HRESULT")
         return name
     }
@@ -226,7 +231,7 @@ class INetFwService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_remoteaddresses
      */
     get_RemoteAddresses() {
-        remoteAddrs := BSTR()
+        remoteAddrs := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", remoteAddrs, "HRESULT")
         return remoteAddrs
     }

@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ITfDisplayAttributeInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumTfDisplayAttributeInfo.ahk
-#Include .\ITfDisplayAttributeInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfDisplayAttributeMgr interface is implemented by the TSF manager and used by an application to obtain and enumerate display attributes. Individual display attributes are accessed through the ITfDisplayAttributeInfo interface.

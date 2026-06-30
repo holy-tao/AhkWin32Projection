@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\AUDIOCLIENT_ACTIVATION_TYPE.ahk
 #Include .\AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS.ahk
+#Include .\AUDIOCLIENT_ACTIVATION_TYPE.ahk
 #Include .\PROCESS_LOOPBACK_MODE.ahk
 
 /**

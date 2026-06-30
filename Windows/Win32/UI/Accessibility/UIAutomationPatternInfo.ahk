@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\UIAutomationPropertyInfo.ahk
 #Include .\UIAutomationMethodInfo.ahk
-#Include .\UIAutomationEventInfo.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\UIAutomationPropertyInfo.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IUIAutomationPatternHandler.ahk
+#Include .\UIAutomationEventInfo.ahk
 
 /**
  * Contains information about a custom control pattern.
@@ -11,7 +13,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  */
 class UIAutomationPatternInfo extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -19,11 +21,14 @@ class UIAutomationPatternInfo extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * The unique identifier of the control pattern.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -33,17 +38,6 @@ class UIAutomationPatternInfo extends Win32Struct {
      * @type {PWSTR}
      */
     pProgrammaticName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * Type: <b>GUID</b>
-     * 
-     * The unique identifier of the provider interface for the control pattern.
-     * @type {Pointer}
-     */
-    providerInterfaceId {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }
@@ -51,12 +45,29 @@ class UIAutomationPatternInfo extends Win32Struct {
     /**
      * Type: <b>GUID</b>
      * 
+     * The unique identifier of the provider interface for the control pattern.
+     * @type {Guid}
+     */
+    providerInterfaceId {
+        get {
+            if(!this.HasProp("__providerInterfaceId"))
+                this.__providerInterfaceId := Guid(24, this)
+            return this.__providerInterfaceId
+        }
+    }
+
+    /**
+     * Type: <b>GUID</b>
+     * 
      * The unique identifier of the client interface for the control pattern.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clientInterfaceId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__clientInterfaceId"))
+                this.__clientInterfaceId := Guid(40, this)
+            return this.__clientInterfaceId
+        }
     }
 
     /**
@@ -66,8 +77,8 @@ class UIAutomationPatternInfo extends Win32Struct {
      * @type {Integer}
      */
     cProperties {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -77,8 +88,8 @@ class UIAutomationPatternInfo extends Win32Struct {
      * @type {Pointer<UIAutomationPropertyInfo>}
      */
     pProperties {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -88,8 +99,8 @@ class UIAutomationPatternInfo extends Win32Struct {
      * @type {Integer}
      */
     cMethods {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -99,8 +110,8 @@ class UIAutomationPatternInfo extends Win32Struct {
      * @type {Pointer<UIAutomationMethodInfo>}
      */
     pMethods {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -110,8 +121,8 @@ class UIAutomationPatternInfo extends Win32Struct {
      * @type {Integer}
      */
     cEvents {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -121,8 +132,8 @@ class UIAutomationPatternInfo extends Win32Struct {
      * @type {Pointer<UIAutomationEventInfo>}
      */
     pEvents {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -132,7 +143,7 @@ class UIAutomationPatternInfo extends Win32Struct {
      * @type {IUIAutomationPatternHandler}
      */
     pPatternHandler {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 }

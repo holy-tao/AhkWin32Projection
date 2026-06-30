@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\POWER_ACTION.ahk
 #Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
+#Include .\POWER_ACTION.ahk
 
 /**
  * Contains information used to set the system power state.

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_UNKNOWN_HEADER.ahk
 #Include .\HTTP_KNOWN_HEADER.ahk
+#Include .\HTTP_UNKNOWN_HEADER.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains headers sent with an HTTP request.

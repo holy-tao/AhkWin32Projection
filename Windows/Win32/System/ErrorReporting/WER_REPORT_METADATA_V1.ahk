@@ -2,13 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WER_REPORT_SIGNATURE.ahk
 #Include .\WER_REPORT_PARAMETER.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
  */
 class WER_REPORT_METADATA_V1 extends Win32Struct {
-    static sizeof => 7944
+    static sizeof => 7960
 
     static packingSize => 8
 
@@ -24,19 +25,25 @@ class WER_REPORT_METADATA_V1 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     BucketId {
-        get => NumGet(this, 7912, "ptr")
-        set => NumPut("ptr", value, this, 7912)
+        get {
+            if(!this.HasProp("__BucketId"))
+                this.__BucketId := Guid(7912, this)
+            return this.__BucketId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ReportId {
-        get => NumGet(this, 7920, "ptr")
-        set => NumPut("ptr", value, this, 7920)
+        get {
+            if(!this.HasProp("__ReportId"))
+                this.__ReportId := Guid(7928, this)
+            return this.__ReportId
+        }
     }
 
     /**
@@ -45,7 +52,7 @@ class WER_REPORT_METADATA_V1 extends Win32Struct {
     CreationTime {
         get {
             if(!this.HasProp("__CreationTime"))
-                this.__CreationTime := FILETIME(7928, this)
+                this.__CreationTime := FILETIME(7944, this)
             return this.__CreationTime
         }
     }
@@ -54,7 +61,7 @@ class WER_REPORT_METADATA_V1 extends Win32Struct {
      * @type {Integer}
      */
     SizeInBytes {
-        get => NumGet(this, 7936, "uint")
-        set => NumPut("uint", value, this, 7936)
+        get => NumGet(this, 7952, "uint")
+        set => NumPut("uint", value, this, 7952)
     }
 }

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DO_DOWNLOAD_STATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDODownload.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to receive notifications about a download.

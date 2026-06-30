@@ -4,6 +4,7 @@
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IAlternativeName.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains methods and properties that enable you to manage a collection of IAlternativeName objects.

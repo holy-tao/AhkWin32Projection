@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISnapinAbout interface enables the console to get copyright and version information from a snap-in. The console also uses this interface to obtain images for the static folder from the snap-in.
@@ -82,7 +86,7 @@ class ISnapinAbout extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapinimage
      */
     GetSnapinImage() {
-        hAppIcon := HICON()
+        hAppIcon := HICON({Value: 0}, True)
         result := ComCall(6, this, "ptr", hAppIcon, "HRESULT")
         return hAppIcon
     }

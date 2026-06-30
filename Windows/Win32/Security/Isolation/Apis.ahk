@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\System\Registry\HKEY.ahk
+#Include ..\PSID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\SID_AND_ATTRIBUTES.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Isolation
@@ -203,7 +209,7 @@ class Isolation {
      * @since windows8.0
      */
     static GetAppContainerRegistryLocation(desiredAccess) {
-        phAppContainerKey := HKEY()
+        phAppContainerKey := HKEY({Value: 0}, True)
         result := DllCall("USERENV.dll\GetAppContainerRegistryLocation", "uint", desiredAccess, "ptr", phAppContainerKey, "HRESULT")
         return phAppContainerKey
     }

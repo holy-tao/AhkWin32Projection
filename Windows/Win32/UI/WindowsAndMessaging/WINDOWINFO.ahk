@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\WINDOW_STYLE.ahk
 #Include .\WINDOW_EX_STYLE.ahk
+#Include .\WINDOW_STYLE.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains window information.

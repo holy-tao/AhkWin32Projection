@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D10_PASS_DESC.ahk
 #Include .\D3D10_STATE_BLOCK_MASK.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3D10_PASS_SHADER_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10EffectVariable.ahk
 
 /**
  * A pass interface encapsulates state assignments within a technique.

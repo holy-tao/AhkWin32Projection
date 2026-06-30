@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMStatusMessage interface contains property methods that retrieve various properties of status messages related to GPO operations.
@@ -69,7 +70,7 @@ class IGPMStatusMessage extends IDispatch {
      * @returns {BSTR} 
      */
     get_ObjectPath() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -93,7 +94,7 @@ class IGPMStatusMessage extends IDispatch {
      * @returns {BSTR} 
      */
     get_ExtensionName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -103,7 +104,7 @@ class IGPMStatusMessage extends IDispatch {
      * @returns {BSTR} 
      */
     get_SettingsName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -127,7 +128,7 @@ class IGPMStatusMessage extends IDispatch {
      * @returns {BSTR} 
      */
     get_Message() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pVal, "HRESULT")
         return pVal
     }

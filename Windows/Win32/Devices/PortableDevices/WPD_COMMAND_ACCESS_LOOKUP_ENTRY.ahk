@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
  */
 class WPD_COMMAND_ACCESS_LOOKUP_ENTRY extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {PROPERTYKEY}
@@ -25,8 +26,8 @@ class WPD_COMMAND_ACCESS_LOOKUP_ENTRY extends Win32Struct {
      * @type {Integer}
      */
     AccessType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**

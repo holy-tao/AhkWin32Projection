@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceChild.ahk
-#Include .\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk
 #Include .\D3D11_VIDEO_PROCESSOR_CAPS.ahk
-#Include .\D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.ahk
-#Include .\D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.ahk
 #Include .\D3D11_VIDEO_PROCESSOR_FILTER_RANGE.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\ID3D11DeviceChild.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_CONTENT_DESC.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_CUSTOM_RATE.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_FILTER.ahk
 
 /**
  * Enumerates the video processor capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoProcessorEnumerator)

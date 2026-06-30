@@ -1,43 +1,51 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
 class DUAL_OPLOCK_KEY_ECP_CONTEXT extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ParentOplockKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__ParentOplockKey"))
+                this.__ParentOplockKey := Guid(0, this)
+            return this.__ParentOplockKey
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     TargetOplockKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__TargetOplockKey"))
+                this.__TargetOplockKey := Guid(16, this)
+            return this.__TargetOplockKey
+        }
     }
 
     /**
      * @type {BOOLEAN}
      */
     ParentOplockKeySet {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 
     /**
      * @type {BOOLEAN}
      */
     TargetOplockKeySet {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+        get => NumGet(this, 33, "char")
+        set => NumPut("char", value, this, 33)
     }
 }

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IAVIStream interface supports creating and manipulating data streams within a file. Uses IUnknown::QueryInterface, IUnknown::AddRef, IUnknown::Release in addition to the following custom methods:\_
@@ -320,32 +322,10 @@ class IAVIStream extends IUnknown {
     }
 
     /**
-     * Sets limits for a job object.
-     * @remarks
-     * Use the <b>SetInformationJobObject</b> 
-     *     function to set several limits in a single call. To establish the limits one at a time or change a 
-     *     subset of the limits, call the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-queryinformationjobobject">QueryInformationJobObject</a> function to obtain 
-     *     the current limits, modify these limits, and then call 
-     *     <b>SetInformationJobObject</b>.
      * 
-     * You must set security limits individually for each process associated with a job object, rather than setting 
-     *     them for the job object itself. For information, see 
-     *     <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * 
-     * <b>Windows Server 2003 and Windows XP:  </b>Use the <b>SetInformationJobObject</b> 
-     *       function to set security limits for the job object.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more 
-     *     information, see 
-     *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} lpInfo 
      * @param {Integer} cbInfo 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-setinformationjobobject
+     * @returns {HRESULT} 
      */
     SetInfo(lpInfo, cbInfo) {
         result := ComCall(13, this, "ptr", lpInfo, "int", cbInfo, "HRESULT")

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TRANSPORT_SETTING_ID.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains the transport setting ID and handle to a fully qualified domain name.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  */
 class ASSOCIATE_NAMERES_CONTEXT_INPUT extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -31,7 +32,7 @@ class ASSOCIATE_NAMERES_CONTEXT_INPUT extends Win32Struct {
      * @type {Integer}
      */
     Handle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

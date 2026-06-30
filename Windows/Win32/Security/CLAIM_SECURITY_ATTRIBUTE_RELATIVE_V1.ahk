@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk
 #Include .\CLAIM_SECURITY_ATTRIBUTE_FLAGS.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk
 
 /**
  * Defines a resource attribute that is defined in continuous memory for persistence within a serialized security descriptor.
@@ -13,7 +13,7 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct {
 
     static packingSize => 4
 
-    class _Values_e__Union extends Win32Struct {
+    class _Values extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -118,12 +118,12 @@ class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct {
 
     /**
      * An array of offsets from the beginning of the CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 structure. Each offset indicates the location of a claim security attribute value of the type specified in the <b>ValueType</b> member.
-     * @type {_Values_e__Union}
+     * @type {_Values}
      */
     Values {
         get {
             if(!this.HasProp("__Values"))
-                this.__Values := CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1._Values_e__Union(16, this)
+                this.__Values := CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1._Values(16, this)
             return this.__Values
         }
     }

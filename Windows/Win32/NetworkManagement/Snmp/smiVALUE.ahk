@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\smiOID.ahk
 #Include .\smiCNTR64.ahk
 #Include .\smiOCTETS.ahk
-#Include .\smiOID.ahk
 
 /**
  * The WinSNMP smiVALUE structure describes the value associated with a variable name in a variable binding entry.
@@ -29,7 +29,7 @@ class smiVALUE extends Win32Struct {
 
     static packingSize => 8
 
-    class _value_e__Union extends Win32Struct {
+    class _value extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -267,12 +267,12 @@ class smiVALUE extends Win32Struct {
      * Specifies the union of all possible WinSNMP syntax data types, including the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> descriptor types.
-     * @type {_value_e__Union}
+     * @type {_value}
      */
     value {
         get {
             if(!this.HasProp("__value"))
-                this.__value := smiVALUE._value_e__Union(8, this)
+                this.__value := smiVALUE._value(8, this)
             return this.__value
         }
     }

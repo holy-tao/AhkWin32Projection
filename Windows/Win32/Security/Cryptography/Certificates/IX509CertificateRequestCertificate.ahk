@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequestPkcs10.ahk
-#Include .\IX500DistinguishedName.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISignerCertificate.ahk
+#Include .\IX509PublicKey.ahk
+#Include .\IX509CertificateRequestPkcs10.ahk
+#Include .\IX500DistinguishedName.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IX509CertificateRequestCertificate interface represents a request object for a self-generated certificate, enabling you to create a certificate directly without going through a registration or certification authority.
@@ -388,7 +391,7 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10 {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_serialnumber
      */
     get_SerialNumber(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(67, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

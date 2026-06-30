@@ -1,9 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\OSPRW.ahk
+#Include .\OLEDBSimpleProviderListener.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\OSPFIND.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\OSPCOMP.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\OSPFORMAT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -95,7 +102,7 @@ class OLEDBSimpleProvider extends IUnknown {
      * @returns {BSTR} 
      */
     getLocale() {
-        pbstrLocale := BSTR()
+        pbstrLocale := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrLocale, "HRESULT")
         return pbstrLocale
     }

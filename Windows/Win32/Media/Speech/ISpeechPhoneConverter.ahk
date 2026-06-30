@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -75,7 +76,7 @@ class ISpeechPhoneConverter extends IDispatch {
      * @returns {BSTR} 
      */
     IdToPhone(IdArray) {
-        Phonemes := BSTR()
+        Phonemes := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", IdArray, "ptr", Phonemes, "HRESULT")
         return Phonemes
     }

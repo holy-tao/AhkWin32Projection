@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SECURE_ELEMENT_ENDPOINT_INFO.ahk
 #Include .\SECURE_ELEMENT_TYPE.ahk
 
@@ -9,7 +10,7 @@
 class SECURE_ELEMENT_ENDPOINT_LIST extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -25,7 +26,7 @@ class SECURE_ELEMENT_ENDPOINT_LIST extends Win32Struct {
     EndpointList {
         get {
             if(!this.HasProp("__EndpointListProxyArray"))
-                this.__EndpointListProxyArray := Win32FixedArray(this.ptr + 8, 1, SECURE_ELEMENT_ENDPOINT_INFO, "")
+                this.__EndpointListProxyArray := Win32FixedArray(this.ptr + 4, 1, SECURE_ELEMENT_ENDPOINT_INFO, "")
             return this.__EndpointListProxyArray
         }
     }

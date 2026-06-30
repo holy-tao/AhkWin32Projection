@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE.ahk
-#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_SIZE_RANGE.ahk
 
 /**

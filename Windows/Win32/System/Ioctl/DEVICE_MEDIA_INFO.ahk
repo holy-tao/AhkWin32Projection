@@ -13,7 +13,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct {
 
     static packingSize => 8
 
-    class _DeviceSpecific_e__Union extends Win32Struct {
+    class _DeviceSpecific extends Win32Struct {
         static sizeof => 32
         static packingSize => 8
 
@@ -143,7 +143,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct {
             static sizeof => 20
             static packingSize => 4
 
-            class _BusSpecificData_e__Union extends Win32Struct {
+            class _BusSpecificData extends Win32Struct {
                 static sizeof => 2
                 static packingSize => 1
 
@@ -174,7 +174,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct {
                 ScsiInformation {
                     get {
                         if(!this.HasProp("__ScsiInformation"))
-                            this.__ScsiInformation := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._TapeInfo._BusSpecificData_e__Union._ScsiInformation(0, this)
+                            this.__ScsiInformation := DEVICE_MEDIA_INFO._DeviceSpecific._TapeInfo._BusSpecificData._ScsiInformation(0, this)
                         return this.__ScsiInformation
                     }
                 }
@@ -213,12 +213,12 @@ class DEVICE_MEDIA_INFO extends Win32Struct {
             }
 
             /**
-             * @type {_BusSpecificData_e__Union}
+             * @type {_BusSpecificData}
              */
             BusSpecificData {
                 get {
                     if(!this.HasProp("__BusSpecificData"))
-                        this.__BusSpecificData := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._TapeInfo._BusSpecificData_e__Union(16, this)
+                        this.__BusSpecificData := DEVICE_MEDIA_INFO._DeviceSpecific._TapeInfo._BusSpecificData(16, this)
                     return this.__BusSpecificData
                 }
             }
@@ -230,7 +230,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct {
         DiskInfo {
             get {
                 if(!this.HasProp("__DiskInfo"))
-                    this.__DiskInfo := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._DiskInfo(0, this)
+                    this.__DiskInfo := DEVICE_MEDIA_INFO._DeviceSpecific._DiskInfo(0, this)
                 return this.__DiskInfo
             }
         }
@@ -241,7 +241,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct {
         RemovableDiskInfo {
             get {
                 if(!this.HasProp("__RemovableDiskInfo"))
-                    this.__RemovableDiskInfo := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._RemovableDiskInfo(0, this)
+                    this.__RemovableDiskInfo := DEVICE_MEDIA_INFO._DeviceSpecific._RemovableDiskInfo(0, this)
                 return this.__RemovableDiskInfo
             }
         }
@@ -252,7 +252,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct {
         TapeInfo {
             get {
                 if(!this.HasProp("__TapeInfo"))
-                    this.__TapeInfo := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union._TapeInfo(0, this)
+                    this.__TapeInfo := DEVICE_MEDIA_INFO._DeviceSpecific._TapeInfo(0, this)
                 return this.__TapeInfo
             }
         }
@@ -260,12 +260,12 @@ class DEVICE_MEDIA_INFO extends Win32Struct {
 
     /**
      * A union that contains the following members.
-     * @type {_DeviceSpecific_e__Union}
+     * @type {_DeviceSpecific}
      */
     DeviceSpecific {
         get {
             if(!this.HasProp("__DeviceSpecific"))
-                this.__DeviceSpecific := DEVICE_MEDIA_INFO._DeviceSpecific_e__Union(0, this)
+                this.__DeviceSpecific := DEVICE_MEDIA_INFO._DeviceSpecific(0, this)
             return this.__DeviceSpecific
         }
     }

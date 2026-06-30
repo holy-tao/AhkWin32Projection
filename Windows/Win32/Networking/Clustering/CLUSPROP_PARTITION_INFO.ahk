@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUS_PARTITION_INFO.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
+#Include .\CLUSPROP_VALUE.ahk
 
 /**
  * Contains information relevant to storage class resources.

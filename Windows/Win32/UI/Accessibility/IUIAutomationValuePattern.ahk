@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to a control that contains a value that does not span a range and that can be represented as a string.
@@ -87,7 +89,7 @@ class IUIAutomationValuePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentvalue
      */
     get_CurrentValue() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -114,7 +116,7 @@ class IUIAutomationValuePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_cachedvalue
      */
     get_CachedValue() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", retVal, "HRESULT")
         return retVal
     }

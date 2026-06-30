@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODER_HEAP_DESC.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
 #Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
+#Include .\D3D12_VIDEO_DECODER_HEAP_DESC.ahk
 #Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

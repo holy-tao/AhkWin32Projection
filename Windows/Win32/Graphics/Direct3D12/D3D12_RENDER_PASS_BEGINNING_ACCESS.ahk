@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE.ahk
+#Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS.ahk
+#Include .\D3D12_DEPTH_STENCIL_VALUE.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS.ahk
 #Include .\D3D12_CLEAR_VALUE.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_DEPTH_STENCIL_VALUE.ahk
-#Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS.ahk
+#Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE.ahk
 
 /**
  * Describes the access to resource(s) that is requested by an application at the transition into a render pass.

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**

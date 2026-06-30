@@ -1,7 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_COMPILER_CACHE_VALUE_KEY.ahk
 #Include .\ID3D12CompilerFactoryChild.ahk
+#Include .\D3D12_COMPILER_CACHE_TYPED_CONST_VALUE.ahk
+#Include .\D3D12_APPLICATION_DESC.ahk
+#Include .\D3D12_COMPILER_CACHE_TYPED_VALUE.ahk
+#Include .\D3D12_COMPILER_TARGET.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D12_COMPILER_VALUE_TYPE_FLAGS.ahk
+#Include .\D3D12_COMPILER_CACHE_GROUP_KEY.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

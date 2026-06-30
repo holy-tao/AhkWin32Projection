@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Determines which menu item, if any, is at the specified location.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-menuitemfrompoint
  * @namespace Windows.Win32.System.Mmc
  */
 class MenuItem extends IDispatch {
@@ -76,7 +76,7 @@ class MenuItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        DisplayName := BSTR()
+        DisplayName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", DisplayName, "HRESULT")
         return DisplayName
     }
@@ -86,7 +86,7 @@ class MenuItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_LanguageIndependentName() {
-        LanguageIndependentName := BSTR()
+        LanguageIndependentName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", LanguageIndependentName, "HRESULT")
         return LanguageIndependentName
     }
@@ -96,7 +96,7 @@ class MenuItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_Path() {
-        _Path := BSTR()
+        _Path := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", _Path, "HRESULT")
         return _Path
     }
@@ -106,15 +106,14 @@ class MenuItem extends IDispatch {
      * @returns {BSTR} 
      */
     get_LanguageIndependentPath() {
-        LanguageIndependentPath := BSTR()
+        LanguageIndependentPath := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", LanguageIndependentPath, "HRESULT")
         return LanguageIndependentPath
     }
 
     /**
-     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
-     * @returns {HRESULT} This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
+     * 
+     * @returns {HRESULT} 
      */
     Execute() {
         result := ComCall(11, this, "HRESULT")

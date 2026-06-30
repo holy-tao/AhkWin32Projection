@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\ISequentialStream.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * A write-only stream interface into which an application writes print job data.

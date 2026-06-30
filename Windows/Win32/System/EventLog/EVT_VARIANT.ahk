@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\EVT_HANDLE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\PSID.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * Contains event data or property values.

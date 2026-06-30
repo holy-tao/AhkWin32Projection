@@ -1,14 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Variant\VARENUM.ahk
-#Include ..\..\System\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\..\System\Ole\IRecordInfo.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\CY.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * The TS_ATTRVAL structure contains document attribute values.
@@ -18,17 +22,20 @@
  * @namespace Windows.Win32.UI.TextServices
  */
 class TS_ATTRVAL extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
      * GUID for the attribute type.
-     * @type {Pointer}
+     * @type {Guid}
      */
     idAttr {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__idAttr"))
+                this.__idAttr := Guid(0, this)
+            return this.__idAttr
+        }
     }
 
     /**
@@ -36,8 +43,8 @@ class TS_ATTRVAL extends Win32Struct {
      * @type {Integer}
      */
     dwOverlapId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -47,7 +54,7 @@ class TS_ATTRVAL extends Win32Struct {
     varValue {
         get {
             if(!this.HasProp("__varValue"))
-                this.__varValue := VARIANT(16, this)
+                this.__varValue := VARIANT(24, this)
             return this.__varValue
         }
     }

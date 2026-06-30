@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MS_ADDINFO_FLAT.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include ..\CRYPT_INTEGER_BLOB.ahk
-#Include .\MS_ADDINFO_FLAT.ahk
-#Include ..\Catalog\MS_ADDINFO_CATALOGMEMBER.ahk
-#Include .\MS_ADDINFO_BLOB.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\MS_ADDINFO_DETACHEDSIG.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\MS_ADDINFO_BLOB.ahk
+#Include ..\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\Catalog\MS_ADDINFO_CATALOGMEMBER.ahk
 
 /**
  * Specifies subject information data to the subject interface package (SIP) APIs.

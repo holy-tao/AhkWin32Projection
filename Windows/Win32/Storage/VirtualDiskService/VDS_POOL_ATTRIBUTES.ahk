@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_RAID_TYPE.ahk
 #Include .\VDS_STORAGE_BUS_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\VDS_RAID_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\VDS_POOL_CUSTOM_ATTRIBUTES.ahk
 
 /**

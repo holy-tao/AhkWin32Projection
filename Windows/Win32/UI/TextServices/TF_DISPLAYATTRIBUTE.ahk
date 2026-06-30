@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TF_DA_COLOR.ahk
-#Include .\TF_DA_COLORTYPE.ahk
-#Include .\TF_DA_LINESTYLE.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include .\TF_DA_ATTR_INFO.ahk
+#Include .\TF_DA_LINESTYLE.ahk
+#Include .\TF_DA_COLORTYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\TF_DA_COLOR.ahk
 
 /**
  * The TF_DISPLAYATTRIBUTE structure contains display attribute data for rendering text.

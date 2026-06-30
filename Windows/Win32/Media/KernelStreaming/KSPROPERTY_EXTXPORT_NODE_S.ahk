@@ -1,19 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TRANSPORT_STATE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MEDIUM_INFO.ahk
 #Include .\KSP_NODE.ahk
 #Include .\KSIDENTIFIER.ahk
-#Include .\MEDIUM_INFO.ahk
-#Include .\TRANSPORT_STATE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct {
-    static sizeof => 544
+    static sizeof => 552
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 516
         static packingSize => 4
 
@@ -130,7 +132,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct {
         Timecode {
             get {
                 if(!this.HasProp("__Timecode"))
-                    this.__Timecode := KSPROPERTY_EXTXPORT_NODE_S._u_e__Union._Timecode(0, this)
+                    this.__Timecode := KSPROPERTY_EXTXPORT_NODE_S._u._Timecode(0, this)
                 return this.__Timecode
             }
         }
@@ -157,7 +159,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct {
         RawAVC {
             get {
                 if(!this.HasProp("__RawAVC"))
-                    this.__RawAVC := KSPROPERTY_EXTXPORT_NODE_S._u_e__Union._RawAVC(0, this)
+                    this.__RawAVC := KSPROPERTY_EXTXPORT_NODE_S._u._RawAVC(0, this)
                 return this.__RawAVC
             }
         }
@@ -175,12 +177,12 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := KSPROPERTY_EXTXPORT_NODE_S._u_e__Union(24, this)
+                this.__u := KSPROPERTY_EXTXPORT_NODE_S._u(32, this)
             return this.__u
         }
     }

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_CONTROLLER_STATUS.ahk
 #Include .\VDS_HEALTH.ahk
+#Include .\VDS_CONTROLLER_STATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The VDS_CONTROLLER_PROP structure (vdshwprv.h) defines the properties of a controller object.
@@ -12,17 +14,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_CONTROLLER_PROP extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
      * The GUID of the controller object.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -30,8 +35,8 @@ class VDS_CONTROLLER_PROP extends Win32Struct {
      * @type {PWSTR}
      */
     pwszFriendlyName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -39,8 +44,8 @@ class VDS_CONTROLLER_PROP extends Win32Struct {
      * @type {PWSTR}
      */
     pwszIdentification {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -49,8 +54,8 @@ class VDS_CONTROLLER_PROP extends Win32Struct {
      * @type {VDS_CONTROLLER_STATUS}
      */
     status {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -61,8 +66,8 @@ class VDS_CONTROLLER_PROP extends Win32Struct {
      * @type {VDS_HEALTH}
      */
     health {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -70,7 +75,7 @@ class VDS_CONTROLLER_PROP extends Win32Struct {
      * @type {Integer}
      */
     sNumberOfPorts {
-        get => NumGet(this, 32, "short")
-        set => NumPut("short", value, this, 32)
+        get => NumGet(this, 40, "short")
+        set => NumPut("short", value, this, 40)
     }
 }

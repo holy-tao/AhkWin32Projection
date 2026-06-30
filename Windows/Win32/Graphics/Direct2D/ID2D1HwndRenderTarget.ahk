@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1RenderTarget.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D2D1_WINDOW_STATE.ahk
+#Include .\ID2D1RenderTarget.ahk
+#Include Common\D2D_SIZE_U.ahk
 
 /**
  * Renders drawing instructions to a window.

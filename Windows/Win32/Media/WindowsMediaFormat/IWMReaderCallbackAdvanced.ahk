@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WMT_STREAM_SELECTION.ahk
 #Include .\INSSBuffer.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WM_MEDIA_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMReaderCallback interface is implemented by the application to handle data being read from a file.

@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The children of the indicated feature are included in the cost.
- * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturecosta
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class MSICOSTTREE extends Win32Enum {

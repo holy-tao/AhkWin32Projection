@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The AMCOPPCommand structure contains a Certified Output Protection Protocol (COPP) command.
@@ -24,26 +25,32 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class AMCOPPCommand extends Win32Struct {
-    static sizeof => 4080
+    static sizeof => 4096
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Message Authentication Code (MAC) of the command data. Use AES-based one-key CBC MAC (OMAC) to calculate this value.
-     * @type {Pointer}
+     * @type {Guid}
      */
     macKDI {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__macKDI"))
+                this.__macKDI := Guid(0, this)
+            return this.__macKDI
+        }
     }
 
     /**
      * GUID that specifies the command.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidCommandID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidCommandID"))
+                this.__guidCommandID := Guid(16, this)
+            return this.__guidCommandID
+        }
     }
 
     /**
@@ -51,8 +58,8 @@ class AMCOPPCommand extends Win32Struct {
      * @type {Integer}
      */
     dwSequence {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -60,8 +67,8 @@ class AMCOPPCommand extends Win32Struct {
      * @type {Integer}
      */
     cbSizeData {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -71,7 +78,7 @@ class AMCOPPCommand extends Win32Struct {
     CommandData {
         get {
             if(!this.HasProp("__CommandDataProxyArray"))
-                this.__CommandDataProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")
+                this.__CommandDataProxyArray := Win32FixedArray(this.ptr + 40, 4056, Primitive, "char")
             return this.__CommandDataProxyArray
         }
     }

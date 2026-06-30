@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D11View.ahk
+#Include .\D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC.ahk
 
 /**
  * Identifies the output surfaces that can be accessed during video decoding.

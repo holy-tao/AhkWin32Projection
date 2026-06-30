@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_WPS_DEVICE_NAME.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_WFD_DEVICE_TYPE.ahk
-#Include .\DOT11_WPS_DEVICE_NAME.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

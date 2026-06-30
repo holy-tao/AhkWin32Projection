@@ -4,6 +4,7 @@
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ISignerCertificate.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISignerCertificates interface defines the following methods and properties to manage a collection of ISignerCertificate objects.

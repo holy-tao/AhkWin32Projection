@@ -1,16 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_GRAPH_EVENT_TYPE.ahk
 #Include .\PEER_GRAPH_STATUS_FLAGS.ahk
-#Include .\PEER_EVENT_INCOMING_DATA.ahk
-#Include .\PEER_DATA.ahk
-#Include .\PEER_EVENT_RECORD_CHANGE_DATA.ahk
-#Include .\PEER_RECORD_CHANGE_TYPE.ahk
-#Include .\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk
-#Include .\PEER_CONNECTION_STATUS.ahk
-#Include .\PEER_EVENT_NODE_CHANGE_DATA.ahk
-#Include .\PEER_NODE_CHANGE_TYPE.ahk
 #Include .\PEER_EVENT_SYNCHRONIZED_DATA.ahk
+#Include .\PEER_RECORD_CHANGE_TYPE.ahk
+#Include .\PEER_EVENT_NODE_CHANGE_DATA.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PEER_CONNECTION_STATUS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PEER_GRAPH_EVENT_TYPE.ahk
+#Include .\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk
+#Include .\PEER_NODE_CHANGE_TYPE.ahk
+#Include .\PEER_EVENT_RECORD_CHANGE_DATA.ahk
+#Include .\PEER_DATA.ahk
+#Include .\PEER_EVENT_INCOMING_DATA.ahk
 
 /**
  * The PEER_GRAPH_EVENT_DATA structure contains data associated with a peer event.
@@ -18,7 +21,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_GRAPH_EVENT_DATA extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 

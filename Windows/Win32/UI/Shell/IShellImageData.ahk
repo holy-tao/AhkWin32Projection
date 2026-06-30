@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk
 #Include .\IShellImageDataAbort.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\GdiPlus\InterpolationMode.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods and properties that display, manipulate, and describe image data.

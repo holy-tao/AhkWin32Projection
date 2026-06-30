@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IWiaItem2.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IWiaItem2.ahk
 
 /**
  * DEVICEDIALOGDATA2 structure - Defines the data needed to call a device dialog.

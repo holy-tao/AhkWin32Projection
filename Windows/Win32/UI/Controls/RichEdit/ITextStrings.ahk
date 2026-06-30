@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ITextRange2.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITextStrings interface represents a collection of rich-text strings that are useful for manipulating rich text.

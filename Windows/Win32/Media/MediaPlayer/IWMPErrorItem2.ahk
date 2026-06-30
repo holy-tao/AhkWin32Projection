@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWMPErrorItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMPErrorItem2 interface provides a method that supplements the IWMPErrorItem interface.

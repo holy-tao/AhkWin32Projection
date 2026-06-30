@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HMENU.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\HMENU.ahk
 
 /**
  * Contains information about the menu to be activated.

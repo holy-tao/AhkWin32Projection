@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMarkupPointer.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -44,7 +47,7 @@ class IMarkupTextFrags extends IUnknown {
      * @returns {BSTR} 
      */
     GetTextFrag(iFrag, pPointerFrag) {
-        pbstrFrag := BSTR()
+        pbstrFrag := BSTR({Value: 0}, True)
         result := ComCall(4, this, "int", iFrag, "ptr", pbstrFrag, "ptr", pPointerFrag, "HRESULT")
         return pbstrFrag
     }

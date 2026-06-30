@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1GdiMetafile.ahk
 #Include Common\D2D_RECT_F.ahk
+#Include .\ID2D1GdiMetafile.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface performs all the same functions as the existing ID2D1GdiMetafile interface. It also enables accessing the metafile DPI and bounds.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFVideoMixerControl.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Controls preferences for video deinterlacing.

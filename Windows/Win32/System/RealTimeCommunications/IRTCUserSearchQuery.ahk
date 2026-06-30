@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\RTC_USER_SEARCH_PREFERENCE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -65,7 +67,7 @@ class IRTCUserSearchQuery extends IUnknown {
     get_SearchTerm(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        pbstrValue := BSTR()
+        pbstrValue := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", bstrName, "ptr", pbstrValue, "HRESULT")
         return pbstrValue
     }
@@ -75,7 +77,7 @@ class IRTCUserSearchQuery extends IUnknown {
      * @returns {BSTR} 
      */
     get_SearchTerms() {
-        pbstrNames := BSTR()
+        pbstrNames := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pbstrNames, "HRESULT")
         return pbstrNames
     }
@@ -118,7 +120,7 @@ class IRTCUserSearchQuery extends IUnknown {
      * @returns {BSTR} 
      */
     get_SearchDomain() {
-        pbstrDomain := BSTR()
+        pbstrDomain := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrDomain, "HRESULT")
         return pbstrDomain
     }

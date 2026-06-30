@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Returns an object implementing the IRDPSRAPIApplicationFilter interface. (IRDPSRAPISharingSession.get_ApplicationFilter)
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_applicationfilter
  * @namespace Windows.Win32.System.DesktopSharing
  */
 class RDPSession extends Win32Struct {

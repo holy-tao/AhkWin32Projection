@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IAppxManifestReader.ahk
 #Include .\IAppxManifestQualifiedResourcesEnumerator.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader2)

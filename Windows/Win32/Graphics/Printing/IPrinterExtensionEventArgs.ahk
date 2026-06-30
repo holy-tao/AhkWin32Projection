@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrinterExtensionContext.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPrinterExtensionRequest.ahk
+#Include .\IPrinterExtensionContext.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IPrinterExtensionRequest.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -85,7 +87,7 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
      * @returns {BSTR} 
      */
     get_BidiNotification() {
-        pbstrBidiNotification := BSTR()
+        pbstrBidiNotification := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrBidiNotification, "HRESULT")
         return pbstrBidiNotification
     }
@@ -114,7 +116,7 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
      * @returns {BSTR} 
      */
     get_SourceApplication() {
-        pbstrApplication := BSTR()
+        pbstrApplication := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrApplication, "HRESULT")
         return pbstrApplication
     }
@@ -143,7 +145,7 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext {
      * @returns {HANDLE} 
      */
     get_WindowParent() {
-        phwndParent := HANDLE()
+        phwndParent := HANDLE({Value: 0}, True)
         result := ComCall(17, this, "ptr", phwndParent, "HRESULT")
         return phwndParent
     }

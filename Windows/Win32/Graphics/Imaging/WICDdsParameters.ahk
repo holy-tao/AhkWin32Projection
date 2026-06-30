@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\WICDdsDimension.ahk
 #Include .\WICDdsAlphaMode.ahk
+#Include .\WICDdsDimension.ahk
 
 /**
  * Specifies the DDS image dimension, DXGI_FORMAT and alpha mode of contained data.

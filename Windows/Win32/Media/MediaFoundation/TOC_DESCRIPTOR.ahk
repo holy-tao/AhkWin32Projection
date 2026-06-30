@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The TOC_DESCRIPTOR structure holds descriptive information for a table of contents.
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class TOC_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A globally unique identifier (<b>GUID</b>) that identifies an individual table of contents. This identifier has meaning only to the you, the developer. TOC Parser does not inspect or interpret this identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidID"))
+                this.__guidID := Guid(0, this)
+            return this.__guidID
+        }
     }
 
     /**
@@ -27,17 +31,20 @@ class TOC_DESCRIPTOR extends Win32Struct {
      * @type {Integer}
      */
     wStreamNumber {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 
     /**
      * A globally unique identifier (<b>GUID</b>) that identifies a table of contents as belonging to a particular type. This identifier has meaning only to you, the developer. TOC Parser does not inspect or interpret this identifier. See Remarks.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidType"))
+                this.__guidType := Guid(20, this)
+            return this.__guidType
+        }
     }
 
     /**
@@ -45,7 +52,7 @@ class TOC_DESCRIPTOR extends Win32Struct {
      * @type {Integer}
      */
     wLanguageIndex {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
+        get => NumGet(this, 36, "ushort")
+        set => NumPut("ushort", value, this, 36)
     }
 }

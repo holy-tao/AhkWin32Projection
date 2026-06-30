@@ -4,6 +4,8 @@
 #Include .\IDWriteFontFamily.ahk
 #Include .\IDWriteFont3.ahk
 #Include .\IDWriteFontFaceReference.ahk
+#Include .\DWRITE_LOCALITY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a family of related fonts. (IDWriteFontFamily1)

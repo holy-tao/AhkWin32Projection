@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\DirectDraw\DDSURFACEDESC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\DirectDraw\DDCAPS_DX7.ahk
 #Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
+#Include ..\..\Graphics\DirectDraw\DDCAPS_DX7.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDirectDrawVideo interface queries the Video Renderer filter about DirectDraw surfaces and hardware capabilities.Applications can use this interface to control what DirectDraw features the Video Renderer will take advantage of.

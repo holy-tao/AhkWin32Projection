@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IKsObject.ahk
+#Include .\IKsPin.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

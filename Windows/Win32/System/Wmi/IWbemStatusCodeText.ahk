@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWbemStatusCodeText interface extracts text string descriptions of error codes or the name of the subsystem where the error occurred.
@@ -49,7 +50,7 @@ class IWbemStatusCodeText extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemstatuscodetext-geterrorcodetext
      */
     GetErrorCodeText(hRes, LocaleId, lFlags) {
-        MessageText := BSTR()
+        MessageText := BSTR({Value: 0}, True)
         result := ComCall(3, this, "int", hRes, "uint", LocaleId, "int", lFlags, "ptr", MessageText, "HRESULT")
         return MessageText
     }
@@ -68,7 +69,7 @@ class IWbemStatusCodeText extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemstatuscodetext-getfacilitycodetext
      */
     GetFacilityCodeText(hRes, LocaleId, lFlags) {
-        MessageText := BSTR()
+        MessageText := BSTR({Value: 0}, True)
         result := ComCall(4, this, "int", hRes, "uint", LocaleId, "int", lFlags, "ptr", MessageText, "HRESULT")
         return MessageText
     }

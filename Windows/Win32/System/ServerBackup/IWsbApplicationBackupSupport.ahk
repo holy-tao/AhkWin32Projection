@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IWsbApplicationAsync.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a method for checking the consistency of the application's VSS writer's components.

@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IUpdateCollection.ahk
 #Include .\IInstallationJob.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IUpdateCollection.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IInstallationResult.ahk
 
 /**
@@ -113,7 +116,7 @@ class IUpdateInstaller extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }

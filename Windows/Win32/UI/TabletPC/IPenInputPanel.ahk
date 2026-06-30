@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\PanelType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * . (IPenInputPanel)
@@ -172,7 +175,7 @@ class IPenInputPanel extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_factoid
      */
     get_Factoid() {
-        Factoid := BSTR()
+        Factoid := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", Factoid, "HRESULT")
         return Factoid
     }

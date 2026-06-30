@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSD_ENDPOINT_REFERENCE.ahk
-#Include .\WSD_LOCALIZED_STRING.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_LOCALIZED_STRING.ahk
 
 /**
  * Represents a WS-Eventing SubscriptionEnd response message.

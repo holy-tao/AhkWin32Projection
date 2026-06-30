@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables two threads to share the same Direct3D 9 device, and provides access to the DirectX Video Acceleration (DXVA) features of the device.
@@ -109,7 +112,7 @@ class IDirect3DDeviceManager9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-opendevicehandle
      */
     OpenDeviceHandle() {
-        phDevice := HANDLE()
+        phDevice := HANDLE({Value: 0}, True)
         result := ComCall(4, this, "ptr", phDevice, "HRESULT")
         return phDevice
     }

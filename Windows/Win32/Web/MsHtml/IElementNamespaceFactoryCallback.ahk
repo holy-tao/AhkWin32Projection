@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IElementNamespace.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -28,13 +31,12 @@ class IElementNamespaceFactoryCallback extends IUnknown {
     static VTableNames => ["Resolve"]
 
     /**
-     * Locates the target function of the specified import and replaces the function pointer in the import thunk with the target of the function implementation.
+     * 
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrTagName 
      * @param {BSTR} bstrAttrs 
      * @param {IElementNamespace} pNamespace 
-     * @returns {HRESULT} The address of the import, or the failure stub for it.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/resolvedelayloadedapi
+     * @returns {HRESULT} 
      */
     Resolve(bstrNamespace, bstrTagName, bstrAttrs, pNamespace) {
         bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace

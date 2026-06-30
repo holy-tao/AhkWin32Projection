@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFCameraExtrinsic_CalibratedTransform.ahk
 #Include .\MF_FLOAT3.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\MF_QUATERNION.ahk
+#Include .\MFCameraExtrinsic_CalibratedTransform.ahk
 
 /**
  * Describes the location of a camera relative to other cameras or an established external reference.
@@ -12,7 +13,7 @@
 class MFCameraExtrinsics extends Win32Struct {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of transforms in the <i>CalibratedTransforms</i> array.
@@ -30,7 +31,7 @@ class MFCameraExtrinsics extends Win32Struct {
     CalibratedTransforms {
         get {
             if(!this.HasProp("__CalibratedTransformsProxyArray"))
-                this.__CalibratedTransformsProxyArray := Win32FixedArray(this.ptr + 8, 1, MFCameraExtrinsic_CalibratedTransform, "")
+                this.__CalibratedTransformsProxyArray := Win32FixedArray(this.ptr + 4, 1, MFCameraExtrinsic_CalibratedTransform, "")
             return this.__CalibratedTransformsProxyArray
         }
     }

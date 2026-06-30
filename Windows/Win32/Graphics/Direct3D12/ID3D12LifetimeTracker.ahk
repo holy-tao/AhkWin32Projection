@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12DeviceChild.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents facilities for controlling the lifetime a lifetime-tracked object.

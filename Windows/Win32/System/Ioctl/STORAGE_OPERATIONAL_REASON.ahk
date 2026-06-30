@@ -10,7 +10,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct {
 
     static packingSize => 4
 
-    class _RawBytes_e__Union extends Win32Struct {
+    class _RawBytes extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -89,7 +89,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct {
         ScsiSenseKey {
             get {
                 if(!this.HasProp("__ScsiSenseKey"))
-                    this.__ScsiSenseKey := STORAGE_OPERATIONAL_REASON._RawBytes_e__Union._ScsiSenseKey(0, this)
+                    this.__ScsiSenseKey := STORAGE_OPERATIONAL_REASON._RawBytes._ScsiSenseKey(0, this)
                 return this.__ScsiSenseKey
             }
         }
@@ -100,7 +100,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct {
         NVDIMM_N {
             get {
                 if(!this.HasProp("__NVDIMM_N"))
-                    this.__NVDIMM_N := STORAGE_OPERATIONAL_REASON._RawBytes_e__Union._NVDIMM_N(0, this)
+                    this.__NVDIMM_N := STORAGE_OPERATIONAL_REASON._RawBytes._NVDIMM_N(0, this)
                 return this.__NVDIMM_N
             }
         }
@@ -139,12 +139,12 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct {
     }
 
     /**
-     * @type {_RawBytes_e__Union}
+     * @type {_RawBytes}
      */
     RawBytes {
         get {
             if(!this.HasProp("__RawBytes"))
-                this.__RawBytes := STORAGE_OPERATIONAL_REASON._RawBytes_e__Union(12, this)
+                this.__RawBytes := STORAGE_OPERATIONAL_REASON._RawBytes(12, this)
             return this.__RawBytes
         }
     }

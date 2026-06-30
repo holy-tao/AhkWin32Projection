@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to check the opportunistic lock that is used by Microsoft Windows Desktop Search (WDS) on items while indexing.
@@ -68,7 +70,7 @@ class IOpLockStatus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-getoplockeventhandle
      */
     GetOplockEventHandle() {
-        phOplockEv := HANDLE()
+        phOplockEv := HANDLE({Value: 0}, True)
         result := ComCall(5, this, "ptr", phOplockEv, "HRESULT")
         return phOplockEv
     }

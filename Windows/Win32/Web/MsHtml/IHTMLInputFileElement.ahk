@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLFormElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -119,7 +121,7 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -141,7 +143,7 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -483,7 +485,7 @@ class IHTMLInputFileElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_value() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", p, "HRESULT")
         return p
     }

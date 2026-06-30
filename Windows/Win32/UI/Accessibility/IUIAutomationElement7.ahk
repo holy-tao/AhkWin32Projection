@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElement6.ahk
+#Include .\UIA_METADATA_ID.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include .\TreeScope.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IUIAutomationElement.ahk
 #Include .\IUIAutomationElementArray.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\TreeTraversalOptions.ahk
+#Include .\IUIAutomationElement6.ahk
+#Include .\IUIAutomationCondition.ahk
 
 /**
  * Extends the IUIAutomationElement6 interface.

@@ -2,10 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\IEnumComponents.ahk
 #Include .\IComponent.ahk
+#Include .\IEnumComponents.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IComponents interface represents a collection of components.

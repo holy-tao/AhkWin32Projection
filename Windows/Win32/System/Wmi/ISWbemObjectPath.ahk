@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ISWbemNamedValueSet.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ISWbemSecurity.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -140,7 +142,7 @@ class ISWbemObjectPath extends IDispatch {
      * @returns {BSTR} 
      */
     get_Path() {
-        strPath := BSTR()
+        strPath := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", strPath, "HRESULT")
         return strPath
     }
@@ -162,7 +164,7 @@ class ISWbemObjectPath extends IDispatch {
      * @returns {BSTR} 
      */
     get_RelPath() {
-        strRelPath := BSTR()
+        strRelPath := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", strRelPath, "HRESULT")
         return strRelPath
     }
@@ -184,7 +186,7 @@ class ISWbemObjectPath extends IDispatch {
      * @returns {BSTR} 
      */
     get_Server() {
-        strServer := BSTR()
+        strServer := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", strServer, "HRESULT")
         return strServer
     }
@@ -206,7 +208,7 @@ class ISWbemObjectPath extends IDispatch {
      * @returns {BSTR} 
      */
     get_Namespace() {
-        strNamespace := BSTR()
+        strNamespace := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", strNamespace, "HRESULT")
         return strNamespace
     }
@@ -228,7 +230,7 @@ class ISWbemObjectPath extends IDispatch {
      * @returns {BSTR} 
      */
     get_ParentNamespace() {
-        strParentNamespace := BSTR()
+        strParentNamespace := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", strParentNamespace, "HRESULT")
         return strParentNamespace
     }
@@ -238,7 +240,7 @@ class ISWbemObjectPath extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        strDisplayName := BSTR()
+        strDisplayName := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", strDisplayName, "HRESULT")
         return strDisplayName
     }
@@ -260,7 +262,7 @@ class ISWbemObjectPath extends IDispatch {
      * @returns {BSTR} 
      */
     get_Class() {
-        strClass := BSTR()
+        strClass := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", strClass, "HRESULT")
         return strClass
     }
@@ -336,7 +338,7 @@ class ISWbemObjectPath extends IDispatch {
      * @returns {BSTR} 
      */
     get_Locale() {
-        strLocale := BSTR()
+        strLocale := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", strLocale, "HRESULT")
         return strLocale
     }
@@ -358,7 +360,7 @@ class ISWbemObjectPath extends IDispatch {
      * @returns {BSTR} 
      */
     get_Authority() {
-        strAuthority := BSTR()
+        strAuthority := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", strAuthority, "HRESULT")
         return strAuthority
     }

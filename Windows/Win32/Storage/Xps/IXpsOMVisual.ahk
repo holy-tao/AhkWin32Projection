@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMShareable.ahk
-#Include .\IXpsOMMatrixTransform.ahk
 #Include .\IXpsOMGeometry.ahk
+#Include .\IXpsOMMatrixTransform.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IXpsOMBrush.ahk
 #Include ..\..\System\Com\IUri.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IXpsOMShareable.ahk
 
 /**
  * The base interface for path, canvas, and glyph interfaces.

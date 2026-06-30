@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_X64_CPUID_RESULT2_FLAGS.ahk
 #Include .\WHV_CPUID_OUTPUT.ahk
+#Include .\WHV_X64_CPUID_RESULT2_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor

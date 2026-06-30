@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ICorConfiguration.ahk
 
 /**
@@ -84,33 +87,14 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * Computes the checksum of the specified file. (ANSI)
-     * @remarks
-     * The 
-     * <b>MapFileAndCheckSum</b> function computes a new checksum for the file and returns it in the <i>CheckSum</i> parameter. This function is used by any application that creates or modifies an executable image. Checksums are required for kernel-mode drivers and some system DLLs. The linker computes the original checksum at link time, if you use the appropriate linker switch. For more details, see your linker documentation.
      * 
-     * It is recommended that all images have valid checksums. It is the caller's responsibility to place the newly computed checksum into the mapped image and update the on-disk image of the file.
-     * 
-     * Passing a <i>Filename</i> parameter that does not point to a valid executable image will produce unpredictable results.  Any user of this function is encouraged to make sure that a valid executable image is being passed.
-     * 
-     * All ImageHlp functions, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
-     * 
-     * <div class="alert"><b>Note</b>  The Unicode implementation of this function calls the ASCII implementation and as a result, the function can fail if the codepage does not support the characters in the path. For example, if you pass a non-English Unicode file path, and the default codepage is English, the unrecognized non-English wide chars are converted to "??" and the file cannot be opened (the function returns CHECKSUM_OPEN_FAILURE).</div>
-     * <div> </div>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The imagehlp.h header defines MapFileAndCheckSum as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hFile 
      * @returns {HMODULE} 
-     * @see https://learn.microsoft.com/windows/win32/api/imagehlp/nf-imagehlp-mapfileandchecksuma
      */
     MapFile(hFile) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
-        hMapAddress := HMODULE()
+        hMapAddress := HMODULE({Value: 0}, True)
         result := ComCall(8, this, "ptr", hFile, "ptr", hMapAddress, "HRESULT")
         return hMapAddress
     }
@@ -126,15 +110,8 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * Specifies the date and time when the trigger is activated.
-     * @remarks
-     * The **&lt;StartBoundary&gt;** element is a required element for time and calendar triggers ([**&lt;TimeTrigger&gt;**](taskschedulerschema-timetrigger-triggergroup-element.md) and [**&lt;CalendarTrigger&gt;**](taskschedulerschema-calendartrigger-triggergroup-element.md)).
      * 
-     * For scripting development, the end boundary is specified using the [**Trigger.StartBoundary**](trigger-startboundary.md) property that is inherited by the all trigger objects.
-     * 
-     * For C++ development, the end boundary is specified using the [**ITrigger::StartBoundary**](/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary) property that is inherited by the all trigger interfaces.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-startboundary-triggerbasetype-element
      */
     Start() {
         result := ComCall(10, this, "HRESULT")
@@ -142,13 +119,8 @@ class ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
-     * @remarks
-     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
-     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(11, this, "HRESULT")

@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies that the style of the INF file is unrecognized or nonexistent.
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_inf_information
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
 class INF_STYLE extends Win32BitflagEnum {

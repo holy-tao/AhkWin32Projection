@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OBJECT_PROPERTIES_FLAGS.ahk
 #Include ..\..\UI\Controls\PROPSHEETHEADERA_V2.ahk
-#Include .\IOleUIObjInfoA.ahk
+#Include .\OLEUILINKPROPSA.ahk
+#Include .\OLEUIVIEWPROPSA.ahk
 #Include .\IOleUILinkInfoA.ahk
 #Include .\OLEUIGNRLPROPSA.ahk
-#Include .\OLEUIVIEWPROPSA.ahk
-#Include .\OLEUILINKPROPSA.ahk
+#Include .\OBJECT_PROPERTIES_FLAGS.ahk
+#Include .\IOleUIObjInfoA.ahk
 
 /**
  * Contains information that is used to initialize the standard Object Properties dialog box. (ANSI)

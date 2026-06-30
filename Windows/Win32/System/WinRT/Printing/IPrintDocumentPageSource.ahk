@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Include ..\IInspectable.ahk
 #Include .\IPrintPreviewPageCollection.ahk
+#Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Storage\Xps\Printing\IPrintDocumentPackageTarget.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing

@@ -1,15 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IX500DistinguishedName.ahk
-#Include .\IX509CertificateRevocationListEntries.ahk
-#Include .\IX509Extensions.ahk
+#Include .\IX509PublicKey.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IObjectIds.ahk
-#Include .\ISignerCertificate.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IObjectId.ahk
+#Include .\IX509Extensions.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509SignatureInformation.ahk
+#Include .\IX500DistinguishedName.ahk
+#Include .\ISignerCertificate.ahk
+#Include .\EncodingType.ahk
+#Include .\IX509CertificateRevocationListEntries.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -180,26 +184,8 @@ class IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * Represents a block of ASN.1 encoded data.
-     * @remarks
-     * The **EncodedData** object has these types of members:
      * 
-     * -   [Methods](#methods)
-     * -   [Properties](#properties)
-     * 
-     * 
-     * The only supported type of encoded data is [**CertificatePolicies**](certificatepolicies.md).
-     * 
-     * The **EncodedData** object cannot be created.
-     * 
-     * The following CAPICOM object properties return an **EncodedData** object:
-     * 
-     * -   **PublicKey.EncodedKey**
-     * -   **PublicKey.EncodedParameters**
-     * -   **Extension.EncodedData**
-     * -   **Policy.EncodedData**
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/encodeddata
      */
     Encode() {
         result := ComCall(9, this, "HRESULT")
@@ -343,7 +329,7 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {BSTR} 
      */
     get_CRLNumber(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(24, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -451,7 +437,7 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {BSTR} 
      */
     get_RawData(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(35, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -462,7 +448,7 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {BSTR} 
      */
     get_RawDataToBeSigned(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(36, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -473,7 +459,7 @@ class IX509CertificateRevocationList extends IDispatch {
      * @returns {BSTR} 
      */
     get_Signature(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(37, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

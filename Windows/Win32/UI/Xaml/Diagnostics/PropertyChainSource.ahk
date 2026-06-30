@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\BaseValueSource.ahk
 #Include .\SourceInfo.ahk
+#Include .\BaseValueSource.ahk
 
 /**
  * Represents the source object (a Style) of a target type.

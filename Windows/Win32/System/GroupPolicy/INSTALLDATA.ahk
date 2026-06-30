@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\INSTALLSPECTYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\INSTALLSPEC.ahk
 
 /**
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.System.GroupPolicy
  */
 class INSTALLDATA extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 72
 
     static packingSize => 8
 

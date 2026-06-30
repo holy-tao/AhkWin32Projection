@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\APPLICATION_NODE_EVENT_FILTER.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 #Include .\TEXT_DOCUMENT_ARRAY.ahk
+#Include .\IDebugDocument.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

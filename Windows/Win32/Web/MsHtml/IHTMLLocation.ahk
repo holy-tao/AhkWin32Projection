@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -115,7 +117,7 @@ class IHTMLLocation extends IDispatch {
      * @returns {BSTR} 
      */
     get_href() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -137,7 +139,7 @@ class IHTMLLocation extends IDispatch {
      * @returns {BSTR} 
      */
     get_protocol() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -159,7 +161,7 @@ class IHTMLLocation extends IDispatch {
      * @returns {BSTR} 
      */
     get_host() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -181,7 +183,7 @@ class IHTMLLocation extends IDispatch {
      * @returns {BSTR} 
      */
     get_hostname() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -203,7 +205,7 @@ class IHTMLLocation extends IDispatch {
      * @returns {BSTR} 
      */
     get_port() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -225,7 +227,7 @@ class IHTMLLocation extends IDispatch {
      * @returns {BSTR} 
      */
     get_pathname() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -247,7 +249,7 @@ class IHTMLLocation extends IDispatch {
      * @returns {BSTR} 
      */
     get_search() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -269,23 +271,15 @@ class IHTMLLocation extends IDispatch {
      * @returns {BSTR} 
      */
     get_hash() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
 
     /**
-     * Reloads an IME configuration from the HKCU registry, in Japanese IME only.
-     * @remarks
-     * If no registry value is present in HKCU, the **reload\_config** function writes initial data to the registry.
      * 
-     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {VARIANT_BOOL} flag 
-     * @returns {HRESULT} This function has no parameters.
-     * 
-     * 
-     * This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/reload-config
+     * @returns {HRESULT} 
      */
     reload(flag) {
         result := ComCall(23, this, "short", flag, "HRESULT")
@@ -321,7 +315,7 @@ class IHTMLLocation extends IDispatch {
      * @returns {BSTR} 
      */
     toString() {
-        _string := BSTR()
+        _string := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", _string, "HRESULT")
         return _string
     }

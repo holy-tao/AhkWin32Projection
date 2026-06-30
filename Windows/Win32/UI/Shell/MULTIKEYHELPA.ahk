@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * Specifies a keyword to search for and the keyword table to be searched by Windows Help. (ANSI)

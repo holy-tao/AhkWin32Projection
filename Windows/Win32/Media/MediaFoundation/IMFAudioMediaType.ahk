@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFMediaType.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 
 /**
  * IMFAudioMediaType is no longer available for use as of Windows 7.

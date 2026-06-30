@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSMAN_AUTHENTICATION_CREDENTIALS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_USERNAME_PASSWORD_CREDS.ahk
 
 /**

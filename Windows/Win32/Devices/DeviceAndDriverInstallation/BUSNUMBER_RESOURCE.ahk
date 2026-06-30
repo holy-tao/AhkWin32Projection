@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BUSNUMBER_DES.ahk
 #Include .\BUSNUMBER_RANGE.ahk
+#Include .\BUSNUMBER_DES.ahk
 
 /**
  * The BUSNUMBER_RESOURCE structure specifies either a resource list or a resource requirements list that describes bus number usage for a device instance. For more information about resource lists and resource requirements lists, see Hardware Resources.

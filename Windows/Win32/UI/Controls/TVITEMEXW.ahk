@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TVITEM_MASK.ahk
-#Include .\TVITEMEXW_CHILDREN.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\TVITEMEXW_CHILDREN.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\HTREEITEM.ahk
+#Include .\TVITEM_MASK.ahk
 
 /**
  * Specifies or receives attributes of a tree-view item. This structure is an enhancement to the TVITEM structure. New applications should use this structure where appropriate. (Unicode)

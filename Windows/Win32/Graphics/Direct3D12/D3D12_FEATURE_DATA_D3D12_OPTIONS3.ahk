@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIEW_INSTANCING_TIER.ahk
+#Include .\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk
 
 /**
  * Indicates the level of support that the adapter provides for timestamp queries, format-casting, immediate write, view instancing, and barycentrics.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDXGIAdapter1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DXGI_ADAPTER_DESC2.ahk
 
 /**

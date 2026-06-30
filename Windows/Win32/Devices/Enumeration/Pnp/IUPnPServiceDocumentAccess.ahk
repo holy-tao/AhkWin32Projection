@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to retrieve and provide the Service Control Protocol Description (SCPD) document to a UPnP control point application to expose actions supported by the service and provide information about state variables.
@@ -36,7 +37,7 @@ class IUPnPServiceDocumentAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservicedocumentaccess-getdocumenturl
      */
     GetDocumentURL() {
-        pbstrDocUrl := BSTR()
+        pbstrDocUrl := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", pbstrDocUrl, "HRESULT")
         return pbstrDocUrl
     }
@@ -47,7 +48,7 @@ class IUPnPServiceDocumentAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservicedocumentaccess-getdocument
      */
     GetDocument() {
-        pbstrDoc := BSTR()
+        pbstrDoc := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pbstrDoc, "HRESULT")
         return pbstrDoc
     }

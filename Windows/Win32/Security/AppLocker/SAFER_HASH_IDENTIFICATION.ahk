@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFER_IDENTIFICATION_HEADER.ahk
-#Include .\SAFER_IDENTIFICATION_TYPES.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Cryptography\ALG_ID.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\SAFER_IDENTIFICATION_TYPES.ahk
+#Include .\SAFER_IDENTIFICATION_HEADER.ahk
 
 /**
  * Represents a hash identification rule.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Security.AppLocker
  */
 class SAFER_HASH_IDENTIFICATION extends Win32Struct {
-    static sizeof => 1136
+    static sizeof => 1144
 
     static packingSize => 8
 
@@ -32,8 +33,8 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct {
      * @type {String}
      */
     Description {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
+        get => StrGet(this.ptr + 32, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 32, 255, "UTF-16")
     }
 
     /**
@@ -41,8 +42,8 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct {
      * @type {String}
      */
     FriendlyName {
-        get => StrGet(this.ptr + 536, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 536, 255, "UTF-16")
+        get => StrGet(this.ptr + 544, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 544, 255, "UTF-16")
     }
 
     /**
@@ -50,8 +51,8 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct {
      * @type {Integer}
      */
     HashSize {
-        get => NumGet(this, 1048, "uint")
-        set => NumPut("uint", value, this, 1048)
+        get => NumGet(this, 1056, "uint")
+        set => NumPut("uint", value, this, 1056)
     }
 
     /**
@@ -61,7 +62,7 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct {
     ImageHash {
         get {
             if(!this.HasProp("__ImageHashProxyArray"))
-                this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 1052, 64, Primitive, "char")
+                this.__ImageHashProxyArray := Win32FixedArray(this.ptr + 1060, 64, Primitive, "char")
             return this.__ImageHashProxyArray
         }
     }
@@ -71,8 +72,8 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct {
      * @type {ALG_ID}
      */
     HashAlgorithm {
-        get => NumGet(this, 1116, "uint")
-        set => NumPut("uint", value, this, 1116)
+        get => NumGet(this, 1124, "uint")
+        set => NumPut("uint", value, this, 1124)
     }
 
     /**
@@ -80,8 +81,8 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct {
      * @type {Integer}
      */
     ImageSize {
-        get => NumGet(this, 1120, "int64")
-        set => NumPut("int64", value, this, 1120)
+        get => NumGet(this, 1128, "int64")
+        set => NumPut("int64", value, this, 1128)
     }
 
     /**
@@ -89,7 +90,7 @@ class SAFER_HASH_IDENTIFICATION extends Win32Struct {
      * @type {Integer}
      */
     dwSaferFlags {
-        get => NumGet(this, 1128, "uint")
-        set => NumPut("uint", value, this, 1128)
+        get => NumGet(this, 1136, "uint")
+        set => NumPut("uint", value, this, 1136)
     }
 }

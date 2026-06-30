@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICertConfig.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provide functionality for retrieving the public configuration data (specified during client setup) for a Certificate Services server.

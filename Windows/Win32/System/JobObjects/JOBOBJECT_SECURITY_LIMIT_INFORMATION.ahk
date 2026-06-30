@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\TOKEN_PRIVILEGES.ahk
+#Include ..\..\Security\TOKEN_GROUPS.ahk
 #Include .\JOB_OBJECT_SECURITY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Security\TOKEN_GROUPS.ahk
-#Include ..\..\Security\TOKEN_PRIVILEGES.ahk
 
 /**
  * Contains the security limitations for a job object.

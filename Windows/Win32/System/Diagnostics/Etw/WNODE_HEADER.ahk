@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
@@ -21,7 +22,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class WNODE_HEADER extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -108,11 +109,14 @@ class WNODE_HEADER extends Win32Struct {
      * You cannot start more than one session with the same session GUID.
      * 
      * **Prior to Windows Vista:** You can start more than one session with the same session GUID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Guid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__Guid"))
+                this.__Guid := Guid(24, this)
+            return this.__Guid
+        }
     }
 
     /**
@@ -144,8 +148,8 @@ class WNODE_HEADER extends Win32Struct {
      * @type {Integer}
      */
     ClientContext {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -153,7 +157,7 @@ class WNODE_HEADER extends Win32Struct {
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

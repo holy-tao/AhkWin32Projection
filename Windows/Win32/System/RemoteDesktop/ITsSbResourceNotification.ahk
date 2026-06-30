@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITsSbClientConnection.ahk
+#Include .\ITsSbTarget.ahk
+#Include .\TSSESSION_STATE.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\CONNECTION_CHANGE_NOTIFICATION.ahk
+#Include .\ITsSbSession.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to notify plug-ins of any state changes that occur in the session, target, and client connection objects. (ITsSbResourceNotification)

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IXMLDOMNode.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml

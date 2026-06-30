@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_AUTH_STATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_REQUEST_AUTH_TYPE.ahk
+#Include .\HTTP_AUTH_STATUS.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the authentication status of the request with a handle to the client token that the receiving process can use to impersonate the authenticated client.

@@ -31,8 +31,9 @@ class GeneratedConstantSmokeTests {
 
         Assert.Equals(type(val), "DEVPROPKEY")
         Assert.Equals(val.pid, 4)
-        Yunit.Assert(val.fmtid != 0)
-        Assert.Equals(String(Guid(val.fmtid)), "{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
+        ; fmtid is an embedded Guid proxy into the struct's memory, not a raw pointer
+        Assert.Equals(type(val.fmtid), "Guid")
+        Assert.Equals(String(val.fmtid), "{c50a3f10-aa5c-4247-b830-d6a6f8eaa310}")
     }
 
     StructConstants_WithArrays_AreConstructedCorrectly(){

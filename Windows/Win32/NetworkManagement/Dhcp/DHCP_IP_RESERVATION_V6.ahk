@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_IPV6_ADDRESS.ahk
 #Include .\DHCP_BINARY_DATA.ahk
+#Include .\DHCP_IPV6_ADDRESS.ahk
 
 /**
  * Defines an IPv6 reservation for a DHCPv6 client in a specific IPv6 prefix.

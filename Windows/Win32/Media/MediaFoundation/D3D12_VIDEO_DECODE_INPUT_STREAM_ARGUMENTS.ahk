@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODE_FRAME_ARGUMENT.ahk
-#Include .\D3D12_VIDEO_DECODE_ARGUMENT_TYPE.ahk
-#Include .\D3D12_VIDEO_DECODE_REFERENCE_FRAMES.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include .\ID3D12VideoDecoderHeap.ahk
+#Include .\D3D12_VIDEO_DECODE_FRAME_ARGUMENT.ahk
+#Include .\D3D12_VIDEO_DECODE_REFERENCE_FRAMES.ahk
 #Include .\D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM.ahk
+#Include .\D3D12_VIDEO_DECODE_ARGUMENT_TYPE.ahk
+#Include .\ID3D12VideoDecoderHeap.ahk
 
 /**
  * Specifies the parameters for the input stream for a video decode operation.

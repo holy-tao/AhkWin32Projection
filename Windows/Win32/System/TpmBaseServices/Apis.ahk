@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\TBS_COMMAND_PRIORITY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\TBS_CONTEXT_PARAMS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TBS_COMMAND_LOCALITY.ahk
 
 /**
  * @namespace Windows.Win32.System.TpmBaseServices

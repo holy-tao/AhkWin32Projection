@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TA_TIMINGFUNCTION.ahk
 #Include .\TA_TIMINGFUNCTION_TYPE.ahk
+#Include .\TA_TIMINGFUNCTION.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls

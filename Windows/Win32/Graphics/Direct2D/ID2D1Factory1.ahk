@@ -1,13 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Factory.ahk
-#Include .\ID2D1Device.ahk
 #Include .\ID2D1StrokeStyle1.ahk
-#Include .\ID2D1PathGeometry1.ahk
+#Include .\ID2D1Device.ahk
+#Include .\D2D1_PROPERTY_BINDING.ahk
+#Include ..\DirectWrite\IDWriteRenderingParams.ahk
 #Include .\ID2D1DrawingStateBlock1.ahk
+#Include ..\Dxgi\IDXGIDevice.ahk
+#Include .\D2D1_DRAWING_STATE_DESCRIPTION1.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D2D1_STROKE_STYLE_PROPERTIES1.ahk
 #Include .\ID2D1GdiMetafile.ahk
 #Include .\ID2D1Properties.ahk
+#Include .\ID2D1PathGeometry1.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\ID2D1Factory.ahk
 
 /**
  * Creates Direct2D resources. (ID2D1Factory1)

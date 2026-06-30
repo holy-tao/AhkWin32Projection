@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MULTI_QI.ahk
 
 /**
  * The IMultiQI (objidlbase.h) interface enables a client to query an object proxy, or handler, for multiple interfaces by using a single RPC call.

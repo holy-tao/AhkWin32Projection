@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\XSAVE_FORMAT.ahk
-#Include .\M128A.ahk
 #Include .\XSAVE_AREA_HEADER.ahk
+#Include .\M128A.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug

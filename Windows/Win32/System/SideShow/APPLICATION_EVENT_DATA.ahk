@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.SideShow
  */
 class APPLICATION_EVENT_DATA extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -18,35 +19,41 @@ class APPLICATION_EVENT_DATA extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ApplicationId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ApplicationId"))
+                this.__ApplicationId := Guid(4, this)
+            return this.__ApplicationId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     EndpointId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__EndpointId"))
+                this.__EndpointId := Guid(20, this)
+            return this.__EndpointId
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwEventId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     cbEventData {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -55,7 +62,7 @@ class APPLICATION_EVENT_DATA extends Win32Struct {
     bEventData {
         get {
             if(!this.HasProp("__bEventDataProxyArray"))
-                this.__bEventDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__bEventDataProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
             return this.__bEventDataProxyArray
         }
     }

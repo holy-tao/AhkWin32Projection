@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\CORRELATION_VECTOR.ahk
 
 /**
  * @namespace Windows.Win32.System.CorrelationVector

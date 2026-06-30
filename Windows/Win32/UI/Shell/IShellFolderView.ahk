@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\System\Ole\IDropTarget.ahk
+#Include Common\ITEMIDLIST.ahk
 #Include .\ITEMSPACING.ahk
+#Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\IShellFolderViewCB.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that manipulate Shell folder views.

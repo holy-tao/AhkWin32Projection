@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPropProblemArray.ahk
 #Include .\IMAPIProp.ahk
+#Include .\SPropTagArray.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * IPropData IMAPIProp provides the ability to retrieve and change the access for an object's properties.

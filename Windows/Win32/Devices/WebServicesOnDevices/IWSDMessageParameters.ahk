@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWSDAddress.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to communicate message specific information up and down the protocol stack.

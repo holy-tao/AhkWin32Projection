@@ -1,13 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidOutputDevice.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\..\Guid.ahk
 #Include ..\IVMRImageCompositor.ahk
-#Include ..\..\..\System\Ole\IPictureDisp.ahk
-#Include ..\IVMRMixerBitmap.ahk
 #Include .\IMSVidRect.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\VMRALPHABITMAP.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IVMRMixerBitmap.ahk
+#Include .\IMSVidOutputDevice.ahk
+#Include .\SourceSizeList.ahk
+#Include ..\..\..\System\Ole\IPictureDisp.ahk
 
 /**
  * The IMSVidVideoRenderer interface represents a video renderer device. The MSVidVideoRenderer object exposes this interface.This interface provides access to the Video Mixing Renderer (VMR) filter.
@@ -177,7 +181,7 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_customcompositorclass
      */
     get_CustomCompositorClass() {
-        CompositorCLSID := BSTR()
+        CompositorCLSID := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", CompositorCLSID, "HRESULT")
         return CompositorCLSID
     }

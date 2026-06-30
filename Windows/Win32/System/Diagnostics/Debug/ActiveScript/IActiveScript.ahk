@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\Com\IDispatch.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include .\SCRIPTTHREADSTATE.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include .\IActiveScriptSite.ahk
+#Include .\SCRIPTSTATE.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Com\EXCEPINFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -68,15 +75,8 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(7, this, "HRESULT")
@@ -163,11 +163,8 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * Creates a recognizer context that contains the same settings as the original. The new recognizer context does not include the ink or recognition results of the original.
-     * @remarks
-     * The settings  for this context include the recognition guide, character Autocomplete mode, and any factoids that improve the recognition results. An example of a factoid may include whether the ink is a phone number, a name, or a URL. The TextContext and Wordlists are preserved in the new context.
+     * 
      * @returns {IActiveScript} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-clonecontext
      */
     Clone() {
         result := ComCall(15, this, "ptr*", &ppscript := 0, "HRESULT")

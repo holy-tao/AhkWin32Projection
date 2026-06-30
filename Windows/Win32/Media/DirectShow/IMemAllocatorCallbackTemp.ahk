@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMemAllocator.ahk
+#Include .\IMemAllocatorNotifyCallbackTemp.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMemAllocatorCallbackTemp interface enables a filter to receive a callback notification from an allocator whenever a sample is returned to the allocator's free list.The use of this interface is deprecated.

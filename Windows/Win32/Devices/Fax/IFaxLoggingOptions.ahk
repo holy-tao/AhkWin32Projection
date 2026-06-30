@@ -4,6 +4,7 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxEventLogging.ahk
 #Include .\IFaxActivityLogging.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxLoggingOptions interface is used by a fax client application to access and configure the event logging categories and the activity logging options that the fax service is using.

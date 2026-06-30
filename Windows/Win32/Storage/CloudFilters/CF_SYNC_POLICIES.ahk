@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_HYDRATION_POLICY.ahk
-#Include .\CF_HYDRATION_POLICY_PRIMARY.ahk
-#Include .\CF_HYDRATION_POLICY_MODIFIER.ahk
-#Include .\CF_POPULATION_POLICY.ahk
-#Include .\CF_POPULATION_POLICY_PRIMARY.ahk
 #Include .\CF_POPULATION_POLICY_MODIFIER.ahk
-#Include .\CF_INSYNC_POLICY.ahk
-#Include .\CF_HARDLINK_POLICY.ahk
+#Include .\CF_HYDRATION_POLICY_PRIMARY.ahk
 #Include .\CF_PLACEHOLDER_MANAGEMENT_POLICY.ahk
+#Include .\CF_POPULATION_POLICY_PRIMARY.ahk
+#Include .\CF_HARDLINK_POLICY.ahk
+#Include .\CF_POPULATION_POLICY.ahk
+#Include .\CF_HYDRATION_POLICY.ahk
+#Include .\CF_INSYNC_POLICY.ahk
+#Include .\CF_HYDRATION_POLICY_MODIFIER.ahk
 
 /**
  * Defines the sync policies used by a sync root.

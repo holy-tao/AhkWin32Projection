@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D10DeviceChild.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface encapsulates methods for retrieving data from the GPU asynchronously. (ID3D10Asynchronous)

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_COMMAND_LIST_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Details the adapter's support for prioritization of different command queue types.

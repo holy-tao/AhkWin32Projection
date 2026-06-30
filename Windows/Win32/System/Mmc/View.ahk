@@ -1,14 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\_ExportListOptions.ahk
+#Include .\Columns.ahk
+#Include .\Frame.ahk
+#Include .\Document.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\ContextMenu.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\_ListViewMode.ahk
 #Include .\Node.ahk
 #Include .\Nodes.ahk
-#Include .\Document.ahk
-#Include .\ContextMenu.ahk
-#Include .\Frame.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\Columns.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The View object represents a result set obtained when processing a query using the OpenView method of the Database object.
@@ -186,18 +192,9 @@ class View extends IDispatch {
     }
 
     /**
-     * The Is\_Protected attribute indicates whether the content is protected using digital rights management (DRM).
-     * @remarks
-     * This attribute is stored in both the library and the digital media file.
      * 
-     * **DigitallySecure** is an alias for this attribute.
-     * 
-     * The Windows Media Format SDK constant for this attribute is g\_wszWMProtected.
-     * 
-     * To determine whether you can change the value of this attribute, use the [Media.isReadOnlyItem](media-isreadonlyitem.md) method.
      * @param {View} _View 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/WMP/is-protected-attribute
      */
     Is(_View) {
         result := ComCall(13, this, "ptr", _View, "short*", &TheSame := 0, "HRESULT")
@@ -460,11 +457,8 @@ class View extends IDispatch {
     }
 
     /**
-     * The BackColor property sets or retrieves the color of the bars that appear around the edges of the video rectangle when the aspect ratio of the native video is not the same as that of the object's display area.
-     * @remarks
-     * This property is read/write with a default value of off-black (0x100010).
-     * @returns {HRESULT} Returns an integer value representing the RGB values of the back color.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/backcolor-property
+     * 
+     * @returns {HRESULT} 
      */
     Back() {
         result := ComCall(38, this, "HRESULT")
@@ -497,7 +491,7 @@ class View extends IDispatch {
      * @returns {BSTR} 
      */
     get_Memento() {
-        Memento := BSTR()
+        Memento := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", Memento, "HRESULT")
         return Memento
     }
@@ -530,7 +524,7 @@ class View extends IDispatch {
      * @returns {BSTR} 
      */
     get_CellContents(_Node, _Column) {
-        CellContents := BSTR()
+        CellContents := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", _Node, "int", _Column, "ptr", CellContents, "HRESULT")
         return CellContents
     }

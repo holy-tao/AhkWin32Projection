@@ -1,29 +1,31 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_EVENT_TYPE.ahk
 #Include .\GNSS_FIXDATA.ahk
+#Include .\GNSS_DRIVER_REQUEST_DATA.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include .\GNSS_NI_NOTIFICATION_TYPE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\GNSS_GEOFENCES_TRACKINGSTATUS_DATA.ahk
+#Include .\GNSS_NI_REQUEST_TYPE.ahk
+#Include .\GNSS_SUPL_NI_INFO.ahk
+#Include .\GNSS_DRIVER_REQUEST.ahk
+#Include .\GNSS_CP_NI_INFO.ahk
+#Include .\GNSS_AGNSS_REQUEST_PARAM.ahk
+#Include .\GNSS_NI_REQUEST_PARAM.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\GNSS_NI_PLANE_TYPE.ahk
+#Include .\GNSS_NMEA_DATA.ahk
+#Include .\GNSS_FIXDATA_SATELLITE.ahk
+#Include .\GNSS_BREADCRUMBING_ALERT_DATA.ahk
+#Include .\GNSS_ERRORINFO.ahk
+#Include .\GNSS_SATELLITEINFO.ahk
+#Include .\GNSS_GEOFENCE_ALERT_DATA.ahk
+#Include .\GNSS_V2UPL_NI_INFO.ahk
 #Include .\GNSS_FIXDATA_BASIC.ahk
 #Include .\GNSS_FIXDATA_ACCURACY.ahk
-#Include .\GNSS_FIXDATA_SATELLITE.ahk
-#Include .\GNSS_SATELLITEINFO.ahk
-#Include .\GNSS_AGNSS_REQUEST_PARAM.ahk
-#Include .\GNSS_AGNSS_REQUEST_TYPE.ahk
-#Include .\GNSS_NI_REQUEST_PARAM.ahk
-#Include .\GNSS_NI_REQUEST_TYPE.ahk
-#Include .\GNSS_NI_NOTIFICATION_TYPE.ahk
-#Include .\GNSS_NI_PLANE_TYPE.ahk
-#Include .\GNSS_SUPL_NI_INFO.ahk
-#Include .\GNSS_CP_NI_INFO.ahk
-#Include .\GNSS_V2UPL_NI_INFO.ahk
-#Include .\GNSS_ERRORINFO.ahk
-#Include .\GNSS_NMEA_DATA.ahk
-#Include .\GNSS_GEOFENCE_ALERT_DATA.ahk
 #Include .\GNSS_GEOFENCE_STATE.ahk
-#Include .\GNSS_BREADCRUMBING_ALERT_DATA.ahk
-#Include .\GNSS_GEOFENCES_TRACKINGSTATUS_DATA.ahk
-#Include .\GNSS_DRIVER_REQUEST_DATA.ahk
-#Include .\GNSS_DRIVER_REQUEST.ahk
+#Include .\GNSS_EVENT_TYPE.ahk
+#Include .\GNSS_AGNSS_REQUEST_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation

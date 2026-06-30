@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWdsTransportSetupManager.ahk
 #Include .\IWdsTransportConfigurationManager.ahk
 #Include .\IWdsTransportNamespaceManager.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\WDSTRANSPORT_DISCONNECT_TYPE.ahk
+#Include .\IWdsTransportSetupManager.ahk
 
 /**
  * Represents a WDS transport server. A WDS client can use an object of this interface to manage setup, configuration, and namespace tasks on the server.
@@ -73,7 +75,7 @@ class IWdsTransportServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver-get_name
      */
     get_Name() {
-        pbszName := BSTR()
+        pbszName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbszName, "HRESULT")
         return pbszName
     }

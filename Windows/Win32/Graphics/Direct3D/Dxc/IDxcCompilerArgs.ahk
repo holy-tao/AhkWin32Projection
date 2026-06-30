@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\DxcDefine.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -37,15 +41,8 @@ class IDxcCompilerArgs extends IUnknown {
     }
 
     /**
-     * Retrieves the number of tagged elements in a given color profile.
-     * @remarks
-     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
-     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
-     * 
-     * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
+     * @returns {Integer} 
      */
     GetCount() {
         result := ComCall(4, this, "uint")

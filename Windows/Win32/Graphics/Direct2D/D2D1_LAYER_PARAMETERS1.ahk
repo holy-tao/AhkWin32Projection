@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D_RECT_F.ahk
-#Include .\ID2D1Geometry.ahk
 #Include .\D2D1_ANTIALIAS_MODE.ahk
+#Include .\ID2D1Geometry.ahk
+#Include .\D2D1_LAYER_OPTIONS1.ahk
+#Include Common\D2D_RECT_F.ahk
 #Include Common\D2D_MATRIX_3X2_F.ahk
 #Include .\ID2D1Brush.ahk
-#Include .\D2D1_LAYER_OPTIONS1.ahk
 
 /**
  * Contains the content bounds, mask information, opacity settings, and other options for a layer resource. (D2D1_LAYER_PARAMETERS1)

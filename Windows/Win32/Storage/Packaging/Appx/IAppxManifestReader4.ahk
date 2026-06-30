@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxManifestReader3.ahk
 #Include .\IAppxManifestOptionalPackageInfo.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IAppxManifestReader3.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx

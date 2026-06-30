@@ -1,37 +1,40 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\DNS_SVCB_PARAM.ahk
+#Include .\DNS_WKS_DATA.ahk
+#Include .\DNS_SRV_DATAW.ahk
+#Include .\DNS_DHCID_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DNS_WINS_DATA.ahk
 #Include .\DNS_RECORDW.ahk
+#Include .\DNS_SVCB_DATA.ahk
+#Include .\DNS_NSEC3_DATA.ahk
 #Include .\DNS_RECORD_FLAGS.ahk
-#Include .\DNS_A_DATA.ahk
-#Include .\DNS_SOA_DATAW.ahk
-#Include .\DNS_PTR_DATAW.ahk
 #Include .\DNS_MINFO_DATAW.ahk
 #Include .\DNS_MX_DATAW.ahk
-#Include .\DNS_TXT_DATAW.ahk
-#Include .\DNS_NULL_DATA.ahk
-#Include .\DNS_WKS_DATA.ahk
-#Include .\DNS_AAAA_DATA.ahk
+#Include .\DNS_TSIG_DATAW.ahk
 #Include .\IP6_ADDRESS.ahk
+#Include .\DNS_NAPTR_DATAW.ahk
+#Include .\DNS_NXT_DATAW.ahk
+#Include .\DNS_OPT_DATA.ahk
+#Include .\DNS_PTR_DATAW.ahk
+#Include .\DNS_NSEC3PARAM_DATA.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DNS_NSEC_DATAW.ahk
+#Include .\DNS_NULL_DATA.ahk
+#Include .\DNS_UNKNOWN_DATA.ahk
+#Include .\DNS_TLSA_DATA.ahk
 #Include .\DNS_KEY_DATA.ahk
+#Include .\DNS_SOA_DATAW.ahk
+#Include .\DNS_AAAA_DATA.ahk
+#Include .\DNS_TXT_DATAW.ahk
+#Include .\DNS_TKEY_DATAW.ahk
+#Include .\DNS_WINSR_DATAW.ahk
+#Include .\DNS_A_DATA.ahk
+#Include .\DNS_DS_DATA.ahk
 #Include .\DNS_SIG_DATAW.ahk
 #Include .\DNS_ATMA_DATA.ahk
-#Include .\DNS_NXT_DATAW.ahk
-#Include .\DNS_SRV_DATAW.ahk
-#Include .\DNS_NAPTR_DATAW.ahk
-#Include .\DNS_OPT_DATA.ahk
-#Include .\DNS_DS_DATA.ahk
-#Include .\DNS_NSEC_DATAW.ahk
-#Include .\DNS_TKEY_DATAW.ahk
-#Include .\DNS_TSIG_DATAW.ahk
-#Include .\DNS_WINS_DATA.ahk
-#Include .\DNS_WINSR_DATAW.ahk
-#Include .\DNS_DHCID_DATA.ahk
-#Include .\DNS_NSEC3_DATA.ahk
-#Include .\DNS_NSEC3PARAM_DATA.ahk
-#Include .\DNS_TLSA_DATA.ahk
-#Include .\DNS_SVCB_DATA.ahk
-#Include .\DNS_SVCB_PARAM.ahk
-#Include .\DNS_UNKNOWN_DATA.ahk
 
 /**
  * Stores a DNS resource record (RR). (Unicode)
@@ -55,7 +58,7 @@ class DNS_RECORDW extends Win32Struct {
 
     static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
+    class _Flags extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -79,7 +82,7 @@ class DNS_RECORDW extends Win32Struct {
         }
     }
 
-    class _Data_e__Union extends Win32Struct {
+    class _Data extends Win32Struct {
         static sizeof => 64
         static packingSize => 8
 
@@ -637,12 +640,12 @@ class DNS_RECORDW extends Win32Struct {
     }
 
     /**
-     * @type {_Flags_e__Union}
+     * @type {_Flags}
      */
     Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := DNS_RECORDW._Flags_e__Union(20, this)
+                this.__Flags := DNS_RECORDW._Flags(20, this)
             return this.__Flags
         }
     }
@@ -667,12 +670,12 @@ class DNS_RECORDW extends Win32Struct {
 
     /**
      * The DNS RR data type is determined by <b>wType</b> and is one of the following members:
-     * @type {_Data_e__Union}
+     * @type {_Data}
      */
     Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := DNS_RECORDW._Data_e__Union(32, this)
+                this.__Data := DNS_RECORDW._Data(32, this)
             return this.__Data
         }
     }

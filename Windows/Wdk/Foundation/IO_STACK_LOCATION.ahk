@@ -1,30 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
 #Include .\IO_SECURITY_CONTEXT.ahk
-#Include ..\System\SystemServices\NAMED_PIPE_CREATE_PARAMETERS.ahk
-#Include ..\System\SystemServices\MAILSLOT_CREATE_PARAMETERS.ahk
-#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\Storage\FileSystem\FILE_INFORMATION_CLASS.ahk
-#Include ..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
-#Include .\FILE_OBJECT.ahk
-#Include ..\..\Win32\Foundation\HANDLE.ahk
-#Include ..\Storage\FileSystem\FS_INFORMATION_CLASS.ahk
-#Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include .\VPB.ahk
-#Include .\DEVICE_OBJECT.ahk
-#Include ..\Storage\FileSystem\FILE_GET_QUOTA_INFORMATION.ahk
-#Include ..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
-#Include ..\System\SystemServices\INTERFACE.ahk
-#Include ..\System\SystemServices\DEVICE_CAPABILITIES.ahk
-#Include ..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk
-#Include ..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk
 #Include ..\System\SystemServices\DEVICE_TEXT_TYPE.ahk
-#Include ..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
-#Include ..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk
-#Include ..\System\SystemServices\POWER_SEQUENCE.ahk
-#Include ..\System\SystemServices\POWER_STATE_TYPE.ahk
 #Include ..\..\Win32\System\Power\POWER_ACTION.ahk
+#Include ..\System\SystemServices\POWER_SEQUENCE.ahk
+#Include .\FILE_OBJECT.ahk
 #Include ..\System\SystemServices\CM_RESOURCE_LIST.ahk
+#Include ..\System\SystemServices\NAMED_PIPE_CREATE_PARAMETERS.ahk
+#Include ..\Storage\FileSystem\FILE_GET_QUOTA_INFORMATION.ahk
+#Include ..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk
+#Include ..\System\SystemServices\MAILSLOT_CREATE_PARAMETERS.ahk
+#Include ..\..\Win32\Foundation\BOOLEAN.ahk
+#Include .\VPB.ahk
+#Include ..\Storage\FileSystem\FS_INFORMATION_CLASS.ahk
+#Include ..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
+#Include ..\System\SystemServices\POWER_STATE_TYPE.ahk
+#Include ..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
+#Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
+#Include .\DEVICE_OBJECT.ahk
+#Include .\_SCSI_REQUEST_BLOCK.ahk
+#Include ..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk
+#Include ..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\Storage\FileSystem\FILE_INFORMATION_CLASS.ahk
+#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\Win32\Security\PSID.ahk
+#Include ..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk
+#Include ..\System\SystemServices\DEVICE_CAPABILITIES.ahk
+#Include ..\System\SystemServices\INTERFACE.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -34,7 +38,7 @@ class IO_STACK_LOCATION extends Win32Struct {
 
     static packingSize => 8
 
-    class _Parameters_e__Union extends Win32Struct {
+    class _Parameters extends Win32Struct {
         static sizeof => 32
         static packingSize => 8
 
@@ -1120,7 +1124,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         Create {
             get {
                 if(!this.HasProp("__Create"))
-                    this.__Create := IO_STACK_LOCATION._Parameters_e__Union._Create(0, this)
+                    this.__Create := IO_STACK_LOCATION._Parameters._Create(0, this)
                 return this.__Create
             }
         }
@@ -1131,7 +1135,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         CreatePipe {
             get {
                 if(!this.HasProp("__CreatePipe"))
-                    this.__CreatePipe := IO_STACK_LOCATION._Parameters_e__Union._CreatePipe(0, this)
+                    this.__CreatePipe := IO_STACK_LOCATION._Parameters._CreatePipe(0, this)
                 return this.__CreatePipe
             }
         }
@@ -1142,7 +1146,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         CreateMailslot {
             get {
                 if(!this.HasProp("__CreateMailslot"))
-                    this.__CreateMailslot := IO_STACK_LOCATION._Parameters_e__Union._CreateMailslot(0, this)
+                    this.__CreateMailslot := IO_STACK_LOCATION._Parameters._CreateMailslot(0, this)
                 return this.__CreateMailslot
             }
         }
@@ -1153,7 +1157,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         Read {
             get {
                 if(!this.HasProp("__Read"))
-                    this.__Read := IO_STACK_LOCATION._Parameters_e__Union._Read(0, this)
+                    this.__Read := IO_STACK_LOCATION._Parameters._Read(0, this)
                 return this.__Read
             }
         }
@@ -1164,7 +1168,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         Write {
             get {
                 if(!this.HasProp("__Write"))
-                    this.__Write := IO_STACK_LOCATION._Parameters_e__Union._Write(0, this)
+                    this.__Write := IO_STACK_LOCATION._Parameters._Write(0, this)
                 return this.__Write
             }
         }
@@ -1175,7 +1179,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QueryDirectory {
             get {
                 if(!this.HasProp("__QueryDirectory"))
-                    this.__QueryDirectory := IO_STACK_LOCATION._Parameters_e__Union._QueryDirectory(0, this)
+                    this.__QueryDirectory := IO_STACK_LOCATION._Parameters._QueryDirectory(0, this)
                 return this.__QueryDirectory
             }
         }
@@ -1186,7 +1190,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         NotifyDirectory {
             get {
                 if(!this.HasProp("__NotifyDirectory"))
-                    this.__NotifyDirectory := IO_STACK_LOCATION._Parameters_e__Union._NotifyDirectory(0, this)
+                    this.__NotifyDirectory := IO_STACK_LOCATION._Parameters._NotifyDirectory(0, this)
                 return this.__NotifyDirectory
             }
         }
@@ -1197,7 +1201,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         NotifyDirectoryEx {
             get {
                 if(!this.HasProp("__NotifyDirectoryEx"))
-                    this.__NotifyDirectoryEx := IO_STACK_LOCATION._Parameters_e__Union._NotifyDirectoryEx(0, this)
+                    this.__NotifyDirectoryEx := IO_STACK_LOCATION._Parameters._NotifyDirectoryEx(0, this)
                 return this.__NotifyDirectoryEx
             }
         }
@@ -1208,7 +1212,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QueryFile {
             get {
                 if(!this.HasProp("__QueryFile"))
-                    this.__QueryFile := IO_STACK_LOCATION._Parameters_e__Union._QueryFile(0, this)
+                    this.__QueryFile := IO_STACK_LOCATION._Parameters._QueryFile(0, this)
                 return this.__QueryFile
             }
         }
@@ -1219,7 +1223,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         SetFile {
             get {
                 if(!this.HasProp("__SetFile"))
-                    this.__SetFile := IO_STACK_LOCATION._Parameters_e__Union._SetFile(0, this)
+                    this.__SetFile := IO_STACK_LOCATION._Parameters._SetFile(0, this)
                 return this.__SetFile
             }
         }
@@ -1230,7 +1234,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QueryEa {
             get {
                 if(!this.HasProp("__QueryEa"))
-                    this.__QueryEa := IO_STACK_LOCATION._Parameters_e__Union._QueryEa(0, this)
+                    this.__QueryEa := IO_STACK_LOCATION._Parameters._QueryEa(0, this)
                 return this.__QueryEa
             }
         }
@@ -1241,7 +1245,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         SetEa {
             get {
                 if(!this.HasProp("__SetEa"))
-                    this.__SetEa := IO_STACK_LOCATION._Parameters_e__Union._SetEa(0, this)
+                    this.__SetEa := IO_STACK_LOCATION._Parameters._SetEa(0, this)
                 return this.__SetEa
             }
         }
@@ -1252,7 +1256,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QueryVolume {
             get {
                 if(!this.HasProp("__QueryVolume"))
-                    this.__QueryVolume := IO_STACK_LOCATION._Parameters_e__Union._QueryVolume(0, this)
+                    this.__QueryVolume := IO_STACK_LOCATION._Parameters._QueryVolume(0, this)
                 return this.__QueryVolume
             }
         }
@@ -1263,7 +1267,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         SetVolume {
             get {
                 if(!this.HasProp("__SetVolume"))
-                    this.__SetVolume := IO_STACK_LOCATION._Parameters_e__Union._SetVolume(0, this)
+                    this.__SetVolume := IO_STACK_LOCATION._Parameters._SetVolume(0, this)
                 return this.__SetVolume
             }
         }
@@ -1274,7 +1278,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         FileSystemControl {
             get {
                 if(!this.HasProp("__FileSystemControl"))
-                    this.__FileSystemControl := IO_STACK_LOCATION._Parameters_e__Union._FileSystemControl(0, this)
+                    this.__FileSystemControl := IO_STACK_LOCATION._Parameters._FileSystemControl(0, this)
                 return this.__FileSystemControl
             }
         }
@@ -1285,7 +1289,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         LockControl {
             get {
                 if(!this.HasProp("__LockControl"))
-                    this.__LockControl := IO_STACK_LOCATION._Parameters_e__Union._LockControl(0, this)
+                    this.__LockControl := IO_STACK_LOCATION._Parameters._LockControl(0, this)
                 return this.__LockControl
             }
         }
@@ -1296,7 +1300,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         DeviceIoControl {
             get {
                 if(!this.HasProp("__DeviceIoControl"))
-                    this.__DeviceIoControl := IO_STACK_LOCATION._Parameters_e__Union._DeviceIoControl(0, this)
+                    this.__DeviceIoControl := IO_STACK_LOCATION._Parameters._DeviceIoControl(0, this)
                 return this.__DeviceIoControl
             }
         }
@@ -1307,7 +1311,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QuerySecurity {
             get {
                 if(!this.HasProp("__QuerySecurity"))
-                    this.__QuerySecurity := IO_STACK_LOCATION._Parameters_e__Union._QuerySecurity(0, this)
+                    this.__QuerySecurity := IO_STACK_LOCATION._Parameters._QuerySecurity(0, this)
                 return this.__QuerySecurity
             }
         }
@@ -1318,7 +1322,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         SetSecurity {
             get {
                 if(!this.HasProp("__SetSecurity"))
-                    this.__SetSecurity := IO_STACK_LOCATION._Parameters_e__Union._SetSecurity(0, this)
+                    this.__SetSecurity := IO_STACK_LOCATION._Parameters._SetSecurity(0, this)
                 return this.__SetSecurity
             }
         }
@@ -1329,7 +1333,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         MountVolume {
             get {
                 if(!this.HasProp("__MountVolume"))
-                    this.__MountVolume := IO_STACK_LOCATION._Parameters_e__Union._MountVolume(0, this)
+                    this.__MountVolume := IO_STACK_LOCATION._Parameters._MountVolume(0, this)
                 return this.__MountVolume
             }
         }
@@ -1340,7 +1344,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         VerifyVolume {
             get {
                 if(!this.HasProp("__VerifyVolume"))
-                    this.__VerifyVolume := IO_STACK_LOCATION._Parameters_e__Union._VerifyVolume(0, this)
+                    this.__VerifyVolume := IO_STACK_LOCATION._Parameters._VerifyVolume(0, this)
                 return this.__VerifyVolume
             }
         }
@@ -1351,7 +1355,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         Scsi {
             get {
                 if(!this.HasProp("__Scsi"))
-                    this.__Scsi := IO_STACK_LOCATION._Parameters_e__Union._Scsi(0, this)
+                    this.__Scsi := IO_STACK_LOCATION._Parameters._Scsi(0, this)
                 return this.__Scsi
             }
         }
@@ -1362,7 +1366,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QueryQuota {
             get {
                 if(!this.HasProp("__QueryQuota"))
-                    this.__QueryQuota := IO_STACK_LOCATION._Parameters_e__Union._QueryQuota(0, this)
+                    this.__QueryQuota := IO_STACK_LOCATION._Parameters._QueryQuota(0, this)
                 return this.__QueryQuota
             }
         }
@@ -1373,7 +1377,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         SetQuota {
             get {
                 if(!this.HasProp("__SetQuota"))
-                    this.__SetQuota := IO_STACK_LOCATION._Parameters_e__Union._SetQuota(0, this)
+                    this.__SetQuota := IO_STACK_LOCATION._Parameters._SetQuota(0, this)
                 return this.__SetQuota
             }
         }
@@ -1384,7 +1388,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QueryDeviceRelations {
             get {
                 if(!this.HasProp("__QueryDeviceRelations"))
-                    this.__QueryDeviceRelations := IO_STACK_LOCATION._Parameters_e__Union._QueryDeviceRelations(0, this)
+                    this.__QueryDeviceRelations := IO_STACK_LOCATION._Parameters._QueryDeviceRelations(0, this)
                 return this.__QueryDeviceRelations
             }
         }
@@ -1395,7 +1399,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QueryInterface {
             get {
                 if(!this.HasProp("__QueryInterface"))
-                    this.__QueryInterface := IO_STACK_LOCATION._Parameters_e__Union._QueryInterface(0, this)
+                    this.__QueryInterface := IO_STACK_LOCATION._Parameters._QueryInterface(0, this)
                 return this.__QueryInterface
             }
         }
@@ -1406,7 +1410,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         DeviceCapabilities {
             get {
                 if(!this.HasProp("__DeviceCapabilities"))
-                    this.__DeviceCapabilities := IO_STACK_LOCATION._Parameters_e__Union._DeviceCapabilities(0, this)
+                    this.__DeviceCapabilities := IO_STACK_LOCATION._Parameters._DeviceCapabilities(0, this)
                 return this.__DeviceCapabilities
             }
         }
@@ -1417,7 +1421,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         FilterResourceRequirements {
             get {
                 if(!this.HasProp("__FilterResourceRequirements"))
-                    this.__FilterResourceRequirements := IO_STACK_LOCATION._Parameters_e__Union._FilterResourceRequirements(0, this)
+                    this.__FilterResourceRequirements := IO_STACK_LOCATION._Parameters._FilterResourceRequirements(0, this)
                 return this.__FilterResourceRequirements
             }
         }
@@ -1428,7 +1432,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         ReadWriteConfig {
             get {
                 if(!this.HasProp("__ReadWriteConfig"))
-                    this.__ReadWriteConfig := IO_STACK_LOCATION._Parameters_e__Union._ReadWriteConfig(0, this)
+                    this.__ReadWriteConfig := IO_STACK_LOCATION._Parameters._ReadWriteConfig(0, this)
                 return this.__ReadWriteConfig
             }
         }
@@ -1439,7 +1443,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         SetLock {
             get {
                 if(!this.HasProp("__SetLock"))
-                    this.__SetLock := IO_STACK_LOCATION._Parameters_e__Union._SetLock(0, this)
+                    this.__SetLock := IO_STACK_LOCATION._Parameters._SetLock(0, this)
                 return this.__SetLock
             }
         }
@@ -1450,7 +1454,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QueryId {
             get {
                 if(!this.HasProp("__QueryId"))
-                    this.__QueryId := IO_STACK_LOCATION._Parameters_e__Union._QueryId(0, this)
+                    this.__QueryId := IO_STACK_LOCATION._Parameters._QueryId(0, this)
                 return this.__QueryId
             }
         }
@@ -1461,7 +1465,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         QueryDeviceText {
             get {
                 if(!this.HasProp("__QueryDeviceText"))
-                    this.__QueryDeviceText := IO_STACK_LOCATION._Parameters_e__Union._QueryDeviceText(0, this)
+                    this.__QueryDeviceText := IO_STACK_LOCATION._Parameters._QueryDeviceText(0, this)
                 return this.__QueryDeviceText
             }
         }
@@ -1472,7 +1476,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         UsageNotification {
             get {
                 if(!this.HasProp("__UsageNotification"))
-                    this.__UsageNotification := IO_STACK_LOCATION._Parameters_e__Union._UsageNotification(0, this)
+                    this.__UsageNotification := IO_STACK_LOCATION._Parameters._UsageNotification(0, this)
                 return this.__UsageNotification
             }
         }
@@ -1483,7 +1487,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         WaitWake {
             get {
                 if(!this.HasProp("__WaitWake"))
-                    this.__WaitWake := IO_STACK_LOCATION._Parameters_e__Union._WaitWake(0, this)
+                    this.__WaitWake := IO_STACK_LOCATION._Parameters._WaitWake(0, this)
                 return this.__WaitWake
             }
         }
@@ -1494,7 +1498,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         PowerSequence {
             get {
                 if(!this.HasProp("__PowerSequence"))
-                    this.__PowerSequence := IO_STACK_LOCATION._Parameters_e__Union._PowerSequence(0, this)
+                    this.__PowerSequence := IO_STACK_LOCATION._Parameters._PowerSequence(0, this)
                 return this.__PowerSequence
             }
         }
@@ -1505,7 +1509,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         Power {
             get {
                 if(!this.HasProp("__Power"))
-                    this.__Power := IO_STACK_LOCATION._Parameters_e__Union._Power(0, this)
+                    this.__Power := IO_STACK_LOCATION._Parameters._Power(0, this)
                 return this.__Power
             }
         }
@@ -1516,7 +1520,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         StartDevice {
             get {
                 if(!this.HasProp("__StartDevice"))
-                    this.__StartDevice := IO_STACK_LOCATION._Parameters_e__Union._StartDevice(0, this)
+                    this.__StartDevice := IO_STACK_LOCATION._Parameters._StartDevice(0, this)
                 return this.__StartDevice
             }
         }
@@ -1527,7 +1531,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         WMI {
             get {
                 if(!this.HasProp("__WMI"))
-                    this.__WMI := IO_STACK_LOCATION._Parameters_e__Union._WMI(0, this)
+                    this.__WMI := IO_STACK_LOCATION._Parameters._WMI(0, this)
                 return this.__WMI
             }
         }
@@ -1538,7 +1542,7 @@ class IO_STACK_LOCATION extends Win32Struct {
         Others {
             get {
                 if(!this.HasProp("__Others"))
-                    this.__Others := IO_STACK_LOCATION._Parameters_e__Union._Others(0, this)
+                    this.__Others := IO_STACK_LOCATION._Parameters._Others(0, this)
                 return this.__Others
             }
         }
@@ -1577,12 +1581,12 @@ class IO_STACK_LOCATION extends Win32Struct {
     }
 
     /**
-     * @type {_Parameters_e__Union}
+     * @type {_Parameters}
      */
     Parameters {
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := IO_STACK_LOCATION._Parameters_e__Union(8, this)
+                this.__Parameters := IO_STACK_LOCATION._Parameters(8, this)
             return this.__Parameters
         }
     }

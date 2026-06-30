@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\BG_AUTH_SCHEME.ahk
+#Include .\BG_AUTH_CREDENTIALS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\BG_AUTH_TARGET.ahk
+#Include .\BG_JOB_REPLY_PROGRESS.ahk
 #Include .\IBackgroundCopyJob.ahk
 
 /**

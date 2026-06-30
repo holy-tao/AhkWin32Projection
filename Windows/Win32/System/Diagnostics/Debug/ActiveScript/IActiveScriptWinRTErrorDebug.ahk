@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IActiveScriptError.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IActiveScriptError.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -33,7 +34,7 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError {
      * @returns {BSTR} 
      */
     GetRestrictedErrorString() {
-        errorString := BSTR()
+        errorString := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", errorString, "HRESULT")
         return errorString
     }
@@ -43,7 +44,7 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError {
      * @returns {BSTR} 
      */
     GetRestrictedErrorReference() {
-        referenceString := BSTR()
+        referenceString := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", referenceString, "HRESULT")
         return referenceString
     }
@@ -53,7 +54,7 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError {
      * @returns {BSTR} 
      */
     GetCapabilitySid() {
-        capabilitySid := BSTR()
+        capabilitySid := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", capabilitySid, "HRESULT")
         return capabilitySid
     }

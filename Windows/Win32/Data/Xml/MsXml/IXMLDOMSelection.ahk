@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLDOMNodeList.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IXMLDOMNode.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IXMLDOMNodeList.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -50,7 +51,7 @@ class IXMLDOMSelection extends IXMLDOMNodeList {
      * @returns {BSTR} 
      */
     get_expr() {
-        expression := BSTR()
+        expression := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", expression, "HRESULT")
         return expression
     }

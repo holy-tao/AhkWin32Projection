@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 #Include .\DFS_STORAGE_INFO_1.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Contains the name, status, GUID, time-out, property flags, metadata size, DFS target information, link reparse point security descriptor, and a list of DFS targets for a root or link.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
 class DFS_INFO_9 extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -84,11 +86,14 @@ class DFS_INFO_9 extends Win32Struct {
 
     /**
      * Specifies the <b>GUID</b> of the DFS root or link.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Guid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__Guid"))
+                this.__Guid := Guid(24, this)
+            return this.__Guid
+        }
     }
 
     /**
@@ -96,8 +101,8 @@ class DFS_INFO_9 extends Win32Struct {
      * @type {Integer}
      */
     PropertyFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -110,8 +115,8 @@ class DFS_INFO_9 extends Win32Struct {
      * @type {Integer}
      */
     MetadataSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -119,8 +124,8 @@ class DFS_INFO_9 extends Win32Struct {
      * @type {Integer}
      */
     SdLengthReserved {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -132,7 +137,7 @@ class DFS_INFO_9 extends Win32Struct {
     pSecurityDescriptor {
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(48, this)
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(56, this)
             return this.__pSecurityDescriptor
         }
     }
@@ -143,8 +148,8 @@ class DFS_INFO_9 extends Win32Struct {
      * @type {Integer}
      */
     NumberOfStorages {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -153,7 +158,7 @@ class DFS_INFO_9 extends Win32Struct {
      * @type {Pointer<DFS_STORAGE_INFO_1>}
      */
     Storage {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

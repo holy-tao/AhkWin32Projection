@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAnimationTransition2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAnimationInterpolator2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a method for creating transitions from custom interpolators. supports the creation of transitions in a specified dimension.

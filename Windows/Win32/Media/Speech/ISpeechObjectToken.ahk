@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISpeechDataKey.ahk
 #Include .\ISpeechObjectTokenCategory.ahk
+#Include .\ISpeechDataKey.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\SpeechTokenShellFolder.ahk
+#Include .\SpeechTokenContext.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -57,7 +62,7 @@ class ISpeechObjectToken extends IDispatch {
      * @returns {BSTR} 
      */
     get_Id() {
-        _ObjectId := BSTR()
+        _ObjectId := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", _ObjectId, "HRESULT")
         return _ObjectId
     }
@@ -87,28 +92,17 @@ class ISpeechObjectToken extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription(Locale) {
-        Description := BSTR()
+        Description := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", Locale, "ptr", Description, "HRESULT")
         return Description
     }
 
     /**
-     * Sets the specified identifier string in the volume's metadata.
+     * 
      * @param {BSTR} Id 
      * @param {BSTR} CategoryID 
      * @param {VARIANT_BOOL} CreateIfNotExist 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * This method returns one of the following codes or another error code if it fails.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                                  | Description                                                                                                     |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                  | The method was successful.<br/>                                                                           |
-     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl> | This drive is locked by BitLocker Drive Encryption. You must unlock this volume from Control Panel. <br/> |
-     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl> | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                    |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/setidentificationfield-win32-encryptablevolume
+     * @returns {HRESULT} 
      */
     SetId(Id, CategoryID, CreateIfNotExist) {
         Id := Id is String ? BSTR.Alloc(Id).Value : Id
@@ -126,7 +120,7 @@ class ISpeechObjectToken extends IDispatch {
     GetAttribute(AttributeName) {
         AttributeName := AttributeName is String ? BSTR.Alloc(AttributeName).Value : AttributeName
 
-        AttributeValue := BSTR()
+        AttributeValue := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", AttributeName, "ptr", AttributeValue, "HRESULT")
         return AttributeValue
     }
@@ -146,22 +140,9 @@ class ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * Removes a TPM command from the local list of commands blocked from running on the computer.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {BSTR} ObjectStorageCLSID 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned.
-     * 
-     * Common return codes are listed below.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                 | Description                           |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
+     * @returns {HRESULT} 
      */
     Remove(ObjectStorageCLSID) {
         ObjectStorageCLSID := ObjectStorageCLSID is String ? BSTR.Alloc(ObjectStorageCLSID).Value : ObjectStorageCLSID
@@ -183,7 +164,7 @@ class ISpeechObjectToken extends IDispatch {
         KeyName := KeyName is String ? BSTR.Alloc(KeyName).Value : KeyName
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
 
-        FilePath := BSTR()
+        FilePath := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", ObjectStorageCLSID, "ptr", KeyName, "ptr", FileName, "int", _Folder, "ptr", FilePath, "HRESULT")
         return FilePath
     }

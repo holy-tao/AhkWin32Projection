@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The DS_REPL_CURSOR structure contains inbound replication state data with respect to all replicas of a given naming context, as returned by the DsReplicaGetInfo and DsReplicaGetInfo2 functions.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_CURSOR extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Contains the invocation identifier of the originating server to which the <b>usnAttributeFilter</b> corresponds.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidSourceDsaInvocationID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__uuidSourceDsaInvocationID"))
+                this.__uuidSourceDsaInvocationID := Guid(0, this)
+            return this.__uuidSourceDsaInvocationID
+        }
     }
 
     /**
@@ -25,7 +29,7 @@ class DS_REPL_CURSOR extends Win32Struct {
      * @type {Integer}
      */
     usnAttributeFilter {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
     }
 }

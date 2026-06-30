@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\APPX_PACKAGE_WRITER_PAYLOAD_STREAM.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides a write-only object model for encrypted app packages. (IAppxEncryptedPackageWriter2)

@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DVDTextStringType.ahk
+#Include .\DVDMenuIDConstants.ahk
+#Include .\IMSVidRect.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\DVDSPExt.ahk
 #Include .\IMSVidPlayback.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IMSVidRect.ahk
 
 /**
- * Contains methods that save and load the current location and state for DVD playback.
- * @remarks
- * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidWebDVD2)</c>.
- * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidwebdvd2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
 class IMSVidWebDVD extends IMSVidPlayback {
@@ -501,7 +502,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_AudioLanguage(lStream, fFormat) {
-        strAudioLang := BSTR()
+        strAudioLang := BSTR({Value: 0}, True)
         result := ComCall(44, this, "int", lStream, "short", fFormat, "ptr", strAudioLang, "HRESULT")
         return strAudioLang
     }
@@ -731,7 +732,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_TotalTitleTime() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(60, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -804,7 +805,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_CurrentTime() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(68, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -818,7 +819,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/dvdtimecode2bstr-method
      */
     DVDTimeCode2bstr(_timeCode) {
-        pTimeStr := BSTR()
+        pTimeStr := BSTR({Value: 0}, True)
         result := ComCall(69, this, "int", _timeCode, "ptr", pTimeStr, "HRESULT")
         return pTimeStr
     }
@@ -828,7 +829,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_DVDDirectory() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(70, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -896,7 +897,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_SubpictureLanguage(lStream) {
-        strLanguage := BSTR()
+        strLanguage := BSTR({Value: 0}, True)
         result := ComCall(76, this, "int", lStream, "ptr", strLanguage, "HRESULT")
         return strLanguage
     }
@@ -990,7 +991,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_DVDUniqueID() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(86, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -1217,7 +1218,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_DVDTextString(lLangIndex, lStringIndex) {
-        pstrText := BSTR()
+        pstrText := BSTR({Value: 0}, True)
         result := ComCall(100, this, "int", lLangIndex, "int", lStringIndex, "ptr", pstrText, "HRESULT")
         return pstrText
     }
@@ -1458,7 +1459,7 @@ class IMSVidWebDVD extends IMSVidPlayback {
      * @returns {BSTR} 
      */
     get_LanguageFromLCID(lcid) {
-        lang := BSTR()
+        lang := BSTR({Value: 0}, True)
         result := ComCall(118, this, "int", lcid, "ptr", lang, "HRESULT")
         return lang
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PrimaryJabColors.ahk
 #Include .\JabColorF.ahk
 #Include .\GamutShell.ahk
+#Include .\PrimaryJabColors.ahk
 
 /**
  * Defines a gamut boundary.

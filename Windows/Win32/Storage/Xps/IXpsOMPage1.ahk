@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\ISequentialStream.ahk
 #Include .\IXpsOMPage.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\XPS_DOCUMENT_TYPE.ahk
 
 /**
  * Inherits from IXpsOMPage.

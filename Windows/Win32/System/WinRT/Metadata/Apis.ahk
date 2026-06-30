@@ -2,6 +2,15 @@
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ROPARAMIIDHANDLE.ahk
+#Include .\IMetaDataDispenserEx.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\HSTRING.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\IMetaDataImport2.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IRoMetaDataLocator.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -1603,7 +1612,7 @@ class Metadata {
     static RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid) {
         nameElementsMarshal := nameElements is VarRef ? "ptr*" : "ptr"
 
-        pExtra := ROPARAMIIDHANDLE()
+        pExtra := ROPARAMIIDHANDLE({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", "uint", nameElementCount, nameElementsMarshal, nameElements, "ptr", metaDataLocator, "ptr", iid, "ptr", pExtra, "HRESULT")
         return pExtra
     }

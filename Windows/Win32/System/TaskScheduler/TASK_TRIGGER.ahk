@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TASK_TRIGGER_TYPE.ahk
-#Include .\TRIGGER_TYPE_UNION.ahk
+#Include .\MONTHLYDOW.ahk
 #Include .\DAILY.ahk
+#Include .\TASK_TRIGGER_TYPE.ahk
 #Include .\WEEKLY.ahk
 #Include .\MONTHLYDATE.ahk
-#Include .\MONTHLYDOW.ahk
+#Include .\TRIGGER_TYPE_UNION.ahk
 
 /**
  * Defines the times to run a scheduled work item.

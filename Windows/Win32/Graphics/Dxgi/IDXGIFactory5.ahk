@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_FEATURE.ahk
 #Include .\IDXGIFactory4.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface enables a single method to support variable refresh rate displays.

@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include .\IActiveScriptError.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\Com\ITypeInfo.ahk
+#Include .\SCRIPTSTATE.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Com\EXCEPINFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -57,7 +64,7 @@ class IActiveScriptSite extends IUnknown {
      * @returns {BSTR} 
      */
     GetDocVersionString() {
-        pbstrVersion := BSTR()
+        pbstrVersion := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pbstrVersion, "HRESULT")
         return pbstrVersion
     }

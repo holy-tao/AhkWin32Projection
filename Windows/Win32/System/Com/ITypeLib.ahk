@@ -1,9 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Include .\TYPEKIND.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\ITypeInfo.ahk
+#Include .\IUnknown.ahk
 #Include .\ITypeComp.ahk
+#Include .\TLIBATTR.ahk
 
 /**
  * Represents a type library, the data that describes a set of objects. (ITypeLib)

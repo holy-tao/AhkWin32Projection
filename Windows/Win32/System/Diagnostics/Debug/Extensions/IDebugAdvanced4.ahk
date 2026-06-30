@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\SYMBOL_INFO_EX.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -71,14 +75,13 @@ class IDebugAdvanced4 extends IUnknown {
     }
 
     /**
-     * Specifies the type of application that created a certificate request.
+     * 
      * @param {Integer} Request 
      * @param {Integer} InBuffer 
      * @param {Integer} InBufferSize 
      * @param {Integer} OutBuffer 
      * @param {Integer} OutBufferSize 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-requestclientinfoclientid
      */
     Request(Request, InBuffer, InBufferSize, OutBuffer, OutBufferSize) {
         result := ComCall(5, this, "uint", Request, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, "uint*", &OutSize := 0, "HRESULT")

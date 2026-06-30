@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IUIAutomationCondition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes properties and methods that Microsoft UI Automation client applications can use to retrieve information about an AND-based property condition.

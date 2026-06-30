@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\DS_REPL_OP_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * The DS_REPL_OP structure describes a replication task currently executing or pending execution, as returned by the DsReplicaGetInfo or DsReplicaGetInfo2 function.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_OPW extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -97,19 +99,25 @@ class DS_REPL_OPW extends Win32Struct {
 
     /**
      * Contains the <b>objectGuid</b> of the naming context identified by <b>pszNamingContext</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidNamingContextObjGuid {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__uuidNamingContextObjGuid"))
+                this.__uuidNamingContextObjGuid := Guid(48, this)
+            return this.__uuidNamingContextObjGuid
+        }
     }
 
     /**
      * Contains the <b>objectGuid</b> of the directory system agent object identified by <b>pszDsaDN</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidDsaObjGuid {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get {
+            if(!this.HasProp("__uuidDsaObjGuid"))
+                this.__uuidDsaObjGuid := Guid(64, this)
+            return this.__uuidDsaObjGuid
+        }
     }
 }

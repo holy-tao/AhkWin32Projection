@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CMC_PEND_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains status information about Certificate Management Messages over CMS.

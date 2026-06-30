@@ -290,4 +290,14 @@ class D3D12_FEATURE extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_SHADER_CACHE_ABI_SUPPORT => 61
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_FEATURE_BARRIER_LAYOUT => 64
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_FEATURE_D3D12_OPTIONS22 => 65
 }

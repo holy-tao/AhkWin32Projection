@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
 #Include .\IUpdateInstallationResult.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the progress of an asynchronous installation or uninstallation.

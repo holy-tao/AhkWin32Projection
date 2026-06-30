@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLDOMNode.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IHTMLRectCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IHTMLRect.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -297,7 +299,7 @@ class IHTMLDOMRange extends IDispatch {
      * @returns {BSTR} 
      */
     toString() {
-        pRangeString := BSTR()
+        pRangeString := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", pRangeString, "HRESULT")
         return pRangeString
     }

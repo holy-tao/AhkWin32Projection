@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IMbnPin.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MBN_PIN_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides important details about the device PIN.

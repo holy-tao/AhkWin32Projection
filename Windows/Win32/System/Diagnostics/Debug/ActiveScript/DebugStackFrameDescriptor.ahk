@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\..\Win32Struct.ahk
 #Include .\IDebugStackFrame.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript

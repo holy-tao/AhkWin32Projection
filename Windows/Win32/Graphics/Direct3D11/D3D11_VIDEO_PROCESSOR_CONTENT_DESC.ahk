@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_VIDEO_USAGE.ahk
 #Include .\D3D11_VIDEO_FRAME_FORMAT.ahk
 #Include ..\Dxgi\Common\DXGI_RATIONAL.ahk
-#Include .\D3D11_VIDEO_USAGE.ahk
 
 /**
  * Describes a video stream for a video processor.

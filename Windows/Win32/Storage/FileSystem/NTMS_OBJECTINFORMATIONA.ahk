@@ -1,23 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\NTMS_IEPORTINFORMATION.ahk
+#Include .\NTMS_LMIDINFORMATION.ahk
+#Include .\NTMS_PMIDINFORMATIONA.ahk
 #Include .\NTMS_DRIVEINFORMATIONA.ahk
-#Include .\NTMS_DRIVETYPEINFORMATIONA.ahk
+#Include .\NTMS_CHANGERINFORMATIONA.ahk
+#Include .\NTMS_MEDIATYPEINFORMATION.ahk
+#Include .\NTMS_PARTITIONINFORMATIONA.ahk
+#Include .\NTMS_OPREQUESTINFORMATIONA.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\NTMS_CHANGERTYPEINFORMATIONA.ahk
+#Include .\NTMS_COMPUTERINFORMATION.ahk
+#Include .\NTMS_LIBREQUESTINFORMATIONA.ahk
 #Include .\FILE_DEVICE_TYPE.ahk
 #Include .\NTMS_LIBRARYINFORMATION.ahk
-#Include .\NTMS_CHANGERINFORMATIONA.ahk
-#Include .\NTMS_CHANGERTYPEINFORMATIONA.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\NTMS_DRIVETYPEINFORMATIONA.ahk
 #Include .\NTMS_STORAGESLOTINFORMATION.ahk
-#Include .\NTMS_IEDOORINFORMATION.ahk
-#Include .\NTMS_IEPORTINFORMATION.ahk
-#Include .\NTMS_PMIDINFORMATIONA.ahk
-#Include .\NTMS_LMIDINFORMATION.ahk
-#Include .\NTMS_PARTITIONINFORMATIONA.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\NTMS_MEDIAPOOLINFORMATION.ahk
-#Include .\NTMS_MEDIATYPEINFORMATION.ahk
-#Include .\NTMS_LIBREQUESTINFORMATIONA.ahk
-#Include .\NTMS_OPREQUESTINFORMATIONA.ahk
-#Include .\NTMS_COMPUTERINFORMATION.ahk
+#Include .\NTMS_IEDOORINFORMATION.ahk
 
 /**
  * The NTMS_OBJECTINFORMATION structure defines the properties that an application can get and set for RSM devices, media and system controls (such as libraries, drives, media, operator requests). This is the common structure of objects in the RSM database. (ANSI)
@@ -36,12 +38,12 @@
  * @charset ANSI
  */
 class NTMS_OBJECTINFORMATIONA extends Win32Struct {
-    static sizeof => 872
+    static sizeof => 896
 
     static packingSize => 8
 
-    class _Info_e__Union extends Win32Struct {
-        static sizeof => 624
+    class _Info extends Win32Struct {
+        static sizeof => 640
         static packingSize => 8
 
         /**
@@ -275,11 +277,14 @@ class NTMS_OBJECTINFORMATIONA extends Win32Struct {
      * Type: <b>NTMS_GUID</b>
      * 
      * GUID of the object.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__ObjectGuid"))
+                this.__ObjectGuid := Guid(40, this)
+            return this.__ObjectGuid
+        }
     }
 
     /**
@@ -289,8 +294,8 @@ class NTMS_OBJECTINFORMATIONA extends Win32Struct {
      * @type {BOOL}
      */
     Enabled {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -298,8 +303,8 @@ class NTMS_OBJECTINFORMATIONA extends Win32Struct {
      * @type {Integer}
      */
     dwOperationalState {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -310,8 +315,8 @@ class NTMS_OBJECTINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 56, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 56, 63, "UTF-8")
+        get => StrGet(this.ptr + 64, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 64, 63, "UTF-8")
     }
 
     /**
@@ -322,18 +327,18 @@ class NTMS_OBJECTINFORMATIONA extends Win32Struct {
      * @type {String}
      */
     szDescription {
-        get => StrGet(this.ptr + 120, 126, "UTF-8")
-        set => StrPut(value, this.ptr + 120, 126, "UTF-8")
+        get => StrGet(this.ptr + 128, 126, "UTF-8")
+        set => StrPut(value, this.ptr + 128, 126, "UTF-8")
     }
 
     /**
      * Device or system control object-specific information. The format of this information depends on the <b>dwType</b> member.
-     * @type {_Info_e__Union}
+     * @type {_Info}
      */
     Info {
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := NTMS_OBJECTINFORMATIONA._Info_e__Union(248, this)
+                this.__Info := NTMS_OBJECTINFORMATIONA._Info(256, this)
             return this.__Info
         }
     }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
-#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
+#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
 
 /**
  * Stores a single anycast IP address in a linked list of addresses for a particular adapter.

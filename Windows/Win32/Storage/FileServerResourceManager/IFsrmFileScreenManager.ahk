@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmFileScreen.ahk
-#Include .\IFsrmCommittableCollection.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmFileScreenException.ahk
+#Include .\FsrmEnumOptions.ahk
+#Include .\IFsrmCommittableCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to manage file screen objects.

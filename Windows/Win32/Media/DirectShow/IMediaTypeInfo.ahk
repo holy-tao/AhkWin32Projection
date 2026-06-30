@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -47,7 +48,7 @@ class IMediaTypeInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_Type() {
-        strType := BSTR()
+        strType := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", strType, "HRESULT")
         return strType
     }
@@ -57,7 +58,7 @@ class IMediaTypeInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_Subtype() {
-        strType := BSTR()
+        strType := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", strType, "HRESULT")
         return strType
     }

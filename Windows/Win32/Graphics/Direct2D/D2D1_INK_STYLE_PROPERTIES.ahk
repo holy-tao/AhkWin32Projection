@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_INK_NIB_SHAPE.ahk
 #Include Common\D2D_MATRIX_3X2_F.ahk
+#Include .\D2D1_INK_NIB_SHAPE.ahk
 
 /**
  * Defines the general pen tip shape and the transform used in an ID2D1InkStyle object.

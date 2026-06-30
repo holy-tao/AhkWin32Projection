@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MPRAPI_OBJECT_HEADER.ahk
-#Include .\ROUTER_IKEv2_IF_CUSTOM_CONFIG1.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 #Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Include .\ROUTER_IKEv2_IF_CUSTOM_CONFIG1.ahk
+#Include .\MPRAPI_OBJECT_HEADER.ahk
+#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras

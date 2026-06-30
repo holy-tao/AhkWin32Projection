@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\Com\IUnknown.ahk
+#Include ..\..\Ole\CADWORD.ahk
+#Include ..\..\Ole\CALPOLESTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -35,7 +38,7 @@ class IPerPropertyBrowsing2 extends IUnknown {
      * @returns {BSTR} 
      */
     GetDisplayString(dispid) {
-        pBstr := BSTR()
+        pBstr := BSTR({Value: 0}, True)
         result := ComCall(3, this, "int", dispid, "ptr", pBstr, "HRESULT")
         return pBstr
     }

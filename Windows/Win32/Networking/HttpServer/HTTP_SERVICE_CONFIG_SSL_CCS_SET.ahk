@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_SSL_CCS_KEY.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
-#Include ..\WinSock\ADDRESS_FAMILY.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_PARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\HTTP_SERVICE_CONFIG_SSL_CCS_KEY.ahk
+#Include ..\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\WinSock\SOCKADDR_STORAGE.ahk
 
 /**
  * Represents the SSL certificate record that specifies that Http.sys should consult the Centralized Certificate Store (CCS) store to find certificates if the port receives a Transport Layer Security (TLS) handshake.
@@ -13,7 +15,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  */
 class HTTP_SERVICE_CONFIG_SSL_CCS_SET extends Win32Struct {
-    static sizeof => 200
+    static sizeof => 208
 
     static packingSize => 8
 

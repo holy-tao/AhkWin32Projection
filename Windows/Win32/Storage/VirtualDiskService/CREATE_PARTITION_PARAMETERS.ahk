@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\VDS_PARTITION_STYLE.ahk
 
 /**
@@ -12,7 +14,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class CREATE_PARTITION_PARAMETERS extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -46,39 +48,45 @@ class CREATE_PARTITION_PARAMETERS extends Win32Struct {
     }
 
     class _GptPartInfo extends Win32Struct {
-        static sizeof => 96
+        static sizeof => 112
         static packingSize => 8
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         partitionType {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__partitionType"))
+                    this.__partitionType := Guid(0, this)
+                return this.__partitionType
+            }
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         partitionId {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+            get {
+                if(!this.HasProp("__partitionId"))
+                    this.__partitionId := Guid(16, this)
+                return this.__partitionId
+            }
         }
 
         /**
          * @type {Integer}
          */
         attributes {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
         }
 
         /**
          * @type {String}
          */
         name {
-            get => StrGet(this.ptr + 24, 35, "UTF-16")
-            set => StrPut(value, this.ptr + 24, 35, "UTF-16")
+            get => StrGet(this.ptr + 40, 35, "UTF-16")
+            set => StrPut(value, this.ptr + 40, 35, "UTF-16")
         }
     }
 

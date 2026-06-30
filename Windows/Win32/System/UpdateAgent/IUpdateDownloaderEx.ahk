@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\DownloadType.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IDownloadResult.ahk
 #Include .\IUpdateDownloader.ahk
 #Include .\IDownloadJob.ahk
-#Include .\IDownloadResult.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.UpdateAgent

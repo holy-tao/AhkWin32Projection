@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_NF_CONTROLLER.ahk
 
 /**
@@ -14,9 +15,9 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_CONTROLLER_NOTIFICATION extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {VDS_NF_CONTROLLER}
@@ -28,10 +29,13 @@ class VDS_CONTROLLER_NOTIFICATION extends Win32Struct {
 
     /**
      * The GUID of the controller that triggered the event.
-     * @type {Pointer}
+     * @type {Guid}
      */
     controllerId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__controllerId"))
+                this.__controllerId := Guid(4, this)
+            return this.__controllerId
+        }
     }
 }

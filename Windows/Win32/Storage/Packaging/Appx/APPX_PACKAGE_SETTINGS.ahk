@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\System\Com\IUri.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents package settings used to create a package.

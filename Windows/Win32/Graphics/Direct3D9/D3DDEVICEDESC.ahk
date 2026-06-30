@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3DPRIMCAPS.ahk
 #Include .\D3DTRANSFORMCAPS.ahk
 #Include .\D3DLIGHTINGCAPS.ahk
-#Include .\D3DPRIMCAPS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9

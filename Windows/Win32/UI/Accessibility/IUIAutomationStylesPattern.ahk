@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\UIA_STYLE_ID.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ExtendedProperty.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables Microsoft UI Automation clients to retrieve the visual styles associated with an element in a document.
@@ -146,7 +149,7 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentstylename
      */
     get_CurrentStyleName() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -166,7 +169,7 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @returns {BSTR} 
      */
     get_CurrentFillPatternStyle() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -177,7 +180,7 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentshape
      */
     get_CurrentShape() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -198,7 +201,7 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentextendedproperties
      */
     get_CurrentExtendedProperties() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -235,7 +238,7 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedstylename
      */
     get_CachedStyleName() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -255,7 +258,7 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @returns {BSTR} 
      */
     get_CachedFillPatternStyle() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -266,7 +269,7 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedshape
      */
     get_CachedShape() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -287,7 +290,7 @@ class IUIAutomationStylesPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedextendedproperties
      */
     get_CachedExtendedProperties() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", retVal, "HRESULT")
         return retVal
     }

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\APO_NOTIFICATION_DESCRIPTOR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\APO_NOTIFICATION.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Implemented by clients to register for and receive common audio-related notifications for APO endpoint and system effect notifications.

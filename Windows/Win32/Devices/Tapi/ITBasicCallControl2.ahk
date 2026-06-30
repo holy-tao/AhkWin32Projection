@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TERMINAL_DIRECTION.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITBasicCallControl.ahk
 #Include .\ITTerminal.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITBasicCallControl2 interface is an extension of the ITBasicCallControl interface.

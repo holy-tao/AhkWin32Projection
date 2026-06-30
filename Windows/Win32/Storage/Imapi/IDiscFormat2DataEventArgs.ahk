@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPI_FORMAT2_DATA_WRITE_ACTION.ahk
 #Include .\IWriteEngine2EventArgs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to retrieve information about the current write operation. (IDiscFormat2DataEventArgs)

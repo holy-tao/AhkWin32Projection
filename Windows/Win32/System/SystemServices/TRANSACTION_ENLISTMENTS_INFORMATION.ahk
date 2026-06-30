@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\TRANSACTION_ENLISTMENT_PAIR.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
 class TRANSACTION_ENLISTMENTS_INFORMATION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -24,7 +25,7 @@ class TRANSACTION_ENLISTMENTS_INFORMATION extends Win32Struct {
     EnlistmentPair {
         get {
             if(!this.HasProp("__EnlistmentPairProxyArray"))
-                this.__EnlistmentPairProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSACTION_ENLISTMENT_PAIR, "")
+                this.__EnlistmentPairProxyArray := Win32FixedArray(this.ptr + 4, 1, TRANSACTION_ENLISTMENT_PAIR, "")
             return this.__EnlistmentPairProxyArray
         }
     }

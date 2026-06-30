@@ -16,8 +16,7 @@ class Streaming {
     static DEVPKEY_Device_PacketWakeSupported {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -29,8 +28,7 @@ class Streaming {
     static DEVPKEY_Device_SendPacketWakeSupported {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }
@@ -42,8 +40,7 @@ class Streaming {
     static DEVPKEY_Device_UDN {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -55,8 +52,7 @@ class Streaming {
     static DEVPKEY_Device_SupportsAudio {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -68,8 +64,7 @@ class Streaming {
     static DEVPKEY_Device_SupportsVideo {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -81,8 +76,7 @@ class Streaming {
     static DEVPKEY_Device_SupportsImages {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -94,8 +88,7 @@ class Streaming {
     static DEVPKEY_Device_SinkProtocolInfo {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -107,8 +100,7 @@ class Streaming {
     static DEVPKEY_Device_DLNADOC {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -120,8 +112,7 @@ class Streaming {
     static DEVPKEY_Device_DLNACAP {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -133,8 +124,7 @@ class Streaming {
     static DEVPKEY_Device_SupportsSearch {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -146,8 +136,7 @@ class Streaming {
     static DEVPKEY_Device_SupportsMute {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -159,8 +148,7 @@ class Streaming {
     static DEVPKEY_Device_MaxVolume {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 19
             return value
         }
@@ -172,8 +160,7 @@ class Streaming {
     static DEVPKEY_Device_SupportsSetNextAVT {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{88ad39db-0d0c-4a38-8435-4043826b5c91}").CopyTo(value.fmtid.ptr)
             value.pid := 20
             return value
         }

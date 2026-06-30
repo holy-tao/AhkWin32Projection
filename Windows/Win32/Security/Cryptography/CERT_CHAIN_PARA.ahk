@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_USAGE_MATCH.ahk
 #Include .\CTL_USAGE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\CERT_USAGE_MATCH.ahk
 #Include .\CERT_STRONG_SIGN_PARA.ahk
 
 /**

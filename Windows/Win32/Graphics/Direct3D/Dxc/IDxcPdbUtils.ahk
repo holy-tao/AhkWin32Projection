@@ -1,12 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IDxcCompiler3.ahk
+#Include .\DxcArgPair.ahk
 #Include .\IDxcBlobEncoding.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IDxcBlob.ahk
 #Include .\IDxcVersionInfo.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IDxcResult.ahk
+#Include .\IDxcBlob.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -133,7 +138,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetSourceName(uIndex) {
-        pResult := BSTR()
+        pResult := BSTR({Value: 0}, True)
         result := ComCall(6, this, "uint", uIndex, "ptr", pResult, "HRESULT")
         return pResult
     }
@@ -153,7 +158,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetFlag(uIndex) {
-        pResult := BSTR()
+        pResult := BSTR({Value: 0}, True)
         result := ComCall(8, this, "uint", uIndex, "ptr", pResult, "HRESULT")
         return pResult
     }
@@ -173,7 +178,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetArg(uIndex) {
-        pResult := BSTR()
+        pResult := BSTR({Value: 0}, True)
         result := ComCall(10, this, "uint", uIndex, "ptr", pResult, "HRESULT")
         return pResult
     }
@@ -214,7 +219,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetDefine(uIndex) {
-        pResult := BSTR()
+        pResult := BSTR({Value: 0}, True)
         result := ComCall(14, this, "uint", uIndex, "ptr", pResult, "HRESULT")
         return pResult
     }
@@ -224,7 +229,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetTargetProfile() {
-        pResult := BSTR()
+        pResult := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pResult, "HRESULT")
         return pResult
     }
@@ -234,7 +239,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetEntryPoint() {
-        pResult := BSTR()
+        pResult := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pResult, "HRESULT")
         return pResult
     }
@@ -244,7 +249,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetMainFileName() {
-        pResult := BSTR()
+        pResult := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pResult, "HRESULT")
         return pResult
     }
@@ -264,7 +269,7 @@ class IDxcPdbUtils extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        pResult := BSTR()
+        pResult := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pResult, "HRESULT")
         return pResult
     }

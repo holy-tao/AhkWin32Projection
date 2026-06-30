@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SCM_INTERLEAVED_PD_INFO.ahk
 
 /**
@@ -8,7 +9,7 @@
 class SCM_LD_INTERLEAVE_SET_INFO extends Win32Struct {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -40,7 +41,7 @@ class SCM_LD_INTERLEAVE_SET_INFO extends Win32Struct {
     InterleaveSet {
         get {
             if(!this.HasProp("__InterleaveSetProxyArray"))
-                this.__InterleaveSetProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_INTERLEAVED_PD_INFO, "")
+                this.__InterleaveSetProxyArray := Win32FixedArray(this.ptr + 12, 1, SCM_INTERLEAVED_PD_INFO, "")
             return this.__InterleaveSetProxyArray
         }
     }

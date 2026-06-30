@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_VIDEO_OUTPUT_TECHNOLOGY.ahk
 #Include .\DXGK_CHILD_DEVICE_HPD_AWARENESS.ahk
 #Include .\D3DKMDT_MONITOR_ORIENTATION_AWARENESS.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include .\D3DKMDT_VIDEO_OUTPUT_TECHNOLOGY.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

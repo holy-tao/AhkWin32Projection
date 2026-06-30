@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_COMPONENT_HEALTH_STATUS.ahk
-#Include .\STORAGE_PROTOCOL_TYPE.ahk
 #Include .\STORAGE_SPEC_VERSION.ahk
+#Include .\STORAGE_PROTOCOL_TYPE.ahk
 #Include .\STORAGE_DEVICE_FORM_FACTOR.ahk
+#Include .\STORAGE_COMPONENT_HEALTH_STATUS.ahk
 
 /**
  * Describes a physical storage device.

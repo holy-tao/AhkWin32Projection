@@ -1,7 +1,47 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\EVENT_FIELD_TYPE.ahk
+#Include .\EVENT_TRACE_CONTROL.ahk
+#Include .\PAYLOAD_FILTER_PREDICATE.ahk
+#Include ..\..\..\Security\PSID.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
+#Include .\ETW_OPEN_TRACE_OPTIONS.ahk
+#Include .\REGHANDLE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\EVENT_RECORD.ahk
+#Include .\EVENT_TRACE_LOGFILEW.ahk
+#Include .\EVENT_TRACE_PROPERTIES.ahk
+#Include .\ETW_PROCESS_HANDLE_INFO_TYPE.ahk
+#Include ..\..\..\Foundation\FILETIME.ahk
+#Include .\PROPERTY_DATA_DESCRIPTOR.ahk
+#Include .\TRACE_GUID_REGISTRATION.ahk
+#Include .\ETW_BUFFER_HEADER.ahk
+#Include .\EVENT_INSTANCE_INFO.ahk
+#Include .\TRACE_GUID_PROPERTIES.ahk
+#Include .\EVENT_FILTER_DESCRIPTOR.ahk
+#Include .\TDH_CONTEXT.ahk
+#Include .\EVENT_TRACE_HEADER.ahk
+#Include .\EVENT_INFO_CLASS.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\TDH_HANDLE.ahk
+#Include .\DECODING_SOURCE.ahk
+#Include .\TRACE_QUERY_INFO_CLASS.ahk
+#Include ..\..\..\Foundation\WIN32_ERROR.ahk
+#Include .\EVENT_DATA_DESCRIPTOR.ahk
+#Include .\TRACE_EVENT_INFO.ahk
+#Include .\EVENT_INSTANCE_HEADER.ahk
+#Include .\TRACE_LOGFILE_HEADER.ahk
+#Include .\ENABLE_TRACE_PARAMETERS.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\PROCESSTRACE_HANDLE.ahk
+#Include .\TRACE_MESSAGE_FLAGS.ahk
+#Include .\EVENT_TRACE_LOGFILEA.ahk
+#Include .\TRACE_LBR_CONFIGURATION.ahk
+#Include .\CLASSIC_EVENT_ID.ahk
+#Include .\EVENT_MAP_INFO.ahk
+#Include .\EVENT_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw

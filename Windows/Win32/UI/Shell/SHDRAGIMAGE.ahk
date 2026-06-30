@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Contains the information needed to create a drag image.

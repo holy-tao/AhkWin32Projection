@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IVisualTreeServiceCallback.ahk
+#Include .\VisualElementState.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents additional capabilities of an IVisualTreeServiceCallback object.

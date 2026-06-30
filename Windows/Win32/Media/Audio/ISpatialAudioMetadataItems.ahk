@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\SpatialAudioMetadataItemsInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a buffer of spatial audio metadata items.

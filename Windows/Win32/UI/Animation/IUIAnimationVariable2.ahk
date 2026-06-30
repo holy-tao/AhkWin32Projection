@@ -1,8 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAnimationVariableChangeHandler2.ahk
+#Include .\UI_ANIMATION_ROUNDING_MODE.ahk
+#Include .\IUIAnimationVariableCurveChangeHandler2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUIAnimationStoryboard2.ahk
+#Include .\IUIAnimationVariableIntegerChangeHandler2.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\DirectComposition\IDCompositionAnimation.ahk
 
 /**
  * Defines an animation variable, which represents a visual element that can be animated in multiple dimensions.

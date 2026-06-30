@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_PHY_TYPE.ahk
 #Include .\DOT11_RECV_SENSITIVITY.ahk
+#Include .\DOT11_PHY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

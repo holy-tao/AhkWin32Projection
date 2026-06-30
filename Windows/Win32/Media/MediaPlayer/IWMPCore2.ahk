@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWMPCore.ahk
 #Include .\IWMPDVD.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMPCore2 interface provides a method that supplements the IWMPCore interface.

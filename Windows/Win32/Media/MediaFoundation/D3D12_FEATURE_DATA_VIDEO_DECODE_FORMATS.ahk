@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
 #Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
-#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
 
 /**
  * Retrieves the list of supported formats.
@@ -31,7 +32,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_FORMATS extends Win32Struct {
     Configuration {
         get {
             if(!this.HasProp("__Configuration"))
-                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
+                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(4, this)
             return this.__Configuration
         }
     }
@@ -41,8 +42,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_FORMATS extends Win32Struct {
      * @type {Integer}
      */
     FormatCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**

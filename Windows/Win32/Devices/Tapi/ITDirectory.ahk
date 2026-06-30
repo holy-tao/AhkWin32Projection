@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IEnumDirectoryObject.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITDirectoryObject.ahk
+#Include .\DIRECTORY_TYPE.ahk
+#Include .\DIRECTORY_OBJECT_TYPE.ahk
 
 /**
  * The ITDirectory interface is exposed by the Directory object, which corresponds to a particular directory.
@@ -80,7 +85,7 @@ class ITDirectory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_displayname
      */
     get_DisplayName() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pName, "HRESULT")
         return pName
     }

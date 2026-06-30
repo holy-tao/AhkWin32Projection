@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SECURE_ELEMENT_ROUTING_TABLE_ENTRY.ahk
-#Include .\SECURE_ELEMENT_ROUTING_TYPE.ahk
 #Include .\SECURE_ELEMENT_TECH_ROUTING_INFO.ahk
+#Include .\SECURE_ELEMENT_ROUTING_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SECURE_ELEMENT_ROUTING_TABLE_ENTRY.ahk
 #Include .\SECURE_ELEMENT_PROTO_ROUTING_INFO.ahk
 #Include .\SECURE_ELEMENT_AID_ROUTING_INFO.ahk
 
@@ -10,9 +11,9 @@
  * @namespace Windows.Win32.Devices.Nfc
  */
 class SECURE_ELEMENT_ROUTING_TABLE extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -28,7 +29,7 @@ class SECURE_ELEMENT_ROUTING_TABLE extends Win32Struct {
     TableEntries {
         get {
             if(!this.HasProp("__TableEntriesProxyArray"))
-                this.__TableEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, SECURE_ELEMENT_ROUTING_TABLE_ENTRY, "")
+                this.__TableEntriesProxyArray := Win32FixedArray(this.ptr + 4, 1, SECURE_ELEMENT_ROUTING_TABLE_ENTRY, "")
             return this.__TableEntriesProxyArray
         }
     }

@@ -15,7 +15,7 @@ class WNV_IP_ADDRESS extends Win32Struct {
 
     static packingSize => 4
 
-    class _IP_e__Union extends Win32Struct {
+    class _IP extends Win32Struct {
         static sizeof => 16
         static packingSize => 4
 
@@ -55,12 +55,12 @@ class WNV_IP_ADDRESS extends Win32Struct {
 
     /**
      * An IP version 4 (IPv4) or IP version 6 (IPv6) address object.
-     * @type {_IP_e__Union}
+     * @type {_IP}
      */
     IP {
         get {
             if(!this.HasProp("__IP"))
-                this.__IP := WNV_IP_ADDRESS._IP_e__Union(0, this)
+                this.__IP := WNV_IP_ADDRESS._IP(0, this)
             return this.__IP
         }
     }

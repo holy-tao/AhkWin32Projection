@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ITfInputProcessorProfiles.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface is implemented by the TSF manager and used by a text service or application to set the display description of the language profile.

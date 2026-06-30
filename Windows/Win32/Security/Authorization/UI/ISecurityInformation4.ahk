@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\SECURITY_OBJECT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables the access control editor (ACE) to obtain the share's security descriptor to initialize the share page.

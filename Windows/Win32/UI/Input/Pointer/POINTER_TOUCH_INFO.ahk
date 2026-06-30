@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\POINTER_BUTTON_CHANGE_TYPE.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include .\POINTER_INFO.ahk
 #Include ..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
 #Include .\POINTER_FLAGS.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
-#Include .\POINTER_BUTTON_CHANGE_TYPE.ahk
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**

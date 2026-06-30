@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IKEEXT_KERBEROS_AUTHENTICATION_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information needed for preshared key authentication. (IKEEXT_KERBEROS_AUTHENTICATION1)

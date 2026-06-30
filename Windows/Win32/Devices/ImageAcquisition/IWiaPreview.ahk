@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWiaTransferCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWiaItem2.ahk
 
 /**
  * The IWiaPreview interface caches unfiltered images internally and passes them through image processing filters.

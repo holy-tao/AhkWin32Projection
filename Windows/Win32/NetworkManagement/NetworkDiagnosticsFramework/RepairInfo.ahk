@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\REPAIR_SCOPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\REPAIR_RISK.ahk
-#Include .\UiInfo.ahk
-#Include .\UI_INFO_TYPE.ahk
+#Include .\REPAIR_SCOPE.ahk
 #Include .\ShellCommandInfo.ahk
+#Include .\UI_INFO_TYPE.ahk
+#Include .\UiInfo.ahk
 
 /**
  * The RepairInfo structure contains data required for a particular repair option.
@@ -12,17 +14,20 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
 class RepairInfo extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 112
 
     static packingSize => 8
 
     /**
      * A unique GUID for this repair.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -30,8 +35,8 @@ class RepairInfo extends Win32Struct {
      * @type {PWSTR}
      */
     pwszClassName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -39,8 +44,8 @@ class RepairInfo extends Win32Struct {
      * @type {PWSTR}
      */
     pwszDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -48,8 +53,8 @@ class RepairInfo extends Win32Struct {
      * @type {Integer}
      */
     sidType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -57,8 +62,8 @@ class RepairInfo extends Win32Struct {
      * @type {Integer}
      */
     cost {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -185,8 +190,8 @@ class RepairInfo extends Win32Struct {
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -194,8 +199,8 @@ class RepairInfo extends Win32Struct {
      * @type {REPAIR_SCOPE}
      */
     scope {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -203,8 +208,8 @@ class RepairInfo extends Win32Struct {
      * @type {REPAIR_RISK}
      */
     risk {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -214,7 +219,7 @@ class RepairInfo extends Win32Struct {
     UiInfo {
         get {
             if(!this.HasProp("__UiInfo"))
-                this.__UiInfo := UiInfo(48, this)
+                this.__UiInfo := UiInfo(56, this)
             return this.__UiInfo
         }
     }
@@ -223,7 +228,7 @@ class RepairInfo extends Win32Struct {
      * @type {Integer}
      */
     rootCauseIndex {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
     }
 }

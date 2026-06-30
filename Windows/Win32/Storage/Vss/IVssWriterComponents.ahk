@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IVssComponent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains methods used to obtain and modify component information.

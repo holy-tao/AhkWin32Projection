@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\TOC_DESCRIPTOR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITocEntryList.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IToc interface represents an individual table of contents. It provides methods for adding entries to, and removing entries from the table of contents.

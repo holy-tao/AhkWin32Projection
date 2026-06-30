@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
 class HTML_PAINTER_INFO extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -27,11 +28,14 @@ class HTML_PAINTER_INFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     iidDrawObject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__iidDrawObject"))
+                this.__iidDrawObject := Guid(8, this)
+            return this.__iidDrawObject
+        }
     }
 
     /**
@@ -40,7 +44,7 @@ class HTML_PAINTER_INFO extends Win32Struct {
     rcExpand {
         get {
             if(!this.HasProp("__rcExpand"))
-                this.__rcExpand := RECT(16, this)
+                this.__rcExpand := RECT(24, this)
             return this.__rcExpand
         }
     }

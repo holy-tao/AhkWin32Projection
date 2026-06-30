@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_FIXSESSIONTYPE.ahk
-#Include .\GNSS_SINGLESHOT_PARAM.ahk
 #Include .\GNSS_DISTANCETRACKING_PARAM.ahk
+#Include .\GNSS_SINGLESHOT_PARAM.ahk
 #Include .\GNSS_CONTINUOUSTRACKING_PARAM.ahk
+#Include .\GNSS_FIXSESSIONTYPE.ahk
 #Include .\GNSS_LKGFIX_PARAM.ahk
 
 /**

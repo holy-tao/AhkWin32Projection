@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DATABLOCK_HEADER.ahk
 #Include ..\..\System\Console\COORD.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\DATABLOCK_HEADER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Holds an extra data block used by IShellLinkDataList. It holds console properties.

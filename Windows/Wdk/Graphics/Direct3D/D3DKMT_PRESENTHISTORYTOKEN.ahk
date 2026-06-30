@@ -10,7 +10,7 @@ class D3DKMT_PRESENTHISTORYTOKEN extends Win32Struct {
 
     static packingSize => 8
 
-    class _Token_e__Union extends Win32Struct {
+    class _Token extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -112,12 +112,12 @@ class D3DKMT_PRESENTHISTORYTOKEN extends Win32Struct {
     }
 
     /**
-     * @type {_Token_e__Union}
+     * @type {_Token}
      */
     Token {
         get {
             if(!this.HasProp("__Token"))
-                this.__Token := D3DKMT_PRESENTHISTORYTOKEN._Token_e__Union(16, this)
+                this.__Token := D3DKMT_PRESENTHISTORYTOKEN._Token(16, this)
             return this.__Token
         }
     }

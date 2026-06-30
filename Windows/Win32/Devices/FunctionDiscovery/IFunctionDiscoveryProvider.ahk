@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFunctionInstance.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IFunctionDiscoveryProviderQuery.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFunctionInstanceCollection.ahk
+#Include .\IFunctionDiscoveryProviderFactory.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\IFunctionInstanceCollection.ahk
+#Include .\IFunctionDiscoveryNotification.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This is the main interface implemented by a discovery provider. It is the primary interface the Function Discovery infrastructure uses to communicate with the provider and its resources.

@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
-#Include .\DOT11_WFD_INVITATION_FLAGS.ahk
-#Include .\DOT11_WFD_CHANNEL.ahk
-#Include .\DOT11_WFD_GROUP_ID.ahk
 #Include .\DOT11_SSID.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\DOT11_WFD_CHANNEL.ahk
+#Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
+#Include .\DOT11_WFD_GROUP_ID.ahk
+#Include .\DOT11_WFD_INVITATION_FLAGS.ahk
+#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

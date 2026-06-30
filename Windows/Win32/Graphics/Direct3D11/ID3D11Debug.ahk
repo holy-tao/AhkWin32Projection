@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_RLDO_FLAGS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ID3D11DeviceContext.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\Dxgi\IDXGISwapChain.ahk
 
 /**

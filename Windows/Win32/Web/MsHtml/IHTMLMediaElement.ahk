@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLMediaError.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IHTMLTimeRanges.ahk
 
 /**
@@ -227,7 +229,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_src() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -237,7 +239,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_currentSrc() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -268,7 +270,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_preload() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", p, "HRESULT")
         return p
     }
@@ -318,7 +320,7 @@ class IHTMLMediaElement extends IDispatch {
     canPlayType(type) {
         type := type is String ? BSTR.Alloc(type).Value : type
 
-        canPlay := BSTR()
+        canPlay := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", type, "ptr", canPlay, "HRESULT")
         return canPlay
     }

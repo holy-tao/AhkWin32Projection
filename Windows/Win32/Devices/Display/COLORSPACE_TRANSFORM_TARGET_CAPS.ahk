@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\COLORSPACE_TRANSFORM_TARGET_CAPS_VERSION.ahk
-#Include .\COLORSPACE_TRANSFORM_1DLUT_CAP.ahk
 #Include .\COLORSPACE_TRANSFORM_DATA_CAP.ahk
 #Include .\COLORSPACE_TRANSFORM_DATA_TYPE.ahk
+#Include .\COLORSPACE_TRANSFORM_1DLUT_CAP.ahk
 #Include .\COLORSPACE_TRANSFORM_MATRIX_CAP.ahk
+#Include .\COLORSPACE_TRANSFORM_TARGET_CAPS_VERSION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display

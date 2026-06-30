@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ISyncProvider.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents information about which provider caused synchronization to fail.

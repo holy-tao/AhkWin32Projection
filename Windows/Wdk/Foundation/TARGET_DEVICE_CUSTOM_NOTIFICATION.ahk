@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\..\..\Guid.ahk
 #Include .\FILE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
 class TARGET_DEVICE_CUSTOM_NOTIFICATION extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,27 +28,30 @@ class TARGET_DEVICE_CUSTOM_NOTIFICATION extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Event {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__Event"))
+                this.__Event := Guid(4, this)
+            return this.__Event
+        }
     }
 
     /**
      * @type {Pointer<FILE_OBJECT>}
      */
     FileObject {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     NameBufferOffset {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -56,7 +60,7 @@ class TARGET_DEVICE_CUSTOM_NOTIFICATION extends Win32Struct {
     CustomDataBuffer {
         get {
             if(!this.HasProp("__CustomDataBufferProxyArray"))
-                this.__CustomDataBufferProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__CustomDataBufferProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
             return this.__CustomDataBufferProxyArray
         }
     }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IXMLHTTPRequest2Callback.ahk
+#Include .\XHR_CERT.ahk
+#Include .\IXMLHTTPRequest3.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines callbacks that notify an application with an outstanding IXMLHTTPRequest3 request of events that affect HTTP request and response processing.

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUS_PARTITION_INFO_EX2.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CLUSPROP_PARTITION_INFO_EX.ahk
-#Include .\CLUSPROP_VALUE.ahk
 #Include .\CLUSPROP_SYNTAX.ahk
 #Include .\CLUS_PARTITION_INFO_EX.ahk
-#Include .\CLUS_PARTITION_INFO_EX2.ahk
+#Include .\CLUSPROP_VALUE.ahk
 
 /**
  * A value list entry that contains partition information for a storage class resource. This structure is as a input, and a as a return value for the CLUSCTL_RESOURCE_STORAGE_GET_DISK_INFO_EX2 control code.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class CLUSPROP_PARTITION_INFO_EX2 extends Win32Struct {
-    static sizeof => 1704
+    static sizeof => 1720
 
     static packingSize => 8
 
@@ -33,7 +34,7 @@ class CLUSPROP_PARTITION_INFO_EX2 extends Win32Struct {
     Base2 {
         get {
             if(!this.HasProp("__Base2"))
-                this.__Base2 := CLUS_PARTITION_INFO_EX2(1168, this)
+                this.__Base2 := CLUS_PARTITION_INFO_EX2(1176, this)
             return this.__Base2
         }
     }

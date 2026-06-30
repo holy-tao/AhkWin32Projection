@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The MMC_EXT_VIEW_DATA structure is introduced in MMC 2.0.
@@ -11,17 +14,20 @@
  * @namespace Windows.Win32.System.Mmc
  */
 class MMC_EXT_VIEW_DATA extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
      * GUID for the view; this value uniquely identifies the view and is used to restore the view.
-     * @type {Pointer}
+     * @type {Guid}
      */
     viewID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__viewID"))
+                this.__viewID := Guid(0, this)
+            return this.__viewID
+        }
     }
 
     /**
@@ -29,8 +35,8 @@ class MMC_EXT_VIEW_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     pszURL {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -38,8 +44,8 @@ class MMC_EXT_VIEW_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     pszViewTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -47,8 +53,8 @@ class MMC_EXT_VIEW_DATA extends Win32Struct {
      * @type {PWSTR}
      */
     pszTooltipText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -56,7 +62,7 @@ class MMC_EXT_VIEW_DATA extends Win32Struct {
      * @type {BOOL}
      */
     bReplacesDefaultView {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

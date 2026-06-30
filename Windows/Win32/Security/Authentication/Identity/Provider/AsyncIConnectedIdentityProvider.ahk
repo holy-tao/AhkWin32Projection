@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\System\Com\IBindCtx.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include .\IDENTITY_URL.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\..\System\Variant\VARIANT.ahk
+#Include .\ACCOUNT_STATE.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\..\System\Com\IUnknown.ahk
 
 /**

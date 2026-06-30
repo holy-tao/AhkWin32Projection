@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IExtractImage.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\IExtractImage.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the capabilities of IExtractImage.

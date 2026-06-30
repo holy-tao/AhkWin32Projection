@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_LINE_JOIN.ahk
 #Include .\ID2D1Resource.ahk
+#Include .\D2D1_DASH_STYLE.ahk
+#Include .\D2D1_CAP_STYLE.ahk
 
 /**
  * Describes the caps, miter limit, line join, and dash information for a stroke. (ID2D1StrokeStyle)

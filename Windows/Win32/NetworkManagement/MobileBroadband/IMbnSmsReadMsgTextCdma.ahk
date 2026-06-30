@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MBN_MSG_STATUS.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\MBN_SMS_CDMA_ENCODING.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MBN_SMS_CDMA_LANG.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A collection of properties that represent a CDMA format SMS message read from the device memory.
@@ -126,7 +131,7 @@ class IMbnSmsReadMsgTextCdma extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_address
      */
     get_Address() {
-        _Address := BSTR()
+        _Address := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", _Address, "HRESULT")
         return _Address
     }
@@ -193,7 +198,7 @@ class IMbnSmsReadMsgTextCdma extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_timestamp
      */
     get_Timestamp() {
-        _Timestamp := BSTR()
+        _Timestamp := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", _Timestamp, "HRESULT")
         return _Timestamp
     }

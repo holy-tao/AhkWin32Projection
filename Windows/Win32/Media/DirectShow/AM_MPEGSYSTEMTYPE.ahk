@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\AM_MPEGSTREAMTYPE.ahk
 #Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Include .\AM_MPEGSTREAMTYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AM_MPEGSYSTEMTYPE structure defines the format block for an MPEG-1 system stream.
@@ -12,7 +14,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class AM_MPEGSYSTEMTYPE extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 112
 
     static packingSize => 8
 

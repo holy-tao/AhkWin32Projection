@@ -1,20 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_ADDRESSES_LH.ahk
-#Include .\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk
-#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
-#Include ..\Ndis\IF_OPER_STATUS.ahk
-#Include .\IP_ADAPTER_PREFIX_XP.ahk
-#Include .\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\IP_ADAPTER_GATEWAY_ADDRESS_LH.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR.ahk
-#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
-#Include ..\Ndis\TUNNEL_TYPE.ahk
 #Include .\IP_ADAPTER_DNS_SUFFIX.ahk
+#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
+#Include .\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk
+#Include .\IP_ADAPTER_ADDRESSES_LH.ahk
+#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Ndis\NET_LUID_LH.ahk
+#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
+#Include ..\Ndis\TUNNEL_TYPE.ahk
+#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
+#Include .\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk
+#Include ..\Ndis\NET_IF_COMPARTMENT_ID.ahk
+#Include .\IP_ADAPTER_PREFIX_XP.ahk
+#Include ..\Ndis\IF_OPER_STATUS.ahk
+#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
 
 /**
  * The IP_ADAPTER_ADDRESSES_LH structure (iptypes.h) is the header node for a linked list of addresses for a particular adapter.
@@ -111,7 +115,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
 class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
-    static sizeof => 448
+    static sizeof => 456
 
     static packingSize => 8
 
@@ -861,11 +865,14 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Pointer}
+     * @type {Guid}
      */
     NetworkGuid {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
+        get {
+            if(!this.HasProp("__NetworkGuid"))
+                this.__NetworkGuid := Guid(260, this)
+            return this.__NetworkGuid
+        }
     }
 
     /**
@@ -938,8 +945,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * @type {NET_IF_CONNECTION_TYPE}
      */
     ConnectionType {
-        get => NumGet(this, 272, "int")
-        set => NumPut("int", value, this, 272)
+        get => NumGet(this, 276, "int")
+        set => NumPut("int", value, this, 276)
     }
 
     /**
@@ -1046,8 +1053,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * @type {TUNNEL_TYPE}
      */
     TunnelType {
-        get => NumGet(this, 276, "int")
-        set => NumPut("int", value, this, 276)
+        get => NumGet(this, 280, "int")
+        set => NumPut("int", value, this, 280)
     }
 
     /**
@@ -1063,7 +1070,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
     Dhcpv6Server {
         get {
             if(!this.HasProp("__Dhcpv6Server"))
-                this.__Dhcpv6Server := SOCKET_ADDRESS(280, this)
+                this.__Dhcpv6Server := SOCKET_ADDRESS(288, this)
             return this.__Dhcpv6Server
         }
     }
@@ -1082,7 +1089,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
     Dhcpv6ClientDuid {
         get {
             if(!this.HasProp("__Dhcpv6ClientDuidProxyArray"))
-                this.__Dhcpv6ClientDuidProxyArray := Win32FixedArray(this.ptr + 296, 130, Primitive, "char")
+                this.__Dhcpv6ClientDuidProxyArray := Win32FixedArray(this.ptr + 304, 130, Primitive, "char")
             return this.__Dhcpv6ClientDuidProxyArray
         }
     }
@@ -1099,8 +1106,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * @type {Integer}
      */
     Dhcpv6ClientDuidLength {
-        get => NumGet(this, 428, "uint")
-        set => NumPut("uint", value, this, 428)
+        get => NumGet(this, 436, "uint")
+        set => NumPut("uint", value, this, 436)
     }
 
     /**
@@ -1114,8 +1121,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * @type {Integer}
      */
     Dhcpv6Iaid {
-        get => NumGet(this, 432, "uint")
-        set => NumPut("uint", value, this, 432)
+        get => NumGet(this, 440, "uint")
+        set => NumPut("uint", value, this, 440)
     }
 
     /**
@@ -1129,7 +1136,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * @type {Pointer<IP_ADAPTER_DNS_SUFFIX>}
      */
     FirstDnsSuffix {
-        get => NumGet(this, 440, "ptr")
-        set => NumPut("ptr", value, this, 440)
+        get => NumGet(this, 448, "ptr")
+        set => NumPut("ptr", value, this, 448)
     }
 }

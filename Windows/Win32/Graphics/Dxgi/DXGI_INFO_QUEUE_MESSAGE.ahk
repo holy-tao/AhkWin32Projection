@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
 #Include .\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk
+#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes a debug message in the information queue.
@@ -14,17 +15,20 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  */
 class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that produced the message.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Producer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Producer"))
+                this.__Producer := Guid(0, this)
+            return this.__Producer
+        }
     }
 
     /**
@@ -32,8 +36,8 @@ class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct {
      * @type {DXGI_INFO_QUEUE_MESSAGE_CATEGORY}
      */
     Category {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -41,8 +45,8 @@ class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct {
      * @type {DXGI_INFO_QUEUE_MESSAGE_SEVERITY}
      */
     Severity {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -50,8 +54,8 @@ class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct {
      * @type {Integer}
      */
     ID {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -59,8 +63,8 @@ class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct {
      * @type {Pointer<Integer>}
      */
     pDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -68,7 +72,7 @@ class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct {
      * @type {Pointer}
      */
     DescriptionByteLength {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

@@ -1,31 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
- * Provides the methods and properties needed to configure and send HTTP requests and use callbacks to receive notifications during HTTP response processing. Note  This interface is supported on Windows Phone 8.1.  .
- * @remarks
- * The <b>IXMLHTTPRequest2</b> interface is extended by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest3">IXMLHTTPRequest3</a> interface. The <b>IXMLHTTPRequest3</b> inherits all the methods and properties of the <b>IXMLHTTPRequest2</b> interface.
- * 
- * The <b>IXMLHTTPRequest2</b> interface configures and sends HTTP request operations and uses  callbacks  to receive notifications  during response processing. The <b>IXMLHTTPRequest2</b> allows applications to run in a Multi Threaded Apartment (MTA), a requirement for running under the Windows Runtime (WinRT).
- * 
- * The <b>IXMLHTTPRequest2</b> interface supports the following features:
- * 
- * 
- * <ul>
- * <li>Set properties on outgoing HTTP requests.</li>
- * <li>Set cookies in the HTTP cookie jar for use in outgoing HTTP requests.</li>
- * <li>Get cookies from the HTTP cookie jar.</li>
- * <li>Process incoming HTTP response data before the HTTP response has finished downloading.</li>
- * <li>Create custom streams to receive HTTP responses.</li>
- * </ul>
- * 
- * 
- * <b>IXMLHTTPRequest2</b> implements a callback model for event handling. Because <b>IXMLHTTPRequest2</b> methods allow only asynchronous method calls, to receive completion callbacks an application must pass a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2callback">IXMLHTTPRequest2Callback</a> object when it calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2-open">IXMLHTTPRequest2::Open</a> method to create an HTTP request.
- * @see https://learn.microsoft.com/windows/win32/api/msxml6/nn-msxml6-ixmlhttprequest2
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
 class IXMLHTTPRequest extends IDispatch {
@@ -232,7 +213,7 @@ class IXMLHTTPRequest extends IDispatch {
     getResponseHeader(bstrHeader) {
         bstrHeader := bstrHeader is String ? BSTR.Alloc(bstrHeader).Value : bstrHeader
 
-        pbstrValue := BSTR()
+        pbstrValue := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", bstrHeader, "ptr", pbstrValue, "HRESULT")
         return pbstrValue
     }
@@ -242,7 +223,7 @@ class IXMLHTTPRequest extends IDispatch {
      * @returns {BSTR} 
      */
     getAllResponseHeaders() {
-        pbstrHeaders := BSTR()
+        pbstrHeaders := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrHeaders, "HRESULT")
         return pbstrHeaders
     }
@@ -542,7 +523,7 @@ class IXMLHTTPRequest extends IDispatch {
      * @returns {BSTR} 
      */
     get_statusText() {
-        pbstrStatus := BSTR()
+        pbstrStatus := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrStatus, "HRESULT")
         return pbstrStatus
     }
@@ -561,7 +542,7 @@ class IXMLHTTPRequest extends IDispatch {
      * @returns {BSTR} 
      */
     get_responseText() {
-        pbstrBody := BSTR()
+        pbstrBody := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pbstrBody, "HRESULT")
         return pbstrBody
     }

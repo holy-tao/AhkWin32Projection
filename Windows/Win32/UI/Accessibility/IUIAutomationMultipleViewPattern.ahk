@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to a control that can switch between multiple representations of the same information or set of child controls.
@@ -55,7 +57,7 @@ class IUIAutomationMultipleViewPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getviewname
      */
     GetViewName(_view) {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(3, this, "int", _view, "ptr", name, "HRESULT")
         return name
     }

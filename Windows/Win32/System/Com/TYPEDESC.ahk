@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TYPEDESC.ahk
-#Include ..\Ole\ARRAYDESC.ahk
 #Include ..\Variant\VARENUM.ahk
+#Include ..\Ole\ARRAYDESC.ahk
 
 /**
  * Describes the type of a variable, the return type of a function, or the type of a function parameter.

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFER_IDENTIFICATION_TYPES.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\SAFER_IDENTIFICATION_TYPES.ahk
 
 /**
  * SAFER_IDENTIFICATION_HEADER structure is used as the header for the SAFER_PATHNAME_IDENTIFICATION, SAFER_HASH_IDENTIFICATION, and SAFER_URLZONE_IDENTIFICATION structures.
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.Security.AppLocker
  */
 class SAFER_IDENTIFICATION_HEADER extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ne-winsafer-safer_identification_types">SAFER_IDENTIFICATION_TYPES</a> enumeration value that indicates the type of the structure. The following table shows the possible values.
@@ -92,11 +93,14 @@ class SAFER_IDENTIFICATION_HEADER extends Win32Struct {
 
     /**
      * The GUID of the identification.
-     * @type {Pointer}
+     * @type {Guid}
      */
     IdentificationGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__IdentificationGuid"))
+                this.__IdentificationGuid := Guid(8, this)
+            return this.__IdentificationGuid
+        }
     }
 
     /**
@@ -105,7 +109,7 @@ class SAFER_IDENTIFICATION_HEADER extends Win32Struct {
     lastModified {
         get {
             if(!this.HasProp("__lastModified"))
-                this.__lastModified := FILETIME(16, this)
+                this.__lastModified := FILETIME(24, this)
             return this.__lastModified
         }
     }

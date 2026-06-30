@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include .\IRTCProfile.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\RTC_REGISTRATION_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
@@ -89,7 +91,7 @@ class IRTCRegistrationStateChangeEvent extends IDispatch {
      * @returns {BSTR} 
      */
     get_StatusText() {
-        pbstrStatusText := BSTR()
+        pbstrStatusText := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrStatusText, "HRESULT")
         return pbstrStatusText
     }

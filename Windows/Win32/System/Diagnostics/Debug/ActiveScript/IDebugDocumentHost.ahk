@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -89,12 +92,11 @@ class IDebugDocumentHost extends IUnknown {
     }
 
     /**
-     * The GetFileNameFromBrowse function creates an Open dialog box so that the user can specify the drive, directory, and name of a file to open.
+     * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-getfilenamefrombrowse
      */
     GetFileName() {
-        pbstrShortName := BSTR()
+        pbstrShortName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrShortName, "HRESULT")
         return pbstrShortName
     }

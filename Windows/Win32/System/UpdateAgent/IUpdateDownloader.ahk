@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUpdateCollection.ahk
-#Include .\IDownloadJob.ahk
 #Include .\IDownloadResult.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IUpdateCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\DownloadPriority.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IDownloadJob.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Downloads updates from the server.
@@ -81,7 +86,7 @@ class IUpdateDownloader extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }

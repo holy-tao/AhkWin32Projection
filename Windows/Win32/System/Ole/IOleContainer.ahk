@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IParseDisplayName.ahk
 #Include ..\Com\IEnumUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IParseDisplayName.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerates objects in a compound document or lock a container in the running state. Container and object applications both implement this interface.

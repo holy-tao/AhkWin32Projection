@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\IOleParentUndoUnit.ahk
 #Include .\IEnumOleUndoUnits.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IOleUndoUnit.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * The IOleUndoManager interface enables containers to implement multi-level undo and redo operations for actions that occur within contained controls.
@@ -372,7 +376,7 @@ class IOleUndoManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getlastundodescription
      */
     GetLastUndoDescription() {
-        pBstr := BSTR()
+        pBstr := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pBstr, "HRESULT")
         return pBstr
     }
@@ -385,7 +389,7 @@ class IOleUndoManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getlastredodescription
      */
     GetLastRedoDescription() {
-        pBstr := BSTR()
+        pBstr := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pBstr, "HRESULT")
         return pBstr
     }

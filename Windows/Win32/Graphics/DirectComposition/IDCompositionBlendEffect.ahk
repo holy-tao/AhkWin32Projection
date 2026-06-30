@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionFilterEffect.ahk
+#Include ..\Direct2D\Common\D2D1_BLEND_MODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The Blend Effect is used to combine 2 images.

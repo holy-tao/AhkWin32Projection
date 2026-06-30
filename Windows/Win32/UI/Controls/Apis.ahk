@@ -1,17 +1,85 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HPROPSHEETPAGE.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Graphics\Gdi\DRAW_TEXT_FORMAT.ahk
+#Include .\_LI_METRIC.ahk
+#Include ..\..\Graphics\Gdi\DRAW_EDGE_FLAGS.ahk
+#Include .\COLORMAP.ahk
+#Include .\INITCOMMONCONTROLSEX.ahk
+#Include .\COMBOBOXINFO.ahk
+#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
+#Include ..\WindowsAndMessaging\SCROLLBAR_CONSTANTS.ahk
+#Include .\BP_BUFFERFORMAT.ahk
+#Include .\WINDOWTHEMEATTRIBUTETYPE.ahk
 #Include .\HIMAGELIST.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include .\HDSA.ahk
-#Include .\HDPA.ahk
-#Include .\HTHEME.ahk
-#Include ..\..\Graphics\Gdi\HRGN.ahk
+#Include .\PROPSHEETHEADERW_V2.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\WindowsAndMessaging\SCROLLINFO.ahk
+#Include .\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk
+#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include .\IMAGE_LIST_DRAW_STYLE.ahk
+#Include ..\..\Graphics\Gdi\TEXTMETRICW.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\PROPSHEETPAGEW.ahk
+#Include .\TA_PROPERTY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\FEEDBACK_TYPE.ahk
+#Include .\HIT_TEST_BACKGROUND_OPTIONS.ahk
+#Include .\IMAGE_LIST_WRITE_STREAM_FLAGS.ahk
+#Include .\DTBGOPTS.ahk
+#Include ..\Input\Pointer\POINTER_FEEDBACK_MODE.ahk
+#Include .\BP_PAINTPARAMS.ahk
+#Include .\IMAGE_LIST_COPY_FLAGS.ahk
+#Include .\TOUCH_HIT_TESTING_PROXIMITY_EVALUATION.ahk
 #Include ..\..\Graphics\Gdi\HBRUSH.ahk
+#Include .\HDPA.ahk
+#Include .\WSB_PROP.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\IMAGELIST_CREATION_FLAGS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\ENABLE_SCROLL_BAR_ARROWS.ahk
+#Include .\OPEN_THEME_DATA_FLAGS.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\THEMESIZE.ahk
+#Include .\BP_ANIMATIONPARAMS.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Graphics\Gdi\DRAWEDGE_FLAGS.ahk
 #Include ..\Input\Pointer\HSYNTHETICPOINTERDEVICE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
+#Include .\SET_THEME_APP_PROPERTIES_FLAGS.ahk
+#Include .\TBBUTTON.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\MARGINS.ahk
+#Include .\HTHEME.ahk
+#Include ..\WindowsAndMessaging\IMAGE_FLAGS.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\PROPSHEETHEADERA_V2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMAGELISTDRAWPARAMS.ahk
+#Include .\IMAGEINFO.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include .\PROPERTYORIGIN.ahk
+#Include .\DLG_BUTTON_CHECK_STATE.ahk
+#Include .\TOUCH_HIT_TESTING_INPUT.ahk
+#Include .\DRAW_THEME_PARENT_BACKGROUND_FLAGS.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Graphics\Gdi\RGBQUAD.ahk
+#Include .\PROPSHEETPAGEA.ahk
+#Include .\DLG_DIR_LIST_FILE_TYPE.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\TASKDIALOGCONFIG.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include .\GET_THEME_BITMAP_FLAGS.ahk
+#Include .\DTTOPTS.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\HDSA.ahk
+#Include .\HPROPSHEETPAGE.ahk
+#Include .\INTLIST.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -13783,7 +13851,7 @@ class Controls {
     static DPA_LoadStream(_pfn, pstream, pvInstData) {
         pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
 
-        phdpa := HDPA()
+        phdpa := HDPA({Value: 0}, True)
         result := DllCall("COMCTL32.dll\DPA_LoadStream", "ptr", phdpa, "ptr", _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
         return phdpa
     }
@@ -14454,7 +14522,7 @@ class Controls {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        phico := HICON()
+        phico := HICON({Value: 0}, True)
         result := DllCall("COMCTL32.dll\LoadIconMetric", "ptr", hinst, "ptr", pszName, "int", lims, "ptr", phico, "HRESULT")
         return phico
     }
@@ -14606,7 +14674,7 @@ class Controls {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        phico := HICON()
+        phico := HICON({Value: 0}, True)
         result := DllCall("COMCTL32.dll\LoadIconWithScaleDown", "ptr", hinst, "ptr", pszName, "int", cx, "int", _cy, "ptr", phico, "HRESULT")
         return phico
     }
@@ -15109,7 +15177,7 @@ class Controls {
         _hTheme := _hTheme is Win32Handle ? NumGet(_hTheme, "ptr") : _hTheme
         _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
 
-        pRegion := HRGN()
+        pRegion := HRGN({Value: 0}, True)
         result := DllCall("UxTheme.dll\GetThemeBackgroundRegion", "ptr", _hTheme, "ptr", _hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", pRegion, "HRESULT")
         return pRegion
     }
@@ -16889,7 +16957,7 @@ class Controls {
     static GetThemeBitmap(_hTheme, iPartId, iStateId, iPropId, dwFlags) {
         _hTheme := _hTheme is Win32Handle ? NumGet(_hTheme, "ptr") : _hTheme
 
-        phBitmap := HBITMAP()
+        phBitmap := HBITMAP({Value: 0}, True)
         result := DllCall("UXTHEME.dll\GetThemeBitmap", "ptr", _hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "uint", dwFlags, "ptr", phBitmap, "HRESULT")
         return phBitmap
     }

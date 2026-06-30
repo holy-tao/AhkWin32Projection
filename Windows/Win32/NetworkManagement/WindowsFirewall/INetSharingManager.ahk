@@ -1,11 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetSharingPublicConnectionCollection.ahk
-#Include .\INetSharingPrivateConnectionCollection.ahk
 #Include .\INetSharingConfiguration.ahk
+#Include .\INetSharingPrivateConnectionCollection.ahk
+#Include .\INetSharingPublicConnectionCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\INetConnection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetSharingEveryConnectionCollection.ahk
+#Include .\SHARINGCONNECTION_ENUM_FLAGS.ahk
 #Include .\INetConnectionProps.ahk
 
 /**

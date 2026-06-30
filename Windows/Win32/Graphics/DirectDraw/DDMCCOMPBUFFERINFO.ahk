@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSCAPS2.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include .\DDSCAPS2.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw

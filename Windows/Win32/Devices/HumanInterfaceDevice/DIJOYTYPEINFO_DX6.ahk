@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\JOYREGHWSETTINGS.ahk
 
 /**
@@ -8,7 +9,7 @@
 class DIJOYTYPEINFO_DX6 extends Win32Struct {
     static sizeof => 1576
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -30,42 +31,45 @@ class DIJOYTYPEINFO_DX6 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidConfig {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__clsidConfig"))
+                this.__clsidConfig := Guid(12, this)
+            return this.__clsidConfig
+        }
     }
 
     /**
      * @type {String}
      */
     wszDisplayName {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
+        get => StrGet(this.ptr + 28, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 28, 255, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     wszCallout {
-        get => StrGet(this.ptr + 536, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 536, 259, "UTF-16")
+        get => StrGet(this.ptr + 540, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 540, 259, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     wszHardwareId {
-        get => StrGet(this.ptr + 1056, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1056, 255, "UTF-16")
+        get => StrGet(this.ptr + 1060, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 1060, 255, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     dwFlags1 {
-        get => NumGet(this, 1568, "uint")
-        set => NumPut("uint", value, this, 1568)
+        get => NumGet(this, 1572, "uint")
+        set => NumPut("uint", value, this, 1572)
     }
 }

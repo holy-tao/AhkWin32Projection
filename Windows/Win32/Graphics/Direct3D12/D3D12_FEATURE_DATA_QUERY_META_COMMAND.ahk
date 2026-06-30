@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Indicates the level of support that the adapter provides for metacommands.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
 class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -15,11 +16,14 @@ class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct {
      * Type: <b>[GUID](../guiddef/ns-guiddef-guid.md)</b>
      * 
      * The fixed GUID that identifies the metacommand to query about.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CommandId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__CommandId"))
+                this.__CommandId := Guid(0, this)
+            return this.__CommandId
+        }
     }
 
     /**
@@ -29,8 +33,8 @@ class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct {
      * @type {Integer}
      */
     NodeMask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -40,8 +44,8 @@ class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pQueryInputData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -51,8 +55,8 @@ class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct {
      * @type {Pointer}
      */
     QueryInputDataSizeInBytes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -62,8 +66,8 @@ class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pQueryOutputData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -73,7 +77,7 @@ class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct {
      * @type {Pointer}
      */
     QueryOutputDataSizeInBytes {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

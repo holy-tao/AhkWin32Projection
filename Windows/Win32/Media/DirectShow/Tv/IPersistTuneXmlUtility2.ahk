@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IPersistTuneXmlUtility.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IPersistTuneXmlUtility.ahk
+#Include .\ITuneRequest.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines utility methods for serializing tuning requests (objects that implement the ITuneRequest interface) to XML tuning request strings.
@@ -39,7 +41,7 @@ class IPersistTuneXmlUtility2 extends IPersistTuneXmlUtility {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ipersisttunexmlutility2-serialize
      */
     Serialize(piTuneRequest) {
-        pString := BSTR()
+        pString := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", piTuneRequest, "ptr", pString, "HRESULT")
         return pString
     }

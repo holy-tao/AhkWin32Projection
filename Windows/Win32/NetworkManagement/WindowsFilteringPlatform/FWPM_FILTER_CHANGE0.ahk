@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWPM_CHANGE_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Stores change notification dispatched to subscribers.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class FWPM_FILTER_CHANGE0 extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -25,11 +26,14 @@ class FWPM_FILTER_CHANGE0 extends Win32Struct {
 
     /**
      * GUID of the filter that changed.
-     * @type {Pointer}
+     * @type {Guid}
      */
     filterKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__filterKey"))
+                this.__filterKey := Guid(4, this)
+            return this.__filterKey
+        }
     }
 
     /**
@@ -37,7 +41,7 @@ class FWPM_FILTER_CHANGE0 extends Win32Struct {
      * @type {Integer}
      */
     filterId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

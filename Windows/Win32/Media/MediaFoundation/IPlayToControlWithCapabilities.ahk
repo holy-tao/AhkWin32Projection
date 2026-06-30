@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IPlayToControl.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PLAYTO_SOURCE_CREATEFLAGS.ahk
 
 /**
  * Provides functionality for the IPlayToSource to determine the capabilities of the content.

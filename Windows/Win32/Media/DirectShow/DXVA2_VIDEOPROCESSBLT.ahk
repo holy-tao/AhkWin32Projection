@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\MediaFoundation\DXVA2_AYUVSample16.ahk
-#Include ..\MediaFoundation\DXVA2_ExtendedFormat.ahk
-#Include ..\MediaFoundation\DXVA2_ProcAmpValues.ahk
-#Include ..\MediaFoundation\DXVA2_Fixed32.ahk
 #Include ..\MediaFoundation\DXVA2_FilterValues.ahk
 #Include .\DXVA2_VIDEOSAMPLE.ahk
+#Include ..\MediaFoundation\DXVA2_Fixed32.ahk
+#Include ..\MediaFoundation\DXVA2_ProcAmpValues.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\MediaFoundation\DXVA2_ExtendedFormat.ahk
+#Include ..\MediaFoundation\DXVA2_AYUVSample16.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow

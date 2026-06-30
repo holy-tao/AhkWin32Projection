@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include .\ITaskFolder.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IRunningTaskCollection.ahk
-#Include .\ITaskDefinition.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\ITaskDefinition.ahk
 
 /**
  * Provides access to the Task Scheduler service for managing registered tasks.
@@ -240,7 +243,7 @@ class ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_targetserver
      */
     get_TargetServer() {
-        pServer := BSTR()
+        pServer := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pServer, "HRESULT")
         return pServer
     }
@@ -251,7 +254,7 @@ class ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connecteduser
      */
     get_ConnectedUser() {
-        pUser := BSTR()
+        pUser := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pUser, "HRESULT")
         return pUser
     }
@@ -262,7 +265,7 @@ class ITaskService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connecteddomain
      */
     get_ConnectedDomain() {
-        pDomain := BSTR()
+        pDomain := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pDomain, "HRESULT")
         return pDomain
     }

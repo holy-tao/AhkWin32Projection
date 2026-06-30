@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\Memory\MEMORY_BASIC_INFORMATION64.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include ..\IMAGE_NT_HEADERS64.ahk
 
 /**
@@ -347,12 +351,9 @@ class IDebugDataSpaces4 extends IUnknown {
     }
 
     /**
-     * The QueryVirtualMemoryInformation function returns information about a page or a set of pages within the virtual address space of the specified process.
-     * @remarks
-     * If the <i>MemoryInformationClass</i> parameter has a value of <b>MemoryRegionInfo</b>, the <i>MemoryInformation</i> parameter must point to a <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/ns-memoryapi-win32_memory_region_information">WIN32_MEMORY_REGION_INFORMATION</a> structure. The <i>VirtualAddress</i> parameter must point to an address within a valid memory allocation. If the <i>VirtualAddress</i> parameter points to an unallocated memory region, the function fails.
+     * 
      * @param {Integer} Offset 
      * @returns {MEMORY_BASIC_INFORMATION64} 
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-queryvirtualmemoryinformation
      */
     QueryVirtual(Offset) {
         Info := MEMORY_BASIC_INFORMATION64()

@@ -1,11 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\DIRECTORY_OBJECT_TYPE.ahk
+#Include .\ITDirectory.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumDirectory.ahk
-#Include .\ITDirectory.ahk
+#Include .\DIRECTORY_TYPE.ahk
 #Include .\ITDirectoryObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITRendezvous interface is the main interface for the Rendezvous control. An application calls the COM CoCreateInstance function on this interface to create the Rendezvous object.

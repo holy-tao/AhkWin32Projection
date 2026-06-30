@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVICEDUMP_STRUCTURE_VERSION.ahk
 #Include .\DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD.ahk
+#Include .\DEVICEDUMP_STRUCTURE_VERSION.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

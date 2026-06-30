@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Bitmap.ahk
+#Include .\ID2D1ColorContext.ahk
+#Include .\D2D1_BITMAP_OPTIONS.ahk
+#Include .\D2D1_MAP_OPTIONS.ahk
 #Include ..\Dxgi\IDXGISurface.ahk
+#Include .\ID2D1Bitmap.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\D2D1_MAPPED_RECT.ahk
 
 /**

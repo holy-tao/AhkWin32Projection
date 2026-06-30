@@ -10,7 +10,7 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 2
 
-    class _bmAttributes_e__Union extends Win32Struct {
+    class _bmAttributes extends Win32Struct {
         static sizeof => 4
         static packingSize => 1
 
@@ -51,7 +51,7 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR extends Win32Struct {
         }
     }
 
-    class _wFunctionalitySupport_e__Union extends Win32Struct {
+    class _wFunctionalitySupport extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -134,23 +134,23 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_bmAttributes_e__Union}
+     * @type {_bmAttributes}
      */
     bmAttributes {
         get {
             if(!this.HasProp("__bmAttributes"))
-                this.__bmAttributes := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR._bmAttributes_e__Union(4, this)
+                this.__bmAttributes := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR._bmAttributes(4, this)
             return this.__bmAttributes
         }
     }
 
     /**
-     * @type {_wFunctionalitySupport_e__Union}
+     * @type {_wFunctionalitySupport}
      */
     wFunctionalitySupport {
         get {
             if(!this.HasProp("__wFunctionalitySupport"))
-                this.__wFunctionalitySupport := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR._wFunctionalitySupport_e__Union(8, this)
+                this.__wFunctionalitySupport := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR._wFunctionalitySupport(8, this)
             return this.__wFunctionalitySupport
         }
     }

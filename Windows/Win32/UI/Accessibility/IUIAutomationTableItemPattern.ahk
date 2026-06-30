@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationElementArray.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to a child element in a container that supports IUIAutomationTablePattern.

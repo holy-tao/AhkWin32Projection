@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ICertView.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\CVRC_TABLE.ahk
 
 /**
  * Allow properly authorized clients to create a customized or complete view of the Certificate Services database.

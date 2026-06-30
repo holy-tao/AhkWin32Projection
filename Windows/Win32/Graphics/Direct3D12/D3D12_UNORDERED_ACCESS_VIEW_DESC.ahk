@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_TEX1D_UAV.ahk
+#Include .\D3D12_BUFFER_UAV_BYTE_OFFSET.ahk
+#Include .\D3D12_TEX2DMS_UAV.ahk
 #Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_UAV_DIMENSION.ahk
+#Include .\D3D12_TEX3D_UAV.ahk
+#Include .\D3D12_TEX2DMS_ARRAY_UAV.ahk
+#Include .\D3D12_TEX2D_ARRAY_UAV.ahk
+#Include .\D3D12_TEX2D_UAV.ahk
+#Include .\D3D12_TEX1D_ARRAY_UAV.ahk
 #Include .\D3D12_BUFFER_UAV.ahk
 #Include .\D3D12_BUFFER_UAV_FLAGS.ahk
-#Include .\D3D12_TEX1D_UAV.ahk
-#Include .\D3D12_TEX1D_ARRAY_UAV.ahk
-#Include .\D3D12_TEX2D_UAV.ahk
-#Include .\D3D12_TEX2D_ARRAY_UAV.ahk
-#Include .\D3D12_TEX2DMS_UAV.ahk
-#Include .\D3D12_TEX2DMS_ARRAY_UAV.ahk
-#Include .\D3D12_TEX3D_UAV.ahk
 
 /**
  * Describes the subresources from a resource that are accessible by using an unordered-access view.
@@ -20,7 +21,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
 class D3D12_UNORDERED_ACCESS_VIEW_DESC extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -127,6 +128,17 @@ class D3D12_UNORDERED_ACCESS_VIEW_DESC extends Win32Struct {
             if(!this.HasProp("__Texture3D"))
                 this.__Texture3D := D3D12_TEX3D_UAV(8, this)
             return this.__Texture3D
+        }
+    }
+
+    /**
+     * @type {D3D12_BUFFER_UAV_BYTE_OFFSET}
+     */
+    BufferByteOffset {
+        get {
+            if(!this.HasProp("__BufferByteOffset"))
+                this.__BufferByteOffset := D3D12_BUFFER_UAV_BYTE_OFFSET(8, this)
+            return this.__BufferByteOffset
         }
     }
 }

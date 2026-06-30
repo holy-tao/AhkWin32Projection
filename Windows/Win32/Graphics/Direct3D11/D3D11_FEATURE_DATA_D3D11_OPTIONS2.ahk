@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_CONSERVATIVE_RASTERIZATION_TIER.ahk
 #Include .\D3D11_TILED_RESOURCES_TIER.ahk
+#Include .\D3D11_CONSERVATIVE_RASTERIZATION_TIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes Direct3D 11.3 feature options in the current graphics driver. (D3D11_FEATURE_DATA_D3D11_OPTIONS2)

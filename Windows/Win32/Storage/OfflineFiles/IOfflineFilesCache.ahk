@@ -1,10 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IOfflineFilesItem.ahk
-#Include .\IOfflineFilesSetting.ahk
+#Include .\IOfflineFilesSyncProgress.ahk
+#Include .\IOfflineFilesSimpleProgress.ahk
 #Include .\IEnumOfflineFilesSettings.ahk
+#Include .\IOfflineFilesItem.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IOfflineFilesSyncConflictHandler.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\OFFLINEFILES_CACHING_MODE.ahk
+#Include .\IOfflineFilesSetting.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IOfflineFilesItemFilter.ahk
 
 /**
  * Used to manage the Offline Files cache.

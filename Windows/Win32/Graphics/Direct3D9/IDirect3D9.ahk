@@ -1,9 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\D3DCAPS9.ahk
+#Include .\D3DMULTISAMPLE_TYPE.ahk
+#Include .\D3DDEVTYPE.ahk
+#Include .\D3DDISPLAYMODE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Gdi\HMONITOR.ahk
 #Include .\IDirect3DDevice9.ahk
+#Include .\D3DPRESENT_PARAMETERS.ahk
+#Include ..\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3DRESOURCETYPE.ahk
+#Include .\D3DADAPTER_IDENTIFIER9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3DFORMAT.ahk
 
 /**
  * The IDirect3D9 (d3d9.h) interface applications use the methods of the IDirect3D9 interface to create Microsoft Direct3D objects and set up the environment.

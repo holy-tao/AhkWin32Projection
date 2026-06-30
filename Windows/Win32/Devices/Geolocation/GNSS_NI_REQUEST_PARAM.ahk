@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_NI_REQUEST_TYPE.ahk
 #Include .\GNSS_NI_NOTIFICATION_TYPE.ahk
-#Include .\GNSS_NI_PLANE_TYPE.ahk
+#Include .\GNSS_NI_REQUEST_TYPE.ahk
 #Include .\GNSS_SUPL_NI_INFO.ahk
-#Include .\GNSS_CP_NI_INFO.ahk
 #Include .\GNSS_V2UPL_NI_INFO.ahk
+#Include .\GNSS_CP_NI_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\GNSS_NI_PLANE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation

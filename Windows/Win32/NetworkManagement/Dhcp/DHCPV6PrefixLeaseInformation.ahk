@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCPV6Prefix.ahk
 #Include .\StatusCode.ahk
+#Include .\DHCPV6Prefix.ahk
 
 /**
  * Information about a prefix lease.

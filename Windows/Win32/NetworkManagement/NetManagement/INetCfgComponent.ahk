@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -60,9 +63,8 @@ class INetCfgComponent extends IUnknown {
     }
 
     /**
-     * Returns the identifier string available in the volume's metadata.
+     * 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
         result := ComCall(6, this, "ptr*", &ppszwId := 0, "HRESULT")
@@ -130,7 +132,7 @@ class INetCfgComponent extends IUnknown {
      * @returns {HKEY} 
      */
     OpenParamKey() {
-        phkey := HKEY()
+        phkey := HKEY({Value: 0}, True)
         result := ComCall(13, this, "ptr", phkey, "HRESULT")
         return phkey
     }

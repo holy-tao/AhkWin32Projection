@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INetFwRule2.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\INetFwRule2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows an application or service to access all the properties of INetFwRule2 and to provide access to the requirements of app containers.
@@ -84,7 +85,7 @@ class INetFwRule3 extends INetFwRule2 {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localapppackageid
      */
     get_LocalAppPackageId() {
-        wszPackageId := BSTR()
+        wszPackageId := BSTR({Value: 0}, True)
         result := ComCall(45, this, "ptr", wszPackageId, "HRESULT")
         return wszPackageId
     }
@@ -110,7 +111,7 @@ class INetFwRule3 extends INetFwRule2 {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localuserowner
      */
     get_LocalUserOwner() {
-        wszUserOwner := BSTR()
+        wszUserOwner := BSTR({Value: 0}, True)
         result := ComCall(47, this, "ptr", wszUserOwner, "HRESULT")
         return wszUserOwner
     }
@@ -136,7 +137,7 @@ class INetFwRule3 extends INetFwRule2 {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localuserauthorizedlist
      */
     get_LocalUserAuthorizedList() {
-        wszUserAuthList := BSTR()
+        wszUserAuthList := BSTR({Value: 0}, True)
         result := ComCall(49, this, "ptr", wszUserAuthList, "HRESULT")
         return wszUserAuthList
     }
@@ -160,7 +161,7 @@ class INetFwRule3 extends INetFwRule2 {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_remoteuserauthorizedlist
      */
     get_RemoteUserAuthorizedList() {
-        wszUserAuthList := BSTR()
+        wszUserAuthList := BSTR({Value: 0}, True)
         result := ComCall(51, this, "ptr", wszUserAuthList, "HRESULT")
         return wszUserAuthList
     }
@@ -184,7 +185,7 @@ class INetFwRule3 extends INetFwRule2 {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_remotemachineauthorizedlist
      */
     get_RemoteMachineAuthorizedList() {
-        wszUserAuthList := BSTR()
+        wszUserAuthList := BSTR({Value: 0}, True)
         result := ComCall(53, this, "ptr", wszUserAuthList, "HRESULT")
         return wszUserAuthList
     }

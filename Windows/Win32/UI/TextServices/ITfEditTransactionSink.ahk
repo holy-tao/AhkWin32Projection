@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfContext.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfEditTransactionSink interface is implemented by a text service and used by the TSF manager to support edit transactions.

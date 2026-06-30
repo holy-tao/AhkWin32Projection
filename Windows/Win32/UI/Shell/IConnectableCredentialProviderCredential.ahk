@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ICredentialProviderCredential.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IQueryContinueWithStatus.ahk
 
 /**
  * Exposes methods for connecting and disconnecting IConnectableCredentialProviderCredential objects.

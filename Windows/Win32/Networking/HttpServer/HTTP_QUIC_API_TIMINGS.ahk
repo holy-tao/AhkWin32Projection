@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_QUIC_CONNECTION_API_TIMINGS.ahk
 #Include .\HTTP_QUIC_STREAM_API_TIMINGS.ahk
+#Include .\HTTP_QUIC_CONNECTION_API_TIMINGS.ahk
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MLOperatorExecutionType.ahk
 #Include .\MLOperatorEdgeTypeConstraint.ahk
+#Include .\MLOperatorExecutionType.ahk
 #Include .\MLOperatorAttributeNameValue.ahk
 #Include .\MLOperatorKernelOptions.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML

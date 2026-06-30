@@ -1,100 +1,116 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
 class NTMS_I1_PMIDINFORMATIONW extends Win32Struct {
-    static sizeof => 256
+    static sizeof => 288
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     CurrentLibrary {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__CurrentLibrary"))
+                this.__CurrentLibrary := Guid(0, this)
+            return this.__CurrentLibrary
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     MediaPool {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__MediaPool"))
+                this.__MediaPool := Guid(16, this)
+            return this.__MediaPool
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Location {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__Location"))
+                this.__Location := Guid(32, this)
+            return this.__Location
+        }
     }
 
     /**
      * @type {Integer}
      */
     LocationType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     MediaType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__MediaType"))
+                this.__MediaType := Guid(52, this)
+            return this.__MediaType
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     HomeSlot {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__HomeSlot"))
+                this.__HomeSlot := Guid(68, this)
+            return this.__HomeSlot
+        }
     }
 
     /**
      * @type {String}
      */
     szBarCode {
-        get => StrGet(this.ptr + 48, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 63, "UTF-16")
+        get => StrGet(this.ptr + 84, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 84, 63, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     BarCodeState {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
+        get => NumGet(this, 212, "uint")
+        set => NumPut("uint", value, this, 212)
     }
 
     /**
      * @type {String}
      */
     szSequenceNumber {
-        get => StrGet(this.ptr + 180, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 180, 31, "UTF-16")
+        get => StrGet(this.ptr + 216, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 216, 31, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     MediaState {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
+        get => NumGet(this, 280, "uint")
+        set => NumPut("uint", value, this, 280)
     }
 
     /**
      * @type {Integer}
      */
     dwNumberOfPartitions {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 284, "uint")
+        set => NumPut("uint", value, this, 284)
     }
 }

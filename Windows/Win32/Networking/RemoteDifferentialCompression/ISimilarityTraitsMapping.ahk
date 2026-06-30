@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\RdcMappingAccessMode.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISimilarityTraitsMappedView.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods that an RDC application can implement for creating and manipulating a file mapping object for a similarity traits table file.

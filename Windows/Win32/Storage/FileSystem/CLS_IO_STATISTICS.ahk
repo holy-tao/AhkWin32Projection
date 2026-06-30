@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLS_IO_STATISTICS_HEADER.ahk
 #Include .\CLFS_IOSTATS_CLASS.ahk
+#Include .\CLS_IO_STATISTICS_HEADER.ahk
 
 /**
  * Defines the statistics that are reported by GetLogIoStatistics.

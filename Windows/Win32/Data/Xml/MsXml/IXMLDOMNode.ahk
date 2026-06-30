@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IXMLDOMNodeList.ahk
-#Include .\IXMLDOMNamedNodeMap.ahk
+#Include .\DOMNodeType.ahk
 #Include .\IXMLDOMDocument.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IXMLDOMNodeList.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IXMLDOMNamedNodeMap.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -195,7 +198,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_nodeName() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", name, "HRESULT")
         return name
     }
@@ -367,7 +370,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_nodeTypeString() {
-        nodeType := BSTR()
+        nodeType := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", nodeType, "HRESULT")
         return nodeType
     }
@@ -377,7 +380,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_text() {
-        text := BSTR()
+        text := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", text, "HRESULT")
         return text
     }
@@ -459,7 +462,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_xml() {
-        xmlString := BSTR()
+        xmlString := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", xmlString, "HRESULT")
         return xmlString
     }
@@ -470,7 +473,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     transformNode(stylesheet) {
-        xmlString := BSTR()
+        xmlString := BSTR({Value: 0}, True)
         result := ComCall(35, this, "ptr", stylesheet, "ptr", xmlString, "HRESULT")
         return xmlString
     }
@@ -513,7 +516,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_namespaceURI() {
-        namespaceURI := BSTR()
+        namespaceURI := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", namespaceURI, "HRESULT")
         return namespaceURI
     }
@@ -523,7 +526,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_prefix() {
-        prefixString := BSTR()
+        prefixString := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", prefixString, "HRESULT")
         return prefixString
     }
@@ -533,7 +536,7 @@ class IXMLDOMNode extends IDispatch {
      * @returns {BSTR} 
      */
     get_baseName() {
-        nameString := BSTR()
+        nameString := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", nameString, "HRESULT")
         return nameString
     }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Kernel\COMPARTMENT_ID.ahk
 #Include .\SCOPE_ID.ahk
+#Include ..\..\System\Kernel\COMPARTMENT_ID.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

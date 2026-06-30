@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFVideoSphericalFormat.ahk
 #Include .\IMFVideoProcessorControl2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFVideoSphericalProjectionMode.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IMFMediaType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

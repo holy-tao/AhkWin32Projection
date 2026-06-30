@@ -1,17 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequest.ahk
-#Include .\IObjectId.ahk
 #Include .\IX509PublicKey.ahk
-#Include .\IX509PrivateKey.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IObjectIds.ahk
+#Include .\IObjectId.ahk
+#Include .\X509KeySpec.ahk
+#Include .\IX509Extensions.ahk
+#Include .\ICryptAttributes.ahk
+#Include .\X509RequestInheritOptions.ahk
+#Include .\Pkcs10AllowedSignatureTypes.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX500DistinguishedName.ahk
+#Include .\IX509CertificateRequest.ahk
 #Include .\ICspStatuses.ahk
 #Include .\IX509SignatureInformation.ahk
-#Include .\ICryptAttributes.ahk
-#Include .\IX509Extensions.ahk
-#Include .\IObjectIds.ahk
+#Include .\IX500DistinguishedName.ahk
+#Include .\IX509PrivateKey.ahk
+#Include .\EncodingType.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * The IX509CertificateRequestPkcs10 interface represents a PKCS
@@ -698,7 +705,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_oldcertificate
      */
     get_OldCertificate(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(44, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -921,7 +928,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_keycontainernameprefix
      */
     get_KeyContainerNamePrefix() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(51, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -1121,7 +1128,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_rawdatatobesigned
      */
     get_RawDataToBeSigned(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(57, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -1153,7 +1160,7 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_signature
      */
     get_Signature(Encoding) {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(58, this, "int", Encoding, "ptr", pValue, "HRESULT")
         return pValue
     }

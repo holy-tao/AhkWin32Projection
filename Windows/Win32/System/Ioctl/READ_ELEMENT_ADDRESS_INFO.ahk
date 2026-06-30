@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGER_ELEMENT_STATUS.ahk
 #Include .\CHANGER_ELEMENT.ahk
-#Include .\ELEMENT_TYPE.ahk
 #Include .\CHANGER_ELEMENT_STATUS_FLAGS.ahk
+#Include .\CHANGER_ELEMENT_STATUS.ahk
+#Include .\ELEMENT_TYPE.ahk
 
 /**
  * Represents the volume tag information. It is used by the IOCTL_CHANGER_QUERY_VOLUME_TAGS control code.

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\_URB_HEADER.ahk
 #Include .\USBD_INTERFACE_INFORMATION.ahk
-#Include .\USBD_PIPE_INFORMATION.ahk
 #Include .\USBD_PIPE_TYPE.ahk
+#Include .\USBD_PIPE_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

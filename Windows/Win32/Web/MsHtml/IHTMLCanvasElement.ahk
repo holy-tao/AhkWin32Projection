@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ICanvasRenderingContext2D.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ICanvasRenderingContext2D.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -110,7 +112,7 @@ class IHTMLCanvasElement extends IDispatch {
     toDataURL(type, jpegquality) {
         type := type is String ? BSTR.Alloc(type).Value : type
 
-        pUrl := BSTR()
+        pUrl := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", type, "ptr", jpegquality, "ptr", pUrl, "HRESULT")
         return pUrl
     }

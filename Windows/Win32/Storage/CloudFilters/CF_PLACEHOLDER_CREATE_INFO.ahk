@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_FS_METADATA.ahk
 #Include ..\FileSystem\FILE_BASIC_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CF_FS_METADATA.ahk
 #Include .\CF_PLACEHOLDER_CREATE_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains placeholder information for creating new placeholder files or directories.

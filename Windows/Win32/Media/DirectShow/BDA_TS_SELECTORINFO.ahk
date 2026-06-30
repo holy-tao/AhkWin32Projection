@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -7,7 +8,7 @@
 class BDA_TS_SELECTORINFO extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,19 +30,22 @@ class BDA_TS_SELECTORINFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidNetworkType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidNetworkType"))
+                this.__guidNetworkType := Guid(4, this)
+            return this.__guidNetworkType
+        }
     }
 
     /**
      * @type {Integer}
      */
     bTSIDCount {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -50,7 +54,7 @@ class BDA_TS_SELECTORINFO extends Win32Struct {
     usTSID {
         get {
             if(!this.HasProp("__usTSIDProxyArray"))
-                this.__usTSIDProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "ushort")
+                this.__usTSIDProxyArray := Win32FixedArray(this.ptr + 22, 1, Primitive, "ushort")
             return this.__usTSIDProxyArray
         }
     }

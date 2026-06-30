@@ -2,9 +2,20 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Ole\IOleWindow.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
+#Include ..\..\System\Ole\OLEMENUGROUPWIDTHS.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include ..\WindowsAndMessaging\MSG.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IShellView.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\Controls\TBBUTTON.ahk
 
 /**
  * Implemented by hosts of Shell views (objects that implement IShellView). Exposes methods that provide services for the view it is hosting and other objects that run in the context of the Explorer window.

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ISchemaItem.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchemaItem.ahk
 #Include .\ISchemaItemCollection.ahk
 #Include .\ISchemaStringCollection.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
- * Provides a method for localizing keywords in a specified string.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-ischemalocalizersupport
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
 class ISchema extends ISchemaItem {
@@ -100,7 +99,7 @@ class ISchema extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_targetNamespace() {
-        targetNamespace := BSTR()
+        targetNamespace := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", targetNamespace, "HRESULT")
         return targetNamespace
     }
@@ -110,7 +109,7 @@ class ISchema extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_version() {
-        _version := BSTR()
+        _version := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", _version, "HRESULT")
         return _version
     }

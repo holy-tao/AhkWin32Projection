@@ -1,11 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\IFsrmReportJob.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FsrmReportFilter.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\FsrmEnumOptions.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFsrmReportJob.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\FsrmReportGenerationContext.ahk
+#Include .\FsrmReportType.ahk
+#Include .\FsrmReportLimit.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to manage report jobs.
@@ -104,7 +111,7 @@ class IFsrmReportManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getoutputdirectory
      */
     GetOutputDirectory(_context) {
-        _path := BSTR()
+        _path := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", _context, "ptr", _path, "HRESULT")
         return _path
     }

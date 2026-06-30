@@ -1,10 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Direct3D\ID3DBlob.ahk
-#Include .\ID3DX11Scan.ahk
+#Include ..\Dxgi\IDXGISwapChain.ahk
+#Include .\D3D11_CREATE_DEVICE_FLAG.ahk
+#Include .\D3DX11_FFT_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HMODULE.ahk
 #Include .\ID3DX11SegmentedScan.ahk
 #Include .\ID3DX11FFT.ahk
+#Include ..\Direct3D\D3D_DRIVER_TYPE.ahk
+#Include .\ID3DX11Scan.ahk
+#Include .\ID3D11DeviceContext.ahk
+#Include .\ID3D11Device.ahk
+#Include ..\Dxgi\IDXGIAdapter.ahk
+#Include .\ID3D11ShaderTrace.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
+#Include ..\Dxgi\DXGI_SWAP_CHAIN_DESC.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
+#Include .\D3DX11_FFT_BUFFER_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11

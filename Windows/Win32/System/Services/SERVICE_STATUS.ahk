@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENUM_SERVICE_TYPE.ahk
 #Include .\SERVICE_STATUS_CURRENT_STATE.ahk
+#Include .\ENUM_SERVICE_TYPE.ahk
 
 /**
  * Contains status information for a service.

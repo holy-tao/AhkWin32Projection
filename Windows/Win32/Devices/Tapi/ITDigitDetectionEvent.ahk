@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITDigitDetectionEvent interface contains methods that retrieve the description of DTMF digit events.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_HEADER_ID.ahk
 #Include .\HTTP_KNOWN_HEADER.ahk
+#Include .\HTTP_HEADER_ID.ahk
 
 /**
  * Specifies the headers that are included in an HTTP response when more than one header is required.

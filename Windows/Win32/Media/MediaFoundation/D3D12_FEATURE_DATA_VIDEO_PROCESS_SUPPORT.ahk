@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_SAMPLE.ahk
-#Include .\D3D12_VIDEO_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_VIDEO_SCALE_SUPPORT.ahk
+#Include .\D3D12_VIDEO_PROCESS_FILTER_FLAGS.ahk
+#Include .\D3D12_VIDEO_PROCESS_FEATURE_FLAGS.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 #Include .\D3D12_VIDEO_FIELD_TYPE.ahk
-#Include .\D3D12_VIDEO_FRAME_STEREO_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
-#Include .\D3D12_VIDEO_PROCESS_SUPPORT_FLAGS.ahk
-#Include .\D3D12_VIDEO_SCALE_SUPPORT.ahk
-#Include .\D3D12_VIDEO_SIZE_RANGE.ahk
-#Include .\D3D12_VIDEO_SCALE_SUPPORT_FLAGS.ahk
-#Include .\D3D12_VIDEO_PROCESS_FEATURE_FLAGS.ahk
-#Include .\D3D12_VIDEO_PROCESS_DEINTERLACE_FLAGS.ahk
-#Include .\D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAGS.ahk
-#Include .\D3D12_VIDEO_PROCESS_FILTER_FLAGS.ahk
 #Include .\D3D12_VIDEO_PROCESS_FILTER_RANGE.ahk
+#Include .\D3D12_VIDEO_SIZE_RANGE.ahk
+#Include .\D3D12_VIDEO_PROCESS_DEINTERLACE_FLAGS.ahk
+#Include .\D3D12_VIDEO_SAMPLE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_VIDEO_FORMAT.ahk
+#Include .\D3D12_VIDEO_FRAME_STEREO_FORMAT.ahk
+#Include .\D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAGS.ahk
+#Include .\D3D12_VIDEO_PROCESS_SUPPORT_FLAGS.ahk
+#Include .\D3D12_VIDEO_SCALE_SUPPORT_FLAGS.ahk
 
 /**
  * Provides data for calls to ID3D12VideoDevice::CheckFeatureSupport when the feature specified is D3D12_FEATURE_VIDEO_PROCESS_SUPPORT.

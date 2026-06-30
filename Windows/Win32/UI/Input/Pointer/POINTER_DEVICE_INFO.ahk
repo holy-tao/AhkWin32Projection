@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\POINTER_DEVICE_TYPE.ahk
 #Include ..\..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a pointer device. An array of these structures is returned from the GetPointerDevices function. A single structure is returned from a call to the GetPointerDevice function.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
-#Include .\WS_XML_DICTIONARY.ahk
 #Include .\WS_XML_TEXT.ahk
+#Include .\WS_XML_DICTIONARY.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * This type is used to store an attribute that has not been directly mapped to a field.

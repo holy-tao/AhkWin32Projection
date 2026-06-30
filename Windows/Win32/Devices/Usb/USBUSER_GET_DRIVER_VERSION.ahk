@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBUSER_REQUEST_HEADER.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
 #Include .\USB_DRIVER_VERSION_PARAMETERS.ahk
+#Include .\USB_USER_ERROR_CODE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\USBUSER_REQUEST_HEADER.ahk
 
 /**
  * The USBUSER_GET_DRIVER_VERSION structure is used with the IOCTL_USB_USER_REQUEST I/O control request to read driver and interface version information.

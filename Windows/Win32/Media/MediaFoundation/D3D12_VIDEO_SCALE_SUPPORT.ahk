@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_SIZE_RANGE.ahk
 #Include .\D3D12_VIDEO_SCALE_SUPPORT_FLAGS.ahk
+#Include .\D3D12_VIDEO_SIZE_RANGE.ahk
 
 /**
  * Describes the supported scaling range of output sizes for a video scaler.

@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertRequest2.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\CR_DISP.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
+#Include .\ICertRequest2.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest3)
@@ -198,7 +202,7 @@ class ICertRequest3 extends ICertRequest2 {
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest3-getrequestidstring
      */
     GetRequestIdString() {
-        pstrRequestId := BSTR()
+        pstrRequestId := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pstrRequestId, "HRESULT")
         return pstrRequestId
     }

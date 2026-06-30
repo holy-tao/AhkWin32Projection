@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RASIPADDR.ahk
-#Include .\RASENTRY_DIAL_MODE.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include .\RASENTRY_DIAL_MODE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\RASIPADDR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\IKEV2_ID_PAYLOAD_TYPE.ahk
 
 /**
@@ -10,9 +12,9 @@
  * @charset ANSI
  */
 class RASENTRYA extends Win32Struct {
-    static sizeof => 3472
+    static sizeof => 3480
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -326,91 +328,94 @@ class RASENTRYA extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidId {
-        get => NumGet(this, 1808, "ptr")
-        set => NumPut("ptr", value, this, 1808)
+        get {
+            if(!this.HasProp("__guidId"))
+                this.__guidId := Guid(1808, this)
+            return this.__guidId
+        }
     }
 
     /**
      * @type {String}
      */
     szCustomDialDll {
-        get => StrGet(this.ptr + 1816, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 1816, 259, "UTF-8")
+        get => StrGet(this.ptr + 1824, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 1824, 259, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     dwVpnStrategy {
-        get => NumGet(this, 2076, "uint")
-        set => NumPut("uint", value, this, 2076)
+        get => NumGet(this, 2084, "uint")
+        set => NumPut("uint", value, this, 2084)
     }
 
     /**
      * @type {Integer}
      */
     dwfOptions2 {
-        get => NumGet(this, 2080, "uint")
-        set => NumPut("uint", value, this, 2080)
+        get => NumGet(this, 2088, "uint")
+        set => NumPut("uint", value, this, 2088)
     }
 
     /**
      * @type {Integer}
      */
     dwfOptions3 {
-        get => NumGet(this, 2084, "uint")
-        set => NumPut("uint", value, this, 2084)
+        get => NumGet(this, 2092, "uint")
+        set => NumPut("uint", value, this, 2092)
     }
 
     /**
      * @type {String}
      */
     szDnsSuffix {
-        get => StrGet(this.ptr + 2088, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 2088, 255, "UTF-8")
+        get => StrGet(this.ptr + 2096, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 2096, 255, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     dwTcpWindowSize {
-        get => NumGet(this, 2344, "uint")
-        set => NumPut("uint", value, this, 2344)
+        get => NumGet(this, 2352, "uint")
+        set => NumPut("uint", value, this, 2352)
     }
 
     /**
      * @type {String}
      */
     szPrerequisitePbk {
-        get => StrGet(this.ptr + 2348, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 2348, 259, "UTF-8")
+        get => StrGet(this.ptr + 2356, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 2356, 259, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     szPrerequisiteEntry {
-        get => StrGet(this.ptr + 2608, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 2608, 256, "UTF-8")
+        get => StrGet(this.ptr + 2616, 256, "UTF-8")
+        set => StrPut(value, this.ptr + 2616, 256, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     dwRedialCount {
-        get => NumGet(this, 2868, "uint")
-        set => NumPut("uint", value, this, 2868)
+        get => NumGet(this, 2876, "uint")
+        set => NumPut("uint", value, this, 2876)
     }
 
     /**
      * @type {Integer}
      */
     dwRedialPause {
-        get => NumGet(this, 2872, "uint")
-        set => NumPut("uint", value, this, 2872)
+        get => NumGet(this, 2880, "uint")
+        set => NumPut("uint", value, this, 2880)
     }
 
     /**
@@ -419,7 +424,7 @@ class RASENTRYA extends Win32Struct {
     ipv6addrDns {
         get {
             if(!this.HasProp("__ipv6addrDns"))
-                this.__ipv6addrDns := IN6_ADDR(2876, this)
+                this.__ipv6addrDns := IN6_ADDR(2884, this)
             return this.__ipv6addrDns
         }
     }
@@ -430,7 +435,7 @@ class RASENTRYA extends Win32Struct {
     ipv6addrDnsAlt {
         get {
             if(!this.HasProp("__ipv6addrDnsAlt"))
-                this.__ipv6addrDnsAlt := IN6_ADDR(2892, this)
+                this.__ipv6addrDnsAlt := IN6_ADDR(2900, this)
             return this.__ipv6addrDnsAlt
         }
     }
@@ -439,16 +444,16 @@ class RASENTRYA extends Win32Struct {
      * @type {Integer}
      */
     dwIPv4InterfaceMetric {
-        get => NumGet(this, 2908, "uint")
-        set => NumPut("uint", value, this, 2908)
+        get => NumGet(this, 2916, "uint")
+        set => NumPut("uint", value, this, 2916)
     }
 
     /**
      * @type {Integer}
      */
     dwIPv6InterfaceMetric {
-        get => NumGet(this, 2912, "uint")
-        set => NumPut("uint", value, this, 2912)
+        get => NumGet(this, 2920, "uint")
+        set => NumPut("uint", value, this, 2920)
     }
 
     /**
@@ -457,7 +462,7 @@ class RASENTRYA extends Win32Struct {
     ipv6addr {
         get {
             if(!this.HasProp("__ipv6addr"))
-                this.__ipv6addr := IN6_ADDR(2916, this)
+                this.__ipv6addr := IN6_ADDR(2924, this)
             return this.__ipv6addr
         }
     }
@@ -466,63 +471,63 @@ class RASENTRYA extends Win32Struct {
      * @type {Integer}
      */
     dwIPv6PrefixLength {
-        get => NumGet(this, 2932, "uint")
-        set => NumPut("uint", value, this, 2932)
+        get => NumGet(this, 2940, "uint")
+        set => NumPut("uint", value, this, 2940)
     }
 
     /**
      * @type {Integer}
      */
     dwNetworkOutageTime {
-        get => NumGet(this, 2936, "uint")
-        set => NumPut("uint", value, this, 2936)
+        get => NumGet(this, 2944, "uint")
+        set => NumPut("uint", value, this, 2944)
     }
 
     /**
      * @type {String}
      */
     szIDi {
-        get => StrGet(this.ptr + 2940, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 2940, 256, "UTF-8")
+        get => StrGet(this.ptr + 2948, 256, "UTF-8")
+        set => StrPut(value, this.ptr + 2948, 256, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     szIDr {
-        get => StrGet(this.ptr + 3197, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 3197, 256, "UTF-8")
+        get => StrGet(this.ptr + 3205, 256, "UTF-8")
+        set => StrPut(value, this.ptr + 3205, 256, "UTF-8")
     }
 
     /**
      * @type {BOOL}
      */
     fIsImsConfig {
-        get => NumGet(this, 3456, "int")
-        set => NumPut("int", value, this, 3456)
+        get => NumGet(this, 3464, "int")
+        set => NumPut("int", value, this, 3464)
     }
 
     /**
      * @type {IKEV2_ID_PAYLOAD_TYPE}
      */
     IdiType {
-        get => NumGet(this, 3460, "int")
-        set => NumPut("int", value, this, 3460)
+        get => NumGet(this, 3468, "int")
+        set => NumPut("int", value, this, 3468)
     }
 
     /**
      * @type {IKEV2_ID_PAYLOAD_TYPE}
      */
     IdrType {
-        get => NumGet(this, 3464, "int")
-        set => NumPut("int", value, this, 3464)
+        get => NumGet(this, 3472, "int")
+        set => NumPut("int", value, this, 3472)
     }
 
     /**
      * @type {BOOL}
      */
     fDisableIKEv2Fragmentation {
-        get => NumGet(this, 3468, "int")
-        set => NumPut("int", value, this, 3468)
+        get => NumGet(this, 3476, "int")
+        set => NumPut("int", value, this, 3476)
     }
 }

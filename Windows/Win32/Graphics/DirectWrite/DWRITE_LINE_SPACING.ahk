@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_LINE_SPACING_METHOD.ahk
 #Include .\DWRITE_FONT_LINE_GAP_USAGE.ahk
+#Include .\DWRITE_LINE_SPACING_METHOD.ahk
 
 /**
  * Sets the vertical spacing between lines of text.

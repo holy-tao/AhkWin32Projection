@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapSource.ahk
 #Include .\IWICBitmapLock.ahk
+#Include .\IWICPalette.ahk
+#Include .\WICRect.ahk
+#Include .\IWICBitmapSource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines methods that add the concept of writeability and static in-memory representations of bitmaps to IWICBitmapSource.

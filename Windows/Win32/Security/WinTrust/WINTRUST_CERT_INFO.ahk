@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\CERT_CONTEXT.ahk
-#Include ..\Cryptography\HCERTSTORE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\Cryptography\HCERTSTORE.ahk
+#Include ..\Cryptography\CERT_CONTEXT.ahk
 
 /**
  * Used when calling WinVerifyTrust to verify a CERT_CONTEXT.

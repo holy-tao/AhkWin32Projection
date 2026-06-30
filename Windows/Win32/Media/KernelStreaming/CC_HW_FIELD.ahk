@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VBICODECFILTERING_SCANLINES.ahk
 #Include .\CC_BYTE_PAIR.ahk
+#Include .\VBICODECFILTERING_SCANLINES.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming

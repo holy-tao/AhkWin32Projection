@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPACTION.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include PropertiesSystem\PDOPSTATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods to get, set, and query a progress dialog.

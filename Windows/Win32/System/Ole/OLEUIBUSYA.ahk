@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BUSY_DIALOG_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\BUSY_DIALOG_FLAGS.ahk
 #Include ..\..\Foundation\HRSRC.ahk
 #Include ..\..\Foundation\HTASK.ahk
 

@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\RECTL.ahk
+#Include ..\..\..\Foundation\SIZE.ahk
+#Include ..\..\..\Graphics\Gdi\HDC.ahk
 #Include .\ITextServices.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Graphics\Direct2D\ID2D1RenderTarget.ahk
+#Include ..\..\..\Foundation\RECT.ahk
+#Include ..\..\..\System\Com\DVTARGETDEVICE.ahk
 
 /**
  * The ITextServices2 interface extends the ITextServices interface.

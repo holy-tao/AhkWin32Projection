@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\SE_SECURITY_DESCRIPTOR.ahk
+#Include .\PSID.ahk
 #Include .\GENERIC_MAPPING.ahk
 #Include .\OBJECT_TYPE_LIST.ahk
+#Include .\SE_SECURITY_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Security

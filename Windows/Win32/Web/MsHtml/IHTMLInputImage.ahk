@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -205,7 +207,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -304,7 +306,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_alt() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", p, "HRESULT")
         return p
     }
@@ -326,7 +328,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_src() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", p, "HRESULT")
         return p
     }
@@ -348,7 +350,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_lowsrc() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", p, "HRESULT")
         return p
     }
@@ -370,7 +372,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_vrml() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", p, "HRESULT")
         return p
     }
@@ -392,7 +394,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_dynsrc() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(25, this, "ptr", p, "HRESULT")
         return p
     }
@@ -402,7 +404,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -453,7 +455,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(31, this, "ptr", p, "HRESULT")
         return p
     }
@@ -535,7 +537,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", p, "HRESULT")
         return p
     }
@@ -595,7 +597,7 @@ class IHTMLInputImage extends IDispatch {
      * @returns {BSTR} 
      */
     get_start() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(45, this, "ptr", p, "HRESULT")
         return p
     }

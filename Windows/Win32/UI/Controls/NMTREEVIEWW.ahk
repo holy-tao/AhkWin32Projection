@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TREE_VIEW_ITEM_STATE_FLAGS.ahk
+#Include .\HTREEITEM.ahk
 #Include .\NMHDR.ahk
+#Include .\TVITEM_MASK.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\TVITEMEXW_CHILDREN.ahk
 #Include .\NM_TREEVIEW_ACTION.ahk
 #Include .\TVITEMW.ahk
-#Include .\TVITEM_MASK.ahk
-#Include .\TREE_VIEW_ITEM_STATE_FLAGS.ahk
-#Include .\TVITEMEXW_CHILDREN.ahk
-#Include ..\..\Foundation\POINT.ahk
 
 /**
  * Contains information about a tree-view notification message. This structure is identical to the NM_TREEVIEW structure, but it has been renamed to follow current naming conventions. (Unicode)

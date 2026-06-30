@@ -1,8 +1,96 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CLFS_IOSTATS_CLASS.ahk
+#Include .\CLS_WRITE_ENTRY.ahk
+#Include .\SET_FILE_POINTER_MOVE_METHOD.ahk
+#Include .\TAPE_INFORMATION_TYPE.ahk
+#Include .\IORING_HANDLE_REF.ahk
+#Include .\LZOPENFILE_STYLE.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include .\IORING_CQE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\WIN32_FIND_DATAA.ahk
+#Include .\CREATEFILE3_EXTENDED_PARAMETERS.ahk
+#Include .\REPLACE_FILE_FLAGS.ahk
+#Include .\CREATE_BIND_LINK_FLAGS.ahk
+#Include .\TXF_ID.ahk
+#Include .\DISK_SPACE_INFORMATION.ahk
+#Include .\FILE_ID_DESCRIPTOR.ahk
+#Include .\IORING_CREATE_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\FILE_TYPE.ahk
+#Include .\CLFS_FLAG.ahk
+#Include .\WIN32_FIND_DATAW.ahk
+#Include .\FILE_CREATION_DISPOSITION.ahk
+#Include .\DIRECTORY_FLAGS.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\FIND_FIRST_EX_FLAGS.ahk
+#Include .\CREATE_TAPE_PARTITION_METHOD.ahk
+#Include .\IORING_SQE_FLAGS.ahk
+#Include .\IORING_OP_CODE.ahk
+#Include .\BY_HANDLE_FILE_INFORMATION.ahk
+#Include .\CLFS_MGMT_NOTIFICATION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\FILE_SHARE_MODE.ahk
+#Include .\COPYFILE_FLAGS.ahk
+#Include .\STREAM_INFO_LEVELS.ahk
+#Include .\GETFINALPATHNAMEBYHANDLE_FLAGS.ahk
+#Include .\CLFS_CONTEXT_MODE.ahk
+#Include .\CLS_SCAN_CONTEXT.ahk
+#Include .\CLS_LSN.ahk
+#Include .\TXFS_MINIVERSION.ahk
+#Include .\IORING_BUFFER_REF.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IORING_VERSION.ahk
+#Include .\TAPEMARK_TYPE.ahk
+#Include .\CLFS_LOG_ARCHIVE_MODE.ahk
+#Include .\VER_FIND_FILE_FLAGS.ahk
+#Include .\IORING_CAPABILITIES.ahk
+#Include .\READ_DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
+#Include .\ENCRYPTION_CERTIFICATE_HASH_LIST.ahk
+#Include .\COPYFILE2_EXTENDED_PARAMETERS.ahk
+#Include .\ERASE_TAPE_TYPE.ahk
+#Include .\FILE_INFO_BY_HANDLE_CLASS.ahk
+#Include .\FILE_WRITE_FLAGS.ahk
 #Include .\HIORING.ahk
+#Include .\TAPE_POSITION_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\VER_INSTALL_FILE_STATUS.ahk
+#Include .\ENCRYPTION_CERTIFICATE.ahk
+#Include .\CREATEFILE2_EXTENDED_PARAMETERS.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include .\FILE_FLAGS_AND_ATTRIBUTES.ahk
+#Include .\LOCK_FILE_FLAGS.ahk
+#Include .\LOG_MANAGEMENT_CALLBACKS.ahk
+#Include .\GET_TAPE_DRIVE_PARAMETERS_OPERATION.ahk
+#Include .\FILE_FLUSH_MODE.ahk
+#Include .\CLFS_MGMT_POLICY_TYPE.ahk
+#Include .\TRANSACTION_NOTIFICATION.ahk
+#Include .\OFSTRUCT.ahk
+#Include .\FILE_SEGMENT_ELEMENT.ahk
+#Include .\IORING_BUFFER_INFO.ahk
+#Include .\GET_FILE_VERSION_INFO_FLAGS.ahk
+#Include .\ENCRYPTION_CERTIFICATE_LIST.ahk
+#Include .\FILE_INFO_BY_NAME_CLASS.ahk
+#Include .\VER_FIND_FILE_STATUS.ahk
+#Include .\CLFS_MGMT_POLICY.ahk
+#Include .\FINDEX_SEARCH_OPS.ahk
+#Include .\FILE_NOTIFY_CHANGE.ahk
+#Include .\IORING_INFO.ahk
+#Include .\DEFINE_DOS_DEVICE_FLAGS.ahk
+#Include .\SYMBOLIC_LINK_FLAGS.ahk
+#Include .\ENCRYPTION_CERTIFICATE_HASH.ahk
+#Include .\CLS_ARCHIVE_DESCRIPTOR.ahk
+#Include .\MOVE_FILE_FLAGS.ahk
+#Include .\TAPE_POSITION_METHOD.ahk
+#Include .\CLS_INFORMATION.ahk
+#Include .\FINDEX_INFO_LEVELS.ahk
+#Include .\VER_INSTALL_FILE_FLAGS.ahk
+#Include .\GET_FILEEX_INFO_LEVELS.ahk
+#Include .\PREPARE_TAPE_OPERATION.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -27097,7 +27185,7 @@ class FileSystem {
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-createioring
      */
     static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize) {
-        h := HIORING()
+        h := HIORING({Value: 0}, True)
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CreateIoRing", "int", ioringVersion, "ptr", flags, "uint", submissionQueueSize, "uint", completionQueueSize, "ptr", h, "HRESULT")
         return h
     }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_PROPERTY_INFO.ahk
 #Include .\PROPERTY_FLAGS.ahk
+#Include .\EVENT_PROPERTY_INFO.ahk
 
 /**
  * Defines a filter and its data.

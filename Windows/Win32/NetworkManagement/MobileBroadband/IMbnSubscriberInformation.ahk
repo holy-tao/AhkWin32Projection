@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to subscriber information.
@@ -63,7 +65,7 @@ class IMbnSubscriberInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsubscriberinformation-get_subscriberid
      */
     get_SubscriberID() {
-        SubscriberID := BSTR()
+        SubscriberID := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", SubscriberID, "HRESULT")
         return SubscriberID
     }
@@ -76,7 +78,7 @@ class IMbnSubscriberInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsubscriberinformation-get_simiccid
      */
     get_SimIccID() {
-        SimIccID := BSTR()
+        SimIccID := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", SimIccID, "HRESULT")
         return SimIccID
     }

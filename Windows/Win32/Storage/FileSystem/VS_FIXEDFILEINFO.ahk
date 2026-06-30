@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
 #Include .\VS_FIXEDFILEINFO_FILE_OS.ahk
+#Include .\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
 
 /**
  * Contains version information for a file. This information is language and code page independent.

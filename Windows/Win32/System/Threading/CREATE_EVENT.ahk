@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The initial state of the event object is signaled; otherwise, it is nonsignaled.
- * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-createeventexa
  * @namespace Windows.Win32.System.Threading
  */
 class CREATE_EVENT extends Win32BitflagEnum {

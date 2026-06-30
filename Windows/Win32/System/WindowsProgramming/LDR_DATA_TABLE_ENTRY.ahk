@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Kernel\LIST_ENTRY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\UNICODE_STRING.ahk
+#Include ..\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming

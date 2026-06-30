@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_ADDR_PATTERN.ahk
 #Include .\DHCP_FILTER_LIST_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DHCP_ADDR_PATTERN.ahk
 
 /**
  * Contains information regarding the link-layer filter to be added to the allow and deny filter list.

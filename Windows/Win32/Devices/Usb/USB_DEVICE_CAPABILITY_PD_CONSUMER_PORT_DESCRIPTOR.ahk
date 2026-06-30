@@ -9,7 +9,7 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 4
 
-    class _bmCapabilities_e__Union extends Win32Struct {
+    class _bmCapabilities extends Win32Struct {
         static sizeof => 2
         static packingSize => 1
 
@@ -92,12 +92,12 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_bmCapabilities_e__Union}
+     * @type {_bmCapabilities}
      */
     bmCapabilities {
         get {
             if(!this.HasProp("__bmCapabilities"))
-                this.__bmCapabilities := USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR._bmCapabilities_e__Union(4, this)
+                this.__bmCapabilities := USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR._bmCapabilities(4, this)
             return this.__bmCapabilities
         }
     }

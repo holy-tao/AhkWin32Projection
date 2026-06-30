@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk
+#Include .\ITfProperty.ahk
 #Include .\ITfRangeACP.ahk
+#Include .\ITfRange.ahk
+#Include .\ITfPersistentPropertyLoaderACP.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * The ITfContextOwnerServices interface is implemented by the manager and used by a text service or application acting as context owners.

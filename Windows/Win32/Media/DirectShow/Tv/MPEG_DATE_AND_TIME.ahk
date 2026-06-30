@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MPEG_DATE.ahk
 #Include .\MPEG_TIME.ahk
+#Include .\MPEG_DATE.ahk
 
 /**
  * The MPEG_DATE_AND_TIME structure specifies a date and time.

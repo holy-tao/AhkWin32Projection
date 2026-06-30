@@ -4,6 +4,7 @@
 #Include ..\Com\IDispatch.ahk
 #Include .\IUpdateException.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an ordered read-only list of IUpdateException interfaces.

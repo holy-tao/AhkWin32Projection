@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_PIXELFORMAT.ahk
 #Include ..\..\Foundation\POINTL.ahk
+#Include .\DISPLAYCONFIG_PIXELFORMAT.ahk
 
 /**
  * The DISPLAYCONFIG_SOURCE_MODE structure represents a point or an offset in a two-dimensional space.

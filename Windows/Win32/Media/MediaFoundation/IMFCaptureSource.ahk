@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaSource.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MF_CAPTURE_ENGINE_DEVICE_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MF_CAPTURE_ENGINE_STREAM_CATEGORY.ahk
 #Include .\IMFActivate.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaType.ahk
 
 /**

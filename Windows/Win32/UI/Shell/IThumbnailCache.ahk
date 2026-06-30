@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WTS_FLAGS.ahk
+#Include .\IShellItem.ahk
+#Include .\WTS_CACHEFLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WTS_THUMBNAILID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISharedBitmap.ahk
 
 /**
  * Exposes methods for a system thumbnail cache that is shared across applications.

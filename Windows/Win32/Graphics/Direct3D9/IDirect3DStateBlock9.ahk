@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirect3DDevice9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IDirect3DStateBlock9 (d3d9.h) interface is used by applications to encapsulate render states.

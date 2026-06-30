@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_VIDEO_FORMAT.ahk
 
 /**
  * Describes the width, height, format, and color space of a picture buffer.

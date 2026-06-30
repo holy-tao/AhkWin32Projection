@@ -1,7 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk
+#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT.ahk
+#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_INPUT.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12CommandList.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_DISCARD_REGION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_RESOURCE_BARRIER.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12QueryHeap.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk
+#Include .\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT.ahk
+#Include .\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include ..\..\Graphics\Direct3D12\D3D12_QUERY_TYPE.ahk
+#Include .\ID3D12VideoMotionEstimator.ahk
 
 /**
  * Encapsulates a list of graphics commands for video encoding, including motion estimation.

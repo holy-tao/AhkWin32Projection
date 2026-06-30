@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_BUFFER_PRECISION.ahk
 #Include .\D2D1_CHANNEL_DEPTH.ahk
 #Include .\D2D1_FILTER.ahk
 #Include .\D2D1_EXTEND_MODE.ahk
+#Include .\D2D1_BUFFER_PRECISION.ahk
 
 /**
  * Defines a resource texture when the original resource texture is created.

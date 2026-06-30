@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SourceInfo.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\SourceInfo.ahk
 
 /**
  * Represents a XAML element in the Live Visual Tree in Microsoft Visual Studio.

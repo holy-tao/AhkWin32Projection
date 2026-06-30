@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IStream.ahk
 #Include .\IProgressItems.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to get information about the burn image, the image data stream, and progress information.
@@ -121,7 +122,7 @@ class IFileSystemImageResult extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_discid
      */
     get_DiscId() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pVal, "HRESULT")
         return pVal
     }

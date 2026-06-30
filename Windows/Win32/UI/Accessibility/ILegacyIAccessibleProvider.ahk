@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IAccessible.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IAccessible.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables Microsoft UI Automation clients to access the underlying IAccessible implementation of Microsoft Active Accessibility elements.
@@ -168,7 +171,7 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_name
      */
     get_Name() {
-        pszName := BSTR()
+        pszName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pszName, "HRESULT")
         return pszName
     }
@@ -179,7 +182,7 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_value
      */
     get_Value() {
-        pszValue := BSTR()
+        pszValue := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pszValue, "HRESULT")
         return pszValue
     }
@@ -190,7 +193,7 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_description
      */
     get_Description() {
-        pszDescription := BSTR()
+        pszDescription := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pszDescription, "HRESULT")
         return pszDescription
     }
@@ -221,7 +224,7 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_help
      */
     get_Help() {
-        pszHelp := BSTR()
+        pszHelp := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pszHelp, "HRESULT")
         return pszHelp
     }
@@ -232,7 +235,7 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_keyboardshortcut
      */
     get_KeyboardShortcut() {
-        pszKeyboardShortcut := BSTR()
+        pszKeyboardShortcut := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pszKeyboardShortcut, "HRESULT")
         return pszKeyboardShortcut
     }
@@ -255,7 +258,7 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_defaultaction
      */
     get_DefaultAction() {
-        pszDefaultAction := BSTR()
+        pszDefaultAction := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pszDefaultAction, "HRESULT")
         return pszDefaultAction
     }

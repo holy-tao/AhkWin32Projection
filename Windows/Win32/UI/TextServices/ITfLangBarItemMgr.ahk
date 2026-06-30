@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ITfLangBarItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumTfLangBarItems.ahk
-#Include .\ITfLangBarItem.ahk
+#Include .\TF_LANGBARITEMINFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITfLangBarItemSink.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**

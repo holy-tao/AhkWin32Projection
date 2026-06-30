@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the attributes of an image to be inserted by the EM_INSERTIMAGE message.

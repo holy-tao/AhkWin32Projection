@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * Defines the relationship between events if TraceEventInstance was used to log related events.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class EVENT_EXTENDED_ITEM_INSTANCE extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A unique transaction identifier that maps an event to a specific transaction.
@@ -31,10 +32,13 @@ class EVENT_EXTENDED_ITEM_INSTANCE extends Win32Struct {
 
     /**
      * A GUID that uniquely identifies the provider that logged the event referenced by the <b>ParentInstanceId</b> member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ParentGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ParentGuid"))
+                this.__ParentGuid := Guid(8, this)
+            return this.__ParentGuid
+        }
     }
 }

@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMDMMetaData.ahk
+#Include .\IWMDMProgress.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IMDSPStorage.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMDMOperation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMDSPDirectTransfer interface enables Windows Media Device Manager to delegate content transfer to the service provider.

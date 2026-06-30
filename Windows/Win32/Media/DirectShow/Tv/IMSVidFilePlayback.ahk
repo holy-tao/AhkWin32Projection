@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidPlayback.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IMSVidPlayback.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidFilePlayback interface enables the client to specify a local file for playback. It is implemented by the MSVidFilePlaybackDevice object.
@@ -50,7 +51,7 @@ class IMSVidFilePlayback extends IMSVidPlayback {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback-get_filename
      */
     get_FileName() {
-        FileName := BSTR()
+        FileName := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", FileName, "HRESULT")
         return FileName
     }

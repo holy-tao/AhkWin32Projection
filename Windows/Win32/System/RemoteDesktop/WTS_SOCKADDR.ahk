@@ -11,7 +11,7 @@ class WTS_SOCKADDR extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 28
         static packingSize => 4
 
@@ -93,7 +93,7 @@ class WTS_SOCKADDR extends Win32Struct {
         ipv4 {
             get {
                 if(!this.HasProp("__ipv4"))
-                    this.__ipv4 := WTS_SOCKADDR._u_e__Union._ipv4(0, this)
+                    this.__ipv4 := WTS_SOCKADDR._u._ipv4(0, this)
                 return this.__ipv4
             }
         }
@@ -104,7 +104,7 @@ class WTS_SOCKADDR extends Win32Struct {
         ipv6 {
             get {
                 if(!this.HasProp("__ipv6"))
-                    this.__ipv6 := WTS_SOCKADDR._u_e__Union._ipv6(0, this)
+                    this.__ipv6 := WTS_SOCKADDR._u._ipv6(0, this)
                 return this.__ipv6
             }
         }
@@ -120,12 +120,12 @@ class WTS_SOCKADDR extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := WTS_SOCKADDR._u_e__Union(4, this)
+                this.__u := WTS_SOCKADDR._u(4, this)
             return this.__u
         }
     }

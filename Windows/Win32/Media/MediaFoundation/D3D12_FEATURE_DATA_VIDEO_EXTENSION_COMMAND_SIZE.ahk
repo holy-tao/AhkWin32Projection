@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Checks the allocation size of a video extension command.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -22,11 +23,14 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE extends Win32Struct {
 
     /**
      * The unique identifier for the video extension command for which size is queried.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CommandId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__CommandId"))
+                this.__CommandId := Guid(4, this)
+            return this.__CommandId
+        }
     }
 
     /**
@@ -34,8 +38,8 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pCreationParameters {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -43,8 +47,8 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE extends Win32Struct {
      * @type {Pointer}
      */
     CreationParametersSizeInBytes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -52,8 +56,8 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE extends Win32Struct {
      * @type {Integer}
      */
     MemoryPoolL0Size {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -61,7 +65,7 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE extends Win32Struct {
      * @type {Integer}
      */
     MemoryPoolL1Size {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

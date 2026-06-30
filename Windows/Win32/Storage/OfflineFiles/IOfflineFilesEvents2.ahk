@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IOfflineFilesEvents.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to report additional events associated with Offline Files.

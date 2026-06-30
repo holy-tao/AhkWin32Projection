@@ -1,12 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\X509EnrollmentPolicyLoadOption.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\ICertificationAuthorities.ahk
+#Include .\X509EnrollmentPolicyExportFlags.ahk
+#Include .\X509EnrollmentAuthFlags.ahk
+#Include .\IObjectIds.ahk
+#Include .\IX509CertificateTemplate.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509CertificateTemplates.ahk
-#Include .\ICertificationAuthorities.ahk
-#Include .\IObjectIds.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\X509CertificateEnrollmentContext.ahk
 
 /**
  * The IX509EnrollmentPolicyServer interface represents a certificate enrollment policy (CEP) server.
@@ -269,7 +276,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverurl
      */
     GetPolicyServerUrl() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -280,7 +287,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getpolicyserverid
      */
     GetPolicyServerId() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -291,7 +298,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getfriendlyname
      */
     GetFriendlyName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -336,7 +343,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachepath
      */
     GetCachePath() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -347,7 +354,7 @@ class IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcachedir
      */
     GetCacheDir() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pValue, "HRESULT")
         return pValue
     }

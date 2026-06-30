@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IOpcSignatureRelationshipReferenceEnumerator.ahk
 #Include .\IOpcSignatureRelationshipReference.ahk
 #Include .\IOpcRelationshipSelectorSet.ahk
-#Include .\IOpcSignatureRelationshipReferenceEnumerator.ahk
+#Include .\OPC_CANONICALIZATION_METHOD.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\OPC_RELATIONSHIPS_SIGNING_OPTION.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IOpcUri.ahk
 
 /**
  * An unordered set of IOpcSignatureRelationshipReference interface pointers that represent references to Relationships parts that contain relationships to be signed.

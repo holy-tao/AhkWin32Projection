@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\PKINTERRUPT.ahk
 #Include ..\..\Foundation\DEVICE_OBJECT.ahk
 #Include .\KINTERRUPT_MODE.ahk
 

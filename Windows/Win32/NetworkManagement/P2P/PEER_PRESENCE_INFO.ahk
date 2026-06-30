@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PEER_PRESENCE_STATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_PRESENCE_INFO structure contains specific peer presence information.

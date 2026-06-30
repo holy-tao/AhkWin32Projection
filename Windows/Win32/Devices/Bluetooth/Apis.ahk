@@ -1,8 +1,32 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\HBLUETOOTH_RADIO_FIND.ahk
+#Include .\BLUETOOTH_LOCAL_SERVICE_INFO.ahk
 #Include .\HBLUETOOTH_DEVICE_FIND.ahk
+#Include .\BTH_LE_GATT_CHARACTERISTIC_VALUE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\BLUETOOTH_FIND_RADIO_PARAMS.ahk
+#Include .\BTH_LE_GATT_CHARACTERISTIC.ahk
+#Include .\BLUETOOTH_OOB_DATA_INFO.ahk
+#Include .\BLUETOOTH_AUTHENTICATE_RESPONSE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\BTH_LE_GATT_DESCRIPTOR.ahk
+#Include .\AUTHENTICATION_REQUIREMENTS.ahk
+#Include .\BLUETOOTH_ADDRESS.ahk
+#Include .\BTH_LE_GATT_DESCRIPTOR_VALUE.ahk
+#Include .\BLUETOOTH_DEVICE_INFO.ahk
+#Include .\BLUETOOTH_SELECT_DEVICE_PARAMS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\BTH_LE_GATT_SERVICE.ahk
+#Include .\SDP_ELEMENT_DATA.ahk
+#Include .\HBLUETOOTH_RADIO_FIND.ahk
+#Include .\SDP_STRING_TYPE_DATA.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\BLUETOOTH_DEVICE_SEARCH_PARAMS.ahk
+#Include .\BLUETOOTH_RADIO_INFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\BTH_LE_GATT_EVENT_TYPE.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth

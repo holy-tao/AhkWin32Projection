@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Defines a record in the SSL configuration store.
@@ -17,7 +19,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  */
 class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -41,11 +43,14 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct {
 
     /**
      * A unique identifier of the application setting this record.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AppId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__AppId"))
+                this.__AppId := Guid(16, this)
+            return this.__AppId
+        }
     }
 
     /**
@@ -53,16 +58,16 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct {
      * @type {PWSTR}
      */
     pSslCertStoreName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     DefaultCertCheckMode {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -70,8 +75,8 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct {
      * @type {Integer}
      */
     DefaultRevocationFreshnessTime {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -79,8 +84,8 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct {
      * @type {Integer}
      */
     DefaultRevocationUrlRetrievalTimeout {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -88,8 +93,8 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct {
      * @type {PWSTR}
      */
     pDefaultSslCtlIdentifier {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -97,8 +102,8 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct {
      * @type {PWSTR}
      */
     pDefaultSslCtlStoreName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -151,7 +156,7 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct {
      * @type {Integer}
      */
     DefaultFlags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 }

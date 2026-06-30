@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IWABObject.ahk
-#Include .\IAddrBook.ahk
 #Include .\IMAPIProp.ahk
+#Include .\IAddrBook.ahk
+#Include .\IWABObject.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Do not use. Used by the Windows Address Book (WAB) to initialize user's IContextMenu Interface and IShellPropSheetExt Interface implementations.

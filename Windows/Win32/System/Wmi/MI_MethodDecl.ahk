@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MI_Qualifier.ahk
-#Include .\MI_ParameterDecl.ahk
 #Include .\MI_SchemaDecl.ahk
+#Include .\MI_ParameterDecl.ahk
 
 /**
  * Represents a CIM method.

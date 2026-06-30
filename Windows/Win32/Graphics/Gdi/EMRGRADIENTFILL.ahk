@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GRADIENT_FILL.ahk
 #Include .\EMR.ahk
 #Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include .\GRADIENT_FILL.ahk
 #Include .\TRIVERTEX.ahk
+#Include ..\..\Foundation\RECTL.ahk
 
 /**
  * The EMRGRADIENTFILL structure contains members for the GradientFill enhanced metafile record.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ITextRangeProvider.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the ITextRangeProvider interface to enable Microsoft UI Automation providers to invoke context menus.

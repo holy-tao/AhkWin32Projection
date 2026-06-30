@@ -1,7 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\COR_SECATTR.ahk
+#Include .\IMapToken.ahk
+#Include .\IMetaDataAssemblyEmit.ahk
+#Include .\IMetaDataImport.ahk
+#Include .\IMetaDataAssemblyImport.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\CorSaveSize.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\COR_FIELD_OFFSET.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\Com\IStream.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -40,13 +50,10 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
+     * 
      * @param {PWSTR} szFile 
      * @param {Integer} dwSaveFlags 
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * @returns {HRESULT} 
      */
     Save(szFile, dwSaveFlags) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
@@ -809,14 +816,11 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * The CloseDatabase method of the Merge object closes the currently open Windows Installer database.
-     * @remarks
-     * Closing a database clears all dependency information but does not affect any errors that have not been retrieved.
+     * 
      * @param {IMetaDataImport} pImport 
      * @param {IMapToken} pHostMapToken 
      * @param {IUnknown} pHandler 
-     * @returns {HRESULT} This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/Msi/merge-closedatabase
+     * @returns {HRESULT} 
      */
     Merge(pImport, pHostMapToken, pHandler) {
         result := ComCall(50, this, "ptr", pImport, "ptr", pHostMapToken, "ptr", pHandler, "HRESULT")

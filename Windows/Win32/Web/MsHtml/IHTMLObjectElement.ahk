@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLFormElement.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLFormElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -203,7 +204,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_classid() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -213,7 +214,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_data() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -254,7 +255,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", p, "HRESULT")
         return p
     }
@@ -276,7 +277,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", p, "HRESULT")
         return p
     }
@@ -298,7 +299,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_codeBase() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", p, "HRESULT")
         return p
     }
@@ -320,7 +321,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_codeType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", p, "HRESULT")
         return p
     }
@@ -342,7 +343,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_code() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", p, "HRESULT")
         return p
     }
@@ -352,7 +353,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_BaseHref() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -374,7 +375,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -494,7 +495,7 @@ class IHTMLObjectElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_altHtml() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", p, "HRESULT")
         return p
     }

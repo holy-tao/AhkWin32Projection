@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_RASTERIZER_DESC2.ahk
 #Include .\ID3D11RasterizerState1.ahk
 
 /**

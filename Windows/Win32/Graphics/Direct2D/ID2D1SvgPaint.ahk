@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_SVG_PAINT_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include Common\D2D1_COLOR_F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ID2D1SvgAttribute.ahk
 
 /**

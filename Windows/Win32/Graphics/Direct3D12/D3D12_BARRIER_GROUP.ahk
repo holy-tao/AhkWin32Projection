@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_BARRIER_TYPE.ahk
-#Include .\D3D12_GLOBAL_BARRIER.ahk
 #Include .\D3D12_TEXTURE_BARRIER.ahk
+#Include .\D3D12_BARRIER_TYPE.ahk
 #Include .\D3D12_BUFFER_BARRIER.ahk
+#Include .\D3D12_GLOBAL_BARRIER.ahk
 
 /**
  * Describes a group of barriers of a given type.

@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\GamutBoundaryDescription.ahk
+#Include .\IDeviceModelPlugIn.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\JChColorF.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Describes the methods that are defined for the IGamutMapModelPlugIn Component Object Model (COM) interface.

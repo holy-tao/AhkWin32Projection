@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -52,7 +53,7 @@ class IAMPlayListItem extends IUnknown {
      * @returns {BSTR} 
      */
     GetSourceURL(dwSourceIndex) {
-        pbstrURL := BSTR()
+        pbstrURL := BSTR({Value: 0}, True)
         result := ComCall(5, this, "uint", dwSourceIndex, "ptr", pbstrURL, "HRESULT")
         return pbstrURL
     }
@@ -103,7 +104,7 @@ class IAMPlayListItem extends IUnknown {
      * @returns {BSTR} 
      */
     GetSourceStartMarkerName(dwSourceIndex) {
-        pbstrStartMarker := BSTR()
+        pbstrStartMarker := BSTR({Value: 0}, True)
         result := ComCall(10, this, "uint", dwSourceIndex, "ptr", pbstrStartMarker, "HRESULT")
         return pbstrStartMarker
     }
@@ -114,7 +115,7 @@ class IAMPlayListItem extends IUnknown {
      * @returns {BSTR} 
      */
     GetSourceEndMarkerName(dwSourceIndex) {
-        pbstrEndMarker := BSTR()
+        pbstrEndMarker := BSTR({Value: 0}, True)
         result := ComCall(11, this, "uint", dwSourceIndex, "ptr", pbstrEndMarker, "HRESULT")
         return pbstrEndMarker
     }
@@ -124,7 +125,7 @@ class IAMPlayListItem extends IUnknown {
      * @returns {BSTR} 
      */
     GetLinkURL() {
-        pbstrURL := BSTR()
+        pbstrURL := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrURL, "HRESULT")
         return pbstrURL
     }

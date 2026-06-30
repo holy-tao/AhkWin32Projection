@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IRowsetIndex.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Storage\IndexServer\DBID.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -37,10 +39,9 @@ class IRowsetCurrentIndex extends IRowsetIndex {
     }
 
     /**
-     * Learn more about: SetIndexRangeGrbit enumeration
+     * 
      * @param {Pointer<DBID>} pIndexID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/setindexrangegrbit-enumeration
      */
     SetIndex(pIndexID) {
         result := ComCall(7, this, "ptr", pIndexID, "HRESULT")

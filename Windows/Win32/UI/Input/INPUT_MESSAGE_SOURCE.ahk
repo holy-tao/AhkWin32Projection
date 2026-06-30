@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\INPUT_MESSAGE_DEVICE_TYPE.ahk
 #Include .\INPUT_MESSAGE_ORIGIN_ID.ahk
+#Include .\INPUT_MESSAGE_DEVICE_TYPE.ahk
 
 /**
  * Contains information about the source of the input message.

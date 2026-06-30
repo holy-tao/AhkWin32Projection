@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISynchronizeHandle (objidlbase.h) interface retrieves a handle associated with a synchronization object.
@@ -36,7 +37,7 @@ class ISynchronizeHandle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isynchronizehandle-gethandle
      */
     GetHandle() {
-        ph := HANDLE()
+        ph := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "ptr", ph, "HRESULT")
         return ph
     }

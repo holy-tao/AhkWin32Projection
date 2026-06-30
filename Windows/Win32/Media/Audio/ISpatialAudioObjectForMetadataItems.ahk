@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISpatialAudioObjectBase.ahk
 #Include .\ISpatialAudioMetadataItems.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to write spatial audio metadata for applications that require multiple metadata items per buffer with frame-accurate placement.

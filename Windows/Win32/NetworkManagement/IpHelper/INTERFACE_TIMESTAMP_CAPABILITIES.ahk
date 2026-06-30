@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES.ahk
 
 /**

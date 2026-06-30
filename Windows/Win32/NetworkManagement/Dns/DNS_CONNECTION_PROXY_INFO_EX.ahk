@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_CONNECTION_PROXY_INFO.ahk
-#Include .\DNS_CONNECTION_PROXY_INFO_SWITCH.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\DNS_CONNECTION_PROXY_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DNS_CONNECTION_PROXY_INFO_SWITCH.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_OPERATION_TYPE.ahk
 #Include .\CF_CONNECTION_KEY.ahk
-#Include ..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk
 #Include .\CF_SYNC_STATUS.ahk
+#Include .\CF_OPERATION_TYPE.ahk
+#Include ..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk
 
 /**
  * Information about an operation on a placeholder file or folder.

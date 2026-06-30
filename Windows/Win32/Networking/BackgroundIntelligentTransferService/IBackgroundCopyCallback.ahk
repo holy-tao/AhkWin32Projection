@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBackgroundCopyJob.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IBackgroundCopyError.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Implement the IBackgroundCopyCallback interface to receive notification that a job is complete, has been modified, or is in error. Clients use this interface instead of polling for the status of the job.

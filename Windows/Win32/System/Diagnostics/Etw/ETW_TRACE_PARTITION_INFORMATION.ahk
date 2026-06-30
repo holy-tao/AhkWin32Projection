@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * Contains partition information pulled from an ETW trace.
@@ -7,27 +8,33 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class ETW_TRACE_PARTITION_INFORMATION extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
      * GUID to identify the machine.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PartitionId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__PartitionId"))
+                this.__PartitionId := Guid(0, this)
+            return this.__PartitionId
+        }
     }
 
     /**
      * GUID that identifies the partition instance that contains the traced partition.
      * If the traced partition is a host, then **ParentId** will be 0.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ParentId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ParentId"))
+                this.__ParentId := Guid(16, this)
+            return this.__ParentId
+        }
     }
 
     /**
@@ -35,8 +42,8 @@ class ETW_TRACE_PARTITION_INFORMATION extends Win32Struct {
      * @type {Integer}
      */
     QpcOffsetFromRoot {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
+        get => NumGet(this, 32, "int64")
+        set => NumPut("int64", value, this, 32)
     }
 
     /**
@@ -55,7 +62,7 @@ class ETW_TRACE_PARTITION_INFORMATION extends Win32Struct {
      * @type {Integer}
      */
     PartitionType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

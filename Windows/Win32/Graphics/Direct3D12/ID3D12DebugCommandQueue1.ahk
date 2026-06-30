@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12DebugCommandQueue.ahk
+#Include .\ID3D12Resource.ahk
+#Include .\D3D12_BARRIER_LAYOUT.ahk
+#Include .\D3D12_BARRIER_ACCESS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

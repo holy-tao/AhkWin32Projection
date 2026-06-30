@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_QUERY_ENCODING_TYPE.ahk
-#Include .\CERT_INFO.ahk
 #Include .\HCERTSTORE.ahk
+#Include .\CERT_INFO.ahk
 
 /**
  * Contains both the encoded and decoded representations of a certificate.

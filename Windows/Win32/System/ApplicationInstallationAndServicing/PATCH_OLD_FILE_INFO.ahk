@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\PATCH_IGNORE_RANGE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PATCH_RETAIN_RANGE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing

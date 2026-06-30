@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Media\MediaFoundation\MFVideoArea.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Media\MediaFoundation\IMF2DBuffer2.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 #Include ..\..\IInspectable.ahk
+#Include ..\..\..\..\Graphics\Imaging\IWICBitmap.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
 
 /**
  * Creates instances of ISoftwareBitmapNative.

@@ -3,6 +3,7 @@
 #Include .\D3D10_DEPTH_WRITE_MASK.ahk
 #Include .\D3D10_COMPARISON_FUNC.ahk
 #Include .\D3D10_DEPTH_STENCILOP_DESC.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D10_STENCIL_OP.ahk
 
 /**

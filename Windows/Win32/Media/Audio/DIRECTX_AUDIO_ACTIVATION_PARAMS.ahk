@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The DIRECTX_AUDIO_ACTIVATION_PARAMS structure specifies the initialization parameters for a DirectSound stream.
@@ -15,7 +16,7 @@
 class DIRECTX_AUDIO_ACTIVATION_PARAMS extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size, in bytes, of the <b>DIRECTX_AUDIO_ACTIVATION_PARAMS</b> structure. Set this member to sizeof(DIRECTX_AUDIO_ACTIVATION_PARAMS).
@@ -28,11 +29,14 @@ class DIRECTX_AUDIO_ACTIVATION_PARAMS extends Win32Struct {
 
     /**
      * Session GUID. This member is a GUID value that identifies the audio session that the stream belongs to. If the GUID identifies a session that has been previously opened, the method adds the stream to that session. If the GUID does not identify an existing session, the method opens a new session and adds the stream to that session. The stream remains a member of the same session for its lifetime.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidAudioSession {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidAudioSession"))
+                this.__guidAudioSession := Guid(4, this)
+            return this.__guidAudioSession
+        }
     }
 
     /**
@@ -42,7 +46,7 @@ class DIRECTX_AUDIO_ACTIVATION_PARAMS extends Win32Struct {
      * @type {Integer}
      */
     dwAudioStreamFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

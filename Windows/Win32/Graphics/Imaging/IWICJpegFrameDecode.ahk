@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\Dxgi\Common\DXGI_JPEG_AC_HUFFMAN_TABLE.ahk
+#Include .\WICJpegIndexingOptions.ahk
+#Include .\WICJpegScanHeader.ahk
+#Include .\WICJpegFrameHeader.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\Dxgi\Common\DXGI_JPEG_DC_HUFFMAN_TABLE.ahk
 #Include ..\Dxgi\Common\DXGI_JPEG_QUANTIZATION_TABLE.ahk
-#Include .\WICJpegFrameHeader.ahk
-#Include .\WICJpegScanHeader.ahk
 
 /**
  * Exposes methods for decoding JPEG images. Provides access to the Start Of Frame (SOF) header, Start of Scan (SOS) header, the Huffman and Quantization tables, and the compressed JPEG JPEG data. Also enables indexing for efficient random access.

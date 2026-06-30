@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGetCapabilitiesKey interface enables an application to retrieve the capabilities of a software or hardware codec from the registry, without creating an instance of the encoder filter.
@@ -38,7 +39,7 @@ class IGetCapabilitiesKey extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igetcapabilitieskey-getcapabilitieskey
      */
     GetCapabilitiesKey() {
-        pHKey := HKEY()
+        pHKey := HKEY({Value: 0}, True)
         result := ComCall(3, this, "ptr", pHKey, "HRESULT")
         return pHKey
     }

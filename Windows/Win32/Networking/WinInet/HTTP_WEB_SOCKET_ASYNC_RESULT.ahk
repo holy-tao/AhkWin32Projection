@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\INTERNET_ASYNC_RESULT.ahk
-#Include .\HTTP_WEB_SOCKET_OPERATION.ahk
 #Include .\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk
+#Include .\HTTP_WEB_SOCKET_OPERATION.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet

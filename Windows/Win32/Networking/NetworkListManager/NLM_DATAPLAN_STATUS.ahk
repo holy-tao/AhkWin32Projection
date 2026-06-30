@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NLM_USAGE_DATA.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\NLM_USAGE_DATA.ahk
 
 /**
  * NLM_DATAPLAN_STATUS structure stores the current data plan status information supplied by the carrier.
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
 class NLM_DATAPLAN_STATUS extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The unique ID of the interface associated with the data plan. This GUID is determined by the system when a data plan is first used by a system connection.
-     * @type {Pointer}
+     * @type {Guid}
      */
     InterfaceGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__InterfaceGuid"))
+                this.__InterfaceGuid := Guid(0, this)
+            return this.__InterfaceGuid
+        }
     }
 
     /**
@@ -31,7 +35,7 @@ class NLM_DATAPLAN_STATUS extends Win32Struct {
     UsageData {
         get {
             if(!this.HasProp("__UsageData"))
-                this.__UsageData := NLM_USAGE_DATA(8, this)
+                this.__UsageData := NLM_USAGE_DATA(16, this)
             return this.__UsageData
         }
     }
@@ -41,8 +45,8 @@ class NLM_DATAPLAN_STATUS extends Win32Struct {
      * @type {Integer}
      */
     DataLimitInMegabytes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -50,8 +54,8 @@ class NLM_DATAPLAN_STATUS extends Win32Struct {
      * @type {Integer}
      */
     InboundBandwidthInKbps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -59,8 +63,8 @@ class NLM_DATAPLAN_STATUS extends Win32Struct {
      * @type {Integer}
      */
     OutboundBandwidthInKbps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -70,7 +74,7 @@ class NLM_DATAPLAN_STATUS extends Win32Struct {
     NextBillingCycle {
         get {
             if(!this.HasProp("__NextBillingCycle"))
-                this.__NextBillingCycle := FILETIME(32, this)
+                this.__NextBillingCycle := FILETIME(40, this)
             return this.__NextBillingCycle
         }
     }
@@ -80,8 +84,8 @@ class NLM_DATAPLAN_STATUS extends Win32Struct {
      * @type {Integer}
      */
     MaxTransferSizeInMegabytes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -89,7 +93,7 @@ class NLM_DATAPLAN_STATUS extends Win32Struct {
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 }

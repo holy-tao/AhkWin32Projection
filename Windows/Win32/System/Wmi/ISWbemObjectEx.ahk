@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISWbemObject.ahk
-#Include .\ISWbemPropertySet.ahk
+#Include .\WbemObjectTextFormatEnum.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\ISWbemPropertySet.ahk
+#Include .\ISWbemObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -70,7 +73,7 @@ class ISWbemObjectEx extends ISWbemObject {
      * @returns {BSTR} 
      */
     GetText_(iObjectTextFormat, iFlags, objWbemNamedValueSet) {
-        bsText := BSTR()
+        bsText := BSTR({Value: 0}, True)
         result := ComCall(34, this, "int", iObjectTextFormat, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", bsText, "HRESULT")
         return bsText
     }

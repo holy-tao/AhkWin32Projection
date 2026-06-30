@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
 class KSM_BDA_SCAN_FILTER extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -25,16 +26,16 @@ class KSM_BDA_SCAN_FILTER extends Win32Struct {
      * @type {Integer}
      */
     ulScanModulationTypeSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     AnalogVideoStandards {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -43,7 +44,7 @@ class KSM_BDA_SCAN_FILTER extends Win32Struct {
     argbScanModulationTypes {
         get {
             if(!this.HasProp("__argbScanModulationTypesProxyArray"))
-                this.__argbScanModulationTypesProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
+                this.__argbScanModulationTypesProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
             return this.__argbScanModulationTypesProxyArray
         }
     }

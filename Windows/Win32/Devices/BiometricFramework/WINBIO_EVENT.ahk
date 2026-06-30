@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WINBIO_IDENTITY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Specify the types of service provider event notifications to monitor.
@@ -8,13 +10,13 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_EVENT extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 92
 
-    static packingSize => 8
+    static packingSize => 4
 
-    class _Parameters_e__Union extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+    class _Parameters extends Win32Struct {
+        static sizeof => 88
+        static packingSize => 4
 
         class _Unclaimed extends Win32Struct {
             static sizeof => 8
@@ -38,8 +40,8 @@ class WINBIO_EVENT extends Win32Struct {
         }
 
         class _UnclaimedIdentify extends Win32Struct {
-            static sizeof => 96
-            static packingSize => 8
+            static sizeof => 88
+            static packingSize => 4
 
             /**
              * @type {Integer}
@@ -55,7 +57,7 @@ class WINBIO_EVENT extends Win32Struct {
             Identity {
                 get {
                     if(!this.HasProp("__Identity"))
-                        this.__Identity := WINBIO_IDENTITY(8, this)
+                        this.__Identity := WINBIO_IDENTITY(4, this)
                     return this.__Identity
                 }
             }
@@ -64,16 +66,16 @@ class WINBIO_EVENT extends Win32Struct {
              * @type {Integer}
              */
             SubFactor {
-                get => NumGet(this, 88, "char")
-                set => NumPut("char", value, this, 88)
+                get => NumGet(this, 80, "char")
+                set => NumPut("char", value, this, 80)
             }
 
             /**
              * @type {Integer}
              */
             RejectDetail {
-                get => NumGet(this, 92, "uint")
-                set => NumPut("uint", value, this, 92)
+                get => NumGet(this, 84, "uint")
+                set => NumPut("uint", value, this, 84)
             }
         }
 
@@ -96,7 +98,7 @@ class WINBIO_EVENT extends Win32Struct {
         Unclaimed {
             get {
                 if(!this.HasProp("__Unclaimed"))
-                    this.__Unclaimed := WINBIO_EVENT._Parameters_e__Union._Unclaimed(0, this)
+                    this.__Unclaimed := WINBIO_EVENT._Parameters._Unclaimed(0, this)
                 return this.__Unclaimed
             }
         }
@@ -107,7 +109,7 @@ class WINBIO_EVENT extends Win32Struct {
         UnclaimedIdentify {
             get {
                 if(!this.HasProp("__UnclaimedIdentify"))
-                    this.__UnclaimedIdentify := WINBIO_EVENT._Parameters_e__Union._UnclaimedIdentify(0, this)
+                    this.__UnclaimedIdentify := WINBIO_EVENT._Parameters._UnclaimedIdentify(0, this)
                 return this.__UnclaimedIdentify
             }
         }
@@ -118,7 +120,7 @@ class WINBIO_EVENT extends Win32Struct {
         Error {
             get {
                 if(!this.HasProp("__Error"))
-                    this.__Error := WINBIO_EVENT._Parameters_e__Union._Error(0, this)
+                    this.__Error := WINBIO_EVENT._Parameters._Error(0, this)
                 return this.__Error
             }
         }
@@ -133,12 +135,12 @@ class WINBIO_EVENT extends Win32Struct {
     }
 
     /**
-     * @type {_Parameters_e__Union}
+     * @type {_Parameters}
      */
     Parameters {
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := WINBIO_EVENT._Parameters_e__Union(8, this)
+                this.__Parameters := WINBIO_EVENT._Parameters(4, this)
             return this.__Parameters
         }
     }

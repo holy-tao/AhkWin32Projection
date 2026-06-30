@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_DEVICE_DESCRIPTOR.ahk
-#Include .\USB_CONNECTION_STATUS.ahk
-#Include .\USB_PIPE_INFO.ahk
 #Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Include .\USB_CONNECTION_STATUS.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\USB_DEVICE_DESCRIPTOR.ahk
+#Include .\USB_PIPE_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

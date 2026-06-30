@@ -1,7 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\SI_INHERIT_TYPE.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\UI\Controls\PSPCB_MESSAGE.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\SI_OBJECT_INFO.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\SECURITY_INFO_PAGE_FLAGS.ahk
+#Include ..\..\OBJECT_SECURITY_INFORMATION.ahk
+#Include ..\..\PSECURITY_DESCRIPTOR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\SI_PAGE_TYPE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\SI_ACCESS.ahk
 
 /**
  * Enables the access control editor to communicate with the caller of the CreateSecurityPage and EditSecurity functions.

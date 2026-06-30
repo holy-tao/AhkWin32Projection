@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Retrieves transaction, activity, and context information on the current context object. Using the methods of this interface, you can retrieve relevant information contained within an object context.
@@ -63,7 +65,7 @@ class ContextInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo-gettransactionid
      */
     GetTransactionId() {
-        pbstrTxId := BSTR()
+        pbstrTxId := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrTxId, "HRESULT")
         return pbstrTxId
     }
@@ -74,7 +76,7 @@ class ContextInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo-getactivityid
      */
     GetActivityId() {
-        pbstrActivityId := BSTR()
+        pbstrActivityId := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrActivityId, "HRESULT")
         return pbstrActivityId
     }
@@ -85,7 +87,7 @@ class ContextInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo-getcontextid
      */
     GetContextId() {
-        pbstrCtxId := BSTR()
+        pbstrCtxId := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrCtxId, "HRESULT")
         return pbstrCtxId
     }

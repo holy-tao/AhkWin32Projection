@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\DEVMODEW.ahk
-#Include ..\..\Graphics\Gdi\DEVMODE_FIELD_FLAGS.ahk
-#Include ..\..\Foundation\POINTL.ahk
 #Include ..\..\Graphics\Gdi\DEVMODE_DISPLAY_ORIENTATION.ahk
+#Include ..\..\Foundation\POINTL.ahk
 #Include ..\..\Graphics\Gdi\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk
-#Include ..\..\Graphics\Gdi\DEVMODE_COLOR.ahk
 #Include ..\..\Graphics\Gdi\DEVMODE_DUPLEX.ahk
-#Include ..\..\Graphics\Gdi\DEVMODE_TRUETYPE_OPTION.ahk
 #Include ..\..\Graphics\Gdi\DEVMODE_COLLATE.ahk
+#Include ..\..\Graphics\Gdi\DEVMODE_COLOR.ahk
+#Include ..\..\Graphics\Gdi\DEVMODE_FIELD_FLAGS.ahk
+#Include ..\..\Graphics\Gdi\DEVMODE_TRUETYPE_OPTION.ahk
+#Include ..\..\Graphics\Gdi\DEVMODEW.ahk
 
 /**
  * The DisplayMode structure describes a display device.

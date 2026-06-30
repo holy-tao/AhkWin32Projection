@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used by a fax client application to retrieve information about a received fax message in the archive of inbound faxes. (IFaxIncomingMessage)
@@ -123,7 +124,7 @@ class IFaxIncomingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_id
      */
     get_Id() {
-        pbstrId := BSTR()
+        pbstrId := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrId, "HRESULT")
         return pbstrId
     }
@@ -156,7 +157,7 @@ class IFaxIncomingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_devicename
      */
     get_DeviceName() {
-        pbstrDeviceName := BSTR()
+        pbstrDeviceName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }
@@ -197,7 +198,7 @@ class IFaxIncomingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_csid
      */
     get_CSID() {
-        pbstrCSID := BSTR()
+        pbstrCSID := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrCSID, "HRESULT")
         return pbstrCSID
     }
@@ -208,7 +209,7 @@ class IFaxIncomingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_tsid
      */
     get_TSID() {
-        pbstrTSID := BSTR()
+        pbstrTSID := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrTSID, "HRESULT")
         return pbstrTSID
     }
@@ -219,7 +220,7 @@ class IFaxIncomingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_callerid
      */
     get_CallerId() {
-        pbstrCallerId := BSTR()
+        pbstrCallerId := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pbstrCallerId, "HRESULT")
         return pbstrCallerId
     }
@@ -232,7 +233,7 @@ class IFaxIncomingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_routinginformation
      */
     get_RoutingInformation() {
-        pbstrRoutingInformation := BSTR()
+        pbstrRoutingInformation := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrRoutingInformation, "HRESULT")
         return pbstrRoutingInformation
     }

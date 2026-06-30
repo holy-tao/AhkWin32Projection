@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Include ..\MSHLFLAGS.ahk
 #Include .\CALLFRAMEINFO.ahk
-#Include .\CALLFRAMEPARAMINFO.ahk
+#Include .\CALLFRAME_COPY.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\ICallFrameWalker.ahk
 #Include ..\..\Variant\VARIANT.ahk
+#Include .\CALLFRAME_MARSHALCONTEXT.ahk
+#Include ..\IUnknown.ahk
+#Include .\CALLFRAMEPARAMINFO.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables manipulation of call frames such as stack frames.

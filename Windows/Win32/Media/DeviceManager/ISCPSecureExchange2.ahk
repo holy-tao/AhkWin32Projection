@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISCPSecureExchange.ahk
+#Include .\IWMDMProgress3.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ISCPSecureExchange2 interface extends ISCPSecureExchange by providing a new version of the TransferContainerData method.

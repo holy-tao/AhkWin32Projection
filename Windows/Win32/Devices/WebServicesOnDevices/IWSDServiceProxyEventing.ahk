@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWSDServiceProxy.ahk
+#Include .\WSD_EVENTING_EXPIRES.ahk
+#Include .\WSDXML_ELEMENT.ahk
+#Include .\WSD_OPERATION.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWSDAsyncResult.ahk
+#Include .\IWSDServiceProxy.ahk
+#Include .\IWSDAsyncCallback.ahk
 
 /**
  * Represents a remote WSD service for client applications and middleware. This interface allows for the implementation of multiple asynchronous operations.

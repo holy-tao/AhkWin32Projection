@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include .\NETRESOURCEW.ahk
 #Include .\CONNECTDLGSTRUCT_FLAGS.ahk
+#Include .\NETRESOURCEW.ahk
 
 /**
  * Used by the WNetConnectionDialog1 function to establish browsing dialog box parameters. (Unicode)

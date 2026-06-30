@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows applications to decrypt a key attestation challenge received from a server.
@@ -62,7 +64,7 @@ class ICertificateAttestationChallenge extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificateattestationchallenge-decryptchallenge
      */
     DecryptChallenge(Encoding) {
-        pstrEnvelopedPkcs7ReencryptedToCA := BSTR()
+        pstrEnvelopedPkcs7ReencryptedToCA := BSTR({Value: 0}, True)
         result := ComCall(8, this, "int", Encoding, "ptr", pstrEnvelopedPkcs7ReencryptedToCA, "HRESULT")
         return pstrEnvelopedPkcs7ReencryptedToCA
     }
@@ -73,7 +75,7 @@ class ICertificateAttestationChallenge extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificateattestationchallenge-get_requestid
      */
     get_RequestID() {
-        pstrRequestID := BSTR()
+        pstrRequestID := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pstrRequestID, "HRESULT")
         return pstrRequestID
     }

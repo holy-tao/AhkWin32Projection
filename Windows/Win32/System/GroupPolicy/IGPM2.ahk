@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IGPM.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IGPMBackupDirEx.ahk
+#Include .\IGPM.ahk
+#Include .\GPMBackupType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPM2 interface extends the GPMBackupDir and InitializeReporting methods of the IGPM interface of the Group Policy Management Console (GPMC).

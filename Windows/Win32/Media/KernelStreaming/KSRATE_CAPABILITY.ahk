@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSIDENTIFIER.ahk
 #Include .\KSRATE.ahk
 
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSRATE_CAPABILITY extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -28,7 +29,7 @@ class KSRATE_CAPABILITY extends Win32Struct {
     Rate {
         get {
             if(!this.HasProp("__Rate"))
-                this.__Rate := KSRATE(16, this)
+                this.__Rate := KSRATE(24, this)
             return this.__Rate
         }
     }

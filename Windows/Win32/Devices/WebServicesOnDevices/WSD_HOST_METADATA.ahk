@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_SERVICE_METADATA.ahk
 #Include .\WSD_SERVICE_METADATA_LIST.ahk
+#Include .\WSD_SERVICE_METADATA.ahk
 
 /**
  * Provides metadata for all services hosted by a device.

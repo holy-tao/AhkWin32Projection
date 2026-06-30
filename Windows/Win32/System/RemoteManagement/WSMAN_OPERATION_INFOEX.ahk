@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSMAN_FRAGMENT.ahk
-#Include .\WSMAN_FILTER.ahk
-#Include .\WSMAN_SELECTOR_SET.ahk
-#Include .\WSMAN_KEY.ahk
 #Include .\WSMAN_OPTION_SETEX.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSMAN_SELECTOR_SET.ahk
+#Include .\WSMAN_FILTER.ahk
 #Include .\WSMAN_OPTION.ahk
+#Include .\WSMAN_FRAGMENT.ahk
+#Include .\WSMAN_KEY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement

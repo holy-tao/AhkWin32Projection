@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING.ahk
 #Include .\WS_SECURITY_PROPERTY.ahk
+#Include .\WS_SECURITY_BINDING.ahk
 
 /**
  * The top-level structure used to specify the security requirements for a channel (on the client side) or a listener (on the server side).

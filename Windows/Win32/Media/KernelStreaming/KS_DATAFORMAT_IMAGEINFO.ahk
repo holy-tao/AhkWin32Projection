@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSDATAFORMAT.ahk
 #Include .\KS_BITMAPINFOHEADER.ahk
 
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KS_DATAFORMAT_IMAGEINFO extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -28,7 +29,7 @@ class KS_DATAFORMAT_IMAGEINFO extends Win32Struct {
     ImageInfoHeader {
         get {
             if(!this.HasProp("__ImageInfoHeader"))
-                this.__ImageInfoHeader := KS_BITMAPINFOHEADER(48, this)
+                this.__ImageInfoHeader := KS_BITMAPINFOHEADER(72, this)
             return this.__ImageInfoHeader
         }
     }

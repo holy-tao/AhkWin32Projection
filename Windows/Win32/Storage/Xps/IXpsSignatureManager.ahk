@@ -1,13 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsSignature.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include .\IXpsSignatureCollection.ahk
-#Include .\IXpsSignatureBlock.ahk
 #Include .\IXpsSignatureBlockCollection.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include .\IXpsSignature.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include .\IXpsSignatureBlock.ahk
 #Include .\IXpsSigningOptions.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\IXpsSignatureCollection.ahk
 
 /**
  * Manages the digital signatures and digital signature requests of an XPS document.

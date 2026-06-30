@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D_RECT_F.ahk
+#Include .\ID2D1Ink.ahk
+#Include .\ID2D1InkStyle.ahk
 #Include .\ID2D1CommandSink1.ahk
+#Include .\ID2D1Brush.ahk
+#Include .\ID2D1GdiMetafile.ahk
+#Include .\ID2D1GradientMesh.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface performs all the same functions as the existing ID2D1CommandSink1 interface. It also enables access to ink rendering and gradient mesh rendering.

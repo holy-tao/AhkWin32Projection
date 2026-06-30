@@ -206,7 +206,7 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct {
 
     static packingSize => 8
 
-    class _NotifyData_e__Union extends Win32Struct {
+    class _NotifyData extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -248,7 +248,7 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct {
         Data {
             get {
                 if(!this.HasProp("__Data"))
-                    this.__Data := PRINTER_NOTIFY_INFO_DATA._NotifyData_e__Union._Data(0, this)
+                    this.__Data := PRINTER_NOTIFY_INFO_DATA._NotifyData._Data(0, this)
                 return this.__Data
             }
         }
@@ -304,12 +304,12 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct {
      * **adwData\[2\]**
      * 
      * An array of two **DWORD** values. For information fields that use only a single **DWORD**, the data is in **adwData** \[0\].
-     * @type {_NotifyData_e__Union}
+     * @type {_NotifyData}
      */
     NotifyData {
         get {
             if(!this.HasProp("__NotifyData"))
-                this.__NotifyData := PRINTER_NOTIFY_INFO_DATA._NotifyData_e__Union(16, this)
+                this.__NotifyData := PRINTER_NOTIFY_INFO_DATA._NotifyData(16, this)
             return this.__NotifyData
         }
     }

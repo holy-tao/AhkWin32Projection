@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
 #Include .\DRIVER_OBJECT.ahk
-#Include .\DEVICE_OBJECT.ahk
-#Include .\IRP.ahk
+#Include .\DEVOBJ_EXTENSION.ahk
 #Include .\VPB.ahk
 #Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include .\DEVOBJ_EXTENSION.ahk
+#Include .\PIO_TIMER.ahk
+#Include .\DEVICE_OBJECT.ahk
+#Include .\IRP.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
@@ -15,7 +16,7 @@ class DEVICE_OBJECT extends Win32Struct {
 
     static packingSize => 8
 
-    class _Queue_e__Union extends Win32Struct {
+    class _Queue extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -149,12 +150,12 @@ class DEVICE_OBJECT extends Win32Struct {
     }
 
     /**
-     * @type {_Queue_e__Union}
+     * @type {_Queue}
      */
     Queue {
         get {
             if(!this.HasProp("__Queue"))
-                this.__Queue := DEVICE_OBJECT._Queue_e__Union(80, this)
+                this.__Queue := DEVICE_OBJECT._Queue(80, this)
             return this.__Queue
         }
     }

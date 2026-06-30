@@ -2,10 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Used to call the batch work that is submitted through the activity created by CoCreateActivity.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iserviceactivity
  * @namespace Windows.Win32.System.Search
  */
 class IService extends IUnknown {

@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFAttributes.ahk
 #Include .\IMFSensorDevice.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMFAttributes.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IMFMediaSource.ahk
 
 /**

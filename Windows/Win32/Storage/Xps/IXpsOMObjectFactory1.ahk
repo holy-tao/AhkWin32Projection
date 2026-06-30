@@ -1,11 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMObjectFactory.ahk
-#Include .\IXpsOMPackageWriter.ahk
-#Include .\IXpsOMPackage1.ahk
-#Include .\IXpsOMPage1.ahk
+#Include .\IXpsOMImageResource.ahk
+#Include .\XPS_INTERLEAVING.ahk
+#Include .\IXpsOMCoreProperties.ahk
+#Include .\IXpsOMPrintTicketResource.ahk
 #Include .\IXpsOMRemoteDictionaryResource.ahk
+#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\System\Com\ISequentialStream.ahk
+#Include .\XPS_SIZE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IXpsOMPage1.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\XPS_DOCUMENT_TYPE.ahk
+#Include .\IXpsOMPackage1.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IXpsOMObjectFactory.ahk
+#Include .\IXpsOMPartResources.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\IXpsOMPackageWriter.ahk
 
 /**
  * Inherits from IXpsOMObjectFactory.

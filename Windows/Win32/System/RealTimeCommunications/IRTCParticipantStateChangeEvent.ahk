@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\RTC_PARTICIPANT_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IRTCParticipant.ahk
 
 /**

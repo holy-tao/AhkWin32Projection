@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WLAN_AVAILABLE_NETWORK_V2.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
 #Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include .\DOT11_SSID.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_PHY_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DOT11_BSS_TYPE.ahk
 #Include .\DOT11_VENUEINFO.ahk
 
 /**

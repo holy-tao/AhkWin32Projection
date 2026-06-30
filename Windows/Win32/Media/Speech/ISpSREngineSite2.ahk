@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPRECOCONTEXTHANDLE.ahk
 #Include .\ISpSREngineSite.ahk
+#Include .\SPEVENTEX.ahk
 #Include .\SPTRANSITIONENTRY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SPRECORESULTINFOEX.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

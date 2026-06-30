@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_LOGOTYPE_INFO.ahk
 #Include .\CERT_LOGOTYPE_OPTION.ahk
-#Include .\CERT_LOGOTYPE_DATA.ahk
 #Include .\CERT_LOGOTYPE_REFERENCE.ahk
+#Include .\CERT_LOGOTYPE_INFO.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CERT_LOGOTYPE_DATA.ahk
 
 /**
  * Contains information about logo types that are not predefined.

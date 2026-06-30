@@ -1,5 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\DWM_THUMBNAIL_PROPERTIES.ahk
+#Include .\DWMTRANSITION_OWNEDWINDOW_TARGET.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWM_TAB_WINDOW_REQUIREMENTS.ahk
+#Include .\DWM_PRESENT_PARAMETERS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MilMatrix3x2D.ahk
+#Include .\DWM_BLURBEHIND.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include .\DWM_TIMING_INFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Gdi\HBITMAP.ahk
+#Include ..\..\UI\Controls\MARGINS.ahk
+#Include .\GESTURE_TYPE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\DWM_SHOWCONTACT.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Dwm

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE.ahk
 #Include ..\CERT_CONTEXT.ahk
 #Include .\CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO.ahk
 #Include .\CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE.ahk
-#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN.ahk
 
 /**
  * Contains information about digital signing.

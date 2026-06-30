@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IOfflineFilesEvents2.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\OFFLINEFILES_EVENTS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\OFFLINEFILES_ITEM_TYPE.ahk
 
 /**
  * Used to report events associated with transparently cached items.

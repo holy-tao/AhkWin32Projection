@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Is used in the RAS_PROJECTION_INFO structure to represent either a RASPPP_PROJECTION_INFO or RASIKEV2_PROJECTION_INFO structure.
- * @see https://learn.microsoft.com/windows/win32/api/ras/ne-ras-rasprojection_info_type
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
 class RASPROJECTION extends Win32Enum {

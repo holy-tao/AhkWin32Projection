@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WINBIO_IDENTITY.ahk
 #Include .\WINBIO_ANTI_SPOOF_POLICY_ACTION.ahk
 
@@ -11,9 +12,9 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_ACCOUNT_POLICY extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [**WINBIO\_IDENTITY**](winbio-identity.md) structure that specifies the account information.
@@ -32,7 +33,7 @@ class WINBIO_ACCOUNT_POLICY extends Win32Struct {
      * @type {WINBIO_ANTI_SPOOF_POLICY_ACTION}
      */
     AntiSpoofBehavior {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 }

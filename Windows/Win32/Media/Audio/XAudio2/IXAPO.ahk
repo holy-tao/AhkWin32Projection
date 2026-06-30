@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\XAPO_PROCESS_BUFFER_PARAMETERS.ahk
+#Include ..\WAVEFORMATEX.ahk
+#Include .\XAPO_REGISTRATION_PROPERTIES.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\XAPO_LOCKFORPROCESS_PARAMETERS.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**

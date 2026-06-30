@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRDPSRAPIApplication.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IRDPSRAPIApplication.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a one-to-one mapping to a sharable window.
@@ -120,7 +122,7 @@ class IRDPSRAPIWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_name
      */
     get_Name() {
-        pRetVal := BSTR()
+        pRetVal := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pRetVal, "HRESULT")
         return pRetVal
     }

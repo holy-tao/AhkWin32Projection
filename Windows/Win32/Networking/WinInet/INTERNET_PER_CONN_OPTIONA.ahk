@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNET_PER_CONN.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\INTERNET_PER_CONN.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the value of an option. (ANSI)
@@ -34,7 +35,7 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct {
 
     static packingSize => 8
 
-    class _Value_e__Union extends Win32Struct {
+    class _Value extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -77,12 +78,12 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct {
     /**
      * Union that contains the value for the option. It can be any one of the following types depending on the value of 
      * <b>dwOption</b>:
-     * @type {_Value_e__Union}
+     * @type {_Value}
      */
     Value {
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := INTERNET_PER_CONN_OPTIONA._Value_e__Union(8, this)
+                this.__Value := INTERNET_PER_CONN_OPTIONA._Value(8, this)
             return this.__Value
         }
     }

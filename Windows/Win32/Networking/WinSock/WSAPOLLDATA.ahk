@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSAPOLLFD.ahk
-#Include .\SOCKET.ahk
 #Include .\WSAPOLL_EVENT_FLAGS.ahk
+#Include .\SOCKET.ahk
+#Include .\WSAPOLLFD.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

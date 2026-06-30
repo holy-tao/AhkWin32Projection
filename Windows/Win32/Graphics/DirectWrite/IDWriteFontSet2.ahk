@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontSet1.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\IDWriteFontSet1.ahk
 
 /**
  * Represents a font set. (IDWriteFontSet2)

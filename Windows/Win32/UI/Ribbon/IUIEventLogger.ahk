@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\UI_EVENTPARAMS.ahk
 
 /**
  * The IUIEventLogger interface is implemented by the application and defines the ribbon events callback method.

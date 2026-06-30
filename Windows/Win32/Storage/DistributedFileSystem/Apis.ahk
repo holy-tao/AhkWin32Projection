@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\DFS_SUPPORTED_NAMESPACE_VERSION_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DFS_NAMESPACE_VERSION_ORIGIN.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.DistributedFileSystem

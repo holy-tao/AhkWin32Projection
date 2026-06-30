@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_READER_ENCODING.ahk
 #Include .\WS_XML_READER_ENCODING_TYPE.ahk
+#Include .\WS_XML_READER_ENCODING.ahk
 
 /**
  * Used to indicate that the reader should surface the bytes of the document as base64 encoded characters.

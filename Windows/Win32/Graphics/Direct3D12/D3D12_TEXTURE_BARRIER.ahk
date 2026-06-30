@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_BARRIER_SYNC.ahk
-#Include .\D3D12_BARRIER_ACCESS.ahk
-#Include .\D3D12_BARRIER_LAYOUT.ahk
 #Include .\ID3D12Resource.ahk
-#Include .\D3D12_BARRIER_SUBRESOURCE_RANGE.ahk
 #Include .\D3D12_TEXTURE_BARRIER_FLAGS.ahk
+#Include .\D3D12_BARRIER_SUBRESOURCE_RANGE.ahk
+#Include .\D3D12_BARRIER_LAYOUT.ahk
+#Include .\D3D12_BARRIER_ACCESS.ahk
 
 /**
  * Expresses an access transition for a texture.

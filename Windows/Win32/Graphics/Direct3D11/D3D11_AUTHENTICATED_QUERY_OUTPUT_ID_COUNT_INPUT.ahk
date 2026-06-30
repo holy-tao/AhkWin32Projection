@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_INPUT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
 class D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_COUNT_INPUT extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -32,7 +33,7 @@ class D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_COUNT_INPUT extends Win32Struct {
     DeviceHandle {
         get {
             if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := HANDLE(24, this)
+                this.__DeviceHandle := HANDLE(32, this)
             return this.__DeviceHandle
         }
     }
@@ -44,7 +45,7 @@ class D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_COUNT_INPUT extends Win32Struct {
     CryptoSessionHandle {
         get {
             if(!this.HasProp("__CryptoSessionHandle"))
-                this.__CryptoSessionHandle := HANDLE(32, this)
+                this.__CryptoSessionHandle := HANDLE(40, this)
             return this.__CryptoSessionHandle
         }
     }

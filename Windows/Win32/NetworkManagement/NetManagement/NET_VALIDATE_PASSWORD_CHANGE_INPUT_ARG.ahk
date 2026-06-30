@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\NET_VALIDATE_PASSWORD_HASH.ahk
 
 /**

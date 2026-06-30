@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IEnumGUID.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Input\KeyboardAndMouse\HKL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IEnumTfLanguageProfiles.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumGUID.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfInputProcessorProfiles interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
@@ -508,7 +513,7 @@ class ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getlanguageprofiledescription
      */
     GetLanguageProfileDescription(rclsid, langid, guidProfile) {
-        pbstrProfile := BSTR()
+        pbstrProfile := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pbstrProfile, "HRESULT")
         return pbstrProfile
     }

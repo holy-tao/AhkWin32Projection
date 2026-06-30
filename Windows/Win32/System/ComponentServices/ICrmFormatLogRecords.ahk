@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\CrmLogRecordRead.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Converts the log records to viewable format so that they can be presented using a generic monitoring tool.

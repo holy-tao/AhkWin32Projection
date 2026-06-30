@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_RENDER_TARGET_TYPE.ahk
-#Include Common\D2D1_PIXEL_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include Common\D2D1_ALPHA_MODE.ahk
-#Include .\D2D1_RENDER_TARGET_USAGE.ahk
 #Include .\D2D1_FEATURE_LEVEL.ahk
+#Include Common\D2D1_ALPHA_MODE.ahk
+#Include .\D2D1_RENDER_TARGET_TYPE.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include Common\D2D1_PIXEL_FORMAT.ahk
+#Include .\D2D1_RENDER_TARGET_USAGE.ahk
 
 /**
  * Contains rendering options (hardware or software), pixel format, DPI information, remoting options, and Direct3D support requirements for a render target.

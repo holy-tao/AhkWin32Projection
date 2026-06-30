@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAsyncResult.ahk
+#Include .\MFNetCredentialManagerGetParam.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFNetCredential.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAsyncCallback.ahk
 
 /**
  * Implemented by applications to provide user credentials for a network source.

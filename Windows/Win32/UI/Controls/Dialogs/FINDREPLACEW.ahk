@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\FINDREPLACE_FLAGS.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
  * Contains information that the FindText and ReplaceText functions use to initialize the Find and Replace dialog boxes. (Unicode)

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_PMKID_ENTRY.ahk
+#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi

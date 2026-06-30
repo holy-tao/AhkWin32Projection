@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\OPAQUECOMMAND.ahk
 #Include .\WMDMID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 #Include .\IMDSPEnumStorage.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMDSPDevice interface provides an instance-based association with a media device.

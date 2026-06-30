@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The BTH_LE_UUID structure contains information about a Bluetooth Low Energy (LE) Universally Unique Identifier (UUID).
@@ -7,13 +9,13 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class BTH_LE_UUID extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
-    class _Value_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    class _Value extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -24,11 +26,14 @@ class BTH_LE_UUID extends Win32Struct {
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         LongUuid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__LongUuid"))
+                    this.__LongUuid := Guid(0, this)
+                return this.__LongUuid
+            }
         }
     }
 
@@ -43,12 +48,12 @@ class BTH_LE_UUID extends Win32Struct {
 
     /**
      * The value of the UUID.
-     * @type {_Value_e__Union}
+     * @type {_Value}
      */
     Value {
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := BTH_LE_UUID._Value_e__Union(8, this)
+                this.__Value := BTH_LE_UUID._Value(4, this)
             return this.__Value
         }
     }

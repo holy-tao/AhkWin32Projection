@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The NTMS_STORAGESLOTINFORMATION structure defines properties specific to a storage slot object.
@@ -11,9 +12,9 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class NTMS_STORAGESLOTINFORMATION extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Number of the slot in the library.
@@ -34,10 +35,13 @@ class NTMS_STORAGESLOTINFORMATION extends Win32Struct {
 
     /**
      * Library that contains the slot.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Library {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__Library"))
+                this.__Library := Guid(8, this)
+            return this.__Library
+        }
     }
 }

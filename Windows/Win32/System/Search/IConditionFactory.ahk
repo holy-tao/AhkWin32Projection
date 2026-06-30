@@ -1,8 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\STRUCTURED_QUERY_RESOLVE_OPTION.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\ICondition.ahk
+#Include Common\CONDITION_OPERATION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include Common\CONDITION_TYPE.ahk
+#Include .\IRichChunk.ahk
+#Include ..\Com\IEnumUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * Provides methods for creating or resolving a condition tree that was obtained by parsing a query string.

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ONEX_STATUS.ahk
-#Include .\ONEX_AUTH_STATUS.ahk
-#Include .\ONEX_EAP_METHOD_BACKEND_SUPPORT.ahk
 #Include .\ONEX_VARIABLE_BLOB.ahk
+#Include .\ONEX_AUTH_STATUS.ahk
+#Include .\ONEX_STATUS.ahk
+#Include .\ONEX_EAP_METHOD_BACKEND_SUPPORT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information on a status change to 802.1X authentication.

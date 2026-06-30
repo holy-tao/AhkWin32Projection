@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IRQ_DES_32.ahk
 #Include .\IRQD_FLAGS.ahk
+#Include .\IRQ_DES_32.ahk
 #Include .\IRQ_RANGE.ahk
 
 /**

@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APOInitBaseStruct.ahk
-#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\..\System\Com\IServiceProvider.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\IMMDeviceCollection.ahk
+#Include ..\..\..\System\Com\IServiceProvider.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\APOInitBaseStruct.ahk
 
 /**
  * Provides APO initialization parameters, extending APOInitSystemEffects2 to add the ability to specify a service provider for logging.
@@ -13,7 +15,7 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class APOInitSystemEffects3 extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -34,8 +36,8 @@ class APOInitSystemEffects3 extends Win32Struct {
      * @type {IPropertyStore}
      */
     pAPOEndpointProperties {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -43,8 +45,8 @@ class APOInitSystemEffects3 extends Win32Struct {
      * @type {IServiceProvider}
      */
     pServiceProvider {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -52,8 +54,8 @@ class APOInitSystemEffects3 extends Win32Struct {
      * @type {IMMDeviceCollection}
      */
     pDeviceCollection {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -61,8 +63,8 @@ class APOInitSystemEffects3 extends Win32Struct {
      * @type {Integer}
      */
     nSoftwareIoDeviceInCollection {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -70,17 +72,20 @@ class APOInitSystemEffects3 extends Win32Struct {
      * @type {Integer}
      */
     nSoftwareIoConnectorIndex {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
      * Specifies the processing mode for the audio graph.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AudioProcessingMode {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__AudioProcessingMode"))
+                this.__AudioProcessingMode := Guid(56, this)
+            return this.__AudioProcessingMode
+        }
     }
 
     /**
@@ -88,7 +93,7 @@ class APOInitSystemEffects3 extends Win32Struct {
      * @type {BOOL}
      */
     InitializeForDiscoveryOnly {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 }

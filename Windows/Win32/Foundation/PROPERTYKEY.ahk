@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\..\..\Guid.ahk
 
 /**
  * Specifies the FMTID/PID identifier that programmatically identifies a property. Replaces SHCOLUMNID.
@@ -20,19 +21,22 @@
  * @namespace Windows.Win32.Foundation
  */
 class PROPERTYKEY extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>GUID</b>
      * 
      * A unique GUID for the property.
-     * @type {Pointer}
+     * @type {Guid}
      */
     fmtid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__fmtid"))
+                this.__fmtid := Guid(0, this)
+            return this.__fmtid
+        }
     }
 
     /**
@@ -45,7 +49,7 @@ class PROPERTYKEY extends Win32Struct {
      * @type {Integer}
      */
     pid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

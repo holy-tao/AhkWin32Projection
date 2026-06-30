@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IXAudio2.ahk
 #Include .\IXAPO.ahk
+#Include .\HrtfApoInit.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\IXAudio2.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.XAudio2

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Storage\IndexServer\FILTERREGION.ahk
+#Include ..\Com\IMoniker.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Storage\IndexServer\IFilter.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -28,18 +31,10 @@ class ISearchQueryHits extends IUnknown {
     static VTableNames => ["Init", "NextHitMoniker", "NextHitOffset"]
 
     /**
-     * Initializes the trace.
-     * @remarks
-     * Exstrace.dll is an optional component that installs with the Simple Mail Transfer Protocol (SMTP) and the Network News Transfer Protocol (NNTP).
      * 
-     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {IFilter} pflt 
      * @param {Integer} ulFlags 
-     * @returns {Integer} This function has no parameters.
-     * 
-     * 
-     * This function returns **TRUE** if the function succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/-initasynctrace
+     * @returns {Integer} 
      */
     Init(pflt, ulFlags) {
         result := ComCall(3, this, "ptr", pflt, "uint", ulFlags, "int")

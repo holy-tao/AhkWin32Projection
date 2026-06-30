@@ -1,20 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionDevice2.ahk
-#Include .\IDCompositionGaussianBlurEffect.ahk
-#Include .\IDCompositionBrightnessEffect.ahk
-#Include .\IDCompositionColorMatrixEffect.ahk
-#Include .\IDCompositionShadowEffect.ahk
 #Include .\IDCompositionHueRotationEffect.ahk
-#Include .\IDCompositionSaturationEffect.ahk
-#Include .\IDCompositionTurbulenceEffect.ahk
-#Include .\IDCompositionLinearTransferEffect.ahk
-#Include .\IDCompositionTableTransferEffect.ahk
 #Include .\IDCompositionCompositeEffect.ahk
-#Include .\IDCompositionBlendEffect.ahk
-#Include .\IDCompositionArithmeticCompositeEffect.ahk
+#Include .\IDCompositionGaussianBlurEffect.ahk
+#Include .\IDCompositionLinearTransferEffect.ahk
+#Include .\IDCompositionBrightnessEffect.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDCompositionColorMatrixEffect.ahk
 #Include .\IDCompositionAffineTransform2DEffect.ahk
+#Include .\IDCompositionShadowEffect.ahk
+#Include .\IDCompositionBlendEffect.ahk
+#Include .\IDCompositionDevice2.ahk
+#Include .\IDCompositionTurbulenceEffect.ahk
+#Include .\IDCompositionArithmeticCompositeEffect.ahk
+#Include .\IDCompositionTableTransferEffect.ahk
+#Include .\IDCompositionSaturationEffect.ahk
 
 /**
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice3)

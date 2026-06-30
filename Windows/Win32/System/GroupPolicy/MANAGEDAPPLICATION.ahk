@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The MANAGEDAPPLICATION structure contains information about an application. The function GetManagedApplications returns an array of MANAGEDAPPLICATION structures.
@@ -7,7 +10,7 @@
  * @namespace Windows.Win32.System.GroupPolicy
  */
 class MANAGEDAPPLICATION extends Win32Struct {
-    static sizeof => 112
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -58,11 +61,14 @@ class MANAGEDAPPLICATION extends Win32Struct {
 
     /**
      * The GUID of the GPO from which this application is deployed.
-     * @type {Pointer}
+     * @type {Guid}
      */
     GpoId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__GpoId"))
+                this.__GpoId := Guid(28, this)
+            return this.__GpoId
+        }
     }
 
     /**
@@ -70,17 +76,20 @@ class MANAGEDAPPLICATION extends Win32Struct {
      * @type {PWSTR}
      */
     pszPolicyName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * If this application is installed by <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a>, this member is the ProductId GUID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ProductId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__ProductId"))
+                this.__ProductId := Guid(56, this)
+            return this.__ProductId
+        }
     }
 
     /**
@@ -88,8 +97,8 @@ class MANAGEDAPPLICATION extends Win32Struct {
      * @type {Integer}
      */
     Language {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
+        get => NumGet(this, 72, "ushort")
+        set => NumPut("ushort", value, this, 72)
     }
 
     /**
@@ -97,24 +106,6 @@ class MANAGEDAPPLICATION extends Win32Struct {
      * @type {PWSTR}
      */
     pszOwner {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * This member is unused.
-     * @type {PWSTR}
-     */
-    pszCompany {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
-
-    /**
-     * This member is unused.
-     * @type {PWSTR}
-     */
-    pszComments {
         get => NumGet(this, 80, "ptr")
         set => NumPut("ptr", value, this, 80)
     }
@@ -123,7 +114,7 @@ class MANAGEDAPPLICATION extends Win32Struct {
      * This member is unused.
      * @type {PWSTR}
      */
-    pszContact {
+    pszCompany {
         get => NumGet(this, 88, "ptr")
         set => NumPut("ptr", value, this, 88)
     }
@@ -132,17 +123,35 @@ class MANAGEDAPPLICATION extends Win32Struct {
      * This member is unused.
      * @type {PWSTR}
      */
-    pszSupportUrl {
+    pszComments {
         get => NumGet(this, 96, "ptr")
         set => NumPut("ptr", value, this, 96)
+    }
+
+    /**
+     * This member is unused.
+     * @type {PWSTR}
+     */
+    pszContact {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
+    }
+
+    /**
+     * This member is unused.
+     * @type {PWSTR}
+     */
+    pszSupportUrl {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
      * @type {Integer}
      */
     dwPathType {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     /**
@@ -150,7 +159,7 @@ class MANAGEDAPPLICATION extends Win32Struct {
      * @type {BOOL}
      */
     bInstalled {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
+        get => NumGet(this, 124, "int")
+        set => NumPut("int", value, this, 124)
     }
 }

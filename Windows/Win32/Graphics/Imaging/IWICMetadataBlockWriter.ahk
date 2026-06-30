@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataBlockReader.ahk
 #Include .\IWICMetadataWriter.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICMetadataBlockReader.ahk
 
 /**
  * Exposes methods that enable the encoding of metadata. This interface is implemented by the decoder and its image frames.

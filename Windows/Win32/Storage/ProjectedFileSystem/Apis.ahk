@@ -1,6 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\PRJ_CALLBACKS.ahk
+#Include .\PRJ_FILE_STATE.ahk
 #Include .\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk
+#Include .\PRJ_PLACEHOLDER_VERSION_INFO.ahk
+#Include .\PRJ_VIRTUALIZATION_INSTANCE_INFO.ahk
+#Include .\PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\PRJ_STARTVIRTUALIZING_OPTIONS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PRJ_EXTENDED_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\PRJ_DIR_ENTRY_BUFFER_HANDLE.ahk
+#Include .\PRJ_UPDATE_FAILURE_CAUSES.ahk
+#Include .\PRJ_UPDATE_TYPES.ahk
+#Include .\PRJ_FILE_BASIC_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Storage.ProjectedFileSystem

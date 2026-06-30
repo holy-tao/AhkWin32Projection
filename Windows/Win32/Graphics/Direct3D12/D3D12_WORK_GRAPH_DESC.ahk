@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_WORK_GRAPH_FLAGS.ahk
-#Include .\D3D12_NODE_ID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\D3D12_NODE.ahk
+#Include .\D3D12_NODE_ID.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12

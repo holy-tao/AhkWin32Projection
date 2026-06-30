@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEPENDENT_DISK_FLAG.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VIRTUAL_STORAGE_TYPE.ahk
+#Include .\DEPENDENT_DISK_FLAG.ahk
 
 /**
  * Contains VHD or ISO storage dependency information for type 2.
@@ -48,8 +50,8 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct {
      * @type {Integer}
      */
     AncestorLevel {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**

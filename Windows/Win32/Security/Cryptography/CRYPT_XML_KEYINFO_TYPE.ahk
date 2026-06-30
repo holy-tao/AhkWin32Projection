@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The structure specifies user defined  information about the key information.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_info_item
  * @namespace Windows.Win32.Security.Cryptography
  */
 class CRYPT_XML_KEYINFO_TYPE extends Win32Enum {

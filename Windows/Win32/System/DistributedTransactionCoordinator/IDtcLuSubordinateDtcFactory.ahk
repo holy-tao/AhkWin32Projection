@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionOptions.ahk
+#Include .\IDtcLuSubordinateDtcSink.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ITransaction.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDtcLuSubordinateDtc.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator

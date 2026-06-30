@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes a component category.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.System.Com
  */
 class CATEGORYINFO extends Win32Struct {
-    static sizeof => 272
+    static sizeof => 276
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The category identifier for the component.
-     * @type {Pointer}
+     * @type {Guid}
      */
     catid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__catid"))
+                this.__catid := Guid(0, this)
+            return this.__catid
+        }
     }
 
     /**
@@ -25,8 +29,8 @@ class CATEGORYINFO extends Win32Struct {
      * @type {Integer}
      */
     lcid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -34,7 +38,7 @@ class CATEGORYINFO extends Win32Struct {
      * @type {String}
      */
     szDescription {
-        get => StrGet(this.ptr + 12, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 127, "UTF-16")
+        get => StrGet(this.ptr + 20, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 20, 127, "UTF-16")
     }
 }

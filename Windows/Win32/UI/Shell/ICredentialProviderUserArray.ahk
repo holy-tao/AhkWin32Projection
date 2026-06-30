@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ICredentialProviderUser.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\CREDENTIAL_PROVIDER_ACCOUNT_OPTIONS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the set of users that will appear in the logon or credential UI. This information enables the credential provider to enumerate the set to retrieve property information about each user to populate fields or filter the set.

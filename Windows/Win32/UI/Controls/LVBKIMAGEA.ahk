@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LIST_VIEW_BACKGROUND_IMAGE_FLAGS.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\LIST_VIEW_BACKGROUND_IMAGE_FLAGS.ahk
 
 /**
  * Contains information about the background image of a list-view control. This structure is used for both setting and retrieving background image information. (ANSI)

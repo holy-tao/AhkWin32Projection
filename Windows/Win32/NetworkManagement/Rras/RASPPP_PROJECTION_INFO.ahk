@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include .\RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include .\RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information obtained during Point-to-Point (PPP) negotiation of Internet Protocol version 4 (IPv4) and IPv6 projection operations, and PPP Link Control Protocol (LCP)/multilink, and Compression Control Protocol (CCP) negotiation.

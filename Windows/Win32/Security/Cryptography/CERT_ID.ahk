@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ID_OPTION.ahk
 #Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_ID_OPTION.ahk
 
 /**
  * Is used as a flexible means of uniquely identifying a certificate.

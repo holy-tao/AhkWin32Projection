@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_ENDPOINT_ADDRESS.ahk
-#Include .\WS_STRING.ahk
-#Include .\WS_ENDPOINT_IDENTITY.ahk
 #Include .\WS_CHANNEL_BINDING.ahk
+#Include .\WS_STRING.ahk
 #Include .\WS_CHANNEL_TYPE.ahk
+#Include .\WS_CHANNEL_PROPERTY.ahk
 #Include .\WS_SECURITY_DESCRIPTION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WS_XML_BUFFER.ahk
 #Include .\WS_SERVICE_CONTRACT.ahk
 #Include .\WS_SERVICE_ENDPOINT_PROPERTY.ahk
+#Include .\WS_ENDPOINT_ADDRESS.ahk
+#Include .\WS_ENDPOINT_IDENTITY.ahk
 #Include .\WS_CHANNEL_PROPERTIES.ahk
-#Include .\WS_CHANNEL_PROPERTY.ahk
 
 /**
  * Represents an individual endpoint on a service host. The properties on the endpoint are used to specify the address, binding and contract.

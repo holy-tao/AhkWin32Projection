@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\IJsDebugProperty.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -49,7 +51,7 @@ class IJsDebugFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", pName, "HRESULT")
         return pName
     }
@@ -104,14 +106,11 @@ class IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * Evaluates at the indexed sample location.
-     * @remarks
-     * Interpolation mode can be **linear** or **linear\_no\_perspective** on the variable. Use of **centroid** or **sample** is ignored. Attributes with constant interpolation are also allowed, in which case the sample index is ignored.
+     * 
      * @param {PWSTR} pExpressionText 
      * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
      * @param {Pointer<BSTR>} pError 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/evaluateattributeatsample
      */
     Evaluate(pExpressionText, ppDebugProperty, pError) {
         pExpressionText := pExpressionText is String ? StrPtr(pExpressionText) : pExpressionText

@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC_KIND.ahk
+#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
  */
 class SORTKEY extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,15 +29,15 @@ class SORTKEY extends Win32Struct {
      * @type {Integer}
      */
     dwOrder {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     locale {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

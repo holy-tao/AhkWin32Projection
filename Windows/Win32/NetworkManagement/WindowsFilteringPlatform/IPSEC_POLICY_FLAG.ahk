@@ -2,9 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Clear the "DontFragment" bit on the outer IP header of an IPsec tunneled 
-  * packet.
- * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_policy0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class IPSEC_POLICY_FLAG extends Win32BitflagEnum {

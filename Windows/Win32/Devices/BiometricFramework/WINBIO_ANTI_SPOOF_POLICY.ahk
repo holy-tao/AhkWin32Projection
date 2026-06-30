@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_ANTI_SPOOF_POLICY_ACTION.ahk
 #Include .\WINBIO_POLICY_SOURCE.ahk
+#Include .\WINBIO_ANTI_SPOOF_POLICY_ACTION.ahk
 
 /**
  * Represents the antispoofing policy for a user.

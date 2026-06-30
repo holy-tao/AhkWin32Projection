@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostSymbol.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include .\Location.ahk
 #Include .\IDebugHostType.ahk
+#Include .\IDebugHostSymbol.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -36,7 +38,7 @@ class IDebugHostModule extends IDebugHostSymbol {
      * @returns {BSTR} 
      */
     GetImageName(allowPath) {
-        imageName := BSTR()
+        imageName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "char", allowPath, "ptr", imageName, "HRESULT")
         return imageName
     }

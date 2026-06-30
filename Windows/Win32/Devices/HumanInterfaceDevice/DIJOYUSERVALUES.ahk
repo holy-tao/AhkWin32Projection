@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\JOYREGUSERVALUES.ahk
-#Include .\JOYRANGE.ahk
 #Include .\JOYPOS.ahk
+#Include .\JOYRANGE.ahk
 
 /**
  * The DIJOYUSERVALUES structure contains information about the user's joystick settings.

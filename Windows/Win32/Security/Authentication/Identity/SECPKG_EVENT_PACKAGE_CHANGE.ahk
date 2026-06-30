@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SECPKG_PACKAGE_CHANGE_TYPE.ahk
 #Include .\SECURITY_STRING.ahk
+#Include .\SECPKG_PACKAGE_CHANGE_TYPE.ahk
 
 /**
  * The SECPKG_EVENT_PACKAGE_CHANGE structure contains information about changes in security package availability.

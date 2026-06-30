@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\FolderItems.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the FolderItems object. It supports one additional method.

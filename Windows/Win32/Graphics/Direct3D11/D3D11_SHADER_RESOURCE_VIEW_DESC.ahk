@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\Direct3D\D3D_SRV_DIMENSION.ahk
-#Include .\D3D11_BUFFER_SRV.ahk
-#Include .\D3D11_TEX1D_SRV.ahk
 #Include .\D3D11_TEX1D_ARRAY_SRV.ahk
+#Include .\D3D11_TEXCUBE_SRV.ahk
 #Include .\D3D11_TEX2D_SRV.ahk
+#Include .\D3D11_BUFFEREX_SRV.ahk
 #Include .\D3D11_TEX2D_ARRAY_SRV.ahk
+#Include .\D3D11_TEXCUBE_ARRAY_SRV.ahk
+#Include .\D3D11_TEX1D_SRV.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D11_TEX2DMS_SRV.ahk
 #Include .\D3D11_TEX2DMS_ARRAY_SRV.ahk
+#Include .\D3D11_BUFFER_SRV.ahk
 #Include .\D3D11_TEX3D_SRV.ahk
-#Include .\D3D11_TEXCUBE_SRV.ahk
-#Include .\D3D11_TEXCUBE_ARRAY_SRV.ahk
-#Include .\D3D11_BUFFEREX_SRV.ahk
+#Include ..\Direct3D\D3D_SRV_DIMENSION.ahk
 
 /**
  * Describes a shader-resource view. (D3D11_SHADER_RESOURCE_VIEW_DESC)

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes a named property. Named properties enable clients to define custom properties in a larger namespace than the MAPI-defined property identifier range.
@@ -17,7 +19,7 @@ class MAPINAMEID extends Win32Struct {
 
     static packingSize => 8
 
-    class _Kind_e__Union extends Win32Struct {
+    class _Kind extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -78,12 +80,12 @@ class MAPINAMEID extends Win32Struct {
 
     /**
      * > Union describing the name of the named property. The name can be either an integer value, stored in **lID**, or a Unicode character string, stored in **lpwstrName**.
-     * @type {_Kind_e__Union}
+     * @type {_Kind}
      */
     Kind {
         get {
             if(!this.HasProp("__Kind"))
-                this.__Kind := MAPINAMEID._Kind_e__Union(16, this)
+                this.__Kind := MAPINAMEID._Kind(16, this)
             return this.__Kind
         }
     }

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
-#Include .\DOMAIN_PASSWORD_INFORMATION.ahk
 #Include .\DOMAIN_PASSWORD_PROPERTIES.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
+#Include .\DOMAIN_PASSWORD_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

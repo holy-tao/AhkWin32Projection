@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_NAME.ahk
 #Include .\WSD_SOAP_FAULT_SUBCODE.ahk
+#Include .\WSDXML_NAME.ahk
 
 /**
  * Represents a generated SOAP fault subcode.

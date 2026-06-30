@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertAdmin.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\CERTADMIN_GET_ROLES_FLAGS.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\CERT_PROPERTY_TYPE.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\ICertAdmin.ahk
+#Include .\CERT_IMPORT_FLAGS.ahk
+#Include .\CERT_DELETE_ROW_FLAGS.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\CVRC_TABLE.ahk
 
 /**
  * Provide administration functionality for properly authorized clients.
@@ -682,7 +688,7 @@ class ICertAdmin2 extends ICertAdmin {
     GetCAPropertyDisplayName(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pstrDisplayName := BSTR()
+        pstrDisplayName := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", strConfig, "int", PropId, "ptr", pstrDisplayName, "HRESULT")
         return pstrDisplayName
     }
@@ -746,7 +752,7 @@ class ICertAdmin2 extends ICertAdmin {
     GetArchivedKey(strConfig, RequestId, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pstrArchivedKey := BSTR()
+        pstrArchivedKey := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", strConfig, "int", RequestId, "int", Flags, "ptr", pstrArchivedKey, "HRESULT")
         return pstrArchivedKey
     }

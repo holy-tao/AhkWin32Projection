@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_OPTION_DATA_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DWORD_DWORD.ahk
 #Include .\DHCP_BINARY_DATA.ahk
 

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\HSTRING.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT
@@ -40,7 +41,7 @@ class ICorrelationVectorSource extends IUnknown {
      * @returns {HSTRING} 
      */
     get_CorrelationVector() {
-        cv := HSTRING()
+        cv := HSTRING({Value: 0}, True)
         result := ComCall(3, this, "ptr", cv, "HRESULT")
         return cv
     }

@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12Device2.ahk
+#Include .\D3D12_RESIDENCY_FLAGS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\ID3D12Fence.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12Pageable.ahk
 
 /**
  * Represents a virtual adapter. This interface extends ID3D12Device2 to support the creation of special-purpose diagnostic heaps in system memory that persist even in the event of a GPU-fault or device-removed scenario.

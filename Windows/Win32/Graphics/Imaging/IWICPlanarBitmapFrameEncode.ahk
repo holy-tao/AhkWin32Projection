@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WICBitmapPlane.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWICBitmapSource.ahk
+#Include .\WICRect.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows planar component image pixels to be written to an encoder.

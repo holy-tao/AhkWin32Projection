@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLElement.ahk
-#Include .\IHTMLStyleSheetsCollection.ahk
 #Include .\IHTMLStyleSheetRulesCollection.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IHTMLElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLStyleSheetsCollection.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -143,7 +145,7 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_title() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -220,7 +222,7 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_href() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -230,7 +232,7 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", p, "HRESULT")
         return p
     }
@@ -240,7 +242,7 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_id() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", p, "HRESULT")
         return p
     }
@@ -310,7 +312,7 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_media() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -332,7 +334,7 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_cssText() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }

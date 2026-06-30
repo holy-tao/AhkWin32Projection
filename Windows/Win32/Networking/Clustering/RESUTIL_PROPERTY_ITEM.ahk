@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RESUTIL_LARGEINT_DATA.ahk
 #Include .\RESUTIL_ULARGEINT_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\RESUTIL_FILETIME_DATA.ahk
 
 /**

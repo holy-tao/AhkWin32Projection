@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGE_ICON_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\CHANGE_ICON_FLAGS.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\HRSRC.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Change Icon dialog box, and it contains space for the library to return information when the dialog box is dismissed. (ANSI)
@@ -16,7 +19,7 @@
  * @charset ANSI
  */
 class OLEUICHANGEICONA extends Win32Struct {
-    static sizeof => 344
+    static sizeof => 352
 
     static packingSize => 8
 
@@ -132,11 +135,14 @@ class OLEUICHANGEICONA extends Win32Struct {
 
     /**
      * Input only. The class to use to get the **Default** icon.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get {
+            if(!this.HasProp("__clsid"))
+                this.__clsid := Guid(72, this)
+            return this.__clsid
+        }
     }
 
     /**
@@ -144,8 +150,8 @@ class OLEUICHANGEICONA extends Win32Struct {
      * @type {String}
      */
     szIconExe {
-        get => StrGet(this.ptr + 80, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 259, "UTF-8")
+        get => StrGet(this.ptr + 88, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 88, 259, "UTF-8")
     }
 
     /**
@@ -153,7 +159,7 @@ class OLEUICHANGEICONA extends Win32Struct {
      * @type {Integer}
      */
     cchIconExe {
-        get => NumGet(this, 340, "int")
-        set => NumPut("int", value, this, 340)
+        get => NumGet(this, 348, "int")
+        set => NumPut("int", value, this, 348)
     }
 }

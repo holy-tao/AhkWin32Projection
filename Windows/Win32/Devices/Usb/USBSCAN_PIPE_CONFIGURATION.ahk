@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBSCAN_PIPE_INFORMATION.ahk
 #Include .\RAW_PIPE_TYPE.ahk
+#Include .\USBSCAN_PIPE_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb

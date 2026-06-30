@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDockingWindow.ahk
+#Include .\DESKBANDINFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to obtain information about a band object.

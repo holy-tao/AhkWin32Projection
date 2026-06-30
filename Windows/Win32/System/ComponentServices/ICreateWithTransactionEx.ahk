@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\DistributedTransactionCoordinator\ITransaction.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates an object that is enlisted within a manual transaction.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_FAT.ahk
-#Include .\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT.ahk
 #Include .\CorExceptionFlag.ahk
+#Include .\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT.ahk
+#Include .\IMAGE_COR_ILMETHOD_SECT_FAT.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata

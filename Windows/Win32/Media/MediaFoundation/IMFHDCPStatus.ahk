@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MF_HDCP_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -43,15 +46,9 @@ class IMFHDCPStatus extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
-     * @param {MF_HDCP_STATUS} _status 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
      * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @param {MF_HDCP_STATUS} _status 
+     * @returns {HRESULT} 
      */
     Set(_status) {
         result := ComCall(4, this, "int", _status, "HRESULT")

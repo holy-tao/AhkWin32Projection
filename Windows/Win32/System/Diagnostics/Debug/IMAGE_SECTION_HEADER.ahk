@@ -12,7 +12,7 @@ class IMAGE_SECTION_HEADER extends Win32Struct {
 
     static packingSize => 4
 
-    class _Misc_e__Union extends Win32Struct {
+    class _Misc extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -46,12 +46,12 @@ class IMAGE_SECTION_HEADER extends Win32Struct {
     }
 
     /**
-     * @type {_Misc_e__Union}
+     * @type {_Misc}
      */
     Misc {
         get {
             if(!this.HasProp("__Misc"))
-                this.__Misc := IMAGE_SECTION_HEADER._Misc_e__Union(8, this)
+                this.__Misc := IMAGE_SECTION_HEADER._Misc(8, this)
             return this.__Misc
         }
     }

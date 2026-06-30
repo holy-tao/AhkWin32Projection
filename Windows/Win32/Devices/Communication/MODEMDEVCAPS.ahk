@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MODEMDEVCAPS_DIAL_OPTIONS.ahk
-#Include .\MODEMDEVCAPS_SPEAKER_VOLUME.ahk
 #Include .\MODEMDEVCAPS_SPEAKER_MODE.ahk
+#Include .\MODEMDEVCAPS_SPEAKER_VOLUME.ahk
 
 /**
  * Contains information about the capabilities of a modem.

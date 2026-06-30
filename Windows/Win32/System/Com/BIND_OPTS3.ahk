@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\BIND_OPTS2.ahk
 #Include .\BIND_OPTS.ahk
 #Include .\COSERVERINFO.ahk
-#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The BIND_OPTS3 structure contains parameters used during a moniker-binding operation.

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertEncodeBitString.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\EncodingType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICertEncodeBitString.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -52,7 +54,7 @@ class ICertEncodeBitString2 extends ICertEncodeBitString {
     EncodeBlob(BitCount, strBitString, EncodingIn, Encoding) {
         strBitString := strBitString is String ? BSTR.Alloc(strBitString).Value : strBitString
 
-        pstrEncodedData := BSTR()
+        pstrEncodedData := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", BitCount, "ptr", strBitString, "int", EncodingIn, "int", Encoding, "ptr", pstrEncodedData, "HRESULT")
         return pstrEncodedData
     }
@@ -63,7 +65,7 @@ class ICertEncodeBitString2 extends ICertEncodeBitString {
      * @returns {BSTR} 
      */
     GetBitStringBlob(Encoding) {
-        pstrBitString := BSTR()
+        pstrBitString := BSTR({Value: 0}, True)
         result := ComCall(13, this, "int", Encoding, "ptr", pstrBitString, "HRESULT")
         return pstrBitString
     }

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IClockVectorElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerates the clock vector elements that are stored in a clock vector.

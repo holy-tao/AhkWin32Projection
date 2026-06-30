@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBUSER_REQUEST_HEADER.ahk
 #Include .\USB_USER_ERROR_CODE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USB_POWER_INFO.ahk
+#Include .\USBUSER_REQUEST_HEADER.ahk
 #Include .\WDMUSB_POWER_STATE.ahk
 
 /**

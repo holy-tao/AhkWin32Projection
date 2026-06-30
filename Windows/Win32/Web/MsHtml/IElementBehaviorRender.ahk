@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -28,15 +33,12 @@ class IElementBehaviorRender extends IUnknown {
     static VTableNames => ["Draw", "GetRenderInfo", "HitTestPoint"]
 
     /**
-     * Animates the caption of a window to indicate the opening of an icon or the minimizing or maximizing of a window.
+     * 
      * @param {HDC} _hdc 
      * @param {Integer} lLayer 
      * @param {Pointer<RECT>} pRect 
      * @param {IUnknown} pReserved 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawanimatedrects
+     * @returns {HRESULT} 
      */
     Draw(_hdc, lLayer, pRect, pReserved) {
         _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc

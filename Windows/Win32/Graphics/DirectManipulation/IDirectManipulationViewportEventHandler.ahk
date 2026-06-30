@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DIRECTMANIPULATION_STATUS.ahk
+#Include .\IDirectManipulationContent.ahk
+#Include .\IDirectManipulationViewport.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines methods for handling status and update events for the viewport.

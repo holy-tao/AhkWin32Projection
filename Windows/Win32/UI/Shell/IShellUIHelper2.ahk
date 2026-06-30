@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellUIHelper.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IShellUIHelper.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -95,7 +97,7 @@ class IShellUIHelper2 extends IShellUIHelper {
      * @returns {BSTR} 
      */
     BrandImageUri() {
-        pbstrUri := BSTR()
+        pbstrUri := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", pbstrUri, "HRESULT")
         return pbstrUri
     }
@@ -154,7 +156,7 @@ class IShellUIHelper2 extends IShellUIHelper {
      * @returns {BSTR} 
      */
     DefaultSearchProvider() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -183,7 +185,7 @@ class IShellUIHelper2 extends IShellUIHelper {
      * @returns {BSTR} 
      */
     SearchGuideUrl() {
-        pbstrUrl := BSTR()
+        pbstrUrl := BSTR({Value: 0}, True)
         result := ComCall(35, this, "ptr", pbstrUrl, "HRESULT")
         return pbstrUrl
     }

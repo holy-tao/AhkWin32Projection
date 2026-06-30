@@ -1,7 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MANAGEDAPPLICATION.ahk
+#Include .\LOCALMANAGEDAPPLICATION.ahk
+#Include .\POLICYSETTINGSTATUSINFO.ahk
+#Include ..\Wmi\IWbemClassObject.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\GROUP_POLICY_OBJECTW.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\INSTALLDATA.ahk
+#Include ..\..\Security\PSID.ahk
+#Include ..\..\UI\Shell\APPCATEGORYINFOLIST.ahk
+#Include ..\..\Security\OBJECT_TYPE_LIST.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Security\GENERIC_MAPPING.ahk
+#Include .\GROUP_POLICY_OBJECTA.ahk
+#Include .\GPOBROWSEINFO.ahk
+#Include ..\Wmi\IWbemServices.ahk
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy

@@ -1,5 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\VARENUM.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VARIANT.ahk
+#Include .\PSTIME_FLAGS.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\VAR_CHANGE_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Variant

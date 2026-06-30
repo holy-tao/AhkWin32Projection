@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include Common\DXGI_COLOR_SPACE_TYPE.ahk
 #Include Common\DXGI_MODE_ROTATION.ahk
 #Include ..\Gdi\HMONITOR.ahk
-#Include Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Describes an output or physical connection between the adapter (video card) and a device, including additional information about color capabilities and connection type.

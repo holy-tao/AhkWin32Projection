@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SETTINGSTATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\SETTINGSTATUS.ahk
 
 /**
  * The POLICYSETTINGSTATUSINFO structure provides information about a policy-setting event.

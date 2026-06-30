@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\AddressBook\IMessage.ahk
+#Include ..\..\System\AddressBook\SPropValue.ahk
+#Include .\STnefProblemArray.ahk
+#Include ..\..\System\AddressBook\IMAPITable.ahk
+#Include ..\..\System\AddressBook\SPropTagArray.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IStream.ahk
 

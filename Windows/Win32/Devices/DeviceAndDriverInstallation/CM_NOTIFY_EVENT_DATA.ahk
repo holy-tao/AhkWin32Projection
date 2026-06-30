@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CM_NOTIFY_FILTER_TYPE.ahk
 
 /**
@@ -10,61 +11,67 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
 class CM_NOTIFY_EVENT_DATA extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    class _u extends Win32Struct {
+        static sizeof => 28
+        static packingSize => 4
 
         class _DeviceInterface extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+            static sizeof => 20
+            static packingSize => 4
 
             /**
-             * @type {Pointer}
+             * @type {Guid}
              */
             ClassGuid {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
+                get {
+                    if(!this.HasProp("__ClassGuid"))
+                        this.__ClassGuid := Guid(0, this)
+                    return this.__ClassGuid
+                }
             }
 
             /**
              * @type {String}
              */
             SymbolicLink {
-                get => StrGet(this.ptr + 8, 0, "UTF-16")
-                set => StrPut(value, this.ptr + 8, 0, "UTF-16")
+                get => StrGet(this.ptr + 16, 0, "UTF-16")
+                set => StrPut(value, this.ptr + 16, 0, "UTF-16")
             }
         }
 
         class _DeviceHandle extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 8
+            static sizeof => 28
+            static packingSize => 4
 
             /**
-             * @type {Pointer}
+             * @type {Guid}
              */
             EventGuid {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
+                get {
+                    if(!this.HasProp("__EventGuid"))
+                        this.__EventGuid := Guid(0, this)
+                    return this.__EventGuid
+                }
             }
 
             /**
              * @type {Integer}
              */
             NameOffset {
-                get => NumGet(this, 8, "int")
-                set => NumPut("int", value, this, 8)
+                get => NumGet(this, 16, "int")
+                set => NumPut("int", value, this, 16)
             }
 
             /**
              * @type {Integer}
              */
             DataSize {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
+                get => NumGet(this, 20, "uint")
+                set => NumPut("uint", value, this, 20)
             }
 
             /**
@@ -73,7 +80,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct {
             Data {
                 get {
                     if(!this.HasProp("__DataProxyArray"))
-                        this.__DataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                        this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
                     return this.__DataProxyArray
                 }
             }
@@ -98,7 +105,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct {
         DeviceInterface {
             get {
                 if(!this.HasProp("__DeviceInterface"))
-                    this.__DeviceInterface := CM_NOTIFY_EVENT_DATA._u_e__Union._DeviceInterface(0, this)
+                    this.__DeviceInterface := CM_NOTIFY_EVENT_DATA._u._DeviceInterface(0, this)
                 return this.__DeviceInterface
             }
         }
@@ -109,7 +116,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct {
         DeviceHandle {
             get {
                 if(!this.HasProp("__DeviceHandle"))
-                    this.__DeviceHandle := CM_NOTIFY_EVENT_DATA._u_e__Union._DeviceHandle(0, this)
+                    this.__DeviceHandle := CM_NOTIFY_EVENT_DATA._u._DeviceHandle(0, this)
                 return this.__DeviceHandle
             }
         }
@@ -120,7 +127,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct {
         DeviceInstance {
             get {
                 if(!this.HasProp("__DeviceInstance"))
-                    this.__DeviceInstance := CM_NOTIFY_EVENT_DATA._u_e__Union._DeviceInstance(0, this)
+                    this.__DeviceInstance := CM_NOTIFY_EVENT_DATA._u._DeviceInstance(0, this)
                 return this.__DeviceInstance
             }
         }
@@ -146,12 +153,12 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct {
 
     /**
      * A union that contains information about the notification event data.    To determine which member of the union to examine, check the <b>FilterType</b> of the event data.
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := CM_NOTIFY_EVENT_DATA._u_e__Union(8, this)
+                this.__u := CM_NOTIFY_EVENT_DATA._u(8, this)
             return this.__u
         }
     }

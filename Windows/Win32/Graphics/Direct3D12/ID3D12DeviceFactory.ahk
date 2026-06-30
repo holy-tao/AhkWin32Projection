@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_DEVICE_FACTORY_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -174,12 +178,11 @@ class ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
+     * 
      * @param {IUnknown} _adapter 
      * @param {D3D_FEATURE_LEVEL} FeatureLevel 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
     CreateDevice(_adapter, FeatureLevel, riid) {
         result := ComCall(9, this, "ptr", _adapter, "int", FeatureLevel, "ptr", riid, "ptr*", &ppvDevice := 0, "HRESULT")

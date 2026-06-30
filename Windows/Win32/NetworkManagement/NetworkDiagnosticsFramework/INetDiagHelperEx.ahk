@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DIAGNOSIS_STATUS.ahk
+#Include .\HypothesisResult.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\INetDiagHelperUtilFactory.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods that extend on the INetDiagHelper interface to capture and provide information associated with diagnoses and resolution of network-related issues.

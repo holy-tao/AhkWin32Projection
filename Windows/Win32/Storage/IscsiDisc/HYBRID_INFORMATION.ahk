@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVCACHE_STATUS.ahk
 #Include .\NVCACHE_TYPE.ahk
 #Include .\NVCACHE_PRIORITY_LEVEL_DESCRIPTOR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\NVCACHE_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc

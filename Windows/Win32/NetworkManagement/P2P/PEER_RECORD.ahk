@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\PEER_DATA.ahk
 
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_RECORD extends Win32Struct {
-    static sizeof => 112
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -24,20 +26,26 @@ class PEER_RECORD extends Win32Struct {
 
     /**
      * Specifies the type of  record. The  type is a <b>GUID</b> that an application must specify.  The <b>GUID</b> represents a unique record type, for example, a chat record.
-     * @type {Pointer}
+     * @type {Guid}
      */
     type {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__type"))
+                this.__type := Guid(4, this)
+            return this.__type
+        }
     }
 
     /**
      * Specifies the unique ID of a record. The Peer Infrastructure supplies this ID. This parameter is ignored in calls to  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupaddrecord">PeerGroupAddRecord</a>. An application cannot modify this member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(20, this)
+            return this.__id
+        }
     }
 
     /**
@@ -45,8 +53,8 @@ class PEER_RECORD extends Win32Struct {
      * @type {Integer}
      */
     dwVersion {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -73,8 +81,8 @@ class PEER_RECORD extends Win32Struct {
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -82,8 +90,8 @@ class PEER_RECORD extends Win32Struct {
      * @type {PWSTR}
      */
     pwzCreatorId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -91,8 +99,8 @@ class PEER_RECORD extends Win32Struct {
      * @type {PWSTR}
      */
     pwzModifiedById {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -110,8 +118,8 @@ class PEER_RECORD extends Win32Struct {
      * @type {PWSTR}
      */
     pwzAttributes {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -121,7 +129,7 @@ class PEER_RECORD extends Win32Struct {
     ftCreation {
         get {
             if(!this.HasProp("__ftCreation"))
-                this.__ftCreation := FILETIME(56, this)
+                this.__ftCreation := FILETIME(72, this)
             return this.__ftCreation
         }
     }
@@ -136,7 +144,7 @@ class PEER_RECORD extends Win32Struct {
     ftExpiration {
         get {
             if(!this.HasProp("__ftExpiration"))
-                this.__ftExpiration := FILETIME(64, this)
+                this.__ftExpiration := FILETIME(80, this)
             return this.__ftExpiration
         }
     }
@@ -148,7 +156,7 @@ class PEER_RECORD extends Win32Struct {
     ftLastModified {
         get {
             if(!this.HasProp("__ftLastModified"))
-                this.__ftLastModified := FILETIME(72, this)
+                this.__ftLastModified := FILETIME(88, this)
             return this.__ftLastModified
         }
     }
@@ -161,7 +169,7 @@ class PEER_RECORD extends Win32Struct {
     securityData {
         get {
             if(!this.HasProp("__securityData"))
-                this.__securityData := PEER_DATA(80, this)
+                this.__securityData := PEER_DATA(96, this)
             return this.__securityData
         }
     }
@@ -174,7 +182,7 @@ class PEER_RECORD extends Win32Struct {
     data {
         get {
             if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(96, this)
+                this.__data := PEER_DATA(112, this)
             return this.__data
         }
     }

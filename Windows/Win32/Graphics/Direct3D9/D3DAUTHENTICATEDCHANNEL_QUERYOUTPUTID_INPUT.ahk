@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_INPUT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
 class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -32,7 +33,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT extends Win32Struct {
     DeviceHandle {
         get {
             if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := HANDLE(24, this)
+                this.__DeviceHandle := HANDLE(32, this)
             return this.__DeviceHandle
         }
     }
@@ -44,7 +45,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT extends Win32Struct {
     CryptoSessionHandle {
         get {
             if(!this.HasProp("__CryptoSessionHandle"))
-                this.__CryptoSessionHandle := HANDLE(32, this)
+                this.__CryptoSessionHandle := HANDLE(40, this)
             return this.__CryptoSessionHandle
         }
     }
@@ -54,7 +55,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYOUTPUTID_INPUT extends Win32Struct {
      * @type {Integer}
      */
     OutputIDIndex {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

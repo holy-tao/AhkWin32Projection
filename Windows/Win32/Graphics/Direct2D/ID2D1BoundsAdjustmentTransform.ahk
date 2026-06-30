@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1TransformNode.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * A support transform for effects to modify the output rectangle of the previous effect or bitmap.

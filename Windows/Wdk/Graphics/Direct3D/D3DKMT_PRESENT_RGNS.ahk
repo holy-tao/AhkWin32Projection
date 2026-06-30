@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
 #Include .\D3DKMT_MOVE_RECT.ahk
+#Include ..\..\..\Win32\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\PSID.ahk
 
 /**
  * Specifies an array of SID structures that represent Windows users or groups.

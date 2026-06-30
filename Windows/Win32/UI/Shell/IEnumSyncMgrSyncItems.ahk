@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISyncMgrSyncItem.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that enumerate the sync item objects managed by the handler.

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_ROTATION.ahk
-#Include .\D3DKMT_MULTIPLANE_OVERLAY_BLEND.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
 #Include .\D3DKMT_MULTIPLANE_OVERLAY_VIDEO_FRAME_FORMAT.ahk
+#Include .\DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_MODE.ahk
 #Include .\D3DDDI_COLOR_SPACE_TYPE.ahk
 #Include .\D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT.ahk
-#Include .\DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_MODE.ahk
 #Include .\DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY.ahk
+#Include .\D3DKMT_MULTIPLANE_OVERLAY_BLEND.ahk
+#Include ..\..\..\Win32\Foundation\RECT.ahk
+#Include .\D3DDDI_ROTATION.ahk
+#Include ..\..\..\Win32\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

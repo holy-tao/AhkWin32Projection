@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IUpdate2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the properties and methods that are available to an update. (IUpdate3)

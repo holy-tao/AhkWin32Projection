@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Authenticate against the HTTP Proxy. This value is uncommon.
- * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_http_transport_credentials_a
  * @namespace Windows.Win32.System.Rpc
  */
 class RPC_C_HTTP_AUTHN_TARGET extends Win32BitflagEnum {

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -77,10 +79,9 @@ class IMSEventBinder extends IDispatch {
     }
 
     /**
-     * Closes a handle to a print ticket provider.
+     * 
      * @param {Integer} CancelCookie 
-     * @returns {HRESULT} If the method succeeds, it returns **S\_OK**; otherwise, it returns an **HRESULT** error code. For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/unbindptproviderthunk
+     * @returns {HRESULT} 
      */
     Unbind(CancelCookie) {
         result := ComCall(8, this, "uint", CancelCookie, "HRESULT")

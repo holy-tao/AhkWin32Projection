@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmPropertyDefinition.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmPropertyDefinition.ahk
 #Include .\IFsrmCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a property that you want to use to classify files. (IFsrmPropertyDefinition2)
@@ -76,7 +77,7 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_displayname
      */
     get_DisplayName() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", name, "HRESULT")
         return name
     }

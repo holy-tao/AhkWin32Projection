@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnsecuredApartment.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IWbemObjectSink.ahk
+#Include .\IUnsecuredApartment.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows client applications to determine whether Unsecapp.exe performs access checks on asynchronous callbacks.

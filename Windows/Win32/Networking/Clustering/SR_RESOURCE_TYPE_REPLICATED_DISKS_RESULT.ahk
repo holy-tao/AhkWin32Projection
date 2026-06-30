@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SR_RESOURCE_TYPE_REPLICATED_DISK.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SR_REPLICATED_DISK_TYPE.ahk
 
 /**
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class SR_RESOURCE_TYPE_REPLICATED_DISKS_RESULT extends Win32Struct {
-    static sizeof => 552
+    static sizeof => 560
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of replicated disks in the result set.
@@ -29,7 +30,7 @@ class SR_RESOURCE_TYPE_REPLICATED_DISKS_RESULT extends Win32Struct {
     ReplicatedDisks {
         get {
             if(!this.HasProp("__ReplicatedDisksProxyArray"))
-                this.__ReplicatedDisksProxyArray := Win32FixedArray(this.ptr + 8, 1, SR_RESOURCE_TYPE_REPLICATED_DISK, "")
+                this.__ReplicatedDisksProxyArray := Win32FixedArray(this.ptr + 4, 1, SR_RESOURCE_TYPE_REPLICATED_DISK, "")
             return this.__ReplicatedDisksProxyArray
         }
     }

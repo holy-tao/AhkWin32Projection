@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ERASE_TAPE_TYPE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes the partition to be erased.

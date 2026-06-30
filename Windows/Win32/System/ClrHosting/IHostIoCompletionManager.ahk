@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICLRIoCompletionManager.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -125,7 +127,7 @@ class IHostIoCompletionManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-createiocompletionport
      */
     CreateIoCompletionPort() {
-        phPort := HANDLE()
+        phPort := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "ptr", phPort, "HRESULT")
         return phPort
     }

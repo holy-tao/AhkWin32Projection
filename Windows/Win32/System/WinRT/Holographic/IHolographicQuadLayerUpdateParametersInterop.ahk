@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include ..\IInspectable.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Fence.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * A nano-COM interface that allows COM interop with the [HolographicQuadLayerUpdateParameters](/uwp/api/windows.graphics.holographic.holographicquadlayerupdateparameters) class for applications that use Direct3D 12 for holographic rendering.

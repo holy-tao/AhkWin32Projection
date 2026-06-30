@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IWSDAttachment.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables applications to send attachment data in a message using a MIME container.

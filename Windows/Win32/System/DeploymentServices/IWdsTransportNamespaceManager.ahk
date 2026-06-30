@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IWdsTransportNamespace.ahk
+#Include .\WDSTRANSPORT_NAMESPACE_TYPE.ahk
 #Include .\IWdsTransportCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Manages namespaces on a WDS transport server.

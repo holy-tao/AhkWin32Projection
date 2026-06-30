@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ICMP_MESSAGE.ahk
 #Include .\ICMP_HEADER.ahk
+#Include .\ICMP_MESSAGE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

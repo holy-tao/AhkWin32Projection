@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * A possible member of a CMC_STATUS_INFO structure.

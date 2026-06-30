@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DML_TENSOR_DESC.ahk
-#Include .\DML_OPERATOR_DESC.ahk
 #Include .\DML_RECURRENT_NETWORK_DIRECTION.ahk
+#Include .\DML_OPERATOR_DESC.ahk
 
 /**
  * Performs a one-layer simple recurrent neural network (RNN) function on the input. This function is often referred to as the Input Gate. This operator performs this function multiple times in a loop, dictated by the sequence length dimension and the *SequenceLengthsTensor*.

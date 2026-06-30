@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxSender.ahk
 #Include .\IFaxRecipient.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FAX_PRIORITY_TYPE_ENUM.ahk
+#Include .\IFaxSender.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxOutgoingMessage interface describes an object that is used by a fax client application to retrieve information about a fax message in the archive of outbound faxes.
@@ -165,7 +167,7 @@ class IFaxOutgoingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_submissionid
      */
     get_SubmissionId() {
-        pbstrSubmissionId := BSTR()
+        pbstrSubmissionId := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrSubmissionId, "HRESULT")
         return pbstrSubmissionId
     }
@@ -176,7 +178,7 @@ class IFaxOutgoingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_id
      */
     get_Id() {
-        pbstrId := BSTR()
+        pbstrId := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrId, "HRESULT")
         return pbstrId
     }
@@ -187,7 +189,7 @@ class IFaxOutgoingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_subject
      */
     get_Subject() {
-        pbstrSubject := BSTR()
+        pbstrSubject := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrSubject, "HRESULT")
         return pbstrSubject
     }
@@ -198,7 +200,7 @@ class IFaxOutgoingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_documentname
      */
     get_DocumentName() {
-        pbstrDocumentName := BSTR()
+        pbstrDocumentName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pbstrDocumentName, "HRESULT")
         return pbstrDocumentName
     }
@@ -291,7 +293,7 @@ class IFaxOutgoingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_devicename
      */
     get_DeviceName() {
-        pbstrDeviceName := BSTR()
+        pbstrDeviceName := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }
@@ -322,7 +324,7 @@ class IFaxOutgoingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_csid
      */
     get_CSID() {
-        pbstrCSID := BSTR()
+        pbstrCSID := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", pbstrCSID, "HRESULT")
         return pbstrCSID
     }
@@ -333,7 +335,7 @@ class IFaxOutgoingMessage extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_tsid
      */
     get_TSID() {
-        pbstrTSID := BSTR()
+        pbstrTSID := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pbstrTSID, "HRESULT")
         return pbstrTSID
     }

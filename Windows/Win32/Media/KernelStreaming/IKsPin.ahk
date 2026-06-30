@@ -1,7 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\DirectShow\IMemAllocator.ahk
+#Include .\KSPIN_COMMUNICATION.ahk
+#Include ..\DirectShow\IMediaSample.ahk
+#Include .\KSPEEKOPERATION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\KSMULTIPLE_ITEM.ahk
+#Include .\KSIDENTIFIER.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\KSSTREAM_SEGMENT.ahk
 
 /**
  * The IKsPin interface provides a method to retrieve the mediums supported by a pin on a kernel-mode filter. IKsPin has additional methods besides the one shown here, but they are not supported for DirectShow.

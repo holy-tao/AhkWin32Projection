@@ -1,7 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPWORDENTRY.ahk
+#Include .\SPPROPSRC.ahk
+#Include .\SPGRAMMARHANDLE.ahk
+#Include .\SPRULEENTRY.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\SPGRAMMARSTATE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\SPCFGNOTIFY.ahk
+#Include .\SPRULESTATE.ahk
+#Include .\ISpObjectToken.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SPWORDPRONOUNCEABLE.ahk
+#Include .\ISpSREngineSite.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SPTEXTSELECTIONINFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SPLOADOPTIONS.ahk
+#Include .\SPRECOCONTEXTHANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SPCONTEXTSTATE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

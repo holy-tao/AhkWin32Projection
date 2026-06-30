@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\AMTVAudioEventType.ahk
 
 /**
  * Note  This callback interface has been deprecated, because the TV Audio filter does not implement the callback mechanism. .

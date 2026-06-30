@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\FsrmActionType.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to configure FSRM.
@@ -87,7 +90,7 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_smtpserver
      */
     get_SmtpServer() {
-        smtpServer := BSTR()
+        smtpServer := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", smtpServer, "HRESULT")
         return smtpServer
     }
@@ -117,7 +120,7 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom
      */
     get_MailFrom() {
-        mailFrom := BSTR()
+        mailFrom := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", mailFrom, "HRESULT")
         return mailFrom
     }
@@ -146,7 +149,7 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_adminemail
      */
     get_AdminEmail() {
-        adminEmail := BSTR()
+        adminEmail := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", adminEmail, "HRESULT")
         return adminEmail
     }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ISCSI_UNIQUE_SESSION_ID.ahk
 #Include .\ISCSI_CONNECTION_INFOW.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * ISCSI_SESSION_INFO. (Unicode)

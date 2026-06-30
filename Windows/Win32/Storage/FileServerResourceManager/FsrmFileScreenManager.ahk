@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Retrieves the descriptions for the macros contained in the IFsrmFileScreenManager::ActionVariables property.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-get_actionvariabledescriptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
 class FsrmFileScreenManager extends Win32Struct {

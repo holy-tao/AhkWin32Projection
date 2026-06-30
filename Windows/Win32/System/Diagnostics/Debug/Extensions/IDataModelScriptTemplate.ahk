@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IStream.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -35,7 +36,7 @@ class IDataModelScriptTemplate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        templateName := BSTR()
+        templateName := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", templateName, "HRESULT")
         return templateName
     }
@@ -46,7 +47,7 @@ class IDataModelScriptTemplate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription() {
-        templateDescription := BSTR()
+        templateDescription := BSTR({Value: 0}, True)
         result := ComCall(4, this, "ptr", templateDescription, "HRESULT")
         return templateDescription
     }

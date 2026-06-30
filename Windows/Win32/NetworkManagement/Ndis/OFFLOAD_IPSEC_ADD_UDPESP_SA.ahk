@@ -3,9 +3,9 @@
 #Include .\OFFLOAD_SECURITY_ASSOCIATION.ahk
 #Include .\OFFLOAD_OPERATION_E.ahk
 #Include .\OFFLOAD_ALGO_INFO.ahk
+#Include .\UDP_ENCAP_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY.ahk
-#Include .\UDP_ENCAP_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

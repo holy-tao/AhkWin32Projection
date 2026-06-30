@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\MI_Result.ahk
+#Include .\MI_Instance.ahk
+#Include .\MI_Application.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi

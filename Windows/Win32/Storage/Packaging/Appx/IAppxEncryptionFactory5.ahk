@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxPackageReader.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IAppxBundleReader.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\APPX_KEY_INFO.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates objects for reading encrypted Windows app packages and bundles.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA2_ExtendedFormat.ahk
+#Include .\DXVA2_Fixed32.ahk
+#Include .\DXVA2_AYUVSample8.ahk
 #Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\DXVA2_AYUVSample8.ahk
-#Include .\DXVA2_Fixed32.ahk
+#Include .\DXVA2_ExtendedFormat.ahk
 
 /**
  * Specifies an input sample for the IDirectXVideoProcessor::VideoProcessBlt method.

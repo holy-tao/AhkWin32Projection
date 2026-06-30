@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\CERT_PROPERTY_TYPE.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows the policy module to communicate with Certificate Services.
@@ -249,7 +251,7 @@ class ICertServerPolicy extends IDispatch {
     GetRequestAttribute(strAttributeName) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        pstrAttributeValue := BSTR()
+        pstrAttributeValue := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", strAttributeName, "ptr", pstrAttributeValue, "HRESULT")
         return pstrAttributeValue
     }
@@ -876,7 +878,7 @@ class ICertServerPolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-enumerateextensions
      */
     EnumerateExtensions() {
-        pstrExtensionName := BSTR()
+        pstrExtensionName := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", pstrExtensionName, "HRESULT")
         return pstrExtensionName
     }
@@ -928,7 +930,7 @@ class ICertServerPolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-enumerateattributes
      */
     EnumerateAttributes() {
-        pstrAttributeName := BSTR()
+        pstrAttributeName := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pstrAttributeName, "HRESULT")
         return pstrAttributeName
     }

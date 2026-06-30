@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3DX11_SCAN_DATA_TYPE.ahk
+#Include .\D3DX11_SCAN_DIRECTION.ahk
+#Include .\ID3D11UnorderedAccessView.ahk
+#Include .\D3DX11_SCAN_OPCODE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Scan context.

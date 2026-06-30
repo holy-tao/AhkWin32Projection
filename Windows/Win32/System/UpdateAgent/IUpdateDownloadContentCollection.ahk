@@ -4,6 +4,7 @@
 #Include ..\Com\IDispatch.ahk
 #Include .\IUpdateDownloadContent.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a collection of download contents for an update.

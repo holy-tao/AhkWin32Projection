@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_NF_FILE_SYSTEM.ahk
 
 /**
@@ -14,7 +15,7 @@
 class VDS_FILE_SYSTEM_NOTIFICATION extends Win32Struct {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {VDS_NF_FILE_SYSTEM}
@@ -26,11 +27,14 @@ class VDS_FILE_SYSTEM_NOTIFICATION extends Win32Struct {
 
     /**
      * The GUID of the volume object containing the file system that triggered the event.
-     * @type {Pointer}
+     * @type {Guid}
      */
     volumeId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__volumeId"))
+                this.__volumeId := Guid(4, this)
+            return this.__volumeId
+        }
     }
 
     /**
@@ -38,7 +42,7 @@ class VDS_FILE_SYSTEM_NOTIFICATION extends Win32Struct {
      * @type {Integer}
      */
     dwPercentCompleted {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

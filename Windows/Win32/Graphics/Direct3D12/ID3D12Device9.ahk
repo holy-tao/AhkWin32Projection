@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_SHADER_CACHE_KIND_FLAGS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_COMMAND_QUEUE_DESC.ahk
+#Include .\D3D12_SHADER_CACHE_SESSION_DESC.ahk
+#Include .\D3D12_SHADER_CACHE_CONTROL_FLAGS.ahk
 #Include .\ID3D12Device8.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device8](/windows/win32/api/d3d12/nn-d3d12-id3d12device8) to add methods to manage shader caches.

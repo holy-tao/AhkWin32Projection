@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IHTMLElement.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -50,7 +52,7 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {BSTR} 
      */
     get_htmlText() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -72,7 +74,7 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {BSTR} 
      */
     get_text() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -458,7 +460,7 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {BSTR} 
      */
     getBookmark() {
-        Boolmark := BSTR()
+        Boolmark := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", Boolmark, "HRESULT")
         return Boolmark
     }
@@ -531,7 +533,7 @@ class IHTMLTxtRange extends IDispatch {
     queryCommandText(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        pcmdText := BSTR()
+        pcmdText := BSTR({Value: 0}, True)
         result := ComCall(33, this, "ptr", cmdID, "ptr", pcmdText, "HRESULT")
         return pcmdText
     }

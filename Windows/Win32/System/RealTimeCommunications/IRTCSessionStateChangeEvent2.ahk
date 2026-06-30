@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\RTC_SECURITY_TYPE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\RTC_SECURITY_LEVEL.ahk
 #Include .\IRTCSessionStateChangeEvent.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications

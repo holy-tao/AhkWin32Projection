@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_VERSION.ahk
-#Include .\HTTP_VERB.ahk
-#Include .\HTTP_COOKED_URL.ahk
-#Include .\HTTP_TRANSPORT_ADDRESS.ahk
-#Include ..\WinSock\SOCKADDR.ahk
-#Include .\HTTP_REQUEST_HEADERS.ahk
-#Include .\HTTP_UNKNOWN_HEADER.ahk
-#Include .\HTTP_KNOWN_HEADER.ahk
 #Include .\HTTP_DATA_CHUNK.ahk
+#Include .\HTTP_TRANSPORT_ADDRESS.ahk
+#Include .\HTTP_UNKNOWN_HEADER.ahk
+#Include .\HTTP_VERB.ahk
 #Include .\HTTP_SSL_INFO.ahk
+#Include ..\WinSock\SOCKADDR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\HTTP_KNOWN_HEADER.ahk
+#Include .\HTTP_COOKED_URL.ahk
+#Include .\HTTP_VERSION.ahk
+#Include .\HTTP_REQUEST_HEADERS.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Uses the HTTP_REQUEST structure to return data associated with a specific request.

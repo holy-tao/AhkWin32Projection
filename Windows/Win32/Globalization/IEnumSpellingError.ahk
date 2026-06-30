@@ -3,6 +3,7 @@
 #Include ..\..\..\Guid.ahk
 #Include ..\System\Com\IUnknown.ahk
 #Include .\ISpellingError.ahk
+#Include ..\Foundation\HRESULT.ahk
 
 /**
  * An enumeration of the spelling errors.

@@ -1,16 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINTRUST_DATA.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\CRYPT_PROVIDER_FUNCTIONS.ahk
-#Include ..\Cryptography\HCERTSTORE.ahk
-#Include .\CRYPT_PROVIDER_SGNR.ahk
-#Include .\CRYPT_PROVIDER_PRIVDATA.ahk
-#Include .\PROVDATA_SIP.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\Cryptography\CERT_USAGE_MATCH.ahk
-#Include .\CRYPT_PROVIDER_SIGSTATE.ahk
+#Include .\PROVDATA_SIP.ahk
+#Include .\WINTRUST_DATA.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\WINTRUST_SIGNATURE_SETTINGS.ahk
+#Include .\CRYPT_PROVIDER_FUNCTIONS.ahk
+#Include ..\Cryptography\CERT_USAGE_MATCH.ahk
+#Include .\CRYPT_PROVIDER_SGNR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\CRYPT_PROVIDER_SIGSTATE.ahk
+#Include .\CRYPT_PROVIDER_PRIVDATA.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\Cryptography\HCERTSTORE.ahk
 
 /**
  * Used to pass data between WinVerifyTrust and trust providers.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Direct2D\Common\D2D1_PIXEL_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\Direct2D\Common\D2D1_ALPHA_MODE.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\Direct2D\Common\D2D1_PIXEL_FORMAT.ahk
 
 /**
  * This defines parameters that you can use to override the default parameters normally used when encoding an image.

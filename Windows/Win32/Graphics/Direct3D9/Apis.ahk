@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDirect3D9Ex.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IDirect3D9.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9

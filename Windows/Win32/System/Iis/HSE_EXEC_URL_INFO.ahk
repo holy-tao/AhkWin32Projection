@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HSE_EXEC_URL_USER_INFO.ahk
 #Include .\HSE_EXEC_URL_ENTITY_INFO.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis

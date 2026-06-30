@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The ICertConfig interface provides functionality for retrieving the public configuration data (specified during client setup) for a Certificate Services server.
@@ -246,7 +247,7 @@ class ICertConfig extends IDispatch {
     GetField(strFieldName) {
         strFieldName := strFieldName is String ? BSTR.Alloc(strFieldName).Value : strFieldName
 
-        pstrOut := BSTR()
+        pstrOut := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", strFieldName, "ptr", pstrOut, "HRESULT")
         return pstrOut
     }
@@ -485,7 +486,7 @@ class ICertConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-getconfig
      */
     GetConfig(Flags) {
-        pstrOut := BSTR()
+        pstrOut := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", Flags, "ptr", pstrOut, "HRESULT")
         return pstrOut
     }

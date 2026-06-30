@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\WAVEFORMATEX.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
 class DSBUFFERDESC extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -51,10 +52,13 @@ class DSBUFFERDESC extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid3DAlgorithm {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__guid3DAlgorithm"))
+                this.__guid3DAlgorithm := Guid(24, this)
+            return this.__guid3DAlgorithm
+        }
     }
 }

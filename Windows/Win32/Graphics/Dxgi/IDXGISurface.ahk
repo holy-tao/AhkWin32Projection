@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_MAP_FLAGS.ahk
 #Include .\IDXGIDeviceSubObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DXGI_SURFACE_DESC.ahk
 #Include .\DXGI_MAPPED_RECT.ahk
 

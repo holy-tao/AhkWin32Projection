@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ILocationReport.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * ILatLongReport represents a location report that contains information in the form of latitude and longitude.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\STORAGE_TIER_REGION.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class DEVICE_DSM_TIERING_QUERY_OUTPUT extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 

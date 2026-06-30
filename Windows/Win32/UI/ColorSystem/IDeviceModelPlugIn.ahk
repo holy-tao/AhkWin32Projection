@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\BlackInformation.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\XYZColorF.ahk
 #Include .\PrimaryXYZColors.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\GamutShellTriangle.ahk
 
 /**
  * Describes the methods that are defined for the IDeviceModelPlugIn Component Object Model (COM) interface.

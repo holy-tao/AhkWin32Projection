@@ -1,10 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaError.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\MFVideoNormalizedRect.ahk
+#Include .\MFARGB.ahk
+#Include .\MF_MEDIA_ENGINE_ERR.ahk
+#Include .\MF_MEDIA_ENGINE_PRELOAD.ahk
 #Include .\IMFMediaTimeRange.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MF_MEDIA_ENGINE_CANPLAY.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaEngineSrcElements.ahk
+#Include .\IMFMediaError.ahk
 
 /**
  * Enables an application to play audio or video files.
@@ -129,7 +138,7 @@ class IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getcurrentsource
      */
     GetCurrentSource() {
-        ppUrl := BSTR()
+        ppUrl := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", ppUrl, "HRESULT")
         return ppUrl
     }

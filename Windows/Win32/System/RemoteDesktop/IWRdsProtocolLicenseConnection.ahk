@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\WTS_LICENSE_CAPABILITIES.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods used by the Remote Desktop Services service to perform the licensing handshake during a connection sequence.

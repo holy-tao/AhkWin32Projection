@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IBDA_AutoDemodulate.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IBDA_AutoDemodulateEx interface extends IBDA_AutoDemodulate.

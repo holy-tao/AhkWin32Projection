@@ -1,7 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\MINIDRV_TRANSFER_CONTEXT.ahk
+#Include .\WIA_FORMAT_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WIA_DEV_CAP_DRV.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWiaDrvItem.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition

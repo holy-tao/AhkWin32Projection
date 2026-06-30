@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The SOCKADDR_BTH structure is used in conjunction with Bluetooth socket operations, defined by address family AF_BTH.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class SOCKADDR_BTH extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -38,11 +39,14 @@ class SOCKADDR_BTH extends Win32Struct {
 
     /**
      * Service Class Identifier of the socket. When used with the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-bind">bind</a> function, <i>serviceClassId</i> is ignored. Also ignored if the port is specified. For the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-connect">connect</a> function, specifies the unique Bluetooth service class ID of the service to which it wants to connect. If the peer device has more than one port that corresponds to the service class identifier, the <b>connect</b> function attempts to connect to the first valid service; this mechanism can be used without prior SDP queries.
-     * @type {Pointer}
+     * @type {Guid}
      */
     serviceClassId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__serviceClassId"))
+                this.__serviceClassId := Guid(16, this)
+            return this.__serviceClassId
+        }
     }
 
     /**
@@ -50,7 +54,7 @@ class SOCKADDR_BTH extends Win32Struct {
      * @type {Integer}
      */
     port {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

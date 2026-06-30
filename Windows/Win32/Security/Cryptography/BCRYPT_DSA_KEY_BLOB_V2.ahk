@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DSAFIPSVERSION_ENUM.ahk
 #Include .\BCRYPT_DSA_MAGIC.ahk
 #Include .\HASHALGORITHM_ENUM.ahk
-#Include .\DSAFIPSVERSION_ENUM.ahk
 
 /**
  * Used as a header for a Digital Signature Algorithm (DSA) public key or private key BLOB in memory. (BCRYPT_DSA_KEY_BLOB_V2)

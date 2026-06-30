@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\DIRECTSOUNDDEVICE_DATAFLOW.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
 class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -27,10 +29,13 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA extends Win32Struct 
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     DeviceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__DeviceId"))
+                this.__DeviceId := Guid(12, this)
+            return this.__DeviceId
+        }
     }
 }

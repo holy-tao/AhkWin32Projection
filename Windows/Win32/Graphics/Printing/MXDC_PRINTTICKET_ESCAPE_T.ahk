@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MXDC_ESCAPE_HEADER_T.ahk
 #Include .\MXDC_PRINTTICKET_DATA_T.ahk
+#Include .\MXDC_ESCAPE_HEADER_T.ahk
 
 /**
  * The MXDC\_PRINTTICKET\_ESCAPE\_T structure is a MXDC\_ESCAPE\_HEADER\_T structure concatenated with a MXDC\_PRINTTICKET\_DATA\_T structure.

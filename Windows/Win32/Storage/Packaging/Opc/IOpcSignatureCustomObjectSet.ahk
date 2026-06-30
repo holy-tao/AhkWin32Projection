@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcSignatureCustomObject.ahk
 #Include .\IOpcSignatureCustomObjectEnumerator.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * An unordered set of IOpcSignatureCustomObject interface pointers that contain the XML markup of application-specific Object elements.

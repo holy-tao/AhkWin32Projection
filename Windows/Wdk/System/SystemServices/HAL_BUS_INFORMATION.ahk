@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERFACE_TYPE.ahk
 #Include .\BUS_DATA_TYPE.ahk
+#Include .\INTERFACE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

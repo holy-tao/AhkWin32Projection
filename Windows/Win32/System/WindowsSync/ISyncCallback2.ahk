@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISyncCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents additional application callbacks that are used to notify the application of synchronization events.

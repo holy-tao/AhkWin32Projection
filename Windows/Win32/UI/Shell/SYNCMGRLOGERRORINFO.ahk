@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Provides error information for use in the ISyncMgrSynchronizeCallback::LogError method.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.UI.Shell
  */
 class SYNCMGRLOGERRORINFO extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -48,26 +49,32 @@ class SYNCMGRLOGERRORINFO extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * An error identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ErrorID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ErrorID"))
+                this.__ErrorID := Guid(12, this)
+            return this.__ErrorID
+        }
     }
 
     /**
      * Type: <b>GUID</b>
      * 
      * The item where the error occurred.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ItemID {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__ItemID"))
+                this.__ItemID := Guid(28, this)
+            return this.__ItemID
+        }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 32
+        this.cbSize := 44
     }
 }

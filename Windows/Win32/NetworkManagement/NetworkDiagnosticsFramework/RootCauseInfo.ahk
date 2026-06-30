@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\RepairInfoEx.ahk
 
 /**
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
 class RootCauseInfo extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -27,11 +29,14 @@ class RootCauseInfo extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * The GUID that corresponds to the problem identified.
-     * @type {Pointer}
+     * @type {Guid}
      */
     rootCauseID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__rootCauseID"))
+                this.__rootCauseID := Guid(8, this)
+            return this.__rootCauseID
+        }
     }
 
     /**
@@ -81,19 +86,22 @@ class RootCauseInfo extends Win32Struct {
      * @type {Integer}
      */
     rootCauseFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * Type: <b>GUID</b>
      * 
      * GUID of the network interface on which the problem occurred. If the problem is not interface-specific, this value is zero (0).
-     * @type {Pointer}
+     * @type {Guid}
      */
     networkInterfaceID {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__networkInterfaceID"))
+                this.__networkInterfaceID := Guid(28, this)
+            return this.__networkInterfaceID
+        }
     }
 
     /**
@@ -103,8 +111,8 @@ class RootCauseInfo extends Win32Struct {
      * @type {Pointer<RepairInfoEx>}
      */
     pRepairs {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -114,7 +122,7 @@ class RootCauseInfo extends Win32Struct {
      * @type {Integer}
      */
     repairCount {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
+        get => NumGet(this, 56, "ushort")
+        set => NumPut("ushort", value, this, 56)
     }
 }

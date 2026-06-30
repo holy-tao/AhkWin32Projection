@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionEffect.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include .\IDCompositionTransform3D.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a group of bitmap effects that are applied together to modify the rasterization of a visual's subtree.

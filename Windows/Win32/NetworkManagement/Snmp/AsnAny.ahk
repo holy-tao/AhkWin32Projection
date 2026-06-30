@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\AsnOctetString.ahk
 #Include .\AsnObjectIdentifier.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\AsnOctetString.ahk
 
 /**
  * The AsnAny structure contains an SNMP variable type and value. This structure is a member of the SnmpVarBind structure that is used as a parameter in many of the SNMP functions. This structure is not used by the WinSNMP API functions.
@@ -15,7 +16,7 @@ class AsnAny extends Win32Struct {
 
     static packingSize => 4
 
-    class _asnValue_e__Union extends Win32Struct {
+    class _asnValue extends Win32Struct {
         static sizeof => 16
         static packingSize => 4
 
@@ -144,12 +145,12 @@ class AsnAny extends Win32Struct {
     }
 
     /**
-     * @type {_asnValue_e__Union}
+     * @type {_asnValue}
      */
     asnValue {
         get {
             if(!this.HasProp("__asnValue"))
-                this.__asnValue := AsnAny._asnValue_e__Union(4, this)
+                this.__asnValue := AsnAny._asnValue(4, this)
             return this.__asnValue
         }
     }

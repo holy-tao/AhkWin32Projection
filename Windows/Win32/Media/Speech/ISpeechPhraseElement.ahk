@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\SpeechEngineConfidence.ahk
+#Include .\SpeechDisplayAttributes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -179,7 +182,7 @@ class ISpeechPhraseElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayText() {
-        DisplayText := BSTR()
+        DisplayText := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", DisplayText, "HRESULT")
         return DisplayText
     }
@@ -189,7 +192,7 @@ class ISpeechPhraseElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_LexicalForm() {
-        LexicalForm := BSTR()
+        LexicalForm := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", LexicalForm, "HRESULT")
         return LexicalForm
     }

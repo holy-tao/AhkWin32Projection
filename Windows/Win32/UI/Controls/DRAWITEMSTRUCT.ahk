@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
-#Include .\ODA_FLAGS.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include .\ODS_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
+#Include .\ODA_FLAGS.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
@@ -29,12 +30,11 @@ class IKernelTransaction extends IUnknown {
     static VTableNames => ["GetHandle"]
 
     /**
-     * Retrieves certain properties of an object handle.
+     * 
      * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-gethandleinformation
      */
     GetHandle() {
-        pHandle := HANDLE()
+        pHandle := HANDLE({Value: 0}, True)
         result := ComCall(3, this, "ptr", pHandle, "HRESULT")
         return pHandle
     }

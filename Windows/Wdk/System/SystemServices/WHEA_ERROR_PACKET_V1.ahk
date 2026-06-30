@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WHEA_ERROR_TYPE.ahk
-#Include .\WHEA_ERROR_SEVERITY.ahk
 #Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk
+#Include .\WHEA_ERROR_SEVERITY.ahk
 #Include .\WHEA_RAW_DATA_FORMAT.ahk
 
 /**
@@ -13,7 +13,7 @@ class WHEA_ERROR_PACKET_V1 extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -179,12 +179,12 @@ class WHEA_ERROR_PACKET_V1 extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := WHEA_ERROR_PACKET_V1._u_e__Union(72, this)
+                this.__u := WHEA_ERROR_PACKET_V1._u(72, this)
             return this.__u
         }
     }

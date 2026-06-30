@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IEnumSearchRoots.ahk
 #Include .\IEnumSearchScopeRules.ahk
+#Include .\ISearchRoot.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IEnumSearchRoots.ahk
+#Include .\CLUSION_REASON.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods that notify the search engine of containers to crawl and/or watch, and items under those containers to include or exclude when crawling or watching.

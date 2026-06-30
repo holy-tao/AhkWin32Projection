@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IItemEnumerator.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\WcmTargetMode.ahk
 #Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines the offline target information, specifically, file and registry locations as well as wow64 information.
@@ -59,7 +64,7 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettemporarystorelocation
      */
     GetTemporaryStoreLocation() {
-        TemporaryStoreLocation := BSTR()
+        TemporaryStoreLocation := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", TemporaryStoreLocation, "HRESULT")
         return TemporaryStoreLocation
     }
@@ -123,7 +128,7 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetid
      */
     GetTargetID() {
-        TargetID := BSTR()
+        TargetID := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", TargetID, "HRESULT")
         return TargetID
     }
@@ -145,7 +150,7 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetprocessorarchitecture
      */
     GetTargetProcessorArchitecture() {
-        ProcessorArchitecture := BSTR()
+        ProcessorArchitecture := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", ProcessorArchitecture, "HRESULT")
         return ProcessorArchitecture
     }
@@ -173,7 +178,7 @@ class ITargetInfo extends IUnknown {
     GetProperty(Offline, _Property) {
         _Property := _Property is String ? StrPtr(_Property) : _Property
 
-        Value := BSTR()
+        Value := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", Offline, "ptr", _Property, "ptr", Value, "HRESULT")
         return Value
     }
@@ -217,7 +222,7 @@ class ITargetInfo extends IUnknown {
     ExpandTarget(Offline, _Location) {
         _Location := _Location is String ? StrPtr(_Location) : _Location
 
-        ExpandedLocation := BSTR()
+        ExpandedLocation := BSTR({Value: 0}, True)
         result := ComCall(14, this, "int", Offline, "ptr", _Location, "ptr", ExpandedLocation, "HRESULT")
         return ExpandedLocation
     }
@@ -232,7 +237,7 @@ class ITargetInfo extends IUnknown {
     ExpandTargetPath(Offline, _Location) {
         _Location := _Location is String ? StrPtr(_Location) : _Location
 
-        ExpandedLocation := BSTR()
+        ExpandedLocation := BSTR({Value: 0}, True)
         result := ComCall(15, this, "int", Offline, "ptr", _Location, "ptr", ExpandedLocation, "HRESULT")
         return ExpandedLocation
     }
@@ -261,7 +266,7 @@ class ITargetInfo extends IUnknown {
     LoadModule(Module) {
         Module := Module is String ? StrPtr(Module) : Module
 
-        ModuleHandle := HMODULE()
+        ModuleHandle := HMODULE({Value: 0}, True)
         result := ComCall(17, this, "ptr", Module, "ptr", ModuleHandle, "HRESULT")
         return ModuleHandle
     }
@@ -299,7 +304,7 @@ class ITargetInfo extends IUnknown {
         ClientArchitecture := ClientArchitecture is String ? StrPtr(ClientArchitecture) : ClientArchitecture
         Value := Value is String ? StrPtr(Value) : Value
 
-        TranslatedValue := BSTR()
+        TranslatedValue := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", ClientArchitecture, "ptr", Value, "ptr", TranslatedValue, "HRESULT")
         return TranslatedValue
     }
@@ -363,7 +368,7 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivelocation
      */
     GetSchemaHiveLocation() {
-        pHiveLocation := BSTR()
+        pHiveLocation := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pHiveLocation, "HRESULT")
         return pHiveLocation
     }
@@ -387,7 +392,7 @@ class ITargetInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivemountname
      */
     GetSchemaHiveMountName() {
-        pMountName := BSTR()
+        pMountName := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pMountName, "HRESULT")
         return pMountName
     }

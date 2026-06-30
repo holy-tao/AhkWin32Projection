@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\IUnknown.ahk
-#Include ..\..\Variant\VARIANT.ahk
+#Include ..\IDispatch.ahk
 #Include .\IEventObjectCollection.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include ..\IUnknown.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Specifies information about the relationship between an event subscriber and an event to which it is subscribing. It is used by publisher filters.
@@ -143,7 +145,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriptionid
      */
     get_SubscriptionID() {
-        pbstrSubscriptionID := BSTR()
+        pbstrSubscriptionID := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrSubscriptionID, "HRESULT")
         return pbstrSubscriptionID
     }
@@ -167,7 +169,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriptionname
      */
     get_SubscriptionName() {
-        pbstrSubscriptionName := BSTR()
+        pbstrSubscriptionName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrSubscriptionName, "HRESULT")
         return pbstrSubscriptionName
     }
@@ -193,7 +195,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_publisherid
      */
     get_PublisherID() {
-        pbstrPublisherID := BSTR()
+        pbstrPublisherID := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrPublisherID, "HRESULT")
         return pbstrPublisherID
     }
@@ -219,7 +221,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_eventclassid
      */
     get_EventClassID() {
-        pbstrEventClassID := BSTR()
+        pbstrEventClassID := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrEventClassID, "HRESULT")
         return pbstrEventClassID
     }
@@ -243,7 +245,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_methodname
      */
     get_MethodName() {
-        pbstrMethodName := BSTR()
+        pbstrMethodName := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrMethodName, "HRESULT")
         return pbstrMethodName
     }
@@ -269,7 +271,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberclsid
      */
     get_SubscriberCLSID() {
-        pbstrSubscriberCLSID := BSTR()
+        pbstrSubscriberCLSID := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", pbstrSubscriberCLSID, "HRESULT")
         return pbstrSubscriberCLSID
     }
@@ -341,7 +343,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_ownersid
      */
     get_OwnerSID() {
-        pbstrOwnerSID := BSTR()
+        pbstrOwnerSID := BSTR({Value: 0}, True)
         result := ComCall(23, this, "ptr", pbstrOwnerSID, "HRESULT")
         return pbstrOwnerSID
     }
@@ -390,7 +392,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
+        pbstrDescription := BSTR({Value: 0}, True)
         result := ComCall(27, this, "ptr", pbstrDescription, "HRESULT")
         return pbstrDescription
     }
@@ -416,7 +418,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_machinename
      */
     get_MachineName() {
-        pbstrMachineName := BSTR()
+        pbstrMachineName := BSTR({Value: 0}, True)
         result := ComCall(29, this, "ptr", pbstrMachineName, "HRESULT")
         return pbstrMachineName
     }
@@ -556,7 +558,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_interfaceid
      */
     get_InterfaceID() {
-        pbstrInterfaceID := BSTR()
+        pbstrInterfaceID := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", pbstrInterfaceID, "HRESULT")
         return pbstrInterfaceID
     }

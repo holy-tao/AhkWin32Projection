@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_QUALITY_PARMSW (Unicode) structure (digitalv.h) contains parameters for the MCI_QUALITY command for digital-video devices.

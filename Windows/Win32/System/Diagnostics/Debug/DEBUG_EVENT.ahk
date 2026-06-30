@@ -1,18 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DEBUG_EVENT_CODE.ahk
-#Include .\EXCEPTION_DEBUG_INFO.ahk
-#Include .\EXCEPTION_RECORD.ahk
-#Include .\CREATE_THREAD_DEBUG_INFO.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\CREATE_PROCESS_DEBUG_INFO.ahk
-#Include .\EXIT_THREAD_DEBUG_INFO.ahk
-#Include .\EXIT_PROCESS_DEBUG_INFO.ahk
-#Include .\LOAD_DLL_DEBUG_INFO.ahk
 #Include .\UNLOAD_DLL_DEBUG_INFO.ahk
-#Include .\OUTPUT_DEBUG_STRING_INFO.ahk
+#Include .\EXIT_THREAD_DEBUG_INFO.ahk
 #Include .\RIP_INFO.ahk
 #Include .\RIP_INFO_TYPE.ahk
+#Include .\EXCEPTION_DEBUG_INFO.ahk
+#Include .\EXIT_PROCESS_DEBUG_INFO.ahk
+#Include .\LOAD_DLL_DEBUG_INFO.ahk
+#Include .\DEBUG_EVENT_CODE.ahk
+#Include .\CREATE_THREAD_DEBUG_INFO.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include .\EXCEPTION_RECORD.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\NTSTATUS.ahk
+#Include .\OUTPUT_DEBUG_STRING_INFO.ahk
+#Include .\CREATE_PROCESS_DEBUG_INFO.ahk
 
 /**
  * Describes a debugging event.
@@ -27,7 +29,7 @@ class DEBUG_EVENT extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 160
         static packingSize => 8
 
@@ -170,12 +172,12 @@ class DEBUG_EVENT extends Win32Struct {
      * Any additional information relating to the debugging event. This union takes on the type and value 
      *       appropriate to the type of debugging event, as described in the <b>dwDebugEventCode</b> 
      *       member.
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := DEBUG_EVENT._u_e__Union(16, this)
+                this.__u := DEBUG_EVENT._u(16, this)
             return this.__u
         }
     }

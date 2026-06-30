@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationCacheRequest.ahk
 #Include .\IUIAutomationTextRange2.ahk
+#Include .\UIA_TEXTATTRIBUTE_ID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IUIAutomationElement.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IUIAutomationElementArray.ahk
 
 /**

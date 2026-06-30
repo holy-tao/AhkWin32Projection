@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDCompositionTransform.ahk
+#Include ..\Direct2D\Common\D2D_MATRIX_3X2_F.ahk
+#Include .\IDCompositionAnimation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents an arbitrary affine 2D transformation defined by a 3-by-2 matrix. (IDCompositionMatrixTransform)

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapSource.ahk
 #Include .\IWICMetadataQueryReader.ahk
+#Include .\IWICColorContext.ahk
+#Include .\IWICBitmapSource.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines methods for decoding individual image frames of an encoded file.

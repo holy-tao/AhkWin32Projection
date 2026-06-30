@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * A file system volume is being formatted.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_file_system_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_NF_FILE_SYSTEM extends Win32Enum {

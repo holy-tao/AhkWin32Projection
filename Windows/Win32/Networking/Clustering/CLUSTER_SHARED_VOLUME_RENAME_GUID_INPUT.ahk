@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME.ahk
-#Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE.ahk
 #Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME.ahk
+#Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering

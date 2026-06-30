@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_CHANNEL_BINDING.ahk
-#Include .\WS_CHANNEL_PROPERTY_CONSTRAINT.ahk
 #Include .\WS_SECURITY_CONSTRAINTS.ahk
+#Include .\WS_CHANNEL_PROPERTY_CONSTRAINT.ahk
 #Include .\WS_POLICY_EXTENSION.ahk
 
 /**

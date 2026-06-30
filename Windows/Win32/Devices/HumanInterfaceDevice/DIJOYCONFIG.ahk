@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYREGHWCONFIG.ahk
-#Include .\JOYREGHWSETTINGS.ahk
-#Include .\JOYREGHWVALUES.ahk
-#Include .\JOYRANGE.ahk
 #Include .\JOYPOS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\JOYREGHWSETTINGS.ahk
+#Include .\JOYRANGE.ahk
+#Include .\JOYREGHWVALUES.ahk
+#Include .\JOYREGHWCONFIG.ahk
 
 /**
  * The DIJOYCONFIG structure contains information about a joystick's configuration.
@@ -14,9 +15,9 @@
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
 class DIJOYCONFIG extends Win32Struct {
-    static sizeof => 1168
+    static sizeof => 1176
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the size of the structure in bytes. This member must be initialized before the structure is used.
@@ -29,11 +30,14 @@ class DIJOYCONFIG extends Win32Struct {
 
     /**
      * Specifies the instance GUID for the joystick.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidInstance"))
+                this.__guidInstance := Guid(4, this)
+            return this.__guidInstance
+        }
     }
 
     /**
@@ -43,7 +47,7 @@ class DIJOYCONFIG extends Win32Struct {
     hwc {
         get {
             if(!this.HasProp("__hwc"))
-                this.__hwc := JOYREGHWCONFIG(16, this)
+                this.__hwc := JOYREGHWCONFIG(20, this)
             return this.__hwc
         }
     }
@@ -53,8 +57,8 @@ class DIJOYCONFIG extends Win32Struct {
      * @type {Integer}
      */
     dwGain {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 
     /**
@@ -62,8 +66,8 @@ class DIJOYCONFIG extends Win32Struct {
      * @type {String}
      */
     wszType {
-        get => StrGet(this.ptr + 132, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 132, 255, "UTF-16")
+        get => StrGet(this.ptr + 136, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 136, 255, "UTF-16")
     }
 
     /**
@@ -71,16 +75,19 @@ class DIJOYCONFIG extends Win32Struct {
      * @type {String}
      */
     wszCallout {
-        get => StrGet(this.ptr + 644, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 644, 255, "UTF-16")
+        get => StrGet(this.ptr + 648, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 648, 255, "UTF-16")
     }
 
     /**
      * Specifies a GUID that identifies the gameport being used for this joystick.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidGameport {
-        get => NumGet(this, 1160, "ptr")
-        set => NumPut("ptr", value, this, 1160)
+        get {
+            if(!this.HasProp("__guidGameport"))
+                this.__guidGameport := Guid(1160, this)
+            return this.__guidGameport
+        }
     }
 }

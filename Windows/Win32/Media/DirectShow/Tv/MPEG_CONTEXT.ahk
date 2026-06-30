@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MPEG_CONTEXT_TYPE.ahk
 #Include .\MPEG_BCS_DEMUX.ahk
+#Include .\MPEG_CONTEXT_TYPE.ahk
 #Include .\MPEG_WINSOCK.ahk
 
 /**
@@ -14,7 +14,7 @@ class MPEG_CONTEXT extends Win32Struct {
 
     static packingSize => 4
 
-    class _U_e__Union extends Win32Struct {
+    class _U extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -52,12 +52,12 @@ class MPEG_CONTEXT extends Win32Struct {
 
     /**
      * A union that contains the following members.
-     * @type {_U_e__Union}
+     * @type {_U}
      */
     U {
         get {
             if(!this.HasProp("__U"))
-                this.__U := MPEG_CONTEXT._U_e__Union(4, this)
+                this.__U := MPEG_CONTEXT._U(4, this)
             return this.__U
         }
     }

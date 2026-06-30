@@ -1,14 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextFormat.ahk
-#Include .\IDWriteFontCollection.ahk
-#Include .\DWRITE_TEXT_RANGE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteInlineObject.ahk
+#Include .\DWRITE_CLUSTER_METRICS.ahk
+#Include .\IDWriteTextRenderer.ahk
 #Include .\IDWriteTypography.ahk
-#Include .\DWRITE_TEXT_METRICS.ahk
+#Include .\DWRITE_HIT_TEST_METRICS.ahk
+#Include .\IDWriteTextFormat.ahk
+#Include .\DWRITE_LINE_METRICS.ahk
+#Include .\DWRITE_FONT_STRETCH.ahk
+#Include .\IDWriteFontCollection.ahk
+#Include .\DWRITE_FONT_STYLE.ahk
+#Include .\DWRITE_FONT_WEIGHT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DWRITE_OVERHANG_METRICS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteInlineObject.ahk
+#Include .\DWRITE_TEXT_RANGE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\DWRITE_TEXT_METRICS.ahk
 
 /**
  * The IDWriteTextLayout interface represents a block of text after it has been fully analyzed and formatted.

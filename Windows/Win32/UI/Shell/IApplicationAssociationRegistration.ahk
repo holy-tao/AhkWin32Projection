@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ASSOCIATIONLEVEL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ASSOCIATIONTYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that query and set default applications for specific file Association Type, and protocols at a specific Association Level.

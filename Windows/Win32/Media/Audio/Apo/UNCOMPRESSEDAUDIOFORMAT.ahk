@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * The UNCOMPRESSEDAUDIOFORMAT structure specifies the frame rate, channel mask, and other attributes of the uncompressed audio data format.
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class UNCOMPRESSEDAUDIOFORMAT extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the GUID of the data format type.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidFormatType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidFormatType"))
+                this.__guidFormatType := Guid(0, this)
+            return this.__guidFormatType
+        }
     }
 
     /**
@@ -27,8 +31,8 @@ class UNCOMPRESSEDAUDIOFORMAT extends Win32Struct {
      * @type {Integer}
      */
     dwSamplesPerFrame {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -36,8 +40,8 @@ class UNCOMPRESSEDAUDIOFORMAT extends Win32Struct {
      * @type {Integer}
      */
     dwBytesPerSampleContainer {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -45,8 +49,8 @@ class UNCOMPRESSEDAUDIOFORMAT extends Win32Struct {
      * @type {Integer}
      */
     dwValidBitsPerSample {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -54,8 +58,8 @@ class UNCOMPRESSEDAUDIOFORMAT extends Win32Struct {
      * @type {Float}
      */
     fFramesPerSecond {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
+        get => NumGet(this, 28, "float")
+        set => NumPut("float", value, this, 28)
     }
 
     /**
@@ -63,7 +67,7 @@ class UNCOMPRESSEDAUDIOFORMAT extends Win32Struct {
      * @type {Integer}
      */
     dwChannelMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

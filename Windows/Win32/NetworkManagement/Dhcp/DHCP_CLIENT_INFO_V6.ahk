@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_IPV6_ADDRESS.ahk
-#Include .\DHCP_BINARY_DATA.ahk
-#Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO_V6.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DATE_TIME.ahk
+#Include .\DHCP_BINARY_DATA.ahk
+#Include .\DHCP_IPV6_ADDRESS.ahk
 
 /**
  * The DHCP_CLIENT_INFO_V6 structure contains information on DHCPv6 clients.

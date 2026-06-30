@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ACTRL_ACCESS_ENTRY_LISTA.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains a list of access-control entries for an object or a specified property on an object. (ANSI)

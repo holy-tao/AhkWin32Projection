@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1TransformNode.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * Instructs the effect-rendering system to offset an input bitmap without inserting a rendering pass.

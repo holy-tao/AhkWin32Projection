@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SERVICE_METADATA_DOCUMENT.ahk
 #Include .\WS_XML_STRING.ahk
+#Include .\WS_SERVICE_METADATA_DOCUMENT.ahk
 
 /**
  * Specifies the service metadata documents array. This can be a collection of WSDL/XSD documents represented as an array of WS_STRING.

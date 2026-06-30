@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Creates a report job.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-createreportjob
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
 class FsrmReportManager extends Win32Struct {

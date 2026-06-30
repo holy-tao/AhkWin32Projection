@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IGPMGPO2.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMGPO2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy
@@ -48,7 +49,7 @@ class IGPMGPO3 extends IGPMGPO2 {
      * @returns {BSTR} 
      */
     get_InfrastructureDC() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", pVal, "HRESULT")
         return pVal
     }

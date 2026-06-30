@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines operations and session settings.
@@ -70,7 +72,7 @@ class IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get
      */
     Get(resourceUri, flags) {
-        resource := BSTR()
+        resource := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", resourceUri, "int", flags, "ptr", resource, "HRESULT")
         return resource
     }
@@ -95,7 +97,7 @@ class IWSManSession extends IDispatch {
     Put(resourceUri, resource, flags) {
         resource := resource is String ? BSTR.Alloc(resource).Value : resource
 
-        resultResource := BSTR()
+        resultResource := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", resultResource, "HRESULT")
         return resultResource
     }
@@ -127,7 +129,7 @@ class IWSManSession extends IDispatch {
     Create(resourceUri, resource, flags) {
         resource := resource is String ? BSTR.Alloc(resource).Value : resource
 
-        newUri := BSTR()
+        newUri := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", newUri, "HRESULT")
         return newUri
     }
@@ -166,7 +168,7 @@ class IWSManSession extends IDispatch {
         actionUri := actionUri is String ? BSTR.Alloc(actionUri).Value : actionUri
         parameters := parameters is String ? BSTR.Alloc(parameters).Value : parameters
 
-        result := BSTR()
+        result := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", actionUri, "ptr", resourceUri, "ptr", parameters, "int", flags, "ptr", result, "HRESULT")
         return result
     }
@@ -217,7 +219,7 @@ class IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-identify
      */
     Identify(flags) {
-        result := BSTR()
+        result := BSTR({Value: 0}, True)
         result := ComCall(13, this, "int", flags, "ptr", result, "HRESULT")
         return result
     }
@@ -228,7 +230,7 @@ class IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get_error
      */
     get_Error() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", value, "HRESULT")
         return value
     }

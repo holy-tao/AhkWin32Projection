@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmMutableCollection.ahk
+#Include .\IFsrmObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to define a group of files based on one or more file name patterns.
@@ -66,7 +67,7 @@ class IFsrmFileGroup extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_name
      */
     get_Name() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", name, "HRESULT")
         return name
     }

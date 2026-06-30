@@ -1,9 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\LIFE_TIME.ahk
+#Include .\RepairInfo.ahk
+#Include .\REPAIR_STATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\DIAGNOSIS_STATUS.ahk
+#Include .\DiagnosticsInfo.ahk
+#Include .\HYPOTHESIS.ahk
+#Include .\PROBLEM_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\HELPER_ATTRIBUTE.ahk
 
 /**
  * The INetDiagHelper interface provides methods that capture and provide information associated with diagnoses and resolution of network-related issues.

@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11Buffer.ahk
+#Include .\ID3D11VideoDecoder.ahk
+#Include .\ID3D11VideoDecoderOutputView.ahk
 #Include .\ID3D11VideoContext2.ahk
+#Include .\D3D11_VIDEO_DECODER_BUFFER_DESC2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext3)

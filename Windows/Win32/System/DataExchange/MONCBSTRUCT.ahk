@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\HCONV.ahk
-#Include .\HSZ.ahk
-#Include .\HDDEDATA.ahk
 #Include .\CONVCONTEXT.ahk
+#Include .\HDDEDATA.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\HSZ.ahk
 #Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
 

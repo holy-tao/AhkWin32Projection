@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_Timestamp.ahk
 #Include .\MI_Interval.ahk
+#Include .\MI_Timestamp.ahk
 
 /**
  * Represents a union of MI_Timestamp and MI_Interval.
@@ -13,7 +13,7 @@ class MI_Datetime extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 32
         static packingSize => 4
 
@@ -50,12 +50,12 @@ class MI_Datetime extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := MI_Datetime._u_e__Union(4, this)
+                this.__u := MI_Datetime._u(4, this)
             return this.__u
         }
     }

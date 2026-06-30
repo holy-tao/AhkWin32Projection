@@ -1,20 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
  */
 class uCLSSPEC extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 112
 
     static packingSize => 8
 
     class _tagged_union extends Win32Struct {
-        static sizeof => 72
+        static sizeof => 104
         static packingSize => 8
 
         class _ByName extends Win32Struct {
-            static sizeof => 16
+            static sizeof => 24
             static packingSize => 8
 
             /**
@@ -26,41 +28,53 @@ class uCLSSPEC extends Win32Struct {
             }
 
             /**
-             * @type {Pointer}
+             * @type {Guid}
              */
             PolicyId {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
+                get {
+                    if(!this.HasProp("__PolicyId"))
+                        this.__PolicyId := Guid(8, this)
+                    return this.__PolicyId
+                }
             }
         }
 
         class _ByObjectId extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+            static sizeof => 32
+            static packingSize => 4
 
             /**
-             * @type {Pointer}
+             * @type {Guid}
              */
             ObjectId {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
+                get {
+                    if(!this.HasProp("__ObjectId"))
+                        this.__ObjectId := Guid(0, this)
+                    return this.__ObjectId
+                }
             }
 
             /**
-             * @type {Pointer}
+             * @type {Guid}
              */
             PolicyId {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
+                get {
+                    if(!this.HasProp("__PolicyId"))
+                        this.__PolicyId := Guid(16, this)
+                    return this.__PolicyId
+                }
             }
         }
 
         /**
-         * @type {Pointer}
+         * @type {Guid}
          */
         clsid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+            get {
+                if(!this.HasProp("__clsid"))
+                    this.__clsid := Guid(0, this)
+                return this.__clsid
+            }
         }
 
         /**

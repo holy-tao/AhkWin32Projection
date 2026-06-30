@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsDNWithString interface provides methods for an ADSI client to associate a distinguished name (DN) to a string value.
@@ -51,7 +52,7 @@ class IADsDNWithString extends IDispatch {
      * @returns {BSTR} 
      */
     get_StringValue() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -73,7 +74,7 @@ class IADsDNWithString extends IDispatch {
      * @returns {BSTR} 
      */
     get_DNString() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", retval, "HRESULT")
         return retval
     }

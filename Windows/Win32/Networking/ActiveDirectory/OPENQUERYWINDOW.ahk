@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPersistQuery.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\StructuredStorage\IPropertyBag.ahk
+#Include .\IPersistQuery.ahk
 
 /**
  * Used with the ICommonQuery::OpenQueryWindow method to initialize the directory service query dialog box.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class OPENQUERYWINDOW extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -38,11 +39,14 @@ class OPENQUERYWINDOW extends Win32Struct {
      * Contains a <b>CLSID</b> value that specifies the query handler to be used by the 
      *       query dialog box. The value of this member also determines the type of structure pointed to by the 
      *       <b>pHandlerParameters</b> member.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidHandler {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__clsidHandler"))
+                this.__clsidHandler := Guid(8, this)
+            return this.__clsidHandler
+        }
     }
 
     /**
@@ -52,19 +56,22 @@ class OPENQUERYWINDOW extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pHandlerParameters {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Specifies the default form to be displayed in the query dialog box. This member is ignored if 
      *       <b>dwFlags</b> does not contain <b>OQWF_DEFAULTFORM</b>. This member can 
      *       contain the <b>CLSID</b> of a custom query form or one of the system-supplied forms.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidDefaultForm {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__clsidDefaultForm"))
+                this.__clsidDefaultForm := Guid(32, this)
+            return this.__clsidDefaultForm
+        }
     }
 
     /**
@@ -76,23 +83,23 @@ class OPENQUERYWINDOW extends Win32Struct {
      * @type {IPersistQuery}
      */
     pPersistQuery {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     pFormParameters {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {IPropertyBag}
      */
     ppbFormParameters {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

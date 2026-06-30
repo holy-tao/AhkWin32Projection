@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\MW_FILTERMODE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\MAGTRANSFORM.ahk
+#Include .\MAGCOLOREFFECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Magnification

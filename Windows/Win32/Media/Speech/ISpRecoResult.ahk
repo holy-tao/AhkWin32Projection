@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpPhrase.ahk
 #Include .\ISpPhraseAlt.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 #Include .\ISpStreamFormat.ahk
 #Include .\ISpRecoContext.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SPRECORESULTTIMES.ahk
+#Include .\SPSERIALIZEDRESULT.ahk
+#Include .\ISpPhrase.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -56,11 +61,10 @@ class ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * The GetAudioLanguage method retrieves a string indicating which language is available on the specified audio stream.
+     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @returns {ISpStreamFormat} 
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/getaudiolanguage-method
      */
     GetAudio(ulStartElement, cElements) {
         result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "HRESULT")

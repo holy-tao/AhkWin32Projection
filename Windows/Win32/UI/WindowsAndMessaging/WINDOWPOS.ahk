@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\SET_WINDOW_POS_FLAGS.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about the size and position of a window.

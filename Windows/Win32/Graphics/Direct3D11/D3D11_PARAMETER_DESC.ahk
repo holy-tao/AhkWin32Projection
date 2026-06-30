@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Direct3D\D3D_SHADER_VARIABLE_TYPE.ahk
 #Include ..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk
-#Include ..\Direct3D\D3D_INTERPOLATION_MODE.ahk
 #Include ..\Direct3D\D3D_PARAMETER_FLAGS.ahk
+#Include ..\Direct3D\D3D_INTERPOLATION_MODE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a function parameter. (D3D11_PARAMETER_DESC)

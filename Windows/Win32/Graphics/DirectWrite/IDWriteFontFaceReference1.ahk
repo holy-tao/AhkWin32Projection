@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFaceReference.ahk
-#Include .\IDWriteFontFace5.ahk
 #Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include .\IDWriteFontFace5.ahk
+#Include .\IDWriteFontFaceReference.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a reference to a font face. A uniquely identifying reference to a font, from which you can create a font face to query font metrics and use for rendering.

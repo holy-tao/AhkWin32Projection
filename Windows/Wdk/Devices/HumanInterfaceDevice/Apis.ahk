@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HID_XFER_PACKET.ahk
+#Include .\VHF_CONFIG.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
 #Include ..\..\..\Win32\Foundation\NTSTATUS.ahk
 
 /**

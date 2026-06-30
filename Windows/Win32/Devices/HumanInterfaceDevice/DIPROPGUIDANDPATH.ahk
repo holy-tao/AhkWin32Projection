@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DIPROPHEADER.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
 class DIPROPGUIDANDPATH extends Win32Struct {
-    static sizeof => 544
+    static sizeof => 552
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DIPROPHEADER}
@@ -22,18 +23,21 @@ class DIPROPGUIDANDPATH extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidClass {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidClass"))
+                this.__guidClass := Guid(16, this)
+            return this.__guidClass
+        }
     }
 
     /**
      * @type {String}
      */
     wszPath {
-        get => StrGet(this.ptr + 24, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
+        get => StrGet(this.ptr + 32, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 32, 259, "UTF-16")
     }
 }

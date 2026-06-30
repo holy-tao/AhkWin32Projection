@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAsyncResult.ahk
 #Include .\IMFShutdown.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFRelativePanelReport.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFAsyncCallback.ahk
 
 /**
  * Monitors the panel associated with a display, so that the app receives notifications when the relative location of the panel changes.

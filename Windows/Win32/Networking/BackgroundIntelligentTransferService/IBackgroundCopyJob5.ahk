@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyJob4.ahk
 #Include .\BITS_JOB_PROPERTY_VALUE.ahk
+#Include .\IBackgroundCopyJob4.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\BITS_JOB_PROPERTY_ID.ahk
 
 /**
  * Use this interface to query or set several optional behaviors of a job.

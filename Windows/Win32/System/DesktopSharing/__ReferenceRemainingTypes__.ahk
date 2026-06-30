@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CTRL_LEVEL.ahk
-#Include .\ATTENDEE_DISCONNECT_REASON.ahk
-#Include .\CHANNEL_PRIORITY.ahk
-#Include .\CHANNEL_FLAGS.ahk
-#Include .\CHANNEL_ACCESS_ENUM.ahk
-#Include .\RDPENCOMAPI_ATTENDEE_FLAGS.ahk
-#Include .\RDPSRAPI_WND_FLAGS.ahk
 #Include .\RDPSRAPI_APP_FLAGS.ahk
+#Include .\CHANNEL_FLAGS.ahk
+#Include .\CHANNEL_PRIORITY.ahk
+#Include .\CHANNEL_ACCESS_ENUM.ahk
+#Include .\ATTENDEE_DISCONNECT_REASON.ahk
+#Include .\RDPSRAPI_WND_FLAGS.ahk
+#Include .\RDPENCOMAPI_ATTENDEE_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.DesktopSharing

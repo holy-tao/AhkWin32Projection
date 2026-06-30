@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IComponentData.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\DATA_OBJECT_TYPES.ahk
+#Include .\IComponentData.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IComponentData2 interface supersedes the IComponentData interface.

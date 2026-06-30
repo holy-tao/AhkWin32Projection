@@ -1,5 +1,42 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\DNS_SERVICE_BROWSE_REQUEST.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\DNS_QUERY_RAW_RESULT.ahk
+#Include .\MDNS_QUERY_REQUEST.ahk
+#Include .\DNS_SERVICE_REGISTER_REQUEST.ahk
+#Include .\DNS_CONNECTION_PROXY_INFO.ahk
+#Include .\DNS_MESSAGE_BUFFER.ahk
+#Include .\DNS_QUERY_RAW_REQUEST.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DNS_CUSTOM_SERVER.ahk
+#Include .\DNS_CONNECTION_PROXY_INFO_EX.ahk
+#Include .\DNS_QUERY_CANCEL.ahk
+#Include .\DNS_QUERY_RAW_CANCEL.ahk
+#Include .\DNS_CONNECTION_POLICY_ENTRY_LIST.ahk
+#Include .\DNS_CONNECTION_IFINDEX_LIST.ahk
+#Include .\IP6_ADDRESS.ahk
+#Include .\DNS_QUERY_RESULT.ahk
+#Include .\DNS_NAME_FORMAT.ahk
+#Include .\DNS_QUERY_OPTIONS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\DNS_CONFIG_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\DNS_CHARSET.ahk
+#Include .\DNS_QUERY_REQUEST.ahk
+#Include .\DNS_CONNECTION_PROXY_LIST.ahk
+#Include .\MDNS_QUERY_HANDLE.ahk
+#Include .\DNS_SERVICE_CANCEL.ahk
+#Include .\DNS_RECORDA.ahk
+#Include .\DNS_FREE_TYPE.ahk
+#Include .\DNS_SERVICE_INSTANCE.ahk
+#Include .\DNS_CONNECTION_POLICY_TAG.ahk
+#Include .\DNS_APPLICATION_SETTINGS.ahk
+#Include .\DNS_CONNECTION_NAME_LIST.ahk
+#Include .\DNS_SERVICE_RESOLVE_REQUEST.ahk
+#Include .\DNS_CONNECTION_PROXY_TYPE.ahk
+#Include .\DNS_PROXY_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns

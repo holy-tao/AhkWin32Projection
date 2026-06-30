@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about a custom event.
@@ -7,7 +9,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  */
 class UIAutomationEventInfo extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -15,11 +17,14 @@ class UIAutomationEventInfo extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * The event identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -29,7 +34,7 @@ class UIAutomationEventInfo extends Win32Struct {
      * @type {PWSTR}
      */
     pProgrammaticName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

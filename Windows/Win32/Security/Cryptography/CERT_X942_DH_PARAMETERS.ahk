@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CERT_X942_DH_VALIDATION_PARAMS.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains parameters associated with a Diffie-Hellman public key algorithm.

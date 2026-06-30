@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVD_DISC_CONTROL_BLOCK_HEADER.ahk
 #Include .\DVD_DISC_CONTROL_BLOCK_SESSION_ITEM.ahk
+#Include .\DVD_DISC_CONTROL_BLOCK_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Dvd

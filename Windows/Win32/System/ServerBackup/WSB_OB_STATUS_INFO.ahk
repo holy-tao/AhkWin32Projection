@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSB_OB_STATUS_ENTRY.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information to update the cloud backup provider status in the Windows Server Backup MMC snap-in.
@@ -8,17 +9,20 @@
  * @namespace Windows.Win32.System.ServerBackup
  */
 class WSB_OB_STATUS_INFO extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The snap-in identifier of the cloud backup provider registered with Windows Server Backup.
-     * @type {Pointer}
+     * @type {Guid}
      */
     m_guidSnapinId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__m_guidSnapinId"))
+                this.__m_guidSnapinId := Guid(0, this)
+            return this.__m_guidSnapinId
+        }
     }
 
     /**
@@ -26,8 +30,8 @@ class WSB_OB_STATUS_INFO extends Win32Struct {
      * @type {Integer}
      */
     m_cStatusEntry {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -35,7 +39,7 @@ class WSB_OB_STATUS_INFO extends Win32Struct {
      * @type {Pointer<WSB_OB_STATUS_ENTRY>}
      */
     m_rgStatusEntry {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

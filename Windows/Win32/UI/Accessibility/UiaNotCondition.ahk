@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ConditionType.ahk
 #Include .\UiaCondition.ahk
+#Include .\ConditionType.ahk
 
 /**
  * Note  This structure is deprecated.  Contains information about a negative condition.

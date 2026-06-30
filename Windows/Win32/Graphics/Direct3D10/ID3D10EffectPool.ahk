@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ID3D10Effect.ahk
 
 /**
  * A pool interface represents a common memory space (or pool) for sharing variables between effects.

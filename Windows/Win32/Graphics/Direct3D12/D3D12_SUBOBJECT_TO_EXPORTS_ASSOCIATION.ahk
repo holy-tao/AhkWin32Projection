@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_STATE_SUBOBJECT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Associates a subobject defined directly in a state object with shader exports.

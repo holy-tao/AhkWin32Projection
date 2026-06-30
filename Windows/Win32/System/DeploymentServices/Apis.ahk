@@ -1,6 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\TRANSPORTCLIENT_CALLBACK_ID.ahk
+#Include ..\Registry\HKEY.ahk
+#Include .\WDS_CLI_IMAGE_TYPE.ahk
+#Include .\PXE_DHCPV6_NESTED_RELAY_MESSAGE.ahk
+#Include .\PXE_PROVIDER.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\CPU_ARCHITECTURE.ahk
+#Include .\TRANSPORTPROVIDER_CALLBACK_ID.ahk
+#Include .\WDS_CLI_IMAGE_PARAM_TYPE.ahk
+#Include .\PXE_ADDRESS.ahk
+#Include .\WDS_CLI_CRED.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WDS_TRANSPORTCLIENT_REQUEST.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * @namespace Windows.Win32.System.DeploymentServices
@@ -1058,7 +1073,7 @@ class DeploymentServices {
     static WdsCliFindFirstImage(hSession) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        phFindHandle := HANDLE()
+        phFindHandle := HANDLE({Value: 0}, True)
         result := DllCall("WDSCLIENTAPI.dll\WdsCliFindFirstImage", "ptr", hSession, "ptr", phFindHandle, "HRESULT")
         return phFindHandle
     }
@@ -1131,7 +1146,7 @@ class DeploymentServices {
     static WdsCliGetImageHandleFromFindHandle(FindHandle) {
         FindHandle := FindHandle is Win32Handle ? NumGet(FindHandle, "ptr") : FindHandle
 
-        phImageHandle := HANDLE()
+        phImageHandle := HANDLE({Value: 0}, True)
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHandleFromFindHandle", "ptr", FindHandle, "ptr", phImageHandle, "HRESULT")
         return phImageHandle
     }
@@ -1150,7 +1165,7 @@ class DeploymentServices {
     static WdsCliGetImageHandleFromTransferHandle(hTransfer) {
         hTransfer := hTransfer is Win32Handle ? NumGet(hTransfer, "ptr") : hTransfer
 
-        phImageHandle := HANDLE()
+        phImageHandle := HANDLE({Value: 0}, True)
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHandleFromTransferHandle", "ptr", hTransfer, "ptr", phImageHandle, "HRESULT")
         return phImageHandle
     }
@@ -1172,7 +1187,7 @@ class DeploymentServices {
 
         A_LastError := 0
 
-        phSession := HANDLE()
+        phSession := HANDLE({Value: 0}, True)
         result := DllCall("WDSCLIENTAPI.dll\WdsCliCreateSession", "ptr", pwszServer, "ptr", pCred, "ptr", phSession, "HRESULT")
         if(A_LastError) {
             throw OSError(A_LastError)
@@ -1730,7 +1745,7 @@ class DeploymentServices {
 
         pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
-        phTransfer := HANDLE()
+        phTransfer := HANDLE({Value: 0}, True)
         result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", "ptr", hImage, "ptr", pwszLocalPath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, "ptr", phTransfer, "HRESULT")
         return phTransfer
     }
@@ -1776,7 +1791,7 @@ class DeploymentServices {
 
         pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
-        phTransfer := HANDLE()
+        phTransfer := HANDLE({Value: 0}, True)
         result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, "ptr", phTransfer, "HRESULT")
         return phTransfer
     }

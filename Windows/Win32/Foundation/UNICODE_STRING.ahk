@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\PWSTR.ahk
 
 /**
  * Used by various Local Security Authority (LSA) functions to specify a Unicode string.

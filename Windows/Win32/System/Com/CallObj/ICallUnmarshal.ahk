@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\CALLFRAME_MARSHALCONTEXT.ahk
 #Include ..\IUnknown.ahk
+#Include .\ICallFrame.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Is used on the server (receiving) side of a remote invocation.

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAnimationTimerClientEventHandler.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\UI_ANIMATION_UPDATE_RESULT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines methods for handling timing update events.

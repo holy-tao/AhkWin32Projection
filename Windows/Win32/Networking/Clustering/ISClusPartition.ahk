@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Provides extended information about a partition on a Physical Disk resource.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/nn-msclus-iscluspartitionex
  * @namespace Windows.Win32.Networking.Clustering
  */
 class ISClusPartition extends IDispatch {
@@ -93,7 +92,7 @@ class ISClusPartition extends IDispatch {
      * @returns {BSTR} 
      */
     get_DeviceName() {
-        pbstrDeviceName := BSTR()
+        pbstrDeviceName := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }
@@ -103,7 +102,7 @@ class ISClusPartition extends IDispatch {
      * @returns {BSTR} 
      */
     get_VolumeLabel() {
-        pbstrVolumeLabel := BSTR()
+        pbstrVolumeLabel := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrVolumeLabel, "HRESULT")
         return pbstrVolumeLabel
     }
@@ -140,7 +139,7 @@ class ISClusPartition extends IDispatch {
      * @returns {BSTR} 
      */
     get_FileSystem() {
-        pbstrFileSystem := BSTR()
+        pbstrFileSystem := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrFileSystem, "HRESULT")
         return pbstrFileSystem
     }

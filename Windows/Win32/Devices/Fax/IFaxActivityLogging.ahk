@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFaxActivityLogging interface defines a configuration object used by a fax client application to retrieve and set options for activity logging.
@@ -130,7 +132,7 @@ class IFaxActivityLogging extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivitylogging-get_databasepath
      */
     get_DatabasePath() {
-        pbstrDatabasePath := BSTR()
+        pbstrDatabasePath := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrDatabasePath, "HRESULT")
         return pbstrDatabasePath
     }

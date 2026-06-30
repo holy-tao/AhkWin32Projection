@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -160,7 +162,7 @@ class IHTMLCurrentStyle2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_layoutFlow() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", p, "HRESULT")
         return p
     }
@@ -170,7 +172,7 @@ class IHTMLCurrentStyle2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_wordWrap() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -180,7 +182,7 @@ class IHTMLCurrentStyle2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_textUnderlinePosition() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", p, "HRESULT")
         return p
     }
@@ -279,7 +281,7 @@ class IHTMLCurrentStyle2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_writingMode() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", p, "HRESULT")
         return p
     }
@@ -299,7 +301,7 @@ class IHTMLCurrentStyle2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_filter() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", p, "HRESULT")
         return p
     }
@@ -309,7 +311,7 @@ class IHTMLCurrentStyle2 extends IDispatch {
      * @returns {BSTR} 
      */
     get_textAlignLast() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }

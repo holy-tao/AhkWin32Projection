@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpextensiontrap">SnmpExtensionTrap</see>, <see href="https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrgettrap">SnmpMgrGetTrap</see>, <see href="https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrgettrapex">SnmpMgrGetTrapEx</see>.
  * @namespace Windows.Win32.NetworkManagement.Snmp
  */
 class SNMP_GENERICTRAP extends Win32Enum {

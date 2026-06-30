@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ICallIndirect.ahk
 #Include .\ICallFrameEvents.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Supports the registration and un-registering of event sinks wishing to be notified of calls made directly on the interface.

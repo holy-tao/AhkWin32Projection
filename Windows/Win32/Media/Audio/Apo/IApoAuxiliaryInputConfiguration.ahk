@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAudioMediaType.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\APO_CONNECTION_DESCRIPTOR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods that APOs can implement so that the audio engine can add and remove auxiliary input streams.

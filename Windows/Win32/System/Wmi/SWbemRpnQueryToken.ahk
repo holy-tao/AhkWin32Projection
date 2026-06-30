@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SWbemQueryQualifiedName.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SWbemRpnConst.ahk
+#Include .\SWbemQueryQualifiedName.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SWbemRpnQueryToken structure represents the query tokens in a WMIQ_ANALYSIS_RPN_SEQUENCE type query. An example of a query token is the following:\_j &gt; 4.

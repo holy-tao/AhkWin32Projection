@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IDirectManipulationFrameInfoProvider.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DIRECTMANIPULATION_HITTEST_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\UI\WindowsAndMessaging\MSG.ahk
 
 /**
  * Provides access to all the Direct Manipulation features and APIs available to the client application.

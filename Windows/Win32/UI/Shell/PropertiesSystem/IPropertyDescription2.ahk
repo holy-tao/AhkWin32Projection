@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IPropertyDescription.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods that enumerate and retrieve individual property description details. (IPropertyDescription2)

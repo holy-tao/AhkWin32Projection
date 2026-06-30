@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WM_READER_CLIENTINFO.ahk
+#Include .\WM_READER_STATISTICS.ahk
+#Include .\WMT_STREAM_SELECTION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A call to QueryInterface from a reader object exposes the advanced functionality described in this section.

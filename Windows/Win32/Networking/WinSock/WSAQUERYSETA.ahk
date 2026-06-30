@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\CSADDR_INFO.ahk
 #Include .\WSAVERSION.ahk
 #Include .\AFPROTOCOLS.ahk
-#Include .\CSADDR_INFO.ahk
-#Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Provides relevant information about a given service, including service class ID, service name, applicable namespace identifier and protocol information, as well as a set of transport addresses at which the service listens. (ANSI)

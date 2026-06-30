@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ITfFunction.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\TfSapiObject.ahk
 
 /**
  * The ITfFnGetSAPIObject interface is implemented by the Speech API (SAPI) text service. This interface is used by the TSF manager or a client (application or other text service) to obtain various SAPI objects.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USN_RECORD_COMMON_HEADER.ahk
+#Include .\USN_RECORD_EXTENT.ahk
 #Include .\USN_RECORD_V2.ahk
-#Include .\USN_RECORD_V3.ahk
-#Include ..\..\Storage\FileSystem\FILE_ID_128.ahk
 #Include .\USN_RECORD_V4.ahk
 #Include .\USN_SOURCE_INFO_ID.ahk
-#Include .\USN_RECORD_EXTENT.ahk
+#Include ..\..\Storage\FileSystem\FILE_ID_128.ahk
+#Include .\USN_RECORD_V3.ahk
+#Include .\USN_RECORD_COMMON_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

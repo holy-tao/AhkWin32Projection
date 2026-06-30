@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PAN_MIDLINE.ahk
 #Include .\PAN_FAMILY_TYPE.ahk
-#Include .\PAN_SERIF_STYLE.ahk
+#Include .\PAN_STROKE_VARIATION.ahk
 #Include .\PAN_WEIGHT.ahk
 #Include .\PAN_PROPORTION.ahk
-#Include .\PAN_CONTRAST.ahk
-#Include .\PAN_STROKE_VARIATION.ahk
-#Include .\PAN_ARM_STYLE.ahk
-#Include .\PAN_LETT_FORM.ahk
-#Include .\PAN_MIDLINE.ahk
 #Include .\PAN_XHEIGHT.ahk
+#Include .\PAN_LETT_FORM.ahk
+#Include .\PAN_SERIF_STYLE.ahk
+#Include .\PAN_CONTRAST.ahk
+#Include .\PAN_ARM_STYLE.ahk
 
 /**
  * The PANOSE structure describes the PANOSE font-classification values for a TrueType font. These characteristics are then used to associate the font with other fonts of similar appearance but different names.

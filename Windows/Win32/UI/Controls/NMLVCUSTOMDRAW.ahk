@@ -2,12 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NMCUSTOMDRAW.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\NMLVCUSTOMDRAW_ITEM_TYPE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMCUSTOMDRAW_DRAW_STAGE.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
-#Include .\NMLVCUSTOMDRAW_ITEM_TYPE.ahk
 #Include .\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk
 
 /**

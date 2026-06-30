@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IComponentType.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\TVAudioMode.ahk
 
 /**
  * The IAnalogAudioComponentType interface provides methods for accessing the analog audio mode.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFP_EVENT_HEADER.ahk
 
 /**
  * Callback interface for the IMFPMediaPlayer interface.

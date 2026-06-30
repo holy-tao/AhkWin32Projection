@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\CERT_CONTEXT.ahk
-#Include ..\Cryptography\CTL_CONTEXT.ahk
 #Include ..\Cryptography\CERT_CHAIN_ELEMENT.ahk
+#Include ..\Cryptography\CTL_CONTEXT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\Cryptography\CERT_CONTEXT.ahk
 
 /**
  * Provides information about a provider certificate.

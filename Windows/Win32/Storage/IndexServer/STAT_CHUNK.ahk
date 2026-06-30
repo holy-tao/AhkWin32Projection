@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHUNK_BREAKTYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\CHUNKSTATE.ahk
-#Include .\FULLPROPSPEC.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPSPEC_KIND.ahk
+#Include .\FULLPROPSPEC.ahk
+#Include .\CHUNK_BREAKTYPE.ahk
 
 /**
  * Describes the characteristics of a chunk.
@@ -94,7 +96,7 @@
  * @namespace Windows.Win32.Storage.IndexServer
  */
 class STAT_CHUNK extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -157,8 +159,8 @@ class STAT_CHUNK extends Win32Struct {
      * @type {Integer}
      */
     idChunkSource {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -166,8 +168,8 @@ class STAT_CHUNK extends Win32Struct {
      * @type {Integer}
      */
     cwcStartSource {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -175,7 +177,7 @@ class STAT_CHUNK extends Win32Struct {
      * @type {Integer}
      */
     cwcLenSource {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISchemaItem.ahk
 #Include .\ISchemaItemCollection.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ISchemaStringCollection.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\SCHEMAWHITESPACE.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\SCHEMATYPEVARIETY.ahk
+#Include .\SCHEMADERIVATIONMETHOD.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -196,7 +201,7 @@ class ISchemaType extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_minExclusive() {
-        minExclusive := BSTR()
+        minExclusive := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", minExclusive, "HRESULT")
         return minExclusive
     }
@@ -206,7 +211,7 @@ class ISchemaType extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_minInclusive() {
-        minInclusive := BSTR()
+        minInclusive := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", minInclusive, "HRESULT")
         return minInclusive
     }
@@ -216,7 +221,7 @@ class ISchemaType extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_maxExclusive() {
-        maxExclusive := BSTR()
+        maxExclusive := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", maxExclusive, "HRESULT")
         return maxExclusive
     }
@@ -226,7 +231,7 @@ class ISchemaType extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_maxInclusive() {
-        maxInclusive := BSTR()
+        maxInclusive := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", maxInclusive, "HRESULT")
         return maxInclusive
     }

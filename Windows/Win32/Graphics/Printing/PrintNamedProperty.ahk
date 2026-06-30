@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PrintPropertyValue.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EPrintPropertyType.ahk
+#Include .\PrintPropertyValue.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

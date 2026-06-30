@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADs interface defines the basic object features, that is, properties and methods, of any ADSI object.
@@ -78,7 +79,7 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -88,7 +89,7 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_Class() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -98,7 +99,7 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_GUID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -108,7 +109,7 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_ADsPath() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -118,7 +119,7 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_Parent() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -128,7 +129,7 @@ class IADs extends IDispatch {
      * @returns {BSTR} 
      */
     get_Schema() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", retval, "HRESULT")
         return retval
     }

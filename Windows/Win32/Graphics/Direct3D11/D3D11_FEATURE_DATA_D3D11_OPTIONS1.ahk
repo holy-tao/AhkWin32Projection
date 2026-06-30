@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_TILED_RESOURCES_TIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes Direct3D 11.2 feature options in the current graphics driver.

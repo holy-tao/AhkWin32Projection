@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IMAPI_CD_TRACK_DIGITAL_COPY_SETTING.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IMAPI_CD_SECTOR_TYPE.ahk
 
 /**
  * Use this interface to track per-track properties that are applied to CD media.
@@ -155,7 +160,7 @@ class IRawCDImageTrackInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_isrc
      */
     get_ISRC() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", value, "HRESULT")
         return value
     }

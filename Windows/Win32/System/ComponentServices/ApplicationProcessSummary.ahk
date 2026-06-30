@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\COMPLUS_APPTYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents summary information about a process hosting COM+ applications.
@@ -8,35 +11,44 @@
  * @namespace Windows.Win32.System.ComponentServices
  */
 class ApplicationProcessSummary extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 80
 
     static packingSize => 8
 
     /**
      * The partition ID of the COM+ server application, for server application processes. For processes that are not hosting a COM+ server application, this is set to the partition ID of the first tracked component instantiated in the process.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PartitionIdPrimaryApplication {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__PartitionIdPrimaryApplication"))
+                this.__PartitionIdPrimaryApplication := Guid(0, this)
+            return this.__PartitionIdPrimaryApplication
+        }
     }
 
     /**
      * The application ID of the COM+ server application, for server application processes. For processes that are not hosting a COM+ server application, this is set to the application ID of the first tracked component instantiated in the process.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ApplicationIdPrimaryApplication {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ApplicationIdPrimaryApplication"))
+                this.__ApplicationIdPrimaryApplication := Guid(16, this)
+            return this.__ApplicationIdPrimaryApplication
+        }
     }
 
     /**
      * The application instance GUID uniquely identifying the tracked process.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ApplicationInstanceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ApplicationInstanceId"))
+                this.__ApplicationInstanceId := Guid(32, this)
+            return this.__ApplicationInstanceId
+        }
     }
 
     /**
@@ -44,8 +56,8 @@ class ApplicationProcessSummary extends Win32Struct {
      * @type {Integer}
      */
     ProcessId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -53,8 +65,8 @@ class ApplicationProcessSummary extends Win32Struct {
      * @type {COMPLUS_APPTYPE}
      */
     Type {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -62,8 +74,8 @@ class ApplicationProcessSummary extends Win32Struct {
      * @type {PWSTR}
      */
     ProcessExeName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -71,8 +83,8 @@ class ApplicationProcessSummary extends Win32Struct {
      * @type {BOOL}
      */
     IsService {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -80,8 +92,8 @@ class ApplicationProcessSummary extends Win32Struct {
      * @type {BOOL}
      */
     IsPaused {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 68, "int")
+        set => NumPut("int", value, this, 68)
     }
 
     /**
@@ -89,7 +101,7 @@ class ApplicationProcessSummary extends Win32Struct {
      * @type {BOOL}
      */
     IsRecycled {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 }

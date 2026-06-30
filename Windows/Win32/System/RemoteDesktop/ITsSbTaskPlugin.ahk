@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ITsSbTaskInfo.ahk
 #Include .\ITsSbPlugin.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITsSbTaskPluginNotifySink.ahk
 
 /**
  * Exposes methods that update the queue of tasks for Remote Desktop Connection Broker plugins.

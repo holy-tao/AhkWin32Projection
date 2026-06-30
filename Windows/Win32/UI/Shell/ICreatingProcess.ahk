@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ICreateProcessInputs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used by ShellExecuteEx and IContextMenu to allow the caller to alter some parameters of the process being created.

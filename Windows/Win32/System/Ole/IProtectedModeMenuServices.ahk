@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -36,7 +38,7 @@ class IProtectedModeMenuServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createmenu
      */
     CreateMenu() {
-        phMenu := HMENU()
+        phMenu := HMENU({Value: 0}, True)
         result := ComCall(3, this, "ptr", phMenu, "HRESULT")
         return phMenu
     }
@@ -54,7 +56,7 @@ class IProtectedModeMenuServices extends IUnknown {
         pszModuleName := pszModuleName is String ? StrPtr(pszModuleName) : pszModuleName
         pszMenuName := pszMenuName is String ? StrPtr(pszMenuName) : pszMenuName
 
-        phMenu := HMENU()
+        phMenu := HMENU({Value: 0}, True)
         result := ComCall(4, this, "ptr", pszModuleName, "ptr", pszMenuName, "ptr", phMenu, "HRESULT")
         return phMenu
     }
@@ -68,7 +70,7 @@ class IProtectedModeMenuServices extends IUnknown {
     LoadMenuID(pszModuleName, wResourceID) {
         pszModuleName := pszModuleName is String ? StrPtr(pszModuleName) : pszModuleName
 
-        phMenu := HMENU()
+        phMenu := HMENU({Value: 0}, True)
         result := ComCall(5, this, "ptr", pszModuleName, "ushort", wResourceID, "ptr", phMenu, "HRESULT")
         return phMenu
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The DDDEVICEIDENTIFIER2 structure is passed to the IDirectDraw7::GetDeviceIdentifier method to obtain information about a device.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
 class DDDEVICEIDENTIFIER2 extends Win32Struct {
-    static sizeof => 1064
+    static sizeof => 1072
 
     static packingSize => 8
 
@@ -94,11 +95,14 @@ class DDDEVICEIDENTIFIER2 extends Win32Struct {
 
     /**
      * Unique identifier for the driver and chipset pair. Use this value if you want to track changes to the driver or chipset to reprofile the graphics subsystem. It can also be used to identify particular problematic drivers.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidDeviceIdentifier {
-        get => NumGet(this, 1048, "ptr")
-        set => NumPut("ptr", value, this, 1048)
+        get {
+            if(!this.HasProp("__guidDeviceIdentifier"))
+                this.__guidDeviceIdentifier := Guid(1048, this)
+            return this.__guidDeviceIdentifier
+        }
     }
 
     /**
@@ -106,7 +110,7 @@ class DDDEVICEIDENTIFIER2 extends Win32Struct {
      * @type {Integer}
      */
     dwWHQLLevel {
-        get => NumGet(this, 1056, "uint")
-        set => NumPut("uint", value, this, 1056)
+        get => NumGet(this, 1064, "uint")
+        set => NumPut("uint", value, this, 1064)
     }
 }

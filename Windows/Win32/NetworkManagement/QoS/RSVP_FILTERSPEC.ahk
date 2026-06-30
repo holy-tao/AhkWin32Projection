@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FilterType.ahk
 #Include .\RSVP_FILTERSPEC_V4.ahk
-#Include .\IN_ADDR_IPV4.ahk
+#Include .\RSVP_FILTERSPEC_V4_GPI.ahk
+#Include .\RSVP_FILTERSPEC_V6_GPI.ahk
+#Include .\FilterType.ahk
 #Include .\RSVP_FILTERSPEC_V6.ahk
 #Include .\IN_ADDR_IPV6.ahk
 #Include .\RSVP_FILTERSPEC_V6_FLOW.ahk
-#Include .\RSVP_FILTERSPEC_V4_GPI.ahk
-#Include .\RSVP_FILTERSPEC_V6_GPI.ahk
+#Include .\IN_ADDR_IPV4.ahk
 
 /**
  * The RSVP_FILTERSPEC structure provides RSVP FILTERSPEC information.

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMPGSCROLL_KEYS.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Include .\NMHDR.ahk
 #Include .\NMPGSCROLL_DIR.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains and receives information that the pager control uses when scrolling the contained window. It is used with the PGN_SCROLL notification.

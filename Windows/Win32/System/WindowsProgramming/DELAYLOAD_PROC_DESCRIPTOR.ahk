@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -9,7 +10,7 @@ class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct {
 
     static packingSize => 8
 
-    class _Description_e__Union extends Win32Struct {
+    class _Description extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -39,12 +40,12 @@ class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct {
     }
 
     /**
-     * @type {_Description_e__Union}
+     * @type {_Description}
      */
     Description {
         get {
             if(!this.HasProp("__Description"))
-                this.__Description := DELAYLOAD_PROC_DESCRIPTOR._Description_e__Union(8, this)
+                this.__Description := DELAYLOAD_PROC_DESCRIPTOR._Description(8, this)
             return this.__Description
         }
     }

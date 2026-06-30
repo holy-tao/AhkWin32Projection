@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\CY.ahk
 #Include .\DB_NUMERIC.ahk
-#Include .\DBTIMESTAMP.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\DBOBJECT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DBTIMESTAMP.ahk
+#Include ..\Com\CY.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -220,7 +224,7 @@ class SSVARIANT extends Win32Struct {
     }
 
     class _BLOBType extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -238,8 +242,8 @@ class SSVARIANT extends Win32Struct {
          * @type {IUnknown}
          */
         pUnk {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
         }
     }
 

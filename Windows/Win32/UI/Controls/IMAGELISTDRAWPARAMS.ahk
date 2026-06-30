@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HIMAGELIST.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\HIMAGELIST.ahk
 
 /**
  * Contains information about an image list draw operation and is used with the IImageList::Draw function. (IMAGELISTDRAWPARAMS)

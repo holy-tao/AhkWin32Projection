@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DWRITE_FONT_METRICS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DWRITE_FONT_METRICS1 structure specifies the metrics that are applicable to all glyphs within the font face.

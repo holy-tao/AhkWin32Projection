@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IGameInputForceFeedbackEffect.ahk
+#Include .\GameInputDeviceStatus.ahk
+#Include .\GameInputForceFeedbackParams.ahk
+#Include .\GameInputBatteryState.ahk
+#Include .\GameInputDeviceInfo.ahk
+#Include .\GameInputRumbleParams.ahk
+#Include .\GameInputHapticFeedbackParams.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\IGameInputRawDeviceReport.ahk
+#Include .\IGameInputForceFeedbackEffect.ahk
+#Include .\GameInputRawDeviceReportKind.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

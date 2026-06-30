@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IPolicyQualifiers.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IObjectId.ahk
-#Include .\IPolicyQualifiers.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Can be used to specify a certificate policy that identifies a purpose for which the certificate can be used.

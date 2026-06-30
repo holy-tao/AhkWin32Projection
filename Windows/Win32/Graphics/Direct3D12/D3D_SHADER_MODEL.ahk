@@ -80,5 +80,10 @@ class D3D_SHADER_MODEL extends Win32Enum {
     /**
      * @type {Integer (Int32)}
      */
-    static D3D_HIGHEST_SHADER_MODEL => 105
+    static D3D_SHADER_MODEL_6_10 => 106
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D_HIGHEST_SHADER_MODEL => 106
 }

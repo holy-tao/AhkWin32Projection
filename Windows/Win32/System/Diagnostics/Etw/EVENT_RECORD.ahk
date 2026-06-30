@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include .\EVENT_HEADER.ahk
 #Include .\EVENT_DESCRIPTOR.ahk
 #Include .\ETW_BUFFER_CONTEXT.ahk
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class EVENT_RECORD extends Win32Struct {
-    static sizeof => 96
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -36,7 +37,7 @@ class EVENT_RECORD extends Win32Struct {
     BufferContext {
         get {
             if(!this.HasProp("__BufferContext"))
-                this.__BufferContext := ETW_BUFFER_CONTEXT(64, this)
+                this.__BufferContext := ETW_BUFFER_CONTEXT(80, this)
             return this.__BufferContext
         }
     }
@@ -46,8 +47,8 @@ class EVENT_RECORD extends Win32Struct {
      * @type {Integer}
      */
     ExtendedDataCount {
-        get => NumGet(this, 68, "ushort")
-        set => NumPut("ushort", value, this, 68)
+        get => NumGet(this, 84, "ushort")
+        set => NumPut("ushort", value, this, 84)
     }
 
     /**
@@ -55,8 +56,8 @@ class EVENT_RECORD extends Win32Struct {
      * @type {Integer}
      */
     UserDataLength {
-        get => NumGet(this, 70, "ushort")
-        set => NumPut("ushort", value, this, 70)
+        get => NumGet(this, 86, "ushort")
+        set => NumPut("ushort", value, this, 86)
     }
 
     /**
@@ -64,8 +65,8 @@ class EVENT_RECORD extends Win32Struct {
      * @type {Pointer<EVENT_HEADER_EXTENDED_DATA_ITEM>}
      */
     ExtendedData {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -73,8 +74,8 @@ class EVENT_RECORD extends Win32Struct {
      * @type {Pointer<Void>}
      */
     UserData {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -82,7 +83,7 @@ class EVENT_RECORD extends Win32Struct {
      * @type {Pointer<Void>}
      */
     UserContext {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 }

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA2_DecodeBufferDesc.ahk
 #Include .\DXVA2_DecodeExtensionData.ahk
+#Include .\DXVA2_DecodeBufferDesc.ahk
 
 /**
  * Contains parameters for the IDirectXVideoDecoder::Execute method.

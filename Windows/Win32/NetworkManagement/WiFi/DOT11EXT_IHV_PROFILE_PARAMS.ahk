@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11EXT_IHV_SSID_LIST.ahk
 #Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11EXT_IHV_SSID_LIST.ahk
 #Include .\DOT11_MSSECURITY_SETTINGS.ahk
 
 /**

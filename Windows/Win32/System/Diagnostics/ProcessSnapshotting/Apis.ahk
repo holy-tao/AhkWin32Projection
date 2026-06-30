@@ -1,5 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\PSS_CAPTURE_FLAGS.ahk
+#Include .\PSS_QUERY_INFORMATION_CLASS.ahk
+#Include .\HPSSWALK.ahk
+#Include .\PSS_DUPLICATE_FLAGS.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\PSS_WALK_INFORMATION_CLASS.ahk
+#Include .\PSS_ALLOCATOR.ahk
+#Include .\HPSS.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting

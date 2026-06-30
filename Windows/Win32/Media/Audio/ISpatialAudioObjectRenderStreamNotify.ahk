@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISpatialAudioObjectRenderStreamBase.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides notifications for spatial audio clients to respond to changes in the state of an ISpatialAudioObjectRenderStream.

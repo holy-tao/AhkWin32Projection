@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Display recoverable errors.
- * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpsvcsetloglevel
  * @namespace Windows.Win32.NetworkManagement.Snmp
  */
 class SNMP_LOG extends Win32Enum {

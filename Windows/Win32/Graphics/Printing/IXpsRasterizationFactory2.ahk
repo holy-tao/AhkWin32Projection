@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XPSRAS_BACKGROUND_COLOR.ahk
+#Include ..\..\Storage\Xps\IXpsOMPage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsRasterizer.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\XPSRAS_RENDERING_MODE.ahk
+#Include .\XPSRAS_PIXEL_FORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDWriteTextFormat1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\DWRITE_LINE_SPACING.ahk
 
 /**

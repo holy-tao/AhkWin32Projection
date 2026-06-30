@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputRawDevicePhysicalUnitKind.ahk
-#Include .\GameInputRawDeviceReportItemFlags.ahk
 #Include .\GameInputUsage.ahk
 #Include .\GameInputRawDeviceItemCollectionInfo.ahk
+#Include .\GameInputRawDeviceReportItemFlags.ahk
 #Include .\GameInputString.ahk
+#Include .\GameInputRawDevicePhysicalUnitKind.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\NMHDR.ahk
 
 /**
  * Contains information about a trackbar change notification. This message is sent with the TRBN_THUMBPOSCHANGING notification.

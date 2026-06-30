@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include .\IItemEnumerator.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Com\IStream.ahk
+#Include .\ISettingsResult.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITargetInfo.ahk
+#Include .\ISettingsIdentity.ahk
 
 /**
  * An interface to a backing store that is used to store setting changes made through the other SMI APIs, and provides operations to serialize to and deserialize from a representation.

@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISClusProperties.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISClusNetworkNetInterfaces.ahk
 #Include .\ISCluster.ahk
+#Include .\ISClusProperties.ahk
+#Include .\CLUSTER_NETWORK_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -152,7 +154,7 @@ class ISClusNetwork extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
+        pbstrName := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pbstrName, "HRESULT")
         return pbstrName
     }
@@ -174,7 +176,7 @@ class ISClusNetwork extends IDispatch {
      * @returns {BSTR} 
      */
     get_NetworkID() {
-        pbstrNetworkID := BSTR()
+        pbstrNetworkID := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pbstrNetworkID, "HRESULT")
         return pbstrNetworkID
     }

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
 #Include .\NDIS_PORT_TYPE.ahk
-#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
-#Include .\NET_IF_DIRECTION_TYPE.ahk
-#Include .\NDIS_PORT_CONTROL_STATE.ahk
 #Include .\NDIS_PORT_AUTHORIZATION_STATE.ahk
+#Include .\NET_IF_DIRECTION_TYPE.ahk
+#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include .\NDIS_PORT_CONTROL_STATE.ahk
+#Include .\NDIS_OBJECT_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

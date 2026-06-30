@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SQLINTERVAL.ahk
-#Include .\SQL_YEAR_MONTH_STRUCT.ahk
 #Include .\SQL_DAY_SECOND_STRUCT.ahk
+#Include .\SQL_YEAR_MONTH_STRUCT.ahk
+#Include .\SQLINTERVAL.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -12,7 +12,7 @@ class SQL_INTERVAL_STRUCT extends Win32Struct {
 
     static packingSize => 4
 
-    class _intval_e__Union extends Win32Struct {
+    class _intval extends Win32Struct {
         static sizeof => 20
         static packingSize => 4
 
@@ -56,12 +56,12 @@ class SQL_INTERVAL_STRUCT extends Win32Struct {
     }
 
     /**
-     * @type {_intval_e__Union}
+     * @type {_intval}
      */
     intval {
         get {
             if(!this.HasProp("__intval"))
-                this.__intval := SQL_INTERVAL_STRUCT._intval_e__Union(8, this)
+                this.__intval := SQL_INTERVAL_STRUCT._intval(8, this)
             return this.__intval
         }
     }

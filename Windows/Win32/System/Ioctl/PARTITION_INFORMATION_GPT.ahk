@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\GPT_ATTRIBUTES.ahk
 
 /**
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class PARTITION_INFORMATION_GPT extends Win32Struct {
-    static sizeof => 96
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -25,20 +26,26 @@ class PARTITION_INFORMATION_GPT extends Win32Struct {
      * 
      * Each partition type that the EFI specification supports is identified by its own 
      *        <b>GUID</b>, which is published by the developer of the partition.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PartitionType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__PartitionType"))
+                this.__PartitionType := Guid(0, this)
+            return this.__PartitionType
+        }
     }
 
     /**
      * The GUID of the partition.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PartitionId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__PartitionId"))
+                this.__PartitionId := Guid(16, this)
+            return this.__PartitionId
+        }
     }
 
     /**
@@ -46,8 +53,8 @@ class PARTITION_INFORMATION_GPT extends Win32Struct {
      * @type {GPT_ATTRIBUTES}
      */
     Attributes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "int64")
+        set => NumPut("int64", value, this, 32)
     }
 
     /**
@@ -55,7 +62,7 @@ class PARTITION_INFORMATION_GPT extends Win32Struct {
      * @type {String}
      */
     Name {
-        get => StrGet(this.ptr + 24, 35, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 35, "UTF-16")
+        get => StrGet(this.ptr + 40, 35, "UTF-16")
+        set => StrPut(value, this.ptr + 40, 35, "UTF-16")
     }
 }

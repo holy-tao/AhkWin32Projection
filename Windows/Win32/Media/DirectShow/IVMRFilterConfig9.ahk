@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IVMRImageCompositor9.ahk
 
 /**
  * The IVMRFilterConfig9 interface is implemented by the Video Mixing Renderer Filter 9.

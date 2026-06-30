@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_VIDPN_SOURCE_MODE_TYPE.ahk
 #Include .\D3DKMDT_TEXT_RENDERING_FORMAT.ahk
+#Include .\D3DKMDT_VIDPN_SOURCE_MODE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
@@ -11,7 +11,7 @@ class D3DKMDT_VIDPN_SOURCE_MODE extends Win32Struct {
 
     static packingSize => 8
 
-    class _Format_e__Union extends Win32Struct {
+    class _Format extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -49,12 +49,12 @@ class D3DKMDT_VIDPN_SOURCE_MODE extends Win32Struct {
     }
 
     /**
-     * @type {_Format_e__Union}
+     * @type {_Format}
      */
     Format {
         get {
             if(!this.HasProp("__Format"))
-                this.__Format := D3DKMDT_VIDPN_SOURCE_MODE._Format_e__Union(8, this)
+                this.__Format := D3DKMDT_VIDPN_SOURCE_MODE._Format(8, this)
             return this.__Format
         }
     }

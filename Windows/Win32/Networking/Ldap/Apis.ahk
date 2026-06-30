@@ -1,5 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\LDAPModA.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\LDAP_TIMEVAL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\CHAR.ahk
+#Include .\LDAPSortKeyW.ahk
+#Include .\LDAP.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\PLDAPSearch.ahk
+#Include .\LDAPVLVInfo.ahk
+#Include .\LDAP_BERVAL.ahk
+#Include .\LDAPMessage.ahk
+#Include .\LDAPSortKeyA.ahk
+#Include .\LDAP_VERSION_INFO.ahk
+#Include .\LDAPModW.ahk
+#Include .\BerElement.ahk
+#Include .\LDAPControlA.ahk
+#Include .\LDAPControlW.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Ldap

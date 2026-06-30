@@ -3,6 +3,7 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\ICertPolicy.ahk
 #Include .\ICertManageModule.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Provide communications between the Certificate Services server engine and the policy module.

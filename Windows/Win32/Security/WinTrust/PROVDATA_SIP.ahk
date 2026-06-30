@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Cryptography\Sip\SIP_INDIRECT_DATA.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\Cryptography\Sip\SIP_DISPATCH_INFO.ahk
 #Include ..\Cryptography\Sip\SIP_SUBJECTINFO.ahk
-#Include ..\Cryptography\Sip\SIP_INDIRECT_DATA.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
 class PROVDATA_SIP extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -21,33 +22,28 @@ class PROVDATA_SIP extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     gSubject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__gSubject"))
+                this.__gSubject := Guid(4, this)
+            return this.__gSubject
+        }
     }
 
     /**
      * @type {Pointer<SIP_DISPATCH_INFO>}
      */
     pSip {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer<SIP_DISPATCH_INFO>}
      */
     pCATSip {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<SIP_SUBJECTINFO>}
-     */
-    psSipSubjectInfo {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
     }
@@ -55,16 +51,24 @@ class PROVDATA_SIP extends Win32Struct {
     /**
      * @type {Pointer<SIP_SUBJECTINFO>}
      */
-    psSipCATSubjectInfo {
+    psSipSubjectInfo {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
+    }
+
+    /**
+     * @type {Pointer<SIP_SUBJECTINFO>}
+     */
+    psSipCATSubjectInfo {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<SIP_INDIRECT_DATA>}
      */
     psIndirectData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

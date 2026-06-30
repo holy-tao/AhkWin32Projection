@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWMDRMTranscryptor.ahk
 
 /**
@@ -60,11 +62,8 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
     }
 
     /**
-     * Formats a duration of time as a time string for a locale specified by identifier.
-     * @remarks
-     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getdurationformatex">GetDurationFormatEx</a>.
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getdurationformat
      */
     GetDuration() {
         result := ComCall(10, this, "uint*", &pcnsDuration := 0, "HRESULT")

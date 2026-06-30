@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LUID.ahk
+#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
 #Include .\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk
 #Include .\DISPLAYCONFIG_ROTATION.ahk
-#Include .\DISPLAYCONFIG_SCALING.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DISPLAYCONFIG_RATIONAL.ahk
-#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
+#Include .\DISPLAYCONFIG_SCALING.ahk
 
 /**
  * The DISPLAYCONFIG_PATH_TARGET_INFO structure contains target information for a single path.

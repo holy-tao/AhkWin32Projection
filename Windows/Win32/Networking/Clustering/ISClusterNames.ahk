@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -69,12 +71,8 @@ class ISClusterNames extends IDispatch {
     }
 
     /**
-     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {HRESULT} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
+     * 
+     * @returns {HRESULT} 
      */
     Refresh() {
         result := ComCall(9, this, "HRESULT")
@@ -87,7 +85,7 @@ class ISClusterNames extends IDispatch {
      * @returns {BSTR} 
      */
     get_Item(varIndex) {
-        pbstrClusterName := BSTR()
+        pbstrClusterName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", varIndex, "ptr", pbstrClusterName, "HRESULT")
         return pbstrClusterName
     }
@@ -97,7 +95,7 @@ class ISClusterNames extends IDispatch {
      * @returns {BSTR} 
      */
     get_DomainName() {
-        pbstrDomainName := BSTR()
+        pbstrDomainName := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrDomainName, "HRESULT")
         return pbstrDomainName
     }

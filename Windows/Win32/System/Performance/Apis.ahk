@@ -1,6 +1,45 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\PDH_LOG_TYPE.ahk
+#Include .\PDH_BROWSE_DLG_CONFIG_HW.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\PDH_FMT_COUNTERVALUE_ITEM_A.ahk
+#Include .\PDH_FMT_COUNTERVALUE_ITEM_W.ahk
+#Include .\PDH_BROWSE_DLG_CONFIG_HA.ahk
+#Include .\PERF_COUNTERSET_INSTANCE.ahk
+#Include .\PDH_DLL_VERSION.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\PDH_RAW_LOG_RECORD.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\PDH_STATISTICS.ahk
+#Include .\PerfRegInfoType.ahk
+#Include .\REAL_TIME_DATA_SOURCE_ID_FLAGS.ahk
+#Include .\PDH_HCOUNTER.ahk
+#Include .\PDH_FMT_COUNTERVALUE.ahk
+#Include .\PDH_RAW_COUNTER.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\PDH_COUNTER_INFO_A.ahk
+#Include .\PERF_DETAIL.ahk
+#Include .\PDH_TIME_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\PDH_PATH_FLAGS.ahk
+#Include .\PDH_BROWSE_DLG_CONFIG_W.ahk
+#Include .\PDH_COUNTER_PATH_ELEMENTS_W.ahk
+#Include .\PDH_COUNTER_INFO_W.ahk
+#Include .\PDH_HQUERY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\PDH_BROWSE_DLG_CONFIG_A.ahk
+#Include .\PDH_COUNTER_PATH_ELEMENTS_A.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\PERF_PROVIDER_CONTEXT.ahk
+#Include .\PDH_RAW_COUNTER_ITEM_A.ahk
+#Include .\PDH_SELECT_DATA_SOURCE_FLAGS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\PDH_HLOG.ahk
+#Include .\PDH_FMT.ahk
+#Include .\PDH_LOG.ahk
+#Include .\PDH_RAW_COUNTER_ITEM_W.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance

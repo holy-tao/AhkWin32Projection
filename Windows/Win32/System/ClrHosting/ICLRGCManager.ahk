@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\COR_GC_STATS.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -28,14 +30,9 @@ class ICLRGCManager extends IUnknown {
     static VTableNames => ["Collect", "GetStats", "SetGCStartupLimits"]
 
     /**
-     * Collection Class
-     * @remarks
-     * The **Collection** object has these types of members:
      * 
-     * -   [Properties](#properties)
      * @param {Integer} Generation 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wia/-wia-collection
      */
     Collect(Generation) {
         result := ComCall(3, this, "int", Generation, "HRESULT")

@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\ISecurityInformation.ahk
 #Include ..\..\..\UI\Controls\HPROPSHEETPAGE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\SI_PAGE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization.UI

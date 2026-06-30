@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxManifestPackageId.ahk
+#Include .\IAppxManifestResourcesEnumerator.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\APPX_CAPABILITIES.ahk
 #Include .\IAppxManifestProperties.ahk
 #Include .\IAppxManifestPackageDependenciesEnumerator.ahk
-#Include .\IAppxManifestResourcesEnumerator.ahk
-#Include .\IAppxManifestDeviceCapabilitiesEnumerator.ahk
 #Include .\IAppxManifestApplicationsEnumerator.ahk
+#Include .\IAppxManifestDeviceCapabilitiesEnumerator.ahk
 #Include ..\..\..\System\Com\IStream.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader)

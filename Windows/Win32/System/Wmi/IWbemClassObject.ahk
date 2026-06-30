@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include .\IWbemQualifierSet.ahk
+#Include .\WBEM_CONDITION_FLAG_TYPE.ahk
+#Include .\WBEM_COMPARISON_FLAG.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Contains and manipulates both class definitions and class object instances.
@@ -386,7 +392,7 @@ class IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-getobjecttext
      */
     GetObjectText(lFlags) {
-        pstrObjectText := BSTR()
+        pstrObjectText := BSTR({Value: 0}, True)
         result := ComCall(13, this, "int", lFlags, "ptr", pstrObjectText, "HRESULT")
         return pstrObjectText
     }
@@ -450,7 +456,7 @@ class IWbemClassObject extends IUnknown {
     GetPropertyOrigin(wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        pstrClassName := BSTR()
+        pstrClassName := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", wszName, "ptr", pstrClassName, "HRESULT")
         return pstrClassName
     }
@@ -659,7 +665,7 @@ class IWbemClassObject extends IUnknown {
     GetMethodOrigin(wszMethodName) {
         wszMethodName := wszMethodName is String ? StrPtr(wszMethodName) : wszMethodName
 
-        pstrClassName := BSTR()
+        pstrClassName := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", wszMethodName, "ptr", pstrClassName, "HRESULT")
         return pstrClassName
     }

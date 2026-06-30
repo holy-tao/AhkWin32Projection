@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IEnumSpObjectTokens.ahk
+#Include .\ISpObjectToken.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ISpDataKey.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

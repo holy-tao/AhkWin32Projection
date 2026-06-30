@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR.ahk
+#Include .\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk
 #Include .\ICredentialProviderCredential.ahk
+#Include .\ICredentialProviderEvents.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes methods used in the setup and manipulation of a credential provider. All credential providers must implement this interface.

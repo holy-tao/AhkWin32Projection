@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RADIUS_EXTENSION_POINT.ahk
 #Include .\RADIUS_CODE.ahk
+#Include .\RADIUS_EXTENSION_POINT.ahk
 
 /**
  * The RADIUS_EXTENSION_CONTROL_BLOCK structure provides information about the current RADIUS request. It also provides functions for obtaining the attributes associated with the request, and for setting the disposition of the request.

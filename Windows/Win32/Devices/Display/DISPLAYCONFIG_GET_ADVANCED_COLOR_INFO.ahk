@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
 #Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
 #Include ..\..\Graphics\Gdi\DISPLAYCONFIG_COLOR_ENCODING.ahk
+#Include ..\..\Foundation\LUID.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D11_DSV_DIMENSION.ahk
-#Include .\D3D11_TEX1D_DSV.ahk
-#Include .\D3D11_TEX1D_ARRAY_DSV.ahk
 #Include .\D3D11_TEX2D_DSV.ahk
 #Include .\D3D11_TEX2D_ARRAY_DSV.ahk
-#Include .\D3D11_TEX2DMS_DSV.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D11_TEX1D_DSV.ahk
 #Include .\D3D11_TEX2DMS_ARRAY_DSV.ahk
+#Include .\D3D11_TEX2DMS_DSV.ahk
+#Include .\D3D11_DSV_DIMENSION.ahk
+#Include .\D3D11_TEX1D_ARRAY_DSV.ahk
 
 /**
  * Specifies the subresources of a texture that are accessible from a depth-stencil view.

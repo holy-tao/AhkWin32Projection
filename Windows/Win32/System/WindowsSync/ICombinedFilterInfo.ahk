@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISyncFilterInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\FILTER_COMBINATION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsSync

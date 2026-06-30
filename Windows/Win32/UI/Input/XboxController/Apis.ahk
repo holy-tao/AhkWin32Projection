@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\XINPUT_CAPABILITIES.ahk
+#Include .\XINPUT_STATE.ahk
+#Include .\XINPUT_FLAG.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\XINPUT_KEYSTROKE.ahk
+#Include .\XINPUT_BATTERY_INFORMATION.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\BATTERY_DEVTYPE.ahk
+#Include .\XINPUT_VIBRATION.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.XboxController

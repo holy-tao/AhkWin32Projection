@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NLA_BLOB_DATA_TYPE.ahk
 #Include .\NLA_CONNECTIVITY_TYPE.ahk
+#Include .\NLA_BLOB_DATA_TYPE.ahk
 #Include .\NLA_INTERNET.ahk
 
 /**
@@ -41,7 +41,7 @@ class NLA_BLOB extends Win32Struct {
         }
     }
 
-    class _data_e__Union extends Win32Struct {
+    class _data extends Win32Struct {
         static sizeof => 1036
         static packingSize => 4
 
@@ -163,7 +163,7 @@ class NLA_BLOB extends Win32Struct {
             remote {
                 get {
                     if(!this.HasProp("__remote"))
-                        this.__remote := NLA_BLOB._data_e__Union._ICS._remote(0, this)
+                        this.__remote := NLA_BLOB._data._ICS._remote(0, this)
                     return this.__remote
                 }
             }
@@ -183,7 +183,7 @@ class NLA_BLOB extends Win32Struct {
         interfaceData {
             get {
                 if(!this.HasProp("__interfaceData"))
-                    this.__interfaceData := NLA_BLOB._data_e__Union._interfaceData(0, this)
+                    this.__interfaceData := NLA_BLOB._data._interfaceData(0, this)
                 return this.__interfaceData
             }
         }
@@ -194,7 +194,7 @@ class NLA_BLOB extends Win32Struct {
         locationData {
             get {
                 if(!this.HasProp("__locationData"))
-                    this.__locationData := NLA_BLOB._data_e__Union._locationData(0, this)
+                    this.__locationData := NLA_BLOB._data._locationData(0, this)
                 return this.__locationData
             }
         }
@@ -205,7 +205,7 @@ class NLA_BLOB extends Win32Struct {
         connectivity {
             get {
                 if(!this.HasProp("__connectivity"))
-                    this.__connectivity := NLA_BLOB._data_e__Union._connectivity(0, this)
+                    this.__connectivity := NLA_BLOB._data._connectivity(0, this)
                 return this.__connectivity
             }
         }
@@ -216,7 +216,7 @@ class NLA_BLOB extends Win32Struct {
         ICS {
             get {
                 if(!this.HasProp("__ICS"))
-                    this.__ICS := NLA_BLOB._data_e__Union._ICS(0, this)
+                    this.__ICS := NLA_BLOB._data._ICS(0, this)
                 return this.__ICS
             }
         }
@@ -234,12 +234,12 @@ class NLA_BLOB extends Win32Struct {
     }
 
     /**
-     * @type {_data_e__Union}
+     * @type {_data}
      */
     data {
         get {
             if(!this.HasProp("__data"))
-                this.__data := NLA_BLOB._data_e__Union(12, this)
+                this.__data := NLA_BLOB._data(12, this)
             return this.__data
         }
     }

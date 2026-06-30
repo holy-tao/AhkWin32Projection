@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUIAutomation4.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationNotificationEventHandler.ahk
+#Include .\TreeScope.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomation4 interface to expose additional methods for controlling Microsoft UI Automation functionality.

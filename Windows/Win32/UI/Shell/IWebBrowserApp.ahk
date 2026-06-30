@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWebBrowser.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IWebBrowser.ahk
+#Include ..\..\Foundation\SHANDLE_PTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
- * Gets the handle of the Windows Internet Explorer main window.
- * @remarks
- * Internet Explorer 7. With the introduction of tabbed browsing, the return value of this method can be ambiguous. To alleviate confusion and maintain the highest level of compatibility with existing applications, this method returns a handle to the top-level window frame, not the currently selected tab.
- * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
  * @namespace Windows.Win32.UI.Shell
  */
 class IWebBrowserApp extends IWebBrowser {
@@ -168,7 +167,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {BSTR} 
      */
     get_Name() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -190,7 +189,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {BSTR} 
      */
     get_FullName() {
-        FullName := BSTR()
+        FullName := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", FullName, "HRESULT")
         return FullName
     }
@@ -200,7 +199,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {BSTR} 
      */
     get_Path() {
-        _Path := BSTR()
+        _Path := BSTR({Value: 0}, True)
         result := ComCall(39, this, "ptr", _Path, "HRESULT")
         return _Path
     }
@@ -248,7 +247,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {BSTR} 
      */
     get_StatusText() {
-        StatusText := BSTR()
+        StatusText := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", StatusText, "HRESULT")
         return StatusText
     }

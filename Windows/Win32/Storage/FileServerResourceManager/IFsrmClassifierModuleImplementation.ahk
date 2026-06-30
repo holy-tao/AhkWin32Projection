@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmPipelineModuleImplementation.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IFsrmPipelineModuleImplementation.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmPropertyBag.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Classifier modules implement this interface. FSRM calls the module's implementation when it runs classification.
@@ -138,7 +144,7 @@ class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementat
     GetPropertyValueToApply(_property, idRule, idPropDef) {
         _property := _property is String ? BSTR.Alloc(_property).Value : _property
 
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", _property, "ptr", value, "ptr", idRule, "ptr", idPropDef, "HRESULT")
         return value
     }

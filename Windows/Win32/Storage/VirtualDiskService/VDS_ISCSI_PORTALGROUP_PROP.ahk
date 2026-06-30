@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The VDS_ISCSI_PORTALGROUP_PROP structure (vdshwprv.h) defines the properties of an iSCSI portal group.
@@ -7,17 +8,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_ISCSI_PORTALGROUP_PROP extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/VDS/vds-data-types">VDS_OBJECT_ID</a> assigned to the portal group.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -25,7 +29,7 @@ class VDS_ISCSI_PORTALGROUP_PROP extends Win32Struct {
      * @type {Integer}
      */
     tag {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 }

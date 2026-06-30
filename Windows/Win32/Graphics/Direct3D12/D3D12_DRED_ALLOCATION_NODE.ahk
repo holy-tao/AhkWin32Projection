@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_DRED_ALLOCATION_TYPE.ahk
 #Include .\D3D12_DRED_ALLOCATION_NODE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes, as a node in a linked list, data about an allocation tracked by Device Removed Extended Data (DRED).

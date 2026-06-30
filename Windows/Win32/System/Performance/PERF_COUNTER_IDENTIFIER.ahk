@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about the PERF_COUNTER_IDENTIFIER block that contains the structure.
@@ -22,17 +23,20 @@
  * @namespace Windows.Win32.System.Performance
  */
 class PERF_COUNTER_IDENTIFIER extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The <b>GUID</b> of the performance counter set.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CounterSetGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__CounterSetGuid"))
+                this.__CounterSetGuid := Guid(0, this)
+            return this.__CounterSetGuid
+        }
     }
 
     /**
@@ -40,8 +44,8 @@ class PERF_COUNTER_IDENTIFIER extends Win32Struct {
      * @type {Integer}
      */
     Status {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -49,8 +53,8 @@ class PERF_COUNTER_IDENTIFIER extends Win32Struct {
      * @type {Integer}
      */
     Size {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -58,8 +62,8 @@ class PERF_COUNTER_IDENTIFIER extends Win32Struct {
      * @type {Integer}
      */
     CounterId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -67,8 +71,8 @@ class PERF_COUNTER_IDENTIFIER extends Win32Struct {
      * @type {Integer}
      */
     InstanceId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -76,8 +80,8 @@ class PERF_COUNTER_IDENTIFIER extends Win32Struct {
      * @type {Integer}
      */
     Index {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -85,7 +89,7 @@ class PERF_COUNTER_IDENTIFIER extends Win32Struct {
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

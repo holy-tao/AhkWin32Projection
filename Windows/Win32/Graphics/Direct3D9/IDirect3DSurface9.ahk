@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Gdi\HDC.ahk
+#Include .\D3DLOCKED_RECT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3DSURFACE_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IDirect3DResource9.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The IDirect3DSurface9 (d3d9.h) interface is used by applications to query and prepare surfaces.

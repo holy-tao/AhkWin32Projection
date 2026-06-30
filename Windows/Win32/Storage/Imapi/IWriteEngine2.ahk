@@ -2,7 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IDiscRecorder2Ex.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to write a data stream to a device.

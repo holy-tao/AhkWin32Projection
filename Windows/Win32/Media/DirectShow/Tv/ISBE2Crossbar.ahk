@@ -2,8 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ISBE2MediaTypeProfile.ahk
 #Include .\ISBE2EnumStream.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ISBE2MediaTypeProfile.ahk
+#Include ..\IPin.ahk
 
 /**
  * Defines crossbar functionality for a Stream Buffer Engine (SBE) version 2 (SBE2) Stream Buffer Source filter.

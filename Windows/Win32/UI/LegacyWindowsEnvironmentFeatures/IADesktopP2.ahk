@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Ole\IOleObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods to manage the Windows Desktop.

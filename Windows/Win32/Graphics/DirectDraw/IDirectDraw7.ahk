@@ -1,10 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectDrawClipper.ahk
-#Include .\IDirectDrawPalette.ahk
+#Include ..\Gdi\PALETTEENTRY.ahk
 #Include .\IDirectDrawSurface7.ahk
+#Include .\DDCAPS_DX7.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\Gdi\HDC.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\DDSCAPS2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DDSURFACEDESC2.ahk
+#Include .\IDirectDrawClipper.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DDDEVICEIDENTIFIER2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDirectDrawPalette.ahk
 
 /**
  * Applications use the methods of the IDirectDraw7 interface to create DirectDraw objects and work with system-level variables. This section is a reference to the methods of the IDirectDraw7 interface.

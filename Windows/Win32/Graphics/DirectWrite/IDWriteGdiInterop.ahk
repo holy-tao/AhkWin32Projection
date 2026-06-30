@@ -1,11 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFont.ahk
-#Include ..\Gdi\LOGFONTW.ahk
-#Include .\IDWriteFontFace.ahk
+#Include ..\Gdi\HDC.ahk
 #Include .\IDWriteBitmapRenderTarget.ahk
+#Include .\IDWriteFontFace.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Gdi\LOGFONTW.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IDWriteFont.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides interoperability with GDI, such as methods to convert a font face to a LOGFONT structure, or to convert a GDI font description into a font face. It is also used to create bitmap render target objects. (IDWriteGdiInterop)

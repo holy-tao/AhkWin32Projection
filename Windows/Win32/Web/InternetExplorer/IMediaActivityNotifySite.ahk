@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MEDIA_ACTIVITY_NOTIFY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer

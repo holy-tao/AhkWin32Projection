@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS.ahk
 
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * For single GPU operation, set this to zero. If there are multiple GPU nodes, set a bit to identify the node (the device's physical adapter) to which the command queue applies. Each bit in the mask corresponds to a single node. Only 1 bit may be set.
@@ -24,11 +25,14 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct {
 
     /**
      * A GUID representing the decode profile for which histogram capabilities will be queried. Get a list of available profile GUIDs by calling [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) when the feature specified is [D3D12\_FEATURE\_VIDEO\_DECODE\_PROFILES](ne-d3d12video-d3d12_feature_video.md).
-     * @type {Pointer}
+     * @type {Guid}
      */
     DecodeProfile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__DecodeProfile"))
+                this.__DecodeProfile := Guid(4, this)
+            return this.__DecodeProfile
+        }
     }
 
     /**
@@ -36,8 +40,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct {
      * @type {Integer}
      */
     Width {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -45,8 +49,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct {
      * @type {Integer}
      */
     Height {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -54,8 +58,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct {
      * @type {DXGI_FORMAT}
      */
     DecodeFormat {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -63,8 +67,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct {
      * @type {D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS}
      */
     Components {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -72,8 +76,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct {
      * @type {Integer}
      */
     BinCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -81,7 +85,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_HISTOGRAM extends Win32Struct {
      * @type {Integer}
      */
     CounterBitDepth {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
 #Include .\IEnumSTATDATA.ahk
+#Include .\FORMATETC.ahk
+#Include .\IUnknown.ahk
+#Include .\IDataObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IAdviseSink.ahk
 
 /**
  * Creates and manages advisory connections between a data object and one or more advise sinks.

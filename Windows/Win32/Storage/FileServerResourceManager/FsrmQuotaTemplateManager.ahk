@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Creates a quota template object.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-createtemplate
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
 class FsrmQuotaTemplateManager extends Win32Struct {

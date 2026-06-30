@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_GETSCANLINEDATA structure contains the members required to query and return the number of the current scan line.

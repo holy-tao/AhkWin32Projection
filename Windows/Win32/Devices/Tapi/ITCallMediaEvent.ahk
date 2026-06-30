@@ -3,8 +3,11 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
-#Include .\ITTerminal.ahk
 #Include .\ITStream.ahk
+#Include .\CALL_MEDIA_EVENT.ahk
+#Include .\ITTerminal.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CALL_MEDIA_EVENT_CAUSE.ahk
 
 /**
  * The ITCallMediaEvent interface contains methods that retrieve the description of media events.

@@ -1,9 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\RO_REGISTRATION_COOKIE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IAgileReference.ahk
-#Include .\HSTRING.ahk
-#Include .\IInspectable.ahk
+#Include .\IApartmentShutdown.ahk
+#Include ..\Com\IStream.ahk
+#Include .\ServerInformation.ahk
 #Include ..\Com\Marshal\IMarshal.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\AgileReferenceOptions.ahk
+#Include .\HSTRING.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\APARTMENT_SHUTDOWN_REGISTRATION_COOKIE.ahk
+#Include .\RO_INIT_TYPE.ahk
+#Include .\DispatcherQueueOptions.ahk
+#Include .\IInspectable.ahk
+#Include .\HSTRING_HEADER.ahk
+#Include .\HSTRING_BUFFER.ahk
+#Include .\BSOS_OPTIONS.ahk
 #Include .\IRestrictedErrorInfo.ahk
 
 /**
@@ -328,7 +344,7 @@ class WinRT {
     static WindowsCreateString(sourceString, length) {
         sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
-        _string := HSTRING()
+        _string := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, "uint", length, "ptr", _string, "HRESULT")
         return _string
     }
@@ -363,7 +379,7 @@ class WinRT {
     static WindowsCreateStringReference(sourceString, length, hstringHeader) {
         sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
-        _string := HSTRING()
+        _string := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, "uint", length, "ptr", hstringHeader, "ptr", _string, "HRESULT")
         return _string
     }
@@ -406,7 +422,7 @@ class WinRT {
     static WindowsDuplicateString(_string) {
         _string := _string is Win32Handle ? NumGet(_string, "ptr") : _string
 
-        newString := HSTRING()
+        newString := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDuplicateString", "ptr", _string, "ptr", newString, "HRESULT")
         return newString
     }
@@ -554,7 +570,7 @@ class WinRT {
     static WindowsSubstring(_string, startIndex) {
         _string := _string is Win32Handle ? NumGet(_string, "ptr") : _string
 
-        newString := HSTRING()
+        newString := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", "ptr", _string, "uint", startIndex, "ptr", newString, "HRESULT")
         return newString
     }
@@ -581,7 +597,7 @@ class WinRT {
     static WindowsSubstringWithSpecifiedLength(_string, startIndex, length) {
         _string := _string is Win32Handle ? NumGet(_string, "ptr") : _string
 
-        newString := HSTRING()
+        newString := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", "ptr", _string, "uint", startIndex, "uint", length, "ptr", newString, "HRESULT")
         return newString
     }
@@ -606,7 +622,7 @@ class WinRT {
         string1 := string1 is Win32Handle ? NumGet(string1, "ptr") : string1
         string2 := string2 is Win32Handle ? NumGet(string2, "ptr") : string2
 
-        newString := HSTRING()
+        newString := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsConcatString", "ptr", string1, "ptr", string2, "ptr", newString, "HRESULT")
         return newString
     }
@@ -636,7 +652,7 @@ class WinRT {
         stringReplaced := stringReplaced is Win32Handle ? NumGet(stringReplaced, "ptr") : stringReplaced
         stringReplaceWith := stringReplaceWith is Win32Handle ? NumGet(stringReplaceWith, "ptr") : stringReplaceWith
 
-        newString := HSTRING()
+        newString := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsReplaceString", "ptr", _string, "ptr", stringReplaced, "ptr", stringReplaceWith, "ptr", newString, "HRESULT")
         return newString
     }
@@ -661,7 +677,7 @@ class WinRT {
         _string := _string is Win32Handle ? NumGet(_string, "ptr") : _string
         trimString := trimString is Win32Handle ? NumGet(trimString, "ptr") : trimString
 
-        newString := HSTRING()
+        newString := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringStart", "ptr", _string, "ptr", trimString, "ptr", newString, "HRESULT")
         return newString
     }
@@ -686,7 +702,7 @@ class WinRT {
         _string := _string is Win32Handle ? NumGet(_string, "ptr") : _string
         trimString := trimString is Win32Handle ? NumGet(trimString, "ptr") : trimString
 
-        newString := HSTRING()
+        newString := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringEnd", "ptr", _string, "ptr", trimString, "ptr", newString, "HRESULT")
         return newString
     }
@@ -791,7 +807,7 @@ class WinRT {
     static WindowsPromoteStringBuffer(bufferHandle) {
         bufferHandle := bufferHandle is Win32Handle ? NumGet(bufferHandle, "ptr") : bufferHandle
 
-        _string := HSTRING()
+        _string := HSTRING({Value: 0}, True)
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPromoteStringBuffer", "ptr", bufferHandle, "ptr", _string, "HRESULT")
         return _string
     }
@@ -977,16 +993,15 @@ class WinRT {
      * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a>, and its associated <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueue">DispatcherQueue</a>, are WinRT objects. See their documentation for usage details.</div>
      * <div> </div>
      * @param {DispatcherQueueOptions} options The threading affinity and type of COM apartment for the created <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a>. See remarks for details.
-     * @param {Pointer<DispatcherQueueController>} dispatcherQueueController The created dispatcher queue controller. 
+     * @returns {Pointer} The created dispatcher queue controller. 
      * 
      * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> is a WinRT object.</div>
      * <div> </div>
-     * @returns {HRESULT} <b>S_OK</b> for success; otherwise a failure code.
      * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller
      */
-    static CreateDispatcherQueueController(options, dispatcherQueueController) {
-        result := DllCall("CoreMessaging.dll\CreateDispatcherQueueController", "ptr", options, "ptr", dispatcherQueueController, "HRESULT")
-        return result
+    static CreateDispatcherQueueController(options) {
+        result := DllCall("CoreMessaging.dll\CreateDispatcherQueueController", "ptr", options, "ptr*", &dispatcherQueueController := 0, "HRESULT")
+        return dispatcherQueueController
     }
 
     /**

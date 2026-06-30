@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\HrtfEnvironment.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\HrtfOrientation.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\HrtfPosition.ahk
 
 /**
  * The interface used to set parameters that control how head-related transfer function (HRTF) is applied to a sound.

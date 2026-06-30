@@ -1,5 +1,100 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\DHCP_CLASS_INFO_ARRAY_V6.ahk
+#Include .\DHCP_CLIENT_INFO_ARRAY_VQ.ahk
+#Include .\DHCP_ATTRIB.ahk
+#Include .\DHCP_OPTION_VALUE_ARRAY.ahk
+#Include .\DHCP_POLICY_EX_ARRAY.ahk
+#Include .\DHCP_IP_ARRAY.ahk
+#Include .\DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5.ahk
+#Include .\DHCP_CLASS_INFO_V6.ahk
+#Include .\DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6.ahk
+#Include .\DHCP_POLICY_ARRAY.ahk
+#Include .\DHCP_OPTION_ARRAY.ahk
+#Include .\DHCP_FILTER_LIST_TYPE.ahk
+#Include .\DHCP_SERVER_CONFIG_INFO.ahk
+#Include .\DHCP_SERVER_CONFIG_INFO_V4.ahk
+#Include .\DHCP_RESERVATION_INFO_ARRAY.ahk
+#Include .\DHCP_MIB_INFO_V6.ahk
+#Include .\DHCP_SEARCH_INFO_V6.ahk
+#Include .\DHCP_PROPERTY.ahk
+#Include .\DHCP_POL_ATTR_TYPE.ahk
+#Include .\DHCP_FILTER_ENUM_INFO.ahk
+#Include .\DHCP_SERVER_CONFIG_INFO_V6.ahk
+#Include .\DHCP_SUBNET_ELEMENT_DATA_V5.ahk
+#Include .\DHCP_CLIENT_INFO.ahk
+#Include .\DHCP_FILTER_GLOBAL_INFO.ahk
+#Include .\DHCP_CLIENT_INFO_ARRAY_V6.ahk
+#Include .\DHCPDS_SERVER.ahk
+#Include .\DHCPV6_STATELESS_PARAMS.ahk
+#Include .\DHCP_OPTION_DATA.ahk
+#Include .\DHCP_PROPERTY_ID.ahk
+#Include .\DHCP_CLIENT_INFO_V6.ahk
+#Include .\DHCPV6_IP_ARRAY.ahk
+#Include .\DHCPDS_SERVERS.ahk
+#Include .\DHCP_CLIENT_INFO_EX_ARRAY.ahk
+#Include .\DHCP_OPTION_VALUE.ahk
+#Include .\DHCP_SCAN_LIST.ahk
+#Include .\DHCP_FAILOVER_RELATIONSHIP.ahk
+#Include .\DHCP_SUBNET_INFO_VQ.ahk
+#Include .\DHCP_CLIENT_INFO_PB_ARRAY.ahk
+#Include .\DHCP_SUBNET_INFO_V6.ahk
+#Include .\DHCP_PROPERTY_TYPE.ahk
+#Include .\DHCP_PROPERTY_ARRAY.ahk
+#Include .\DHCP_SUBNET_ELEMENT_TYPE.ahk
+#Include .\DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4.ahk
+#Include .\DHCP_CLASS_INFO.ahk
+#Include .\DHCP_OPTION.ahk
+#Include .\DHCP_FILTER_ADD_INFO.ahk
+#Include .\DHCP_OPTION_SCOPE_INFO6.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DHCP_FAILOVER_RELATIONSHIP_ARRAY.ahk
+#Include .\DHCP_POLICY.ahk
+#Include .\DHCP_ADDR_PATTERN.ahk
+#Include .\DHCPV6CAPI_PARAMS_ARRAY.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY.ahk
+#Include .\DHCP_SUPER_SCOPE_TABLE.ahk
+#Include .\DHCP_BIND_ELEMENT_ARRAY.ahk
+#Include .\DHCPV6PrefixLeaseInformation.ahk
+#Include .\DHCPV6_STATELESS_STATS.ahk
+#Include .\DHCP_IPV6_ADDRESS.ahk
+#Include .\DHCP_CLIENT_INFO_ARRAY_V5.ahk
+#Include .\DHCP_OPTION_LIST.ahk
+#Include .\DHCP_SUBNET_ELEMENT_DATA_V6.ahk
+#Include .\DHCP_SUBNET_ELEMENT_DATA_V4.ahk
+#Include .\DHCP_IP_RANGE.ahk
+#Include .\DHCP_SERVER_CONFIG_INFO_VQ.ahk
+#Include .\DHCP_CLIENT_INFO_PB.ahk
+#Include .\DHCP_FORCE_FLAG.ahk
+#Include .\DHCP_CLIENT_INFO_ARRAY_V4.ahk
+#Include .\DHCP_CLIENT_INFO_EX.ahk
+#Include .\DHCP_POL_COMPARATOR.ahk
+#Include .\DHCP_CLIENT_INFO_V4.ahk
+#Include .\DHCP_OPTION_SCOPE_INFO.ahk
+#Include .\DHCP_SUBNET_ELEMENT_INFO_ARRAY.ahk
+#Include .\DHCP_SERVER_SPECIFIC_STRINGS.ahk
+#Include .\DHCPV6CAPI_CLASSID.ahk
+#Include .\DHCPCAPI_CLASSID.ahk
+#Include .\DHCP_SUBNET_ELEMENT_DATA.ahk
+#Include .\DHCP_POL_LOGIC_OPER.ahk
+#Include .\DHCP_CLIENT_INFO_ARRAY.ahk
+#Include .\DHCPV4_FAILOVER_CLIENT_INFO.ahk
+#Include .\DHCPV6_BIND_ELEMENT_ARRAY.ahk
+#Include .\DHCP_SUBNET_INFO.ahk
+#Include .\DHCPCAPI_PARAMS_ARRAY.ahk
+#Include .\DHCP_POLICY_EX.ahk
+#Include .\DHCP_ATTRIB_ARRAY.ahk
+#Include .\DHCP_ALL_OPTION_VALUES_PB.ahk
+#Include .\DHCP_ALL_OPTIONS.ahk
+#Include .\DHCP_CLASS_INFO_ARRAY.ahk
+#Include .\DHCP_MIB_INFO.ahk
+#Include .\DHCP_SEARCH_INFO.ahk
+#Include .\DHCP_CLIENT_INFO_VQ.ahk
+#Include .\DHCP_SUBNET_ELEMENT_TYPE_V6.ahk
+#Include .\DHCP_ALL_OPTION_VALUES.ahk
+#Include .\DHCP_FAILOVER_STATISTICS.ahk
+#Include .\DHCP_MIB_INFO_V5.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
@@ -3960,58 +4055,10 @@ class Dhcp {
     }
 
     /**
-     * Obtains a MIB data structure that contains current statistics about the specified DHCP server.
-     * @param {PWSTR} ServerIpAddress Pointer to a zero-delimited string that contains the IPv4 address of the DHCP server for which statistical information is to be retrieved. This value is specified in the format "*.*.*.*". 
      * 
-     * If this parameter is <b>NULL</b>, then the local DHCP server process is queried.
-     * @param {Pointer<Pointer<DHCP_MIB_INFO>>} MibInfo Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info_v5">DHCP_MIB_INFO_V5</a> structure that contains statistical information about the DHCP server specified in the <i>ServerIpAddress</i> parameter.
-     * 
-     * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * 
-     * </div>
-     * <div> </div>
-     * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * This call was performed by a client who is not a member of the "DHCP Administrators" security group.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_DHCP_JET_ERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An error occurred while accessing the DHCP server's database.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters provides an invalid value.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetmibinfov5
+     * @param {PWSTR} ServerIpAddress 
+     * @param {Pointer<Pointer<DHCP_MIB_INFO>>} MibInfo 
+     * @returns {Integer} 
      */
     static DhcpGetMibInfo(ServerIpAddress, MibInfo) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
@@ -8370,13 +8417,12 @@ class Dhcp {
     }
 
     /**
-     * Sets the credentials used by the DHCP server to create Domain Name System (DNS) registrations for the DHCP client lease record.
-     * @param {PWSTR} ServerIpAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_SRV_HANDLE</a> that specifies the RPC binding to the DHCP server  on which the DNS credentials will be set.
-     * @param {PWSTR} Uname Pointer to a null-terminated Unicode string that specifies the user name for the DNS credentials.
-     * @param {PWSTR} Domain Pointer to a null-terminated Unicode string that specifies the domain name for the DNS credentials.
-     * @param {PWSTR} Passwd Pointer to a null-terminated   Unicode string that specifies the password for the DNS credentials. The password can be unencrypted.
-     * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserversetdnsregcredentialsv5
+     * 
+     * @param {PWSTR} ServerIpAddress 
+     * @param {PWSTR} Uname 
+     * @param {PWSTR} Domain 
+     * @param {PWSTR} Passwd 
+     * @returns {Integer} 
      */
     static DhcpServerSetDnsRegCredentials(ServerIpAddress, Uname, Domain, Passwd) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress

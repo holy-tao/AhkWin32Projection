@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Used by an IEnumExtraSearch enumerator object to return information on the search objects supported by a Shell Folder object.
@@ -7,19 +8,22 @@
  * @namespace Windows.Win32.UI.Shell
  */
 class EXTRASEARCH extends Win32Struct {
-    static sizeof => 4336
+    static sizeof => 4344
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>GUID</b>
      * 
      * A search object's GUID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidSearch {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guidSearch"))
+                this.__guidSearch := Guid(0, this)
+            return this.__guidSearch
+        }
     }
 
     /**
@@ -29,8 +33,8 @@ class EXTRASEARCH extends Win32Struct {
      * @type {String}
      */
     wszFriendlyName {
-        get => StrGet(this.ptr + 8, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 79, "UTF-16")
+        get => StrGet(this.ptr + 16, 79, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 79, "UTF-16")
     }
 
     /**
@@ -40,7 +44,7 @@ class EXTRASEARCH extends Win32Struct {
      * @type {String}
      */
     wszUrl {
-        get => StrGet(this.ptr + 168, 2083, "UTF-16")
-        set => StrPut(value, this.ptr + 168, 2083, "UTF-16")
+        get => StrGet(this.ptr + 176, 2083, "UTF-16")
+        set => StrPut(value, this.ptr + 176, 2083, "UTF-16")
     }
 }

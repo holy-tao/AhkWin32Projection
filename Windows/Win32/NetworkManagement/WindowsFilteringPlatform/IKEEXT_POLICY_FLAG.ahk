@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Disable special diagnostics mode for IKE/Authip. This will prevent IKE/AuthIp
-  * from accepting unauthenticated notifications from peer, or sending MS_STATUS 
-  * notifications to peer.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_policy0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class IKEEXT_POLICY_FLAG extends Win32BitflagEnum {

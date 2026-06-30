@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPortableDeviceKeyCollection.ahk
-#Include .\IPortableDeviceValues.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IPortableDeviceKeyCollection.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include .\IPortableDeviceValues.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IPortableDeviceResources interface provides access to an object's raw data. Use this interface to read or write resources in an object. To get this interface, call IPortableDeviceContent::Transfer.

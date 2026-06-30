@@ -1,7 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionTransform.ahk
+#Include ..\Direct2D\Common\D2D_MATRIX_3X2_F.ahk
+#Include .\IDCompositionEffect.ahk
+#Include .\DCOMPOSITION_BORDER_MODE.ahk
+#Include ..\Direct2D\Common\D2D_RECT_F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DCOMPOSITION_COMPOSITE_MODE.ahk
+#Include .\DCOMPOSITION_BITMAP_INTERPOLATION_MODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IDCompositionClip.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDCompositionAnimation.ahk
 
 /**
  * Represents a Microsoft DirectComposition visual.

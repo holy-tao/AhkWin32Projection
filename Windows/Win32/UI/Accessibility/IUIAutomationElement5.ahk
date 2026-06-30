@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElement4.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUIAutomationElement4.ahk
+#Include .\UIA_LANDMARKTYPE_ID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IUIAutomationElement4 interface to provide access to current and cached landmark data.
@@ -74,7 +76,7 @@ class IUIAutomationElement5 extends IUIAutomationElement4 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlocalizedlandmarktype
      */
     get_CurrentLocalizedLandmarkType() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(105, this, "ptr", retVal, "HRESULT")
         return retVal
     }
@@ -95,7 +97,7 @@ class IUIAutomationElement5 extends IUIAutomationElement4 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlocalizedlandmarktype
      */
     get_CachedLocalizedLandmarkType() {
-        retVal := BSTR()
+        retVal := BSTR({Value: 0}, True)
         result := ComCall(107, this, "ptr", retVal, "HRESULT")
         return retVal
     }

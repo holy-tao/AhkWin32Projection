@@ -2,7 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\InkRasterOperation.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IInkExtendedProperties.ahk
+#Include .\InkPenTip.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * . (IInkDrawingAttributes)

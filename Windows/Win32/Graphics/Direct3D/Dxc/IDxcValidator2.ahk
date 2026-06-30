@@ -3,6 +3,9 @@
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IDxcValidator.ahk
 #Include .\IDxcOperationResult.ahk
+#Include .\DxcBuffer.ahk
+#Include .\IDxcBlob.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc

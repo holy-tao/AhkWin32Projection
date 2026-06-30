@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * This interface is used to specify information of a TFTP client session currently active in the server.
@@ -91,7 +92,7 @@ class IWdsTransportTftpClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filename
      */
     get_FileName() {
-        pbszFileName := BSTR()
+        pbszFileName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbszFileName, "HRESULT")
         return pbszFileName
     }
@@ -102,7 +103,7 @@ class IWdsTransportTftpClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_ipaddress
      */
     get_IpAddress() {
-        pbszIpAddress := BSTR()
+        pbszIpAddress := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pbszIpAddress, "HRESULT")
         return pbszIpAddress
     }

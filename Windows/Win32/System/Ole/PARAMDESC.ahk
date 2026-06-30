@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PARAMDESCEX.ahk
 #Include .\PARAMFLAGS.ahk
+#Include .\PARAMDESCEX.ahk
 
 /**
  * Contains information needed for transferring a structure element, parameter, or function return value between processes.

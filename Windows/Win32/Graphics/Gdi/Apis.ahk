@@ -1,18 +1,117 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HMETAFILE.ahk
-#Include .\HBITMAP.ahk
-#Include .\HBRUSH.ahk
-#Include .\HDC.ahk
-#Include .\HRGN.ahk
-#Include .\HFONT.ahk
-#Include .\HPALETTE.ahk
-#Include .\HPEN.ahk
+#Include .\ENUM_DISPLAY_SETTINGS_MODE.ahk
+#Include .\DRAW_CAPTION_FLAGS.ahk
+#Include .\GET_CHARACTER_PLACEMENT_FLAGS.ahk
 #Include .\HGDIOBJ.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\GCP_RESULTSA.ahk
+#Include .\RGBQUAD.ahk
+#Include .\TTVALIDATIONTESTSPARAMS.ahk
+#Include .\SYSTEM_PALETTE_USE.ahk
+#Include .\HANDLETABLE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\PEN_STYLE.ahk
+#Include .\DRAWTEXTPARAMS.ahk
+#Include .\EMBED_FONT_CHARSET.ahk
 #Include .\HENHMETAFILE.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Include .\HBRUSH.ahk
+#Include .\ABCFLOAT.ahk
+#Include .\XFORM.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\MONITORINFO.ahk
+#Include .\LOGFONTA.ahk
+#Include .\LOGBRUSH.ahk
+#Include .\BITMAPINFOHEADER.ahk
+#Include .\FONT_LICENSE_PRIVS.ahk
+#Include .\BITMAPINFO.ahk
+#Include .\BITMAP.ahk
+#Include .\EXT_FLOOD_FILL_TYPE.ahk
+#Include .\GCP_RESULTSW.ahk
+#Include .\REDRAW_WINDOW_FLAGS.ahk
+#Include .\ABC.ahk
+#Include .\DEVMODEA.ahk
+#Include .\DC_LAYOUT.ahk
+#Include .\OBJ_TYPE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\DRAW_EDGE_FLAGS.ahk
+#Include .\DRAWEDGE_FLAGS.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\ENHMETARECORD.ahk
+#Include .\CREATE_FONT_PACKAGE_SUBSET_ENCODING.ahk
+#Include .\GLYPHMETRICS.ahk
+#Include .\DRAW_TEXT_FORMAT.ahk
+#Include .\HDC.ahk
+#Include .\ARC_DIRECTION.ahk
+#Include .\GET_DCX_FLAGS.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\PAINTSTRUCT.ahk
+#Include .\POLYTEXTA.ahk
+#Include .\METARECORD.ahk
+#Include .\MONITOR_FROM_FLAGS.ahk
+#Include .\GRAPHICS_MODE.ahk
+#Include .\ENUMLOGFONTEXDVA.ahk
+#Include .\COLORADJUSTMENT.ahk
+#Include .\GET_GLYPH_OUTLINE_FORMAT.ahk
+#Include .\SYS_COLOR_INDEX.ahk
+#Include .\LOGFONTW.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\LOGPEN.ahk
+#Include .\ETO_OPTIONS.ahk
+#Include .\CDS_TYPE.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include .\PALETTEENTRY.ahk
+#Include .\DRAWSTATE_FLAGS.ahk
+#Include .\DISPLAY_DEVICEW.ahk
+#Include .\ENUM_DISPLAY_SETTINGS_FLAGS.ahk
+#Include .\GLYPHSET.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\TRIVERTEX.ahk
+#Include .\HFONT.ahk
+#Include .\HMETAFILE.ahk
+#Include .\KERNINGPAIR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DIB_USAGE.ahk
+#Include .\HRGN.ahk
+#Include .\TEXTMETRICA.ahk
+#Include .\HDC_MAP_MODE.ahk
+#Include .\TTEMBED_FLAGS.ahk
+#Include .\TEXTMETRICW.ahk
+#Include .\SET_BOUNDS_RECT_FLAGS.ahk
 #Include .\HMONITOR.ahk
+#Include .\TTLOAD_EMBEDDED_FONT_STATUS.ahk
+#Include .\ROP_CODE.ahk
+#Include .\R2_MODE.ahk
+#Include .\DISPLAY_DEVICEA.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include .\CREATE_POLYGON_RGN_MODE.ahk
+#Include .\DEVMODEW.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\HPEN.ahk
+#Include .\CREATE_FONT_PACKAGE_SUBSET_PLATFORM.ahk
+#Include .\POLYTEXTW.ahk
+#Include .\RGN_COMBINE_MODE.ahk
+#Include .\TEXT_ALIGN_OPTIONS.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include .\GDI_REGION_TYPE.ahk
+#Include .\MAT2.ahk
+#Include .\DISP_CHANGE.ahk
+#Include .\LOGPALETTE.ahk
+#Include .\STRETCH_BLT_MODE.ahk
+#Include .\HATCH_BRUSH_STYLE.ahk
+#Include .\HPALETTE.ahk
+#Include .\GRADIENT_FILL.ahk
+#Include .\MODIFY_WORLD_TRANSFORM_MODE.ahk
+#Include .\ENUMLOGFONTEXDVW.ahk
+#Include .\HBITMAP.ahk
+#Include .\EMBEDDED_FONT_PRIV_STATUS.ahk
+#Include .\TTVALIDATIONTESTSPARAMSEX.ahk
+#Include .\TTEMBEDINFO.ahk
+#Include .\WGLSWAP.ahk
+#Include .\FONT_RESOURCE_CHARACTERISTICS.ahk
+#Include .\GET_STOCK_OBJECT_FLAGS.ahk
+#Include .\TTLOADINFO.ahk
+#Include .\BLENDFUNCTION.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -29,7 +128,7 @@ class Gdi {
     /**
      * @type {Integer (Int32)}
      */
-    static ERROR => 0
+    static Win32ERROR => 0
 
     /**
      * @type {Integer (UInt32)}

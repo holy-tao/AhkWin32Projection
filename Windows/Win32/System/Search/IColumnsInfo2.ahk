@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IColumnsInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Storage\IndexServer\DBID.ahk
+#Include .\DBCOLUMNINFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Search

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_FIELD_DESCRIPTION.ahk
 #Include .\WS_XML_STRING.ahk
 #Include .\WS_STRUCT_DESCRIPTION.ahk
+#Include .\WS_FIELD_DESCRIPTION.ahk
 
 /**
  * Information about C struct type, and how it maps to an XML element. This is used with WS_STRUCT_TYPE.

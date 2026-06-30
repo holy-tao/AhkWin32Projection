@@ -1,11 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITAddress.ahk
+#Include .\CALLINFO_LONG.ahk
 #Include .\ITCallHub.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\CALLINFO_BUFFER.ahk
+#Include .\CALL_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ITAddress.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\CALL_PRIVILEGE.ahk
+#Include .\CALLINFO_STRING.ahk
 
 /**
  * The ITCallInfo interface gets and sets a variety of information concerning a Call object. The ITAddress::get_Calls and IEnumCall::Next methods create the ITCallInfo interface.
@@ -205,7 +211,7 @@ class ITCallInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-get_callinfostring
      */
     get_CallInfoString(CallInfoString) {
-        ppCallInfoString := BSTR()
+        ppCallInfoString := BSTR({Value: 0}, True)
         result := ComCall(13, this, "int", CallInfoString, "ptr", ppCallInfoString, "HRESULT")
         return ppCallInfoString
     }

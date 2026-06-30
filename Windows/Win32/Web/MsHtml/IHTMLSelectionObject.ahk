@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -45,9 +46,8 @@ class IHTMLSelectionObject extends IDispatch {
     }
 
     /**
-     * Learn about the emptyString simple type, which is not in use. See requirements and view additional available resources.
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/eaphost/eaptlsconnectionpropertiesv1schema-emptystring-simpletype
      */
     empty() {
         result := ComCall(8, this, "HRESULT")
@@ -68,7 +68,7 @@ class IHTMLSelectionObject extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }

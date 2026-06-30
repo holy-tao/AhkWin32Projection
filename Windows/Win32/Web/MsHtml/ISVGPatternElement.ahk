@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedEnumeration.ahk
-#Include .\ISVGAnimatedTransformList.ahk
 #Include .\ISVGAnimatedLength.ahk
+#Include .\ISVGAnimatedEnumeration.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISVGAnimatedTransformList.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml

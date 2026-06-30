@@ -1,8 +1,58 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HDV_DEVICE_HOST_FLAGS.ahk
+#Include .\WHV_EMULATOR_STATUS.ahk
+#Include .\WHV_NOTIFICATION_PORT_PROPERTY_CODE.ahk
+#Include .\WHV_ALLOCATE_VPCI_RESOURCE_FLAGS.ahk
+#Include .\WHV_PARTITION_PROPERTY_CODE.ahk
+#Include .\HDV_PCI_BAR_SELECTOR.ahk
+#Include .\WHV_NOTIFICATION_PORT_PARAMETERS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\WHV_VPCI_MMIO_MAPPING.ahk
+#Include .\GUEST_OS_INFO.ahk
+#Include .\WHV_REGISTER_NAME.ahk
+#Include .\WHV_INTERRUPT_DESTINATION_MODE.ahk
+#Include .\WHV_TRANSLATE_GVA_FLAGS.ahk
+#Include .\WHV_ACCESS_GPA_CONTROLS.ahk
+#Include .\VIRTUAL_PROCESSOR_ARCH.ahk
+#Include .\WHV_CREATE_VPCI_DEVICE_FLAGS.ahk
 #Include .\WHV_PARTITION_HANDLE.ahk
+#Include .\WHV_DOORBELL_MATCH_DATA.ahk
+#Include .\WHV_VP_EXIT_CONTEXT.ahk
+#Include .\WHV_REGISTER_VALUE.ahk
+#Include .\WHV_VIRTUAL_PROCESSOR_PROPERTY.ahk
+#Include .\WHV_PARTITION_COUNTER_SET.ahk
+#Include .\PAGING_MODE.ahk
+#Include .\WHV_CPUID_OUTPUT.ahk
+#Include .\WHV_MEMORY_RANGE_ENTRY.ahk
+#Include .\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk
+#Include .\WHV_VPCI_DEVICE_REGISTER.ahk
+#Include .\WHV_ADVISE_GPA_RANGE_CODE.ahk
+#Include .\WHV_MAP_GPA_RANGE_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WHV_MEMORY_ACCESS_CONTEXT.ahk
+#Include ..\HostComputeSystem\HCS_SYSTEM.ahk
+#Include ..\Power\DEVICE_POWER_STATE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WHV_PROCESSOR_COUNTER_SET.ahk
+#Include .\VIRTUAL_PROCESSOR_REGISTER.ahk
+#Include .\WHV_VPCI_DEVICE_PROPERTY_CODE.ahk
+#Include .\GPA_MEMORY_CHUNK.ahk
+#Include .\WHV_TRANSLATE_GVA_RESULT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WHV_TRIGGER_PARAMETERS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\WHV_VPCI_INTERRUPT_TARGET.ahk
+#Include .\WHV_SYNIC_EVENT_PARAMETERS.ahk
+#Include .\MODULE_INFO.ahk
+#Include .\WHV_EMULATOR_CALLBACKS.ahk
+#Include .\WHV_VIRTUAL_PROCESSOR_STATE_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\HDV_DEVICE_TYPE.ahk
+#Include .\WHV_CAPABILITY_CODE.ahk
+#Include .\WHV_INTERRUPT_CONTROL.ahk
+#Include .\HDV_MMIO_MAPPING_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
@@ -155,7 +205,7 @@ class Hypervisor {
      * @returns {WHV_PARTITION_HANDLE} 
      */
     static WHvCreatePartition() {
-        Partition := WHV_PARTITION_HANDLE()
+        Partition := WHV_PARTITION_HANDLE({Value: 0}, True)
         result := DllCall("WinHvPlatform.dll\WHvCreatePartition", "ptr", Partition, "HRESULT")
         return Partition
     }
@@ -711,7 +761,7 @@ class Hypervisor {
     static WHvAllocateVpciResource(ProviderId, Flags, ResourceDescriptor, ResourceDescriptorSizeInBytes) {
         ResourceDescriptorMarshal := ResourceDescriptor is VarRef ? "ptr" : "ptr"
 
-        VpciResource := HANDLE()
+        VpciResource := HANDLE({Value: 0}, True)
         result := DllCall("WinHvPlatform.dll\WHvAllocateVpciResource", "ptr", ProviderId, "int", Flags, ResourceDescriptorMarshal, ResourceDescriptor, "uint", ResourceDescriptorSizeInBytes, "ptr", VpciResource, "HRESULT")
         return VpciResource
     }
@@ -1092,7 +1142,7 @@ class Hypervisor {
     static WHvStartPartitionMigration(Partition) {
         Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
 
-        MigrationHandle := HANDLE()
+        MigrationHandle := HANDLE({Value: 0}, True)
         result := DllCall("WinHvPlatform.dll\WHvStartPartitionMigration", "ptr", Partition, "ptr", MigrationHandle, "HRESULT")
         return MigrationHandle
     }
@@ -1129,7 +1179,7 @@ class Hypervisor {
     static WHvAcceptPartitionMigration(MigrationHandle) {
         MigrationHandle := MigrationHandle is Win32Handle ? NumGet(MigrationHandle, "ptr") : MigrationHandle
 
-        Partition := WHV_PARTITION_HANDLE()
+        Partition := WHV_PARTITION_HANDLE({Value: 0}, True)
         result := DllCall("WinHvPlatform.dll\WHvAcceptPartitionMigration", "ptr", MigrationHandle, "ptr", Partition, "HRESULT")
         return Partition
     }

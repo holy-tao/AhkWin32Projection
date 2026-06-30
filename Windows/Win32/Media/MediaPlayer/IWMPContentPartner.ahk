@@ -1,9 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WMPContextMenuInfo.ahk
+#Include ..\..\System\Com\BLOB.ahk
+#Include .\WMPPartnerNotification.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IWMPContentContainerList.ahk
+#Include .\IWMPContentPartnerCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\WMPStreamingType.ahk
+#Include .\WMPTemplateSize.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WMPTaskType.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores.
@@ -445,7 +455,7 @@ class IWMPContentPartner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getstreamingurl
      */
     GetStreamingURL(st, pStreamContext) {
-        pbstrURL := BSTR()
+        pbstrURL := BSTR({Value: 0}, True)
         result := ComCall(11, this, "int", st, "ptr", pStreamContext, "ptr", pbstrURL, "HRESULT")
         return pbstrURL
     }

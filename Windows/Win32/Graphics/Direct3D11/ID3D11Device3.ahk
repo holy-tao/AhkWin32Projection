@@ -1,15 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11Device2.ahk
-#Include .\ID3D11Texture2D1.ahk
+#Include .\D3D11_SUBRESOURCE_DATA.ahk
 #Include .\ID3D11Texture3D1.ahk
+#Include .\D3D11_QUERY_DESC1.ahk
+#Include .\D3D11_BOX.ahk
+#Include .\ID3D11Resource.ahk
+#Include .\D3D11_UNORDERED_ACCESS_VIEW_DESC1.ahk
+#Include .\ID3D11DeviceContext3.ahk
+#Include .\ID3D11RenderTargetView1.ahk
+#Include .\D3D11_RENDER_TARGET_VIEW_DESC1.ahk
+#Include .\ID3D11Device2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ID3D11RasterizerState2.ahk
 #Include .\ID3D11ShaderResourceView1.ahk
+#Include .\D3D11_TEXTURE2D_DESC1.ahk
+#Include .\D3D11_RASTERIZER_DESC2.ahk
+#Include .\D3D11_TEXTURE3D_DESC1.ahk
+#Include .\D3D11_SHADER_RESOURCE_VIEW_DESC1.ahk
 #Include .\ID3D11UnorderedAccessView1.ahk
-#Include .\ID3D11RenderTargetView1.ahk
 #Include .\ID3D11Query1.ahk
-#Include .\ID3D11DeviceContext3.ahk
+#Include .\ID3D11Texture2D1.ahk
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device3 adds new methods to those in ID3D11Device2.

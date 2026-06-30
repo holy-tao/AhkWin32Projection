@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 #Include .\KERB_S4U2PROXY_CRED.ahk
+#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity

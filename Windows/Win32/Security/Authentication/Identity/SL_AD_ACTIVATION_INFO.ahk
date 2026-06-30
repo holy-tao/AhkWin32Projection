@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\SL_ACTIVATION_INFO_HEADER.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\SL_ACTIVATION_TYPE.ahk
 
 /**

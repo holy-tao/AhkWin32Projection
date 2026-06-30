@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Use this interface to enumerate the CD and DVD devices installed on the computer.
@@ -88,7 +90,7 @@ class IDiscMaster2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get_item
      */
     get_Item(index) {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(8, this, "int", index, "ptr", value, "HRESULT")
         return value
     }

@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_ISCSI_INITIATOR_PORTAL_PROP.ahk
+#Include .\VDS_IPADDRESS.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IVdsIscsiInitiatorAdapter.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\VDS_ISCSI_IPSEC_KEY.ahk
 
 /**
  * Provides methods to query and interact with iSCSI initiator portals on the local system.

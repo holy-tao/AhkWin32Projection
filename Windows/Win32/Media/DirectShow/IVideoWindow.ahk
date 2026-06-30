@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\UI\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\OA_BOOL.ahk
 
 /**
  * The IVideoWindow interface sets properties on the video window.
@@ -211,7 +214,7 @@ class IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_caption
      */
     get_Caption() {
-        strCaption := BSTR()
+        strCaption := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", strCaption, "HRESULT")
         return strCaption
     }

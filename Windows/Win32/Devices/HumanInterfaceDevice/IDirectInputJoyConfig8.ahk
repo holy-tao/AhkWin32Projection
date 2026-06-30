@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include .\DIJOYTYPEINFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DIJOYCONFIG.ahk
+#Include .\DIJOYUSERVALUES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**

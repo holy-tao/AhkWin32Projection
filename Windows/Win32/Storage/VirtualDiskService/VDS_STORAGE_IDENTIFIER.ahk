@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_STORAGE_IDENTIFIER_CODE_SET.ahk
 #Include .\VDS_STORAGE_IDENTIFIER_TYPE.ahk
+#Include .\VDS_STORAGE_IDENTIFIER_CODE_SET.ahk
 
 /**
  * Defines a storage device using a particular code set and type.

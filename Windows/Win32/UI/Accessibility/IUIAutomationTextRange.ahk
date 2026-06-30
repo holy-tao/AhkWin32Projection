@@ -1,11 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\TextPatternRangeEndpoint.ahk
+#Include .\TextUnit.ahk
+#Include .\UIA_TEXTATTRIBUTE_ID.ahk
 #Include .\IUIAutomationElement.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IUIAutomationElementArray.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to a span of continuous text in a container that supports the IUIAutomationTextPattern interface. Client applications can use the IUIAutomationTextRange interface to select, compare, and retrieve embedded objects from the text span.
@@ -239,7 +245,7 @@ class IUIAutomationTextRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-gettext
      */
     GetText(maxLength) {
-        text := BSTR()
+        text := BSTR({Value: 0}, True)
         result := ComCall(12, this, "int", maxLength, "ptr", text, "HRESULT")
         return text
     }

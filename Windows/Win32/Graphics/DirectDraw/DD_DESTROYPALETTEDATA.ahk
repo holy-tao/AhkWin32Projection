@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
 #Include .\DD_PALETTE_GLOBAL.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_DESTROYPALETTEDATA structure contains information necessary to destroy the specified palette.

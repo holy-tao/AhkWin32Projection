@@ -3,6 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D10Resource.ahk
 #Include .\D3D10_MAPPED_TEXTURE3D.ahk
+#Include .\D3D10_MAP.ahk
+#Include .\D3D10_TEXTURE3D_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A 3D texture interface accesses texel data, which is structured memory. (ID3D10Texture3D)

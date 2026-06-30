@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IRunningTask.ahk
+#Include .\TASK_STATE.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IRunningTaskCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ITaskDefinition.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
  * Provides the methods that are used to run the task immediately, get any running instances of the task, get or set the credentials that are used to register the task, and the properties that describe the task.
@@ -110,7 +115,7 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_name
      */
     get_Name() {
-        pName := BSTR()
+        pName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pName, "HRESULT")
         return pName
     }
@@ -121,7 +126,7 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_path
      */
     get_Path() {
-        pPath := BSTR()
+        pPath := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", pPath, "HRESULT")
         return pPath
     }
@@ -295,7 +300,7 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_xml
      */
     get_Xml() {
-        pXml := BSTR()
+        pXml := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", pXml, "HRESULT")
         return pXml
     }
@@ -307,7 +312,7 @@ class IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-getsecuritydescriptor
      */
     GetSecurityDescriptor(securityInformation) {
-        pSddl := BSTR()
+        pSddl := BSTR({Value: 0}, True)
         result := ComCall(21, this, "int", securityInformation, "ptr", pSddl, "HRESULT")
         return pSddl
     }

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-reserveandappendlog">ReserveAndAppendLog</see>, <see href="https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-reserveandappendlogaligned">ReserveAndAppendLogAligned</see>.
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class CLFS_FLAG extends Win32BitflagEnum {

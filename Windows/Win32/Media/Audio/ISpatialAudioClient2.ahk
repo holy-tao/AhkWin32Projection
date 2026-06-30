@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\AUDIO_STREAM_CATEGORY.ahk
 #Include .\ISpatialAudioClient.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WAVEFORMATEX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The **ISpatialAudioClient2** interface inherits from ISpatialAudioClient and adds methods to query for support for offloading large audio buffers.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\DBGKD_DEBUG_DATA_HEADER32.ahk
 #Include ..\..\..\Kernel\LIST_ENTRY32.ahk
+#Include .\DBGKD_DEBUG_DATA_HEADER32.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions

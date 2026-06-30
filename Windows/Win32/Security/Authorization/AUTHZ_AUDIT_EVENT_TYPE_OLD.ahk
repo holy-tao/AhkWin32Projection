@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AUTHZ_AUDIT_EVENT_TYPE_LEGACY.ahk
 #Include ..\..\Foundation\LUID.ahk
 #Include .\AUTHZ_AUDIT_EVENT_TYPE_UNION.ahk
-#Include .\AUTHZ_AUDIT_EVENT_TYPE_LEGACY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization

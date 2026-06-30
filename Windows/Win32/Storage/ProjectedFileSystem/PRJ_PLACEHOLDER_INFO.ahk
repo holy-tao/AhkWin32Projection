@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PRJ_FILE_BASIC_INFO.ahk
 #Include .\PRJ_PLACEHOLDER_VERSION_INFO.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\PRJ_FILE_BASIC_INFO.ahk
 
 /**
  * A buffer of metadata for the placeholder file or directory.

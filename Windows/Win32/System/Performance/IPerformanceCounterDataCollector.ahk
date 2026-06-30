@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\SAFEARRAY.ahk
+#Include .\FileFormat.ahk
+#Include .\IDataCollector.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Specifies the performance counters to query and the log file to which the counter data is written.To create this data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method.
@@ -98,7 +101,7 @@ class IPerformanceCounterDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_datasourcename
      */
     get_DataSourceName() {
-        dsn := BSTR()
+        dsn := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", dsn, "HRESULT")
         return dsn
     }

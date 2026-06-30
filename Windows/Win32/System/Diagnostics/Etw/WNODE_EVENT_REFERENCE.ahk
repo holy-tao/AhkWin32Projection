@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WNODE_HEADER.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class WNODE_EVENT_REFERENCE extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -23,34 +24,37 @@ class WNODE_EVENT_REFERENCE extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     TargetGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get {
+            if(!this.HasProp("__TargetGuid"))
+                this.__TargetGuid := Guid(48, this)
+            return this.__TargetGuid
+        }
     }
 
     /**
      * @type {Integer}
      */
     TargetDataBlockSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     TargetInstanceIndex {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
      * @type {String}
      */
     TargetInstanceName {
-        get => StrGet(this.ptr + 52, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 52, 0, "UTF-16")
+        get => StrGet(this.ptr + 68, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 68, 0, "UTF-16")
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSCAMERA_PROFILE_INFO.ahk
 #Include .\KSCAMERA_PROFILE_PININFO.ahk
 #Include .\KSCAMERA_PROFILE_CONCURRENCYINFO.ahk
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSDEVICE_PROFILE_INFO extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -29,7 +30,7 @@ class KSDEVICE_PROFILE_INFO extends Win32Struct {
     }
 
     class _Camera extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 48
         static packingSize => 8
 
         /**
@@ -47,24 +48,24 @@ class KSDEVICE_PROFILE_INFO extends Win32Struct {
          * @type {Integer}
          */
         Reserved {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
+            get => NumGet(this, 32, "uint")
+            set => NumPut("uint", value, this, 32)
         }
 
         /**
          * @type {Integer}
          */
         ConcurrencyCount {
-            get => NumGet(this, 28, "uint")
-            set => NumPut("uint", value, this, 28)
+            get => NumGet(this, 36, "uint")
+            set => NumPut("uint", value, this, 36)
         }
 
         /**
          * @type {Pointer<KSCAMERA_PROFILE_CONCURRENCYINFO>}
          */
         Concurrency {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
         }
     }
 

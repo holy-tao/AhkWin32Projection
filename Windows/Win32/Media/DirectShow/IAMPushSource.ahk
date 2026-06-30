@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IAMLatency.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IAMPushSource interface synchronizes a filter graph that renders a live source.

@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\InputScope.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITfInputScope interface is used by the text input processors to get the InputScope value that represents a document context associated with a window.
@@ -110,7 +112,7 @@ class ITfInputScope extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getregularexpression
      */
     GetRegularExpression() {
-        pbstrRegExp := BSTR()
+        pbstrRegExp := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", pbstrRegExp, "HRESULT")
         return pbstrRegExp
     }
@@ -123,7 +125,7 @@ class ITfInputScope extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getsrgs
      */
     GetSRGS() {
-        pbstrSRGS := BSTR()
+        pbstrSRGS := BSTR({Value: 0}, True)
         result := ComCall(6, this, "ptr", pbstrSRGS, "HRESULT")
         return pbstrSRGS
     }
@@ -134,7 +136,7 @@ class ITfInputScope extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getxml
      */
     GetXML() {
-        pbstrXML := BSTR()
+        pbstrXML := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrXML, "HRESULT")
         return pbstrXML
     }

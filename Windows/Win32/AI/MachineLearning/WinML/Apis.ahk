@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include .\IWinMLRuntime.ahk
 #Include .\IMLOperatorRegistry.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML

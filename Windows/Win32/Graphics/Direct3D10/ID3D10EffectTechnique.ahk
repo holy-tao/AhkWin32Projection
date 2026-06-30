@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D10_TECHNIQUE_DESC.ahk
+#Include .\ID3D10EffectPass.ahk
 #Include .\D3D10_STATE_BLOCK_MASK.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10EffectVariable.ahk
 
 /**
  * An ID3D10EffectTechnique interface is a collection of passes.

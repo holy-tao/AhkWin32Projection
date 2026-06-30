@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KF_CATEGORY.ahk
 
 /**
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.UI.Shell
  */
 class KNOWNFOLDER_DEFINITION extends Win32Struct {
-    static sizeof => 96
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -55,11 +57,14 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      *                         
      * 
      * This value is optional if no value is provided for <b>pszRelativePath</b>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     fidParent {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__fidParent"))
+                this.__fidParent := Guid(24, this)
+            return this.__fidParent
+        }
     }
 
     /**
@@ -69,8 +74,8 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * @type {PWSTR}
      */
     pszRelativePath {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -80,8 +85,8 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * @type {PWSTR}
      */
     pszParsingName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -99,8 +104,8 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * @type {PWSTR}
      */
     pszTooltip {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -118,8 +123,8 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * @type {PWSTR}
      */
     pszLocalizedName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -137,8 +142,8 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * @type {PWSTR}
      */
     pszIcon {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -148,8 +153,8 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * @type {PWSTR}
      */
     pszSecurity {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -159,8 +164,8 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * @type {Integer}
      */
     dwAttributes {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -170,18 +175,21 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct {
      * @type {Integer}
      */
     kfdFlags {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a> values that identifies the known folder type based on its contents (such as documents, music, or photographs). This value is a GUID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ftidType {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get {
+            if(!this.HasProp("__ftidType"))
+                this.__ftidType := Guid(96, this)
+            return this.__ftidType
+        }
     }
 }

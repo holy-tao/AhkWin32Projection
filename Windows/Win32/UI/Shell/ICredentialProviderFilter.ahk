@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\CREDENTIAL_PROVIDER_USAGE_SCENARIO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to dynamically filter credential providers based on information available at runtime.

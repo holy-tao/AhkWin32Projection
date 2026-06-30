@@ -2,10 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The attendee that was disconnected.
- * @remarks
- * Applications can query properties, but any attempt to modify properties fails with <b>E_UNEXPECTED</b>.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_attendee
  * @namespace Windows.Win32.System.DesktopSharing
  */
 class RDPSRAPIAttendeeDisconnectInfo extends Win32Struct {

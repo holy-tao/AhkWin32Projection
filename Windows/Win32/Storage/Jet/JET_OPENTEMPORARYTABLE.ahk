@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\JET_COLUMNDEF.ahk
-#Include .\JET_UNICODEINDEX.ahk
 #Include ..\StructuredStorage\JET_TABLEID.ahk
+#Include .\JET_UNICODEINDEX.ahk
 
 /**
  * Learn more about: JET_OPENTEMPORARYTABLE Structure

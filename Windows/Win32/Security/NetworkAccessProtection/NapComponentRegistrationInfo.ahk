@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CountedString.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\CountedString.ahk
 
 /**
  * Defines a registered NAP component such as a SHA, SHV, or enforcement client.
@@ -16,7 +18,7 @@
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  */
 class NapComponentRegistrationInfo extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -85,11 +87,14 @@ class NapComponentRegistrationInfo extends Win32Struct {
      * 
      * Currently, enforcement clients do not need to
      *    provide a valid <i>infoClsid</i>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     infoClsid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get {
+            if(!this.HasProp("__infoClsid"))
+                this.__infoClsid := Guid(72, this)
+            return this.__infoClsid
+        }
     }
 
     /**
@@ -98,11 +103,14 @@ class NapComponentRegistrationInfo extends Win32Struct {
      * 
      * Currently, SHAs and enforcement clients do not need to
      *    provide a valid <i>configClsid</i>.
-     * @type {Pointer}
+     * @type {Guid}
      */
     configClsid {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get {
+            if(!this.HasProp("__configClsid"))
+                this.__configClsid := Guid(88, this)
+            return this.__configClsid
+        }
     }
 
     /**
@@ -112,7 +120,7 @@ class NapComponentRegistrationInfo extends Win32Struct {
     registrationDate {
         get {
             if(!this.HasProp("__registrationDate"))
-                this.__registrationDate := FILETIME(88, this)
+                this.__registrationDate := FILETIME(104, this)
             return this.__registrationDate
         }
     }
@@ -126,7 +134,7 @@ class NapComponentRegistrationInfo extends Win32Struct {
      * @type {Integer}
      */
     componentType {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 }

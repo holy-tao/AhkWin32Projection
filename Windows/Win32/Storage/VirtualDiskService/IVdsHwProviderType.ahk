@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_HWPROVIDER_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IVdsHwProviderType interface (vdshwprv.h) provides a method to retrieve the type of hardware provider.

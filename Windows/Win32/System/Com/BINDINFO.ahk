@@ -1,19 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\STGMEDIUM.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\IStream.ahk
 #Include StructuredStorage\IStorage.ahk
-#Include .\IUnknown.ahk
 #Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include .\STGMEDIUM.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
+#Include .\IUnknown.ahk
+#Include .\IStream.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
  */
 class BINDINFO extends Win32Struct {
-    static sizeof => 120
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -112,31 +115,34 @@ class BINDINFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     iid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get {
+            if(!this.HasProp("__iid"))
+                this.__iid := Guid(96, this)
+            return this.__iid
+        }
     }
 
     /**
      * @type {IUnknown}
      */
     pUnk {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 120
+        this.cbSize := 128
     }
 }

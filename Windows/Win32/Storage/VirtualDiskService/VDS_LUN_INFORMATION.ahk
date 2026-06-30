@@ -3,7 +3,9 @@
 #Include .\VDS_STORAGE_BUS_TYPE.ahk
 #Include .\VDS_STORAGE_DEVICE_ID_DESCRIPTOR.ahk
 #Include .\VDS_STORAGE_IDENTIFIER.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_INTERCONNECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines information about a LUN or disk. Applications can use this structure to uniquely identify a LUN at all times.
@@ -22,7 +24,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_LUN_INFORMATION extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -121,11 +123,14 @@ class VDS_LUN_INFORMATION extends Win32Struct {
      *       32 bits of the GUID comprise the disk signature, and the remaining bits are zeros. For disks that use the GUID 
      *       Partition Table (GPT) partitioning structure, the GUID consists of the GPT disk identifier. If this value is 
      *       zero, the disk is uninitialized or the hardware provider was unable to retrieve the signature.
-     * @type {Pointer}
+     * @type {Guid}
      */
     m_diskSignature {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__m_diskSignature"))
+                this.__m_diskSignature := Guid(48, this)
+            return this.__m_diskSignature
+        }
     }
 
     /**
@@ -142,7 +147,7 @@ class VDS_LUN_INFORMATION extends Win32Struct {
     m_deviceIdDescriptor {
         get {
             if(!this.HasProp("__m_deviceIdDescriptor"))
-                this.__m_deviceIdDescriptor := VDS_STORAGE_DEVICE_ID_DESCRIPTOR(56, this)
+                this.__m_deviceIdDescriptor := VDS_STORAGE_DEVICE_ID_DESCRIPTOR(64, this)
             return this.__m_deviceIdDescriptor
         }
     }
@@ -152,8 +157,8 @@ class VDS_LUN_INFORMATION extends Win32Struct {
      * @type {Integer}
      */
     m_cInterconnects {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -162,7 +167,7 @@ class VDS_LUN_INFORMATION extends Win32Struct {
      * @type {Pointer<VDS_INTERCONNECT>}
      */
     m_rgInterconnects {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

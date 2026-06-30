@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\CrmLogRecordRead.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ICrmLogControl.ahk
 
 /**
  * Delivers unstructured log records to the CRM Compensator when using Microsoft Visual C++.

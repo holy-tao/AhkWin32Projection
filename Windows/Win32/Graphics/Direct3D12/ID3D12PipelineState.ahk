@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Pageable.ahk
 #Include ..\Direct3D\ID3DBlob.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D12Pageable.ahk
 
 /**
  * Represents the state of all currently set shaders as well as certain fixed function state objects.

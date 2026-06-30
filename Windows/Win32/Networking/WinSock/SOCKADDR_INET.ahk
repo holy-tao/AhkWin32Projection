@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR_IN.ahk
-#Include .\ADDRESS_FAMILY.ahk
 #Include .\IN_ADDR.ahk
 #Include .\SOCKADDR_IN6.ahk
-#Include .\IN6_ADDR.ahk
 #Include .\SCOPE_ID.ahk
+#Include .\IN6_ADDR.ahk
+#Include .\ADDRESS_FAMILY.ahk
+#Include .\SOCKADDR_IN.ahk
 
 /**
  * Contains an IPv4, an IPv6 address, or an address family.

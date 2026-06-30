@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SCM_PD_OPERATIONAL_STATUS_REASON.ahk
 #Include .\SCM_PD_HEALTH_STATUS.ahk
 #Include .\SCM_PD_OPERATIONAL_STATUS.ahk
-#Include .\SCM_PD_OPERATIONAL_STATUS_REASON.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_POPULATION_POLICY_PRIMARY.ahk
 #Include .\CF_POPULATION_POLICY_MODIFIER.ahk
+#Include .\CF_POPULATION_POLICY_PRIMARY.ahk
 
 /**
  * Specifies the primary population policy and its modifier.

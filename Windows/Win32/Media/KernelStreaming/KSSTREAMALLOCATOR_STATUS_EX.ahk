@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSALLOCATOR_FRAMING_EX.ahk
-#Include .\KS_COMPRESSION.ahk
 #Include .\KS_FRAMING_ITEM.ahk
-#Include .\KS_FRAMING_RANGE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\KSALLOCATOR_FRAMING_EX.ahk
 #Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
+#Include .\KS_FRAMING_RANGE.ahk
+#Include .\KS_COMPRESSION.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSSTREAMALLOCATOR_STATUS_EX extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 120
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {KSALLOCATOR_FRAMING_EX}
@@ -29,15 +30,15 @@ class KSSTREAMALLOCATOR_STATUS_EX extends Win32Struct {
      * @type {Integer}
      */
     AllocatedFrames {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains data for a private blit state for Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
@@ -11,17 +12,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class DXVAHD_BLT_STATE_PRIVATE_DATA extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
      * A GUID that identifies the private state. The meaning of this value is defined by the device.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__Guid"))
+                this.__Guid := Guid(0, this)
+            return this.__Guid
+        }
     }
 
     /**
@@ -29,8 +33,8 @@ class DXVAHD_BLT_STATE_PRIVATE_DATA extends Win32Struct {
      * @type {Integer}
      */
     DataSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -38,7 +42,7 @@ class DXVAHD_BLT_STATE_PRIVATE_DATA extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

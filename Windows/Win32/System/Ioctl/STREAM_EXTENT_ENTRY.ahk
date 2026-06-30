@@ -10,7 +10,7 @@ class STREAM_EXTENT_ENTRY extends Win32Struct {
 
     static packingSize => 8
 
-    class _ExtentInformation_e__Union extends Win32Struct {
+    class _ExtentInformation extends Win32Struct {
         static sizeof => 32
         static packingSize => 8
 
@@ -35,12 +35,12 @@ class STREAM_EXTENT_ENTRY extends Win32Struct {
     }
 
     /**
-     * @type {_ExtentInformation_e__Union}
+     * @type {_ExtentInformation}
      */
     ExtentInformation {
         get {
             if(!this.HasProp("__ExtentInformation"))
-                this.__ExtentInformation := STREAM_EXTENT_ENTRY._ExtentInformation_e__Union(8, this)
+                this.__ExtentInformation := STREAM_EXTENT_ENTRY._ExtentInformation(8, this)
             return this.__ExtentInformation
         }
     }

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IDispatch.ahk
 #Include ..\..\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Associates a named event property with its value.
@@ -53,7 +54,7 @@ class IEventProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventproperty-get_name
      */
     get_Name() {
-        propertyName := BSTR()
+        propertyName := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", propertyName, "HRESULT")
         return propertyName
     }

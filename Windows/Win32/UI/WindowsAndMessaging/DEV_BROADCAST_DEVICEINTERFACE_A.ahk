@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Contains information about a class of devices. (ANSI)
@@ -13,7 +14,7 @@
 class DEV_BROADCAST_DEVICEINTERFACE_A extends Win32Struct {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of this structure, in bytes. This is the size of the members plus the actual length of the 
@@ -46,11 +47,14 @@ class DEV_BROADCAST_DEVICEINTERFACE_A extends Win32Struct {
 
     /**
      * The GUID for the interface device class.
-     * @type {Pointer}
+     * @type {Guid}
      */
     dbcc_classguid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__dbcc_classguid"))
+                this.__dbcc_classguid := Guid(12, this)
+            return this.__dbcc_classguid
+        }
     }
 
     /**
@@ -66,7 +70,7 @@ class DEV_BROADCAST_DEVICEINTERFACE_A extends Win32Struct {
      * @type {String}
      */
     dbcc_name {
-        get => StrGet(this.ptr + 24, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 0, "UTF-8")
+        get => StrGet(this.ptr + 28, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 0, "UTF-8")
     }
 }

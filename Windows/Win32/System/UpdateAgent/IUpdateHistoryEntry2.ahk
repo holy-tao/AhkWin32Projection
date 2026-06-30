@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUpdateHistoryEntry.ahk
 #Include .\ICategoryCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the recorded history of an update. (IUpdateHistoryEntry2)

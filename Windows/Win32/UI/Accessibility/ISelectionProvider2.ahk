@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISelectionProvider.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IRawElementProviderSimple.ahk
 
 /**

@@ -39,4 +39,5 @@ class POINT extends Win32Struct {
     ToString() {
         return Format("({1}, {2})", this.x, this.y)
     }
+    
 }

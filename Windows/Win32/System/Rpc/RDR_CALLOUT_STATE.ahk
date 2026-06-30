@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_STATUS.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\RPC_VERSION.ahk
 #Include .\RPC_HTTP_REDIRECTOR_STAGE.ahk
 #Include .\RPC_SYNTAX_IDENTIFIER.ahk
-#Include .\RPC_VERSION.ahk
+#Include .\RPC_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
 class RDR_CALLOUT_STATE extends Win32Struct {
-    static sizeof => 104
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -94,19 +95,25 @@ class RDR_CALLOUT_STATE extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     ResourceType {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__ResourceType"))
+                this.__ResourceType := Guid(60, this)
+            return this.__ResourceType
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     SessionId {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get {
+            if(!this.HasProp("__SessionId"))
+                this.__SessionId := Guid(76, this)
+            return this.__SessionId
+        }
     }
 
     /**
@@ -115,7 +122,7 @@ class RDR_CALLOUT_STATE extends Win32Struct {
     Interface {
         get {
             if(!this.HasProp("__Interface"))
-                this.__Interface := RPC_SYNTAX_IDENTIFIER(80, this)
+                this.__Interface := RPC_SYNTAX_IDENTIFIER(92, this)
             return this.__Interface
         }
     }
@@ -124,7 +131,7 @@ class RDR_CALLOUT_STATE extends Win32Struct {
      * @type {Pointer<Void>}
      */
     CertContext {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 }

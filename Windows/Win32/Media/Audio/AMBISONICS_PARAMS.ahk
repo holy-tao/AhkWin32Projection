@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\AMBISONICS_TYPE.ahk
-#Include .\AMBISONICS_CHANNEL_ORDERING.ahk
 #Include .\AMBISONICS_NORMALIZATION.ahk
+#Include .\AMBISONICS_CHANNEL_ORDERING.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio

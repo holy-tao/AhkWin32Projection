@@ -1,10 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IGameInputReading.ahk
-#Include .\IGameInputDispatcher.ahk
+#Include .\GameInputDeviceStatus.ahk
 #Include .\IGameInputDevice.ahk
+#Include .\GameInputKind.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\IGameInputDispatcher.ahk
+#Include .\GameInputFocusPolicy.ahk
+#Include ..\..\..\Foundation\APP_LOCAL_DEVICE_ID.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\GameInputEnumerationKind.ahk
+#Include .\GameInputSystemButtons.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
@@ -168,24 +177,8 @@ class IGameInput extends IUnknown {
     }
 
     /**
-     * Creates a DispatcherQueueController on the caller's thread. Use the created DispatcherQueueController to create and manage the lifetime of a DispatcherQueue to run queued tasks in priority order on the Dispatcher queue's thread.
-     * @remarks
-     * Introduced in Windows 10, version 1709.
      * 
-     *  If  <i>options.threadType</i> is <b>DQTYPE_THREAD_DEDICATED</b>, then this function  creates the dedicated thread and then creates the  <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> on that thread. The dispatcher queue event loop runs on the new dedicated thread.
-     * 
-     * An event loop runs asynchronously on a background thread to dispatch
-     * queued task items to the new dedicated thread.
-     * 
-     *  If <i>options.threadType</i> is  <b>DQTYPE_THREAD_CURRENT</b>, then the <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> instance is created on the current thread. An error results if there is already 
-     * a <b>IDispatcherQueueController</b> on the current thread. If you create a dispatcher queue on the current thread, ensure that there is a message pump running on the current thread so that the dispatcher queue can use it to dispatch tasks.
-     * 
-     * This call does not return until the new thread and <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> are created. The new thread will be initialized using the specified COM apartment.
-     * 
-     * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a>, and its associated <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueue">DispatcherQueue</a>, are WinRT objects. See their documentation for usage details.</div>
-     * <div> </div>
      * @returns {IGameInputDispatcher} 
-     * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller
      */
     CreateDispatcher() {
         result := ComCall(14, this, "ptr*", &dispatcher := 0, "HRESULT")

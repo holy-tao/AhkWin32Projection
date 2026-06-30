@@ -1,12 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory1.ahk
-#Include .\IDWriteFontFallback.ahk
-#Include .\IDWriteFontFallbackBuilder.ahk
-#Include .\IDWriteColorGlyphRunEnumerator.ahk
+#Include .\DWRITE_GRID_FIT_MODE.ahk
 #Include .\IDWriteRenderingParams2.ahk
 #Include .\IDWriteGlyphRunAnalysis.ahk
+#Include .\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
+#Include .\DWRITE_RENDERING_MODE.ahk
+#Include .\IDWriteColorGlyphRunEnumerator.ahk
+#Include .\IDWriteFactory1.ahk
+#Include .\DWRITE_GLYPH_RUN.ahk
+#Include .\DWRITE_MEASURING_MODE.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include .\IDWriteFontFallback.ahk
+#Include .\DWRITE_TEXT_ANTIALIAS_MODE.ahk
+#Include .\DWRITE_PIXEL_GEOMETRY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDWriteFontFallbackBuilder.ahk
 
 /**
  * The root factory interface for all DirectWrite objects.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_POLICY_FLAG.ahk
+#Include .\IKEEXT_PROPOSAL0.ahk
 #Include .\IKEEXT_AUTHENTICATION_METHOD1.ahk
 #Include .\IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE.ahk
-#Include .\IKEEXT_PROPOSAL0.ahk
-#Include .\IKEEXT_POLICY_FLAG.ahk
 
 /**
  * Is used to store the IKE/AuthIP main mode negotiation policy. (IKEEXT_POLICY1)

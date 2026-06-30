@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LVTILEVIEWINFO_MASK.ahk
-#Include .\LVTILEVIEWINFO_FLAGS.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include .\LVTILEVIEWINFO_MASK.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\LVTILEVIEWINFO_FLAGS.ahk
 
 /**
  * Provides information about a list-view control when it is displayed in tile view.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
 #Include .\WS_ELEMENT_DESCRIPTION.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * The schema for the input/output WS_MESSAGE for a given operation description.

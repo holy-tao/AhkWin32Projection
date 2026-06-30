@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DSOBJECT.ahk
 
 /**
@@ -8,17 +9,20 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DSOBJECTNAMES extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the namespace identifier which indicates the origin of the namespace selection. The <b>CLSID_DsFolder</b> value (identical to <b>CLSID_MicrosoftDS</b>) is used to identify namespaces implemented by Active Directory Domain Services.
-     * @type {Pointer}
+     * @type {Guid}
      */
     clsidNamespace {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__clsidNamespace"))
+                this.__clsidNamespace := Guid(0, this)
+            return this.__clsidNamespace
+        }
     }
 
     /**
@@ -26,8 +30,8 @@ class DSOBJECTNAMES extends Win32Struct {
      * @type {Integer}
      */
     cItems {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -37,7 +41,7 @@ class DSOBJECTNAMES extends Win32Struct {
     aObjects {
         get {
             if(!this.HasProp("__aObjectsProxyArray"))
-                this.__aObjectsProxyArray := Win32FixedArray(this.ptr + 12, 1, DSOBJECT, "")
+                this.__aObjectsProxyArray := Win32FixedArray(this.ptr + 20, 1, DSOBJECT, "")
             return this.__aObjectsProxyArray
         }
     }

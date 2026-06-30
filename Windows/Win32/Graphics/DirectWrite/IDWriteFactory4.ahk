@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory3.ahk
-#Include .\IDWriteColorGlyphRunEnumerator1.ahk
 #Include ..\Direct2D\Common\D2D_POINT_2F.ahk
+#Include .\IDWriteFactory3.ahk
+#Include .\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
+#Include .\IDWriteColorGlyphRunEnumerator1.ahk
+#Include .\DWRITE_GLYPH_RUN.ahk
+#Include .\DWRITE_MEASURING_MODE.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\DWRITE_GLYPH_IMAGE_FORMATS.ahk
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory4)

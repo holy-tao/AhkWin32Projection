@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RFCOMM_MSC_DATA.ahk
 #Include .\RFCOMM_RLS_DATA.ahk
+#Include .\RFCOMM_MSC_DATA.ahk
 #Include .\RFCOMM_RPN_DATA.ahk
 
 /**
@@ -12,7 +12,7 @@ class RFCOMM_COMMAND extends Win32Struct {
 
     static packingSize => 4
 
-    class _Data_e__Union extends Win32Struct {
+    class _Data extends Win32Struct {
         static sizeof => 7
         static packingSize => 1
 
@@ -59,12 +59,12 @@ class RFCOMM_COMMAND extends Win32Struct {
     }
 
     /**
-     * @type {_Data_e__Union}
+     * @type {_Data}
      */
     Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := RFCOMM_COMMAND._Data_e__Union(4, this)
+                this.__Data := RFCOMM_COMMAND._Data(4, this)
             return this.__Data
         }
     }

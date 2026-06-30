@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DWRITE_READING_DIRECTION.ahk
-#Include .\DWRITE_FLOW_DIRECTION.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DWRITE_MEASURING_MODE.ahk
+#Include .\DWRITE_FLOW_DIRECTION.ahk
 
 /**
  * Contains information about the width, thickness, offset, run height, reading direction, and flow direction of an underline.

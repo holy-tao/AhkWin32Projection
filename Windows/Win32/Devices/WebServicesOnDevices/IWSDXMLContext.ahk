@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WSDXML_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\WSDXML_NAMESPACE.ahk
 
 /**
  * Is a collection of namespaces and types used in a WSDAPI stack.

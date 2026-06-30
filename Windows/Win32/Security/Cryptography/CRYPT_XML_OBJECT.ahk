@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_REFERENCES.ahk
 #Include .\CRYPT_XML_REFERENCE.ahk
-#Include .\CRYPT_XML_BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CRYPT_XML_REFERENCES.ahk
 #Include .\CRYPT_XML_CHARSET.ahk
+#Include .\CRYPT_XML_BLOB.ahk
 
 /**
  * Describes an Object element in the signature.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSDATAFORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
 class KSDATARANGE_MUSIC extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -22,34 +23,37 @@ class KSDATARANGE_MUSIC extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     Technology {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__Technology"))
+                this.__Technology := Guid(72, this)
+            return this.__Technology
+        }
     }
 
     /**
      * @type {Integer}
      */
     Channels {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     Notes {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
      * @type {Integer}
      */
     ChannelMask {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 }

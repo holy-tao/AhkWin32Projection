@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Retrieves the code and description for errors and warnings returned by various operations.
@@ -36,7 +37,7 @@ class ISettingsResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getdescription
      */
     GetDescription() {
-        description := BSTR()
+        description := BSTR({Value: 0}, True)
         result := ComCall(3, this, "ptr", description, "HRESULT")
         return description
     }
@@ -57,7 +58,7 @@ class ISettingsResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getcontextdescription
      */
     GetContextDescription() {
-        description := BSTR()
+        description := BSTR({Value: 0}, True)
         result := ComCall(5, this, "ptr", description, "HRESULT")
         return description
     }
@@ -88,7 +89,7 @@ class ISettingsResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getsource
      */
     GetSource() {
-        _file := BSTR()
+        _file := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", _file, "HRESULT")
         return _file
     }

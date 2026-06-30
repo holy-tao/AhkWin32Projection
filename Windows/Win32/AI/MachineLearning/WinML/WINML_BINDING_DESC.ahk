@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WINML_BINDING_TYPE.ahk
-#Include .\WINML_TENSOR_BINDING_DESC.ahk
-#Include .\WINML_TENSOR_DATA_TYPE.ahk
-#Include .\WINML_SEQUENCE_BINDING_DESC.ahk
-#Include .\WINML_MAP_BINDING_DESC.ahk
-#Include .\WINML_IMAGE_BINDING_DESC.ahk
-#Include .\WINML_RESOURCE_BINDING_DESC.ahk
 #Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\WINML_BINDING_TYPE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include .\WINML_SEQUENCE_BINDING_DESC.ahk
+#Include .\WINML_RESOURCE_BINDING_DESC.ahk
+#Include .\WINML_TENSOR_DATA_TYPE.ahk
+#Include .\WINML_MAP_BINDING_DESC.ahk
+#Include .\WINML_TENSOR_BINDING_DESC.ahk
+#Include .\WINML_IMAGE_BINDING_DESC.ahk
 
 /**
  * Contains a description of the WinML binding.

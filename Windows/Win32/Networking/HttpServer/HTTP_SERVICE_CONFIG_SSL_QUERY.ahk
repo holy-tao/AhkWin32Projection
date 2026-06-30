@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_KEY.ahk
 #Include ..\WinSock\SOCKADDR.ahk
+#Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
 
 /**
  * Used to specify a particular record to query in the SSL configuration store.

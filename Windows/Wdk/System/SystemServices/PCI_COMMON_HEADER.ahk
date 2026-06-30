@@ -9,7 +9,7 @@ class PCI_COMMON_HEADER extends Win32Struct {
 
     static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 48
         static packingSize => 4
 
@@ -422,7 +422,7 @@ class PCI_COMMON_HEADER extends Win32Struct {
         type0 {
             get {
                 if(!this.HasProp("__type0"))
-                    this.__type0 := PCI_COMMON_HEADER._u_e__Union._PCI_HEADER_TYPE_0(0, this)
+                    this.__type0 := PCI_COMMON_HEADER._u._PCI_HEADER_TYPE_0(0, this)
                 return this.__type0
             }
         }
@@ -433,7 +433,7 @@ class PCI_COMMON_HEADER extends Win32Struct {
         type1 {
             get {
                 if(!this.HasProp("__type1"))
-                    this.__type1 := PCI_COMMON_HEADER._u_e__Union._PCI_HEADER_TYPE_1(0, this)
+                    this.__type1 := PCI_COMMON_HEADER._u._PCI_HEADER_TYPE_1(0, this)
                 return this.__type1
             }
         }
@@ -444,7 +444,7 @@ class PCI_COMMON_HEADER extends Win32Struct {
         type2 {
             get {
                 if(!this.HasProp("__type2"))
-                    this.__type2 := PCI_COMMON_HEADER._u_e__Union._PCI_HEADER_TYPE_2(0, this)
+                    this.__type2 := PCI_COMMON_HEADER._u._PCI_HEADER_TYPE_2(0, this)
                 return this.__type2
             }
         }
@@ -547,12 +547,12 @@ class PCI_COMMON_HEADER extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := PCI_COMMON_HEADER._u_e__Union(16, this)
+                this.__u := PCI_COMMON_HEADER._u(16, this)
             return this.__u
         }
     }

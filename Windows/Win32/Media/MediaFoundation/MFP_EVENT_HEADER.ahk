@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MFP_EVENT_TYPE.ahk
 #Include .\IMFPMediaPlayer.ahk
-#Include .\MFP_MEDIAPLAYER_STATE.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\MFP_MEDIAPLAYER_STATE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains information that is common to every type of MFPlay event.

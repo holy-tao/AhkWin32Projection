@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The AMCOPPStatusInput structure contains a Certified Output Protection Protocol (COPP) status request.
@@ -48,26 +49,32 @@
  * @namespace Windows.Win32.Media.DirectShow
  */
 class AMCOPPStatusInput extends Win32Struct {
-    static sizeof => 4080
+    static sizeof => 4096
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 128-bit random number.
-     * @type {Pointer}
+     * @type {Guid}
      */
     rApp {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__rApp"))
+                this.__rApp := Guid(0, this)
+            return this.__rApp
+        }
     }
 
     /**
      * GUID that defines the status request.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidStatusRequestID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__guidStatusRequestID"))
+                this.__guidStatusRequestID := Guid(16, this)
+            return this.__guidStatusRequestID
+        }
     }
 
     /**
@@ -75,8 +82,8 @@ class AMCOPPStatusInput extends Win32Struct {
      * @type {Integer}
      */
     dwSequence {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -84,8 +91,8 @@ class AMCOPPStatusInput extends Win32Struct {
      * @type {Integer}
      */
     cbSizeData {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -95,7 +102,7 @@ class AMCOPPStatusInput extends Win32Struct {
     StatusData {
         get {
             if(!this.HasProp("__StatusDataProxyArray"))
-                this.__StatusDataProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")
+                this.__StatusDataProxyArray := Win32FixedArray(this.ptr + 40, 4056, Primitive, "char")
             return this.__StatusDataProxyArray
         }
     }

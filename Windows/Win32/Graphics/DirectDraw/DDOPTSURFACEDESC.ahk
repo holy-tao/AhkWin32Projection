@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSCAPS2.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DDOSCAPS.ahk
+#Include .\DDSCAPS2.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -9,7 +10,7 @@
 class DDOPTSURFACEDESC extends Win32Struct {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -50,18 +51,21 @@ class DDOPTSURFACEDESC extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(28, this)
+            return this.__guid
+        }
     }
 
     /**
      * @type {Integer}
      */
     dwCompressionRatio {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

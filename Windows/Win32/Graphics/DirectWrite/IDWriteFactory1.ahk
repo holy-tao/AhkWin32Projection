@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory.ahk
+#Include .\DWRITE_RENDERING_MODE.ahk
 #Include .\IDWriteFontCollection.ahk
+#Include .\IDWriteFactory.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\DWRITE_PIXEL_GEOMETRY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IDWriteRenderingParams1.ahk
 
 /**

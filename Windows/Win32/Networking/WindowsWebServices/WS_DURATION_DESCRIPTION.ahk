@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_DURATION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * An optional type description used with WS_DURATION_TYPE. It is used to specify constraints on the set of values which can be deserialized.

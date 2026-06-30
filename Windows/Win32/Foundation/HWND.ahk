@@ -3,8 +3,6 @@
 #Include ..\..\..\Win32Handle.ahk
 
 /**
- * Places the window at the bottom of the Z order. If the <i>hWnd</i> parameter identifies a topmost window, the window loses its topmost status and is placed at the bottom of all other windows.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-deferwindowpos
  * @namespace Windows.Win32.Foundation
  */
 class HWND extends Win32Handle {

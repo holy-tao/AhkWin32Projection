@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IEnumUnknown (objidlbase.h) interface enumerates objects with the IUnknown interface and can enumerate through the objects in a component containing multiple objects.

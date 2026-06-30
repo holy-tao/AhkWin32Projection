@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\AudioObjectType.ahk
+#Include .\ISpatialAudioObjectForMetadataItems.ahk
 #Include .\ISpatialAudioObjectRenderStreamBase.ahk
 #Include .\ISpatialAudioObjectForMetadataCommands.ahk
-#Include .\ISpatialAudioObjectForMetadataItems.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for controlling a spatial audio object render stream for metadata, including starting, stopping, and resetting the stream.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
@@ -9,7 +10,7 @@ class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct {
 
     static packingSize => 8
 
-    class _Revision_e__Union extends Win32Struct {
+    class _Revision extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -61,12 +62,12 @@ class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct {
     }
 
     /**
-     * @type {_Revision_e__Union}
+     * @type {_Revision}
      */
     Revision {
         get {
             if(!this.HasProp("__Revision"))
-                this.__Revision := STORAGE_FIRMWARE_SLOT_INFO._Revision_e__Union(8, this)
+                this.__Revision := STORAGE_FIRMWARE_SLOT_INFO._Revision(8, this)
             return this.__Revision
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Used by the WintrustGetDefaultForUsage function to retrieve callback information for a provider's default usage.
@@ -7,7 +8,7 @@
  * @namespace Windows.Win32.Security.WinTrust
  */
 class CRYPT_PROVIDER_DEFUSAGE extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -22,11 +23,14 @@ class CRYPT_PROVIDER_DEFUSAGE extends Win32Struct {
 
     /**
      * GUID that specifies the provider's default action.
-     * @type {Pointer}
+     * @type {Guid}
      */
     gActionID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__gActionID"))
+                this.__gActionID := Guid(4, this)
+            return this.__gActionID
+        }
     }
 
     /**
@@ -34,8 +38,8 @@ class CRYPT_PROVIDER_DEFUSAGE extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pDefPolicyCallbackData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -43,7 +47,7 @@ class CRYPT_PROVIDER_DEFUSAGE extends Win32Struct {
      * @type {Pointer<Void>}
      */
     pDefSIPClientData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

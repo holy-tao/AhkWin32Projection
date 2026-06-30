@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\TOKENBINDING_TYPE.ahk
-#Include .\TOKENBINDING_IDENTIFIER.ahk
 #Include .\TOKENBINDING_EXTENSION_FORMAT.ahk
+#Include .\TOKENBINDING_IDENTIFIER.ahk
+#Include .\TOKENBINDING_TYPE.ahk
 
 /**
  * Contains data about the result of generating a token binding or verifying one of the token bindings in a token binding message.

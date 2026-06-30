@@ -1,5 +1,58 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include .\RPC_STATS_VECTOR.ahk
+#Include ..\Com\IRpcStubBuffer.ahk
+#Include .\MIDL_ES_CODE.ahk
+#Include .\MIDL_TYPE_PICKLING_INFO.ahk
+#Include .\RPC_NOTIFICATIONS.ahk
+#Include .\LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION.ahk
+#Include .\MIDL_STUBLESS_PROXY_INFO.ahk
+#Include .\RPC_POLICY.ahk
+#Include .\RPC_SECURITY_QOS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\NDR_USER_MARSHAL_INFO.ahk
+#Include .\RPC_IF_ID.ahk
+#Include .\RPC_INTERFACE_TEMPLATEW.ahk
+#Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include .\RPC_BINDING_HANDLE_TEMPLATE_V1_A.ahk
+#Include .\RPC_ASYNC_STATE.ahk
+#Include .\RPC_PROTSEQ_VECTORW.ahk
+#Include .\RPC_ENDPOINT_TEMPLATEA.ahk
+#Include .\RPC_INTERFACE_TEMPLATEA.ahk
+#Include .\RPC_BINDING_HANDLE_SECURITY_V1_W.ahk
+#Include .\RPC_NOTIFICATION_TYPES.ahk
+#Include .\RPC_ASYNC_NOTIFICATION_INFO.ahk
+#Include .\RPC_ENDPOINT_TEMPLATEW.ahk
+#Include .\UUID_VECTOR.ahk
+#Include .\RPC_STATUS.ahk
+#Include .\GROUP_NAME_SYNTAX.ahk
+#Include .\CLIENT_CALL_RETURN.ahk
+#Include .\RPC_IF_ID_VECTOR.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\RPC_EXTENDED_ERROR_INFO.ahk
+#Include .\FULL_PTR_XLAT_TABLES.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\RPC_BINDING_HANDLE_OPTIONS_V1.ahk
+#Include .\RPC_BINDING_VECTOR.ahk
+#Include .\RPC_PROTSEQ_VECTORA.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\RPC_BINDING_HANDLE_SECURITY_V1_A.ahk
+#Include .\MIDL_STUB_MESSAGE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\RPC_ERROR_ENUM_HANDLE.ahk
+#Include .\RPC_VERSION.ahk
+#Include .\MIDL_STUB_DESC.ahk
+#Include ..\Com\IRpcChannelBuffer.ahk
+#Include .\RPC_MESSAGE.ahk
+#Include .\XLAT_SIDE.ahk
+#Include .\RPC_BINDING_HANDLE_TEMPLATE_V1_W.ahk
+#Include .\RPC_TRANSFER_SYNTAX.ahk
+#Include .\NDR_SCONTEXT.ahk
+#Include .\RPC_SERVER_INTERFACE.ahk
+#Include .\RDR_CALLOUT_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -26076,13 +26129,12 @@ class Rpc {
     }
 
     /**
-     * NdrMesProcEncodeDecode2 may be altered or unavailable.
-     * @param {Pointer<Void>} _Handle Reserved.
-     * @param {Pointer<MIDL_STUB_DESC>} pStubDesc Reserved.
-     * @param {Pointer<Integer>} pFormatString Reserved.
+     * 
+     * @param {Pointer<Void>} _Handle 
+     * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
+     * @param {Pointer<Integer>} pFormatString 
      * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/midles/nf-midles-ndrmesprocencodedecode2
      */
     static NdrMesProcEncodeDecode(_Handle, pStubDesc, pFormatString, args*) {
         _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"

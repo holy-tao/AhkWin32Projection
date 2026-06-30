@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IWMDRMReader2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMDRMReader3 interface enables content transcription by providing a method to get protection systems approved by a license.

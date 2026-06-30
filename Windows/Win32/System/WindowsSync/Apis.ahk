@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
@@ -126,8 +125,7 @@ class WindowsSync {
     static PKEY_PROVIDER_INSTANCEID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -139,8 +137,7 @@ class WindowsSync {
     static PKEY_PROVIDER_CLSID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -152,8 +149,7 @@ class WindowsSync {
     static PKEY_PROVIDER_CONFIGUI {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -165,8 +161,7 @@ class WindowsSync {
     static PKEY_PROVIDER_CONTENTTYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -178,8 +173,7 @@ class WindowsSync {
     static PKEY_PROVIDER_CAPABILITIES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -191,8 +185,7 @@ class WindowsSync {
     static PKEY_PROVIDER_SUPPORTED_ARCHITECTURE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -204,8 +197,7 @@ class WindowsSync {
     static PKEY_PROVIDER_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -217,8 +209,7 @@ class WindowsSync {
     static PKEY_PROVIDER_DESCRIPTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -230,8 +221,7 @@ class WindowsSync {
     static PKEY_PROVIDER_TOOLTIPS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -243,8 +233,7 @@ class WindowsSync {
     static PKEY_PROVIDER_ICON {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{84179e61-60f6-4c1c-88ed-f1c531b32bda}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -256,8 +245,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_INSTANCEID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -269,8 +257,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_CLSID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -282,8 +269,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_CONTENTTYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -295,8 +281,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_CAPABILITIES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -308,8 +293,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_SUPPORTED_ARCHITECTURE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -321,8 +305,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_IS_GLOBAL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -334,8 +317,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -347,8 +329,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_DESCRIPTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -360,8 +341,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_TOOLTIPS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -373,8 +353,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_ICON {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -386,8 +365,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_MENUITEM_NOUI {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -399,8 +377,7 @@ class WindowsSync {
     static PKEY_CONFIGUI_MENUITEM {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{554b24ea-e8e3-45ba-9352-dfb561e171e4}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }

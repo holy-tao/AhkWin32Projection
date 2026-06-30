@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITPhone.ahk
+#Include .\PHONE_HOOK_SWITCH_DEVICE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\PHONE_HOOK_SWITCH_STATE.ahk
+#Include .\PHONE_EVENT.ahk
 #Include .\ITCallInfo.ahk
+#Include .\ITPhone.ahk
+#Include .\PHONE_BUTTON_STATE.ahk
 
 /**
  * The ITPhoneEvent interface contains methods that retrieve the description of phone events that have occurred.
@@ -184,7 +189,7 @@ class ITPhoneEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_numbergathered
      */
     get_NumberGathered() {
-        ppNumber := BSTR()
+        ppNumber := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", ppNumber, "HRESULT")
         return ppNumber
     }

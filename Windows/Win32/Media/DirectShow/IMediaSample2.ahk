@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMediaSample.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMediaSample2 interface sets and retrieves properties on media samples.This interface inherits the IMediaSample interface.

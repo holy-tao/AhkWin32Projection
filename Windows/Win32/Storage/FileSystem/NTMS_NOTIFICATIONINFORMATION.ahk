@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The NTMS_NOTIFICATIONINFORMATION structure defines an object and operation that occurred in the RSM database.
@@ -7,9 +8,9 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class NTMS_NOTIFICATIONINFORMATION extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,10 +22,13 @@ class NTMS_NOTIFICATIONINFORMATION extends Win32Struct {
 
     /**
      * Object Identifier.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ObjectId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__ObjectId"))
+                this.__ObjectId := Guid(4, this)
+            return this.__ObjectId
+        }
     }
 }

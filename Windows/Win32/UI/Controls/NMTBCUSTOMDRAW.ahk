@@ -2,12 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NMCUSTOMDRAW.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Graphics\Gdi\HBRUSH.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMCUSTOMDRAW_DRAW_STAGE.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
-#Include ..\..\Graphics\Gdi\HBRUSH.ahk
 #Include ..\..\Graphics\Gdi\HPEN.ahk
 
 /**

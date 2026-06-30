@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ExtendedErrorParamTypes.ahk
 #Include .\BinaryParam.ahk
+#Include .\ExtendedErrorParamTypes.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The RPC_EE_INFO_PARAM structure is used to store extended error information.
@@ -16,7 +18,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
 
@@ -95,12 +97,12 @@ class RPC_EE_INFO_PARAM extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := RPC_EE_INFO_PARAM._u_e__Union(8, this)
+                this.__u := RPC_EE_INFO_PARAM._u(8, this)
             return this.__u
         }
     }

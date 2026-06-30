@@ -1,7 +1,44 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include .\TOKEN_GROUPS.ahk
+#Include .\OBJECT_SECURITY_INFORMATION.ahk
+#Include .\TOKEN_TYPE.ahk
+#Include .\SECURITY_DESCRIPTOR_CONTROL.ahk
+#Include .\SECURITY_AUTO_INHERIT_FLAGS.ahk
+#Include ..\Foundation\PSTR.ahk
 #Include .\SID_IDENTIFIER_AUTHORITY.ahk
+#Include .\LOGON32_PROVIDER.ahk
+#Include .\AUDIT_EVENT_TYPE.ahk
+#Include .\CLAIM_SECURITY_ATTRIBUTES_INFORMATION.ahk
+#Include .\LUID_AND_ATTRIBUTES.ahk
+#Include ..\Foundation\BOOLEAN.ahk
+#Include .\ACL.ahk
+#Include .\SID_AND_ATTRIBUTES.ahk
+#Include .\OBJECT_TYPE_LIST.ahk
+#Include .\QUOTA_LIMITS.ahk
+#Include ..\Foundation\LUID.ahk
+#Include .\PRIVILEGE_SET.ahk
+#Include .\PSECURITY_DESCRIPTOR.ahk
+#Include ..\Foundation\PWSTR.ahk
+#Include .\TOKEN_INFORMATION_CLASS.ahk
+#Include .\SID_NAME_USE.ahk
+#Include .\ACE_FLAGS.ahk
+#Include .\SECURITY_IMPERSONATION_LEVEL.ahk
+#Include ..\Foundation\BOOL.ahk
+#Include .\LOGON32_LOGON.ahk
+#Include .\TOKEN_PRIVILEGES.ahk
 #Include ..\Foundation\NTSTATUS.ahk
+#Include ..\..\..\Guid.ahk
+#Include .\SECURITY_ATTRIBUTES.ahk
+#Include .\GENERIC_MAPPING.ahk
+#Include .\TOKEN_ACCESS_MASK.ahk
+#Include ..\Foundation\HANDLE.ahk
+#Include .\WELL_KNOWN_SID_TYPE.ahk
+#Include .\CREATE_RESTRICTED_TOKEN_FLAGS.ahk
+#Include ..\Foundation\UNICODE_STRING.ahk
+#Include .\PSID.ahk
+#Include .\ACL_INFORMATION_CLASS.ahk
+#Include .\ACE_REVISION.ahk
 
 /**
  * @namespace Windows.Win32.Security

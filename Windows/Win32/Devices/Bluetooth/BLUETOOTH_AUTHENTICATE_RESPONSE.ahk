@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BLUETOOTH_ADDRESS.ahk
-#Include .\BLUETOOTH_AUTHENTICATION_METHOD.ahk
-#Include .\BLUETOOTH_PIN_INFO.ahk
-#Include .\BLUETOOTH_OOB_DATA_INFO.ahk
 #Include .\BLUETOOTH_NUMERIC_COMPARISON_INFO.ahk
+#Include .\BLUETOOTH_OOB_DATA_INFO.ahk
 #Include .\BLUETOOTH_PASSKEY_INFO.ahk
+#Include .\BLUETOOTH_PIN_INFO.ahk
+#Include .\BLUETOOTH_AUTHENTICATION_METHOD.ahk
+#Include .\BLUETOOTH_ADDRESS.ahk
 
 /**
  * BLUETOOTH_AUTHENTICATE_RESPONSE structure contains information passed in response to a BTH_REMOTE_AUTHENTICATE_REQUEST event.

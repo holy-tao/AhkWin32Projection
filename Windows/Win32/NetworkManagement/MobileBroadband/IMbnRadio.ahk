@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MBN_RADIO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMbnRadio interface is used to query and update the radio state of Mobile Broadband devices.

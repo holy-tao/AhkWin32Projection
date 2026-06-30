@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Geometry.ahk
+#Include Common\D2D1_FILL_MODE.ahk
 
 /**
  * Represents a composite geometry, composed of other ID2D1Geometry objects.

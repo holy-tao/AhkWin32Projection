@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\ASF_INDEX_IDENTIFIER.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class ASF_INDEX_DESCRIPTOR extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 92
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_index_identifier">ASF_INDEX_IDENTIFIER</a> structure that identifies the stream number and the type of index.
@@ -29,8 +30,8 @@ class ASF_INDEX_DESCRIPTOR extends Win32Struct {
      * @type {Integer}
      */
     cPerEntryBytes {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
@@ -38,8 +39,8 @@ class ASF_INDEX_DESCRIPTOR extends Win32Struct {
      * @type {String}
      */
     szDescription {
-        get => StrGet(this.ptr + 18, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 18, 31, "UTF-16")
+        get => StrGet(this.ptr + 22, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 22, 31, "UTF-16")
     }
 
     /**
@@ -47,7 +48,7 @@ class ASF_INDEX_DESCRIPTOR extends Win32Struct {
      * @type {Integer}
      */
     dwInterval {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 }

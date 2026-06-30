@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include .\NET_FL_ISOLATION_MODE.ahk
 #Include .\NET_FL_VIRTUAL_INTERFACE_ORIGIN.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\NET_FL_ISOLATION_MODE.ahk
+#Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
 class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
-    static sizeof => 200
+    static sizeof => 208
 
     static packingSize => 8
 
@@ -41,27 +43,30 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     CompartmentGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__CompartmentGuid"))
+                this.__CompartmentGuid := Guid(28, this)
+            return this.__CompartmentGuid
+        }
     }
 
     /**
      * @type {NET_FL_ISOLATION_MODE}
      */
     IsolationMode {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
      * @type {NET_FL_VIRTUAL_INTERFACE_ORIGIN}
      */
     Origin {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -70,7 +75,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     VirtualIfLuid {
         get {
             if(!this.HasProp("__VirtualIfLuid"))
-                this.__VirtualIfLuid := NET_LUID_LH(48, this)
+                this.__VirtualIfLuid := NET_LUID_LH(56, this)
             return this.__VirtualIfLuid
         }
     }
@@ -79,38 +84,22 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
      * @type {Integer}
      */
     VirtualIfIndex {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {BOOLEAN}
      */
     AllowLocalNd {
-        get => NumGet(this, 68, "char")
-        set => NumPut("char", value, this, 68)
+        get => NumGet(this, 76, "char")
+        set => NumPut("char", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     AttachedFlsnpiClients {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FlsnpiClientConfigErrors {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FlsnpiClientInjectErrors {
         get => NumGet(this, 80, "uint")
         set => NumPut("uint", value, this, 80)
     }
@@ -118,7 +107,15 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    FlsnpiClientCloneErrors {
+    FlsnpiClientConfigErrors {
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FlsnpiClientInjectErrors {
         get => NumGet(this, 88, "uint")
         set => NumPut("uint", value, this, 88)
     }
@@ -126,7 +123,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    InFlsnpiIndicatedPackets {
+    FlsnpiClientCloneErrors {
         get => NumGet(this, 96, "uint")
         set => NumPut("uint", value, this, 96)
     }
@@ -134,7 +131,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    InFlsnpiClientReturnedPackets {
+    InFlsnpiIndicatedPackets {
         get => NumGet(this, 104, "uint")
         set => NumPut("uint", value, this, 104)
     }
@@ -142,7 +139,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    InFlsnpiClientSilentlyDroppedPackets {
+    InFlsnpiClientReturnedPackets {
         get => NumGet(this, 112, "uint")
         set => NumPut("uint", value, this, 112)
     }
@@ -150,7 +147,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    InFlsnpiClientDroppedPackets {
+    InFlsnpiClientSilentlyDroppedPackets {
         get => NumGet(this, 120, "uint")
         set => NumPut("uint", value, this, 120)
     }
@@ -158,7 +155,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    InFlsnpiClientInjectedPackets {
+    InFlsnpiClientDroppedPackets {
         get => NumGet(this, 128, "uint")
         set => NumPut("uint", value, this, 128)
     }
@@ -166,7 +163,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    InFlsnpiClientClonedPackets {
+    InFlsnpiClientInjectedPackets {
         get => NumGet(this, 136, "uint")
         set => NumPut("uint", value, this, 136)
     }
@@ -174,7 +171,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    OutFlsnpiIndicatedPackets {
+    InFlsnpiClientClonedPackets {
         get => NumGet(this, 144, "uint")
         set => NumPut("uint", value, this, 144)
     }
@@ -182,7 +179,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    OutFlsnpiClientReturnedPackets {
+    OutFlsnpiIndicatedPackets {
         get => NumGet(this, 152, "uint")
         set => NumPut("uint", value, this, 152)
     }
@@ -190,7 +187,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    OutFlsnpiClientDroppedPackets {
+    OutFlsnpiClientReturnedPackets {
         get => NumGet(this, 160, "uint")
         set => NumPut("uint", value, this, 160)
     }
@@ -198,7 +195,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    OutFlsnpiClientSilentlyDroppedPackets {
+    OutFlsnpiClientDroppedPackets {
         get => NumGet(this, 168, "uint")
         set => NumPut("uint", value, this, 168)
     }
@@ -206,7 +203,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    OutFlsnpiClientInjectedPackets {
+    OutFlsnpiClientSilentlyDroppedPackets {
         get => NumGet(this, 176, "uint")
         set => NumPut("uint", value, this, 176)
     }
@@ -214,7 +211,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    OutFlsnpiClientClonedPackets {
+    OutFlsnpiClientInjectedPackets {
         get => NumGet(this, 184, "uint")
         set => NumPut("uint", value, this, 184)
     }
@@ -222,8 +219,16 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     /**
      * @type {Integer}
      */
-    OutFlsnpiClientClonedPacketsForNbSplit {
+    OutFlsnpiClientClonedPackets {
         get => NumGet(this, 192, "uint")
         set => NumPut("uint", value, this, 192)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    OutFlsnpiClientClonedPacketsForNbSplit {
+        get => NumGet(this, 200, "uint")
+        set => NumPut("uint", value, this, 200)
     }
 }

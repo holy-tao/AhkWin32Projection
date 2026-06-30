@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_MULTIPLANE_OVERLAY3.ahk
-#Include .\D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION.ahk
 #Include .\D3DDDI_HDR_METADATA_TYPE.ahk
+#Include .\D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION.ahk
+#Include .\D3DKMT_MULTIPLANE_OVERLAY3.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

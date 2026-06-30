@@ -2,11 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\IWMDRMTranscryptor.ahk
 
 /**
- * Creates a DRM transcryptor object.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptionmanager-createtranscryptor
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
 class IWMDRMTranscryptionManager extends IUnknown {

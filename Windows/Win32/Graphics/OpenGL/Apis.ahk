@@ -1,7 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\HGLRC.ahk
+#Include .\GLUtesselator.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include .\PIXELFORMATDESCRIPTOR.ahk
 #Include ..\Gdi\HDC.ahk
+#Include .\GLYPHMETRICSFLOAT.ahk
+#Include .\LAYERPLANEDESCRIPTOR.ahk
+#Include .\GLUnurbs.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\GLUquadric.ahk
+#Include ..\Gdi\HENHMETAFILE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.OpenGL
@@ -15087,15 +15098,10 @@ class OpenGL {
     }
 
     /**
-     * Sets the current texture coordinates. | glTexCoord2fv function (Gl.h)
-     * @remarks
-     * The [**glTexCoord**](gltexcoord-functions.md) function sets the current texture coordinates that are part of the data associated with polygon vertices. The **glTexCoord** function specifies texture coordinates in one, two, three, or four dimensions. The glTexCoord1 function sets the current texture coordinates to (s, 0, 0, 1); a call to glTexCoord2 sets them to (s, t, 0, 1). Similarly, glTexCoord3 specifies the texture coordinates as (s, t, r, 1), and glTexCoord4 defines all four components explicitly as (s, t, r, q). You can update the current texture coordinates at any time. In particular, you can call glTexCoord between a call to [**glBegin**](glbegin.md) and the corresponding call to [**glEnd**](glend.md). The following function retrieves information related to **glTexCoord**:
      * 
-     * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Float} s 
      * @param {Float} t 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord2fv
      */
     static glTexCoord2f(s, t) {
         DllCall("OPENGL32.dll\glTexCoord2f", "float", s, "float", t)
@@ -15212,16 +15218,11 @@ class OpenGL {
     }
 
     /**
-     * Sets the current texture coordinates. | glTexCoord3fv function (Gl.h)
-     * @remarks
-     * The [**glTexCoord**](gltexcoord-functions.md) function sets the current texture coordinates that are part of the data associated with polygon vertices. The **glTexCoord** function specifies texture coordinates in one, two, three, or four dimensions. The glTexCoord1 function sets the current texture coordinates to (s, 0, 0, 1); a call to glTexCoord2 sets them to (s, t, 0, 1). Similarly, glTexCoord3 specifies the texture coordinates as (s, t, r, 1), and glTexCoord4 defines all four components explicitly as (s, t, r, q). You can update the current texture coordinates at any time. In particular, you can call glTexCoord between a call to [**glBegin**](glbegin.md) and the corresponding call to [**glEnd**](glend.md). The following function retrieves information related to **glTexCoord**:
      * 
-     * [**glGet**](glgetbooleanv--glgetdoublev--glgetfloatv--glgetintegerv.md) with argument GL\_CURRENT\_TEXTURE\_COORDS
      * @param {Float} s 
      * @param {Float} t 
      * @param {Float} r 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/OpenGL/gltexcoord3fv
      */
     static glTexCoord3f(s, t, r) {
         DllCall("OPENGL32.dll\glTexCoord3f", "float", s, "float", t, "float", r)

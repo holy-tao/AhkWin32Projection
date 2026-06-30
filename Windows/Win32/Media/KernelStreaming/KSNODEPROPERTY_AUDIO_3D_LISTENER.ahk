@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\KSNODEPROPERTY.ahk
 #Include .\KSIDENTIFIER.ahk
 
@@ -8,7 +9,7 @@
  * @architecture X64, Arm64
  */
 class KSNODEPROPERTY_AUDIO_3D_LISTENER extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -27,7 +28,7 @@ class KSNODEPROPERTY_AUDIO_3D_LISTENER extends Win32Struct {
      * @type {Pointer<Void>}
      */
     ListenerId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

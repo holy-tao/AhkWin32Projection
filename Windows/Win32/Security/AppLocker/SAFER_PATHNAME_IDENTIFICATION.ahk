@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFER_IDENTIFICATION_HEADER.ahk
-#Include .\SAFER_IDENTIFICATION_TYPES.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\SAFER_IDENTIFICATION_TYPES.ahk
+#Include .\SAFER_IDENTIFICATION_HEADER.ahk
 
 /**
  * Represents a path identification rule.
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.Security.AppLocker
  */
 class SAFER_PATHNAME_IDENTIFICATION extends Win32Struct {
-    static sizeof => 552
+    static sizeof => 560
 
     static packingSize => 8
 
@@ -31,8 +33,8 @@ class SAFER_PATHNAME_IDENTIFICATION extends Win32Struct {
      * @type {String}
      */
     Description {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
+        get => StrGet(this.ptr + 32, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 32, 255, "UTF-16")
     }
 
     /**
@@ -40,8 +42,8 @@ class SAFER_PATHNAME_IDENTIFICATION extends Win32Struct {
      * @type {PWSTR}
      */
     ImageName {
-        get => NumGet(this, 536, "ptr")
-        set => NumPut("ptr", value, this, 536)
+        get => NumGet(this, 544, "ptr")
+        set => NumPut("ptr", value, this, 544)
     }
 
     /**
@@ -49,7 +51,7 @@ class SAFER_PATHNAME_IDENTIFICATION extends Win32Struct {
      * @type {Integer}
      */
     dwSaferFlags {
-        get => NumGet(this, 544, "uint")
-        set => NumPut("uint", value, this, 544)
+        get => NumGet(this, 552, "uint")
+        set => NumPut("uint", value, this, 552)
     }
 }

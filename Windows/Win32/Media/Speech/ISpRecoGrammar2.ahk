@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpeechResourceLoader.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\SPBINARYGRAMMAR.ahk
+#Include .\SPRULE.ahk
+#Include ..\..\System\Com\Urlmon\IInternetSecurityManager.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\SPLOADOPTIONS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech

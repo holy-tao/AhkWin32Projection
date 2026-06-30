@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRUSTEE_A.ahk
-#Include .\MULTIPLE_TRUSTEE_OPERATION.ahk
 #Include .\TRUSTEE_FORM.ahk
+#Include .\TRUSTEE_A.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\TRUSTEE_TYPE.ahk
+#Include .\MULTIPLE_TRUSTEE_OPERATION.ahk
 
 /**
  * Identifies the user account, group account, or logon session to which an access control entry (ACE) applies. (ANSI)

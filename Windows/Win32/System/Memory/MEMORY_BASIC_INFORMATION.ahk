@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PAGE_PROTECTION_FLAGS.ahk
 #Include .\VIRTUAL_ALLOCATION_TYPE.ahk
+#Include .\PAGE_PROTECTION_FLAGS.ahk
 #Include .\PAGE_TYPE.ahk
 
 /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk
+#Include .\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk
 #Include .\ID3D12GraphicsCommandList1.ahk
 
 /**

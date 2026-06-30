@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMDMProgress.ahk
 #Include .\IWMDMStorage.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMDMOperation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMDMStorageControl interface is used to insert, delete, or move files within a storage, a device, or between a device and the computer.

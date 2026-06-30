@@ -2,8 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ISmimeCapability.ahk
+#Include .\ICspInformation.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ISmimeCapability.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines the following methods and properties to manage a collection of ISmimeCapability objects.

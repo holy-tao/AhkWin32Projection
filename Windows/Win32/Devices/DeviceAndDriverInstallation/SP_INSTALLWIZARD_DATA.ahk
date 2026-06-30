@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SP_CLASSINSTALL_HEADER.ahk
-#Include .\DI_FUNCTION.ahk
-#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
+#Include .\DI_FUNCTION.ahk
+#Include .\SP_CLASSINSTALL_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation

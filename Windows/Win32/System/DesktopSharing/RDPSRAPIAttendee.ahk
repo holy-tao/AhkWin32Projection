@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Retrieves the connectivity information for the attendee.
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_connectivityinfo
  * @namespace Windows.Win32.System.DesktopSharing
  */
 class RDPSRAPIAttendee extends Win32Struct {

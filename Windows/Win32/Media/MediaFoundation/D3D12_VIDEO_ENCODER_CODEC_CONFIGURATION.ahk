@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
 
 /**
  * Represents a codec configuration structure for video encoding.

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Encapsulates information about an output protection system and its corresponding configuration data.

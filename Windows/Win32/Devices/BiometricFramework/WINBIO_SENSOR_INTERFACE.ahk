@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WINBIO_ADAPTER_INTERFACE_VERSION.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_SENSOR_INTERFACE extends Win32Struct {
-    static sizeof => 272
+    static sizeof => 280
 
     static packingSize => 8
 
@@ -50,11 +51,14 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
 
     /**
      * A GUID that uniquely identifies the sensor adapter. You must generate this value.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AdapterId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__AdapterId"))
+                this.__AdapterId := Guid(16, this)
+            return this.__AdapterId
+        }
     }
 
     /**
@@ -62,8 +66,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_ATTACH_FN>}
      */
     Attach {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -71,8 +75,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_DETACH_FN>}
      */
     Detach {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -80,8 +84,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_CLEAR_CONTEXT_FN>}
      */
     ClearContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -89,8 +93,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_QUERY_STATUS_FN>}
      */
     QueryStatus {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -98,8 +102,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_RESET_FN>}
      */
     Reset {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -107,8 +111,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_SET_MODE_FN>}
      */
     SetMode {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -116,8 +120,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_SET_INDICATOR_STATUS_FN>}
      */
     SetIndicatorStatus {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -125,8 +129,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_GET_INDICATOR_STATUS_FN>}
      */
     GetIndicatorStatus {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -134,8 +138,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_START_CAPTURE_FN>}
      */
     StartCapture {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -143,8 +147,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_FINISH_CAPTURE_FN>}
      */
     FinishCapture {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -152,8 +156,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN>}
      */
     ExportSensorData {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -161,8 +165,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_CANCEL_FN>}
      */
     Cancel {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -170,8 +174,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN>}
      */
     PushDataToEngine {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
@@ -179,8 +183,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_CONTROL_UNIT_FN>}
      */
     ControlUnit {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -188,8 +192,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_CONTROL_UNIT_PRIVILEGED_FN>}
      */
     ControlUnitPrivileged {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
@@ -197,8 +201,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN>}
      */
     NotifyPowerChange {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
@@ -206,8 +210,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_PIPELINE_INIT_FN>}
      */
     PipelineInit {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 
     /**
@@ -215,8 +219,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_PIPELINE_CLEANUP_FN>}
      */
     PipelineCleanup {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
@@ -224,8 +228,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_ACTIVATE_FN>}
      */
     Activate {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+        get => NumGet(this, 176, "ptr")
+        set => NumPut("ptr", value, this, 176)
     }
 
     /**
@@ -233,8 +237,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_DEACTIVATE_FN>}
      */
     Deactivate {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
@@ -242,8 +246,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_QUERY_EXTENDED_INFO_FN>}
      */
     QueryExtendedInfo {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
@@ -251,8 +255,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_QUERY_CALIBRATION_FORMATS_FN>}
      */
     QueryCalibrationFormats {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
@@ -260,8 +264,8 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_SET_CALIBRATION_FORMAT_FN>}
      */
     SetCalibrationFormat {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**
@@ -269,63 +273,63 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct {
      * @type {Pointer<PIBIO_SENSOR_ACCEPT_CALIBRATION_DATA_FN>}
      */
     AcceptCalibrationData {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
      * @type {Pointer<PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN>}
      */
     AsyncImportRawBuffer {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 
     /**
      * @type {Pointer<PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN>}
      */
     AsyncImportSecureBuffer {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
+        get => NumGet(this, 232, "ptr")
+        set => NumPut("ptr", value, this, 232)
     }
 
     /**
      * @type {Pointer<PIBIO_SENSOR_QUERY_PRIVATE_SENSOR_TYPE_FN>}
      */
     QueryPrivateSensorType {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
+        get => NumGet(this, 240, "ptr")
+        set => NumPut("ptr", value, this, 240)
     }
 
     /**
      * @type {Pointer<PIBIO_SENSOR_CONNECT_SECURE_FN>}
      */
     ConnectSecure {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 
     /**
      * @type {Pointer<PIBIO_SENSOR_START_CAPTURE_EX_FN>}
      */
     StartCaptureEx {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
+        get => NumGet(this, 256, "ptr")
+        set => NumPut("ptr", value, this, 256)
     }
 
     /**
      * @type {Pointer<PIBIO_SENSOR_START_NOTIFY_WAKE_FN>}
      */
     StartNotifyWake {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
+        get => NumGet(this, 264, "ptr")
+        set => NumPut("ptr", value, this, 264)
     }
 
     /**
      * @type {Pointer<PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN>}
      */
     FinishNotifyWake {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
+        get => NumGet(this, 272, "ptr")
+        set => NumPut("ptr", value, this, 272)
     }
 }

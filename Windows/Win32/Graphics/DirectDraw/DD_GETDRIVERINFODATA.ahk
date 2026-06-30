@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The DD_GETDRIVERINFODATA structure is used to pass data to and from the DdGetDriverInfo callback routine.
@@ -9,7 +11,7 @@
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
 class DD_GETDRIVERINFODATA extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -41,11 +43,14 @@ class DD_GETDRIVERINFODATA extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     guidInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__guidInfo"))
+                this.__guidInfo := Guid(16, this)
+            return this.__guidInfo
+        }
     }
 
     /**
@@ -53,8 +58,8 @@ class DD_GETDRIVERINFODATA extends Win32Struct {
      * @type {Integer}
      */
     dwExpectedSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -62,8 +67,8 @@ class DD_GETDRIVERINFODATA extends Win32Struct {
      * @type {Pointer<Void>}
      */
     lpvData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -71,8 +76,8 @@ class DD_GETDRIVERINFODATA extends Win32Struct {
      * @type {Integer}
      */
     dwActualSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -80,7 +85,7 @@ class DD_GETDRIVERINFODATA extends Win32Struct {
      * @type {HRESULT}
      */
     ddRVal {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 }

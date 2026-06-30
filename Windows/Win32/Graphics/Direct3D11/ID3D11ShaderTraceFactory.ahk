@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ID3D11ShaderTrace.ahk
+#Include .\D3D11_SHADER_TRACE_DESC.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * An ID3D11ShaderTraceFactory interface implements a method for generating shader trace information objects.

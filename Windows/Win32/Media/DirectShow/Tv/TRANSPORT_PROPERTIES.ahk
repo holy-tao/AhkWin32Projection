@@ -9,7 +9,7 @@ class TRANSPORT_PROPERTIES extends Win32Struct {
 
     static packingSize => 8
 
-    class _Fields_e__Union extends Win32Struct {
+    class _Fields extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -43,7 +43,7 @@ class TRANSPORT_PROPERTIES extends Win32Struct {
         Others {
             get {
                 if(!this.HasProp("__Others"))
-                    this.__Others := TRANSPORT_PROPERTIES._Fields_e__Union._Others(0, this)
+                    this.__Others := TRANSPORT_PROPERTIES._Fields._Others(0, this)
                 return this.__Others
             }
         }
@@ -74,12 +74,12 @@ class TRANSPORT_PROPERTIES extends Win32Struct {
     }
 
     /**
-     * @type {_Fields_e__Union}
+     * @type {_Fields}
      */
     Fields {
         get {
             if(!this.HasProp("__Fields"))
-                this.__Fields := TRANSPORT_PROPERTIES._Fields_e__Union(16, this)
+                this.__Fields := TRANSPORT_PROPERTIES._Fields(16, this)
             return this.__Fields
         }
     }

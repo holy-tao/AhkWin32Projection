@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWMPControls2.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IWMPControls3 interface provides methods that supplement the IWMPControls2 interface.

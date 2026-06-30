@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIContainer.ahk
 #Include .\IMessage.ahk
+#Include .\IMAPIContainer.ahk
+#Include .\SSortOrderSet.ahk
+#Include .\SBinaryArray.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMAPIProgress.ahk
 
 /**
  * IMAPIFolderIMAPIContainer performs operations on the messages and subfolders in a folder. This article describes the related properties and members.

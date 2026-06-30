@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_CSV_VOLUME_FAULT_STATE.ahk
 #Include .\CLUSTER_SHARED_VOLUME_BACKUP_STATE.ahk
+#Include .\CLUSTER_CSV_VOLUME_FAULT_STATE.ahk
 
 /**
  * Represents information about a cluster shared volume (CSV).

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -50,7 +51,7 @@ class IVBSAXAttributes extends IDispatch {
      * @returns {BSTR} 
      */
     getURI(nIndex) {
-        strURI := BSTR()
+        strURI := BSTR({Value: 0}, True)
         result := ComCall(8, this, "int", nIndex, "ptr", strURI, "HRESULT")
         return strURI
     }
@@ -61,7 +62,7 @@ class IVBSAXAttributes extends IDispatch {
      * @returns {BSTR} 
      */
     getLocalName(nIndex) {
-        strLocalName := BSTR()
+        strLocalName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "int", nIndex, "ptr", strLocalName, "HRESULT")
         return strLocalName
     }
@@ -72,7 +73,7 @@ class IVBSAXAttributes extends IDispatch {
      * @returns {BSTR} 
      */
     getQName(nIndex) {
-        strQName := BSTR()
+        strQName := BSTR({Value: 0}, True)
         result := ComCall(10, this, "int", nIndex, "ptr", strQName, "HRESULT")
         return strQName
     }
@@ -109,7 +110,7 @@ class IVBSAXAttributes extends IDispatch {
      * @returns {BSTR} 
      */
     getType(nIndex) {
-        strType := BSTR()
+        strType := BSTR({Value: 0}, True)
         result := ComCall(13, this, "int", nIndex, "ptr", strType, "HRESULT")
         return strType
     }
@@ -124,7 +125,7 @@ class IVBSAXAttributes extends IDispatch {
         strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
         strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
 
-        strType := BSTR()
+        strType := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", strURI, "ptr", strLocalName, "ptr", strType, "HRESULT")
         return strType
     }
@@ -137,7 +138,7 @@ class IVBSAXAttributes extends IDispatch {
     getTypeFromQName(strQName) {
         strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
 
-        strType := BSTR()
+        strType := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", strQName, "ptr", strType, "HRESULT")
         return strType
     }
@@ -148,7 +149,7 @@ class IVBSAXAttributes extends IDispatch {
      * @returns {BSTR} 
      */
     getValue(nIndex) {
-        strValue := BSTR()
+        strValue := BSTR({Value: 0}, True)
         result := ComCall(16, this, "int", nIndex, "ptr", strValue, "HRESULT")
         return strValue
     }
@@ -163,7 +164,7 @@ class IVBSAXAttributes extends IDispatch {
         strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
         strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
 
-        strValue := BSTR()
+        strValue := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", strURI, "ptr", strLocalName, "ptr", strValue, "HRESULT")
         return strValue
     }
@@ -176,7 +177,7 @@ class IVBSAXAttributes extends IDispatch {
     getValueFromQName(strQName) {
         strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
 
-        strValue := BSTR()
+        strValue := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", strQName, "ptr", strValue, "HRESULT")
         return strValue
     }

@@ -1,9 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DDevice9.ahk
+#Include .\D3DPOOL.ahk
+#Include .\D3DFORMAT.ahk
+#Include .\D3DPRESENT_PARAMETERS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IDirect3DResource9.ahk
 #Include .\IDirect3DSurface9.ahk
+#Include .\IDirect3DVertexBuffer9.ahk
+#Include .\IDirect3DDevice9.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Gdi\RGNDATA.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\D3DDISPLAYMODEEX.ahk
+#Include .\D3DMULTISAMPLE_TYPE.ahk
+#Include .\D3DDISPLAYROTATION.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D3DCOMPOSERECTSOP.ahk
 
 /**
  * Applications use the methods of the IDirect3DDevice9Ex interface to render primitives, create resources, work with system-level variables, adjust gamma ramp levels, work with palettes, and create shaders.

@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IRawElementProviderSimple2.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\UIA_METADATA_ID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends the IRawElementProviderSimple2 interface to enable retrieving metadata about how accessible technology should say the preferred content type.

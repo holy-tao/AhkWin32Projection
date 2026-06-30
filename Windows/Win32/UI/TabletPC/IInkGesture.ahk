@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\InkRecognitionConfidence.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\InkApplicationGesture.ahk
 
 /**
  * Represents the ability to query particular properties of a gesture returned from a gesture recognition.

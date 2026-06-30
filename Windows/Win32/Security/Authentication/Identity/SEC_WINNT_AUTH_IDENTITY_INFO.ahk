@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\SEC_WINNT_AUTH_IDENTITY_EXW.ahk
-#Include .\SEC_WINNT_AUTH_IDENTITY_EXA.ahk
-#Include ..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_A.ahk
 #Include ..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY.ahk
+#Include ..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_A.ahk
+#Include .\SEC_WINNT_AUTH_IDENTITY_EXA.ahk
 #Include ..\..\..\System\Rpc\SEC_WINNT_AUTH_IDENTITY_W.ahk
 #Include .\SEC_WINNT_AUTH_IDENTITY_EX2.ahk
 

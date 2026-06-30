@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxManifestReader2.ahk
-#Include .\IAppxManifestCapabilitiesEnumerator.ahk
 #Include .\IAppxManifestTargetDeviceFamiliesEnumerator.ahk
+#Include .\APPX_CAPABILITY_CLASS_TYPE.ahk
+#Include .\IAppxManifestCapabilitiesEnumerator.ahk
+#Include .\IAppxManifestReader2.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx

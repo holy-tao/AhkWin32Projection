@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxIncomingMessage.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IFaxIncomingMessage.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used by a fax client application to retrieve information about a received fax message in the archive of inbound faxes. (IFaxIncomingMessage2)
@@ -97,7 +99,7 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_subject
      */
     get_Subject() {
-        pbstrSubject := BSTR()
+        pbstrSubject := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", pbstrSubject, "HRESULT")
         return pbstrSubject
     }
@@ -125,7 +127,7 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_sendername
      */
     get_SenderName() {
-        pbstrSenderName := BSTR()
+        pbstrSenderName := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", pbstrSenderName, "HRESULT")
         return pbstrSenderName
     }
@@ -153,7 +155,7 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_senderfaxnumber
      */
     get_SenderFaxNumber() {
-        pbstrSenderFaxNumber := BSTR()
+        pbstrSenderFaxNumber := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", pbstrSenderFaxNumber, "HRESULT")
         return pbstrSenderFaxNumber
     }
@@ -212,7 +214,7 @@ class IFaxIncomingMessage2 extends IFaxIncomingMessage {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage2-get_recipients
      */
     get_Recipients() {
-        pbstrRecipients := BSTR()
+        pbstrRecipients := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", pbstrRecipients, "HRESULT")
         return pbstrRecipients
     }

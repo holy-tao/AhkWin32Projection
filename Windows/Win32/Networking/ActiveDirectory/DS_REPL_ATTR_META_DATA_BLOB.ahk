@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -8,7 +9,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -44,11 +45,14 @@ class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct {
 
     /**
      * Contains the invocation identification of the server on which the last change was made to this attribute. Replication of the change does not affect this value.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidLastOriginatingDsaInvocationID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__uuidLastOriginatingDsaInvocationID"))
+                this.__uuidLastOriginatingDsaInvocationID := Guid(16, this)
+            return this.__uuidLastOriginatingDsaInvocationID
+        }
     }
 
     /**
@@ -56,8 +60,8 @@ class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct {
      * @type {Integer}
      */
     usnOriginatingChange {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
+        get => NumGet(this, 32, "int64")
+        set => NumPut("int64", value, this, 32)
     }
 
     /**
@@ -65,8 +69,8 @@ class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct {
      * @type {Integer}
      */
     usnLocalChange {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
+        get => NumGet(this, 40, "int64")
+        set => NumPut("int64", value, this, 40)
     }
 
     /**
@@ -74,7 +78,7 @@ class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct {
      * @type {Integer}
      */
     oszLastOriginatingDsaDN {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_GEOREGIONTYPE.ahk
 #Include .\GNSS_GEOFENCE_STATE.ahk
 #Include .\GNSS_GEOREGION.ahk
-#Include .\GNSS_GEOREGIONTYPE.ahk
 #Include .\GNSS_GEOREGION_CIRCLE.ahk
 
 /**

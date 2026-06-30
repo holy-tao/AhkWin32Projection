@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -174,7 +175,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_content() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(8, this, "ptr", p, "HRESULT")
         return p
     }
@@ -196,7 +197,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_captionSide() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", p, "HRESULT")
         return p
     }
@@ -218,7 +219,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_counterIncrement() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", p, "HRESULT")
         return p
     }
@@ -240,7 +241,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_counterReset() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", p, "HRESULT")
         return p
     }
@@ -262,7 +263,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_outline() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", p, "HRESULT")
         return p
     }
@@ -304,7 +305,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_outlineStyle() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -346,7 +347,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_boxSizing() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(24, this, "ptr", p, "HRESULT")
         return p
     }
@@ -368,7 +369,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderSpacing() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", p, "HRESULT")
         return p
     }
@@ -430,7 +431,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakInside() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", p, "HRESULT")
         return p
     }
@@ -452,7 +453,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_emptyCells() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", p, "HRESULT")
         return p
     }
@@ -474,7 +475,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msBlockProgression() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", p, "HRESULT")
         return p
     }
@@ -496,7 +497,7 @@ class IHTMLRuleStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_quotes() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", p, "HRESULT")
         return p
     }

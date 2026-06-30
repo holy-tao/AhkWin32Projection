@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WNODE_HEADER.ahk
+#Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
 class WNODE_TOO_SMALL extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -26,7 +27,7 @@ class WNODE_TOO_SMALL extends Win32Struct {
      * @type {Integer}
      */
     SizeNeeded {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

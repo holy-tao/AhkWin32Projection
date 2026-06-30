@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWindowsDriverUpdate3.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IWindowsDriverUpdateEntryCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWindowsDriverUpdate3.ahk
 
 /**
  * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate4)

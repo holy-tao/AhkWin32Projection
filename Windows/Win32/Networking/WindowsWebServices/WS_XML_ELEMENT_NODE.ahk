@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_NODE.ahk
-#Include .\WS_XML_NODE_TYPE.ahk
 #Include .\WS_XML_STRING.ahk
 #Include .\WS_XML_ATTRIBUTE.ahk
+#Include .\WS_XML_NODE_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a start element in xml (e.g.

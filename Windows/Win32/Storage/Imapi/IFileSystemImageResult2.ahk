@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFileSystemImageResult.ahk
 #Include .\IBlockRangeList.ahk
+#Include .\IFileSystemImageResult.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFileSystemImageResult2 interface allows the data recorder object to retrieve information about modified blocks in images created for rewritable discs.

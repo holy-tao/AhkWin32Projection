@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\FolderItems.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\FolderItem.ahk
+#Include .\FolderItems.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a Shell folder. This object contains properties and methods that allow you to retrieve information about the folder.
@@ -80,7 +82,7 @@ class Folder extends IDispatch {
      * @returns {BSTR} 
      */
     get_Title() {
-        pbs := BSTR()
+        pbs := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbs, "HRESULT")
         return pbs
     }
@@ -475,7 +477,7 @@ class Folder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/shell/folder-getdetailsof
      */
     GetDetailsOf(vItem, iColumn) {
-        pbs := BSTR()
+        pbs := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", vItem, "int", iColumn, "ptr", pbs, "HRESULT")
         return pbs
     }

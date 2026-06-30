@@ -1,18 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLDocument.ahk
-#Include .\IHTMLElementCollection.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLSelectionObject.ahk
-#Include .\IHTMLFramesCollection2.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLLocation.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLWindow2.ahk
-#Include .\IHTMLStyleSheetsCollection.ahk
 #Include .\IHTMLStyleSheet.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\IHTMLElement.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLFramesCollection2.ahk
+#Include .\IHTMLStyleSheetsCollection.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLDocument.ahk
+#Include .\IHTMLWindow2.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
+#Include .\IHTMLElementCollection.ahk
+#Include .\IHTMLLocation.ahk
+#Include .\IHTMLSelectionObject.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -572,7 +575,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_title() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(17, this, "ptr", p, "HRESULT")
         return p
     }
@@ -603,7 +606,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_designMode() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", p, "HRESULT")
         return p
     }
@@ -622,7 +625,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(22, this, "ptr", p, "HRESULT")
         return p
     }
@@ -759,7 +762,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_referrer() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", p, "HRESULT")
         return p
     }
@@ -778,7 +781,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_lastModified() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", p, "HRESULT")
         return p
     }
@@ -800,7 +803,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_URL() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", p, "HRESULT")
         return p
     }
@@ -822,7 +825,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_domain() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(42, this, "ptr", p, "HRESULT")
         return p
     }
@@ -844,7 +847,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_cookie() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", p, "HRESULT")
         return p
     }
@@ -885,7 +888,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_charset() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(48, this, "ptr", p, "HRESULT")
         return p
     }
@@ -907,7 +910,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_defaultCharset() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(50, this, "ptr", p, "HRESULT")
         return p
     }
@@ -917,7 +920,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_mimeType() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(51, this, "ptr", p, "HRESULT")
         return p
     }
@@ -927,7 +930,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_fileSize() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(52, this, "ptr", p, "HRESULT")
         return p
     }
@@ -937,7 +940,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_fileCreatedDate() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(53, this, "ptr", p, "HRESULT")
         return p
     }
@@ -947,7 +950,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(54, this, "ptr", p, "HRESULT")
         return p
     }
@@ -957,7 +960,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(55, this, "ptr", p, "HRESULT")
         return p
     }
@@ -967,7 +970,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_security() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(56, this, "ptr", p, "HRESULT")
         return p
     }
@@ -977,7 +980,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_protocol() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(57, this, "ptr", p, "HRESULT")
         return p
     }
@@ -987,7 +990,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     get_nameProp() {
-        p := BSTR()
+        p := BSTR({Value: 0}, True)
         result := ComCall(58, this, "ptr", p, "HRESULT")
         return p
     }
@@ -1148,7 +1151,7 @@ class IHTMLDocument2 extends IHTMLDocument {
     queryCommandText(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        pcmdText := BSTR()
+        pcmdText := BSTR({Value: 0}, True)
         result := ComCall(68, this, "ptr", cmdID, "ptr", pcmdText, "HRESULT")
         return pcmdText
     }
@@ -1618,7 +1621,7 @@ class IHTMLDocument2 extends IHTMLDocument {
      * @returns {BSTR} 
      */
     toString() {
-        _String := BSTR()
+        _String := BSTR({Value: 0}, True)
         result := ComCall(114, this, "ptr", _String, "HRESULT")
         return _String
     }

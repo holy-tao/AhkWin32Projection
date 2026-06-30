@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Adding a row that  exists.
- * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreatetransformsummaryinfoa
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class MSITRANSFORM_ERROR extends Win32Enum {

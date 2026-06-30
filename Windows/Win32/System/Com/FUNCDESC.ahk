@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ELEMDESC.ahk
-#Include .\FUNCKIND.ahk
-#Include .\INVOKEKIND.ahk
-#Include .\CALLCONV.ahk
-#Include .\TYPEDESC.ahk
-#Include ..\Ole\ARRAYDESC.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include .\IDLDESC.ahk
-#Include .\IDLFLAGS.ahk
-#Include ..\Ole\PARAMDESC.ahk
 #Include ..\Ole\PARAMDESCEX.ahk
+#Include ..\Ole\ARRAYDESC.ahk
+#Include .\IDLFLAGS.ahk
 #Include ..\Ole\PARAMFLAGS.ahk
+#Include .\ELEMDESC.ahk
+#Include ..\Ole\PARAMDESC.ahk
+#Include ..\Variant\VARENUM.ahk
 #Include .\FUNCFLAGS.ahk
+#Include .\FUNCKIND.ahk
+#Include .\CALLCONV.ahk
+#Include .\INVOKEKIND.ahk
+#Include .\TYPEDESC.ahk
+#Include .\IDLDESC.ahk
 
 /**
  * Describes a function. (FUNCDESC)

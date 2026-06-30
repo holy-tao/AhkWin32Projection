@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The MCI_DGV_SETAUDIO_PARMSA (ANSI) structure (digitalv.h) contains parameters for the MCI_SETAUDIO command for digital-video devices.

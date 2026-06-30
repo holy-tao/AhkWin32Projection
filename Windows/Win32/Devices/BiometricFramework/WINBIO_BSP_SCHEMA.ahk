@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WINBIO_VERSION.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_BSP_SCHEMA extends Win32Struct {
-    static sizeof => 1048
+    static sizeof => 1052
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The type of biometric measurement used by this device. Currently this must be **WINBIO\_TYPE\_FINGERPRINT**.
@@ -23,11 +24,14 @@ class WINBIO_BSP_SCHEMA extends Win32Struct {
 
     /**
      * A value that uniquely identifies this biometric service provider component.
-     * @type {Pointer}
+     * @type {Guid}
      */
     BspId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__BspId"))
+                this.__BspId := Guid(4, this)
+            return this.__BspId
+        }
     }
 
     /**
@@ -37,7 +41,7 @@ class WINBIO_BSP_SCHEMA extends Win32Struct {
     Description {
         get {
             if(!this.HasProp("__DescriptionProxyArray"))
-                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "ushort")
+                this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 20, 256, Primitive, "ushort")
             return this.__DescriptionProxyArray
         }
     }
@@ -49,7 +53,7 @@ class WINBIO_BSP_SCHEMA extends Win32Struct {
     Vendor {
         get {
             if(!this.HasProp("__VendorProxyArray"))
-                this.__VendorProxyArray := Win32FixedArray(this.ptr + 528, 256, Primitive, "ushort")
+                this.__VendorProxyArray := Win32FixedArray(this.ptr + 532, 256, Primitive, "ushort")
             return this.__VendorProxyArray
         }
     }
@@ -61,7 +65,7 @@ class WINBIO_BSP_SCHEMA extends Win32Struct {
     Version {
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := WINBIO_VERSION(1040, this)
+                this.__Version := WINBIO_VERSION(1044, this)
             return this.__Version
         }
     }

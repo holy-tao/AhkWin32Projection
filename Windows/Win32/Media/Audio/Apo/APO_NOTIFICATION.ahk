@@ -1,19 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APO_NOTIFICATION_TYPE.ahk
-#Include .\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION.ahk
-#Include ..\IMMDevice.ahk
-#Include ..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk
-#Include .\AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION.ahk
-#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
-#Include .\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION.ahk
-#Include ..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk
 #Include .\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2.ahk
+#Include .\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION.ahk
 #Include .\AUDIO_VOLUME_NOTIFICATION_DATA2.ahk
-#Include .\DEVICE_ORIENTATION_TYPE.ahk
+#Include ..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk
+#Include .\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION.ahk
+#Include ..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk
+#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include .\AUDIO_MICROPHONE_BOOST_NOTIFICATION.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 #Include .\AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION.ahk
+#Include .\AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION.ahk
+#Include .\DEVICE_ORIENTATION_TYPE.ahk
+#Include .\APO_NOTIFICATION_TYPE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\IMMDevice.ahk
 
 /**
  * Represents a notification for a change to an APO endpoint or system effects.
@@ -26,7 +28,7 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class APO_NOTIFICATION extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 72
 
     static packingSize => 8
 

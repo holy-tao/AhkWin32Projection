@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChangeBatch.ahk
+#Include .\SYNC_VERSION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ISyncChangeBuilder.ahk
+#Include .\ISyncKnowledge.ahk
+#Include .\ISyncChangeBatch.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsSync

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\NDIS_TIMESTAMP_CAPABILITY_FLAGS.ahk
+#Include .\NDIS_OBJECT_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

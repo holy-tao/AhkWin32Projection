@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\WLAN_HOSTED_NETWORK_PEER_STATE.ahk
 #Include .\WLAN_HOSTED_NETWORK_STATE.ahk
 #Include .\DOT11_PHY_TYPE.ahk
-#Include .\WLAN_HOSTED_NETWORK_PEER_STATE.ahk
 #Include .\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk
 
 /**
@@ -15,9 +16,9 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
 class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The current state of the wireless Hosted Network.
@@ -34,11 +35,14 @@ class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct {
      * The actual network Device ID used for  the wireless Hosted Network. 
      * 
      * This is member is the GUID of a virtual wireless device which would not be available through calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. This GUID can be used for calling other higher layer networking functions that use the device GUID (IP Helper functions, for example).
-     * @type {Pointer}
+     * @type {Guid}
      */
     IPDeviceID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__IPDeviceID"))
+                this.__IPDeviceID := Guid(4, this)
+            return this.__IPDeviceID
+        }
     }
 
     /**
@@ -48,7 +52,7 @@ class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct {
     wlanHostedNetworkBSSID {
         get {
             if(!this.HasProp("__wlanHostedNetworkBSSIDProxyArray"))
-                this.__wlanHostedNetworkBSSIDProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "char")
+                this.__wlanHostedNetworkBSSIDProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "char")
             return this.__wlanHostedNetworkBSSIDProxyArray
         }
     }
@@ -60,8 +64,8 @@ class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct {
      * @type {DOT11_PHY_TYPE}
      */
     dot11PhyType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -71,8 +75,8 @@ class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct {
      * @type {Integer}
      */
     ulChannelFrequency {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -82,8 +86,8 @@ class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct {
      * @type {Integer}
      */
     dwNumberOfPeers {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -95,7 +99,7 @@ class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct {
     PeerList {
         get {
             if(!this.HasProp("__PeerListProxyArray"))
-                this.__PeerListProxyArray := Win32FixedArray(this.ptr + 36, 1, WLAN_HOSTED_NETWORK_PEER_STATE, "")
+                this.__PeerListProxyArray := Win32FixedArray(this.ptr + 40, 1, WLAN_HOSTED_NETWORK_PEER_STATE, "")
             return this.__PeerListProxyArray
         }
     }

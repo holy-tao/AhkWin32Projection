@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -38,7 +40,7 @@ class ICLRDebuggingLibraryProvider extends IUnknown {
     ProvideLibrary(pwszFileName, dwTimestamp, dwSizeOfImage) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-        phModule := HMODULE()
+        phModule := HMODULE({Value: 0}, True)
         result := ComCall(3, this, "ptr", pwszFileName, "uint", dwTimestamp, "uint", dwSizeOfImage, "ptr", phModule, "HRESULT")
         return phModule
     }

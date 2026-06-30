@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DRT_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
 #Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
+#Include .\DRT_ADDRESS.ahk
 
 /**
  * DRT_ADDRESS_LIST structure contains a set of DRT_ADDRESS structures that represent the nodes contacted during a search for a key.

@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\RPC_VERSION.ahk
-#Include .\RPC_DISPATCH_TABLE.ahk
 #Include .\MIDL_INTERFACE_METHOD_PROPERTIES.ahk
+#Include .\RPC_DISPATCH_TABLE.ahk
+#Include .\RPC_SYNTAX_IDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
 class MIDL_SYNTAX_INFO extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -28,14 +29,6 @@ class MIDL_SYNTAX_INFO extends Win32Struct {
      * @type {Pointer<RPC_DISPATCH_TABLE>}
      */
     DispatchTable {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ProcString {
         get => NumGet(this, 24, "ptr")
         set => NumPut("ptr", value, this, 24)
     }
@@ -43,7 +36,7 @@ class MIDL_SYNTAX_INFO extends Win32Struct {
     /**
      * @type {Pointer<Integer>}
      */
-    FmtStringOffset {
+    ProcString {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
     }
@@ -51,32 +44,40 @@ class MIDL_SYNTAX_INFO extends Win32Struct {
     /**
      * @type {Pointer<Integer>}
      */
-    TypeString {
+    FmtStringOffset {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
+    }
+
+    /**
+     * @type {Pointer<Integer>}
+     */
+    TypeString {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     aUserMarshalQuadruple {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<MIDL_INTERFACE_METHOD_PROPERTIES>}
      */
     pMethodProperties {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Pointer}
      */
     pReserved2 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

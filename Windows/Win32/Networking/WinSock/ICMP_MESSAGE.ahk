@@ -10,7 +10,7 @@ class ICMP_MESSAGE extends Win32Struct {
 
     static packingSize => 4
 
-    class _Data_e__Union extends Win32Struct {
+    class _Data extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -60,12 +60,12 @@ class ICMP_MESSAGE extends Win32Struct {
     }
 
     /**
-     * @type {_Data_e__Union}
+     * @type {_Data}
      */
     Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := ICMP_MESSAGE._Data_e__Union(4, this)
+                this.__Data := ICMP_MESSAGE._Data(4, this)
             return this.__Data
         }
     }

@@ -1,6 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SYNCMGR_SYNC_CONTROL_FLAGS.ahk
+#Include .\ISyncMgrConflict.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SYNCMGR_UPDATE_REASON.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ISyncMgrSyncResult.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SYNCMGR_CONTROL_FLAGS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -279,21 +289,12 @@ class ISyncMgrControl extends IUnknown {
     }
 
     /**
-     * Informs Sync Center that conflicts have been added for a specific handler or item.
-     * @remarks
-     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>UpdateConflicts</b> does not return until Sync Center has loaded the specified handler, retrieved the handler's conflict store, and reloaded all conflicts from that store. If the handler is provided by a handler collection, the handler collection is also loaded to reload the handler.
-     * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
-     * A pointer to a buffer containing the unique ID of the handler that manages the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
-     * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
-     * 
-     * A pointer to a buffer containing the unique ID of the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character. This parameter can be <b>NULL</b> if the event occurred on the handler rather than on a specific item.
+     * @param {PWSTR} pszHandlerID 
+     * @param {PWSTR} pszItemID 
      * @param {ISyncMgrConflict} pConflict 
      * @param {SYNCMGR_UPDATE_REASON} nReason 
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updateconflicts
+     * @returns {HRESULT} 
      */
     UpdateConflict(pszHandlerID, pszItemID, pConflict, nReason) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID

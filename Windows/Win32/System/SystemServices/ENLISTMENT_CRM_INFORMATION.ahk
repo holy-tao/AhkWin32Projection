@@ -1,35 +1,45 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
 class ENLISTMENT_CRM_INFORMATION extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     CrmTransactionManagerId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__CrmTransactionManagerId"))
+                this.__CrmTransactionManagerId := Guid(0, this)
+            return this.__CrmTransactionManagerId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     CrmResourceManagerId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__CrmResourceManagerId"))
+                this.__CrmResourceManagerId := Guid(16, this)
+            return this.__CrmResourceManagerId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     CrmEnlistmentId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__CrmEnlistmentId"))
+                this.__CrmEnlistmentId := Guid(32, this)
+            return this.__CrmEnlistmentId
+        }
     }
 }

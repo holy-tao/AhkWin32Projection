@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include .\WEBAUTHN_EXTENSION.ahk
 #Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include .\WEBAUTHN_EXTENSION.ahk
 
 /**
  * Contains the attestation data for a credential.

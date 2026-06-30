@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SR_DISK_REPLICATION_ELIGIBLE.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class SR_RESOURCE_TYPE_DISK_INFO extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Indicates the reason that the disk is eligible or ineligible for replication.
@@ -23,10 +24,13 @@ class SR_RESOURCE_TYPE_DISK_INFO extends Win32Struct {
 
     /**
      * The cluster resource identifier of the disk.
-     * @type {Pointer}
+     * @type {Guid}
      */
     DiskGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__DiskGuid"))
+                this.__DiskGuid := Guid(4, this)
+            return this.__DiskGuid
+        }
     }
 }

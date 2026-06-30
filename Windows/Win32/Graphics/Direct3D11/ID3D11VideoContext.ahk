@@ -1,8 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\ID3D11CryptoSession.ahk
+#Include .\D3D11_VIDEO_DECODER_EXTENSION.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_COLOR_SPACE.ahk
 #Include .\ID3D11DeviceChild.ahk
+#Include .\ID3D11VideoProcessorOutputView.ahk
+#Include .\D3D11_VIDEO_FRAME_FORMAT.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_STREAM.ahk
+#Include .\ID3D11AuthenticatedChannel.ahk
+#Include .\D3D11_VIDEO_DECODER_BUFFER_DESC.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_OUTPUT_RATE.ahk
+#Include .\ID3D11VideoDecoderOutputView.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\D3D11_VIDEO_COLOR.ahk
+#Include .\ID3D11VideoProcessor.ahk
+#Include .\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_STEREO_FORMAT.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D11_ENCRYPTED_BLOCK_INFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_ROTATION.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE.ahk
+#Include .\D3D11_VIDEO_PROCESSOR_FILTER.ahk
+#Include .\ID3D11Texture2D.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include .\D3D11_AUTHENTICATED_CONFIGURE_OUTPUT.ahk
+#Include .\ID3D11VideoDecoder.ahk
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext)

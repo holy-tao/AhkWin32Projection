@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
 
 /**
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class D3D12_VIDEO_DECODE_CONFIGURATION extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A GUID identifying the profile for the decoder, such as D3D12\_VIDEO\_DECODE\_PROFILE\_H264 or D3D12\_VIDEO\_DECODE\_PROFILE\_HEVC\_MAIN. For a list of supported GUIDs, see [Direct3D 12 Video GUIDs](/windows/desktop/medfound/direct3d-12-video-guids).
-     * @type {Pointer}
+     * @type {Guid}
      */
     DecodeProfile {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__DecodeProfile"))
+                this.__DecodeProfile := Guid(0, this)
+            return this.__DecodeProfile
+        }
     }
 
     /**
@@ -27,8 +31,8 @@ class D3D12_VIDEO_DECODE_CONFIGURATION extends Win32Struct {
      * @type {D3D12_BITSTREAM_ENCRYPTION_TYPE}
      */
     BitstreamEncryption {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -36,7 +40,7 @@ class D3D12_VIDEO_DECODE_CONFIGURATION extends Win32Struct {
      * @type {D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE}
      */
     InterlaceType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include .\IRawElementProviderFragment.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\NavigateDirection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A Microsoft ActiveX control site implements this interface to enable a Microsoft UI Automation-enabled ActiveX control to express its accessibility.

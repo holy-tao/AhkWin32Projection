@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXCoreHardwareTypeFilterFlags.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\DXCoreWorkload.ahk
 #Include .\IDXCoreAdapterFactory.ahk
+#Include .\DXCoreRuntimeFilterFlags.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore

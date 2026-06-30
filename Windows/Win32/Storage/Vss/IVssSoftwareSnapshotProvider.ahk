@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VSS_SNAPSHOT_PROP.ahk
+#Include .\VSS_SNAPSHOT_PROPERTY_ID.ahk
+#Include .\VSS_OBJECT_TYPE.ahk
 #Include .\IVssEnumObject.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IVssAsync.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\VSS_SNAPSHOT_PROP.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the methods used by VSS to manage shadow copy volumes. All software providers must support this interface.

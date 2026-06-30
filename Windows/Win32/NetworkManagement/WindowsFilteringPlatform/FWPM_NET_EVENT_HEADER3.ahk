@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
+#Include .\FWP_IP_VERSION.ahk
 #Include .\FWP_AF.ahk
+#Include .\FWP_BYTE_ARRAY16.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Security\SID.ahk
 
 /**
  * Contains information common to all events. (FWPM_NET_EVENT_HEADER3)

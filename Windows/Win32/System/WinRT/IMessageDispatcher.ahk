@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IInspectable.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Callback interface implemented by components that need to perform special processing of window messages on an ASTA thread.

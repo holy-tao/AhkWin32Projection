@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmCollection.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to access the results when the source template calls the CommitAndUpdateDerived method.

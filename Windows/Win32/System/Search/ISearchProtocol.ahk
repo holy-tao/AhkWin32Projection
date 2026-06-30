@@ -1,8 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include .\TIMEOUT_INFO.ahk
+#Include .\PROXY_INFO.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\ITEM_INFO.ahk
+#Include .\AUTHENTICATION_INFO.ahk
 #Include .\IUrlAccessor.ahk
+#Include .\IProtocolHandlerSite.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\INCREMENTAL_ACCESS_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods for invoking, initializing, and managing IUrlAccessor objects. (ISearchProtocol)

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The PEER_EVENT_SYNCHRONIZED_DATA is pointed to by a PEER_GRAPH_EVENT_DATA structure's union if a PEER_GRAPH_EVENT_RECORD_CHANGE or PEER_GROUP_EVENT_RECORD_CHANGE event is triggered.
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_EVENT_SYNCHRONIZED_DATA extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the size of the structure.
@@ -24,10 +25,13 @@ class PEER_EVENT_SYNCHRONIZED_DATA extends Win32Struct {
 
     /**
      * Specifies the type of record that is being synchronized.
-     * @type {Pointer}
+     * @type {Guid}
      */
     recordType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__recordType"))
+                this.__recordType := Guid(4, this)
+            return this.__recordType
+        }
     }
 }

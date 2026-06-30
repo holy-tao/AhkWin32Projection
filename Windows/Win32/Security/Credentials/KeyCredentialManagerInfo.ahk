@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Data structure returned from KeyCredentialManagerGetInformation.
@@ -7,16 +8,19 @@
  * @namespace Windows.Win32.Security.Credentials
  */
 class KeyCredentialManagerInfo extends Win32Struct {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Unique identifier of the users WHFB container. Only one container per Windows user profile.
-     * @type {Pointer}
+     * @type {Guid}
      */
     containerId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__containerId"))
+                this.__containerId := Guid(0, this)
+            return this.__containerId
+        }
     }
 }

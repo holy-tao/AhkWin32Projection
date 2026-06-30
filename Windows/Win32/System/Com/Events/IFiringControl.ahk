@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\IDispatch.ahk
+#Include .\IEventSubscription.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Fires an event to a single subscription.

@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
-#Include .\ID2D1DeviceContext.ahk
+#Include .\D2D1_DEVICE_CONTEXT_OPTIONS.ahk
 #Include .\ID2D1PrintControl.ahk
+#Include .\ID2D1Resource.ahk
+#Include ..\Imaging\IWICImagingFactory.ahk
+#Include .\D2D1_PRINT_CONTROL_PROPERTIES.ahk
+#Include ..\..\Storage\Xps\Printing\IPrintDocumentPackageTarget.ahk
+#Include .\ID2D1DeviceContext.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. (ID2D1Device)

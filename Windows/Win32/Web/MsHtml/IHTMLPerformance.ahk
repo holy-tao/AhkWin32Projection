@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLPerformanceNavigation.ahk
-#Include .\IHTMLPerformanceTiming.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLPerformanceTiming.ahk
+#Include .\IHTMLPerformanceNavigation.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -74,7 +75,7 @@ class IHTMLPerformance extends IDispatch {
      * @returns {BSTR} 
      */
     toString() {
-        _string := BSTR()
+        _string := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", _string, "HRESULT")
         return _string
     }

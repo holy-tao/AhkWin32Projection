@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\AlgorithmFlags.ahk
+#Include .\AlgorithmType.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\AlgorithmOperationFlags.ahk
 
 /**
  * Represents an algorithm implemented by a cryptographic provider.
@@ -520,7 +525,7 @@ class ICspAlgorithm extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_longname
      */
     get_LongName() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", pValue, "HRESULT")
         return pValue
     }
@@ -852,7 +857,7 @@ class ICspAlgorithm extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_name
      */
     get_Name() {
-        pValue := BSTR()
+        pValue := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pValue, "HRESULT")
         return pValue
     }

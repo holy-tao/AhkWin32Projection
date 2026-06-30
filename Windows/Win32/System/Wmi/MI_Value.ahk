@@ -1,26 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_Datetime.ahk
-#Include .\MI_Timestamp.ahk
-#Include .\MI_Interval.ahk
-#Include .\MI_Instance.ahk
-#Include .\MI_BooleanA.ahk
-#Include .\MI_Uint8A.ahk
 #Include .\MI_Sint8A.ahk
-#Include .\MI_Uint16A.ahk
-#Include .\MI_Sint16A.ahk
-#Include .\MI_Uint32A.ahk
-#Include .\MI_Sint32A.ahk
-#Include .\MI_Uint64A.ahk
 #Include .\MI_Sint64A.ahk
 #Include .\MI_Real32A.ahk
-#Include .\MI_Real64A.ahk
-#Include .\MI_Char16A.ahk
-#Include .\MI_DatetimeA.ahk
+#Include .\MI_Timestamp.ahk
+#Include .\MI_Array.ahk
+#Include .\MI_Uint16A.ahk
+#Include .\MI_Uint32A.ahk
+#Include .\MI_Datetime.ahk
 #Include .\MI_StringA.ahk
+#Include .\MI_Char16A.ahk
+#Include .\MI_Sint16A.ahk
+#Include .\MI_Instance.ahk
+#Include .\MI_Interval.ahk
+#Include .\MI_BooleanA.ahk
+#Include .\MI_Uint8A.ahk
 #Include .\MI_ReferenceA.ahk
 #Include .\MI_InstanceA.ahk
-#Include .\MI_Array.ahk
+#Include .\MI_Uint64A.ahk
+#Include .\MI_Sint32A.ahk
+#Include .\MI_DatetimeA.ahk
+#Include .\MI_Real64A.ahk
 
 /**
  * A union of all CIM data types.

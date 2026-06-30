@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SCM_LOGICAL_DEVICE_INSTANCE.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
 class SCM_LOGICAL_DEVICES extends Win32Struct {
-    static sizeof => 544
+    static sizeof => 548
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -40,7 +41,7 @@ class SCM_LOGICAL_DEVICES extends Win32Struct {
     Devices {
         get {
             if(!this.HasProp("__DevicesProxyArray"))
-                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_LOGICAL_DEVICE_INSTANCE, "")
+                this.__DevicesProxyArray := Win32FixedArray(this.ptr + 12, 1, SCM_LOGICAL_DEVICE_INSTANCE, "")
             return this.__DevicesProxyArray
         }
     }

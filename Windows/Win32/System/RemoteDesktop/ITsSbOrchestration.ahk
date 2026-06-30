@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITsSbClientConnection.ahk
 #Include .\ITsSbPlugin.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ITsSbOrchestrationNotifySink.ahk
 
 /**
  * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to ensure that the target is ready before a client is redirected to it.

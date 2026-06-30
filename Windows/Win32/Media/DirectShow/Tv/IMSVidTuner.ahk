@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITuningSpace.ahk
 #Include .\IMSVidVideoInputDevice.ahk
 #Include .\ITuneRequest.ahk
-#Include .\ITuningSpace.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * The IMSVidTuner interface manages tuning devices.

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3DKMT_GPU_PREFERENCE_QUERY_STATE.ahk
 #Include .\D3DKMT_GPU_PREFERENCE_QUERY_TYPE.ahk
+#Include ..\..\..\Win32\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

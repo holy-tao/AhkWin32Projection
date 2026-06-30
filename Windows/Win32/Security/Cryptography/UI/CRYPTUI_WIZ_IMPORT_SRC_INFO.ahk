@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION.ahk
-#Include ..\CERT_CONTEXT.ahk
-#Include ..\CTL_CONTEXT.ahk
 #Include ..\CRL_CONTEXT.ahk
-#Include ..\HCERTSTORE.ahk
+#Include .\CRYPTUI_WIZ_IMPORT_SUBJECT_OPTION.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\CRYPT_KEY_FLAGS.ahk
+#Include ..\CTL_CONTEXT.ahk
+#Include ..\HCERTSTORE.ahk
+#Include ..\CERT_CONTEXT.ahk
 
 /**
  * Contains the subject to import into the CryptUIWizImport function.

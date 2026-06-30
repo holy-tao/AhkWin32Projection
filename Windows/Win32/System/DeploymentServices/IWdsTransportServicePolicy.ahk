@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWdsTransportCacheable.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWdsTransportCacheable.ahk
+#Include .\WDSTRANSPORT_IP_ADDRESS_TYPE.ahk
+#Include .\WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE.ahk
+#Include .\WDSTRANSPORT_NETWORK_PROFILE_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the service policy part of the WDS transport server's configuration.
@@ -92,7 +96,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startipaddress
      */
     get_StartIpAddress(AddressType) {
-        pbszStartIpAddress := BSTR()
+        pbszStartIpAddress := BSTR({Value: 0}, True)
         result := ComCall(13, this, "int", AddressType, "ptr", pbszStartIpAddress, "HRESULT")
         return pbszStartIpAddress
     }
@@ -122,7 +126,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endipaddress
      */
     get_EndIpAddress(AddressType) {
-        pbszEndIpAddress := BSTR()
+        pbszEndIpAddress := BSTR({Value: 0}, True)
         result := ComCall(15, this, "int", AddressType, "ptr", pbszEndIpAddress, "HRESULT")
         return pbszEndIpAddress
     }

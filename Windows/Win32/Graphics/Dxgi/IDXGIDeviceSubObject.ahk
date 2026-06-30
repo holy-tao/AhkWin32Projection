@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IDXGIObject.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Inherited from objects that are tied to the device so that they can retrieve a pointer to it.

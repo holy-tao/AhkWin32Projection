@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_DELAYLOAD_DESCRIPTOR.ahk
-#Include .\IMAGE_THUNK_DATA64.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\DELAYLOAD_PROC_DESCRIPTOR.ahk
+#Include .\IMAGE_THUNK_DATA64.ahk
+#Include .\IMAGE_DELAYLOAD_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming

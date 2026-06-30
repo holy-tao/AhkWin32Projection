@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include Common\D2D_SIZE_U.ahk
 #Include .\D2D1_PRESENT_OPTIONS.ahk
+#Include Common\D2D_SIZE_U.ahk
 
 /**
  * Contains the HWND, pixel size, and presentation options for an ID2D1HwndRenderTarget.

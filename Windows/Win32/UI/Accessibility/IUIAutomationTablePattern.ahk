@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\RowOrColumnMajor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationElementArray.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to a control that acts as a container for a collection of child elements.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_KEYMODULE_STATISTICS0.ahk
 #Include .\IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0.ahk
-#Include .\IKEEXT_COMMON_STATISTICS0.ahk
 #Include .\IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0.ahk
+#Include .\IKEEXT_COMMON_STATISTICS0.ahk
+#Include .\IKEEXT_KEYMODULE_STATISTICS0.ahk
 
 /**
  * Stores various IKE/AuthIP statistics.

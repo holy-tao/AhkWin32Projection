@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VDS_IPADDRESS.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\VDS_IPADDRESS_TYPE.ahk
 
 /**
@@ -9,17 +10,20 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_ISCSI_INITIATOR_PORTAL_PROP extends Win32Struct {
-    static sizeof => 568
+    static sizeof => 572
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The <b>VDS_OBJECT_ID</b> assigned to the initiator portal.
-     * @type {Pointer}
+     * @type {Guid}
      */
     id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__id"))
+                this.__id := Guid(0, this)
+            return this.__id
+        }
     }
 
     /**
@@ -29,7 +33,7 @@ class VDS_ISCSI_INITIATOR_PORTAL_PROP extends Win32Struct {
     address {
         get {
             if(!this.HasProp("__address"))
-                this.__address := VDS_IPADDRESS(8, this)
+                this.__address := VDS_IPADDRESS(16, this)
             return this.__address
         }
     }
@@ -39,7 +43,7 @@ class VDS_ISCSI_INITIATOR_PORTAL_PROP extends Win32Struct {
      * @type {Integer}
      */
     ulPortIndex {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
+        get => NumGet(this, 568, "uint")
+        set => NumPut("uint", value, this, 568)
     }
 }

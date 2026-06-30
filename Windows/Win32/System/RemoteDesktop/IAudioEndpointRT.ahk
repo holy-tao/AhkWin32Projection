@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\AE_CURRENT_POSITION.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Gets the difference between the current read and write positions in the endpoint buffer.

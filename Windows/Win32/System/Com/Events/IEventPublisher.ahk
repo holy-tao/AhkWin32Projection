@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\Variant\VARIANT.ahk
+#Include ..\IDispatch.ahk
 #Include .\IEventObjectCollection.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Registers, modifies, removes, and provides information about an event publisher.
@@ -77,7 +78,7 @@ class IEventPublisher extends IDispatch {
      * @returns {BSTR} 
      */
     get_PublisherID() {
-        pbstrPublisherID := BSTR()
+        pbstrPublisherID := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrPublisherID, "HRESULT")
         return pbstrPublisherID
     }
@@ -101,7 +102,7 @@ class IEventPublisher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_publishername
      */
     get_PublisherName() {
-        pbstrPublisherName := BSTR()
+        pbstrPublisherName := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrPublisherName, "HRESULT")
         return pbstrPublisherName
     }
@@ -125,7 +126,7 @@ class IEventPublisher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_publishertype
      */
     get_PublisherType() {
-        pbstrPublisherType := BSTR()
+        pbstrPublisherType := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrPublisherType, "HRESULT")
         return pbstrPublisherType
     }
@@ -149,7 +150,7 @@ class IEventPublisher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_ownersid
      */
     get_OwnerSID() {
-        pbstrOwnerSID := BSTR()
+        pbstrOwnerSID := BSTR({Value: 0}, True)
         result := ComCall(13, this, "ptr", pbstrOwnerSID, "HRESULT")
         return pbstrOwnerSID
     }
@@ -173,7 +174,7 @@ class IEventPublisher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
+        pbstrDescription := BSTR({Value: 0}, True)
         result := ComCall(15, this, "ptr", pbstrDescription, "HRESULT")
         return pbstrDescription
     }

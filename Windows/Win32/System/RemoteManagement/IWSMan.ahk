@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides methods and properties used to create a session, represented by a Session object.
@@ -128,7 +129,7 @@ class IWSMan extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-get_commandline
      */
     get_CommandLine() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", value, "HRESULT")
         return value
     }
@@ -139,7 +140,7 @@ class IWSMan extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-get_error
      */
     get_Error() {
-        value := BSTR()
+        value := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", value, "HRESULT")
         return value
     }

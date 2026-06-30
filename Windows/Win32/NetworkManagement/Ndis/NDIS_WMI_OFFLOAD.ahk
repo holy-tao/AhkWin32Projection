@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
-#Include .\NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD.ahk
-#Include .\NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1.ahk
 #Include .\NDIS_WMI_IPSEC_OFFLOAD_V1.ahk
+#Include .\NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD.ahk
 #Include .\NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V2.ahk
+#Include .\NDIS_OBJECT_HEADER.ahk
+#Include .\NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

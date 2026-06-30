@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TRANSPORT_SETTING_ID.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Provides input settings to apply for the REAL_TIME_NOTIFICATION_CAPABILITY transport setting for a TCP socket that is used with ControlChannelTrigger to receive background network notifications in a Windows Store app.
@@ -14,9 +15,9 @@
  * @namespace Windows.Win32.Networking.WinSock
  */
 class REAL_TIME_NOTIFICATION_SETTING_INPUT extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The transport setting ID.
@@ -32,10 +33,13 @@ class REAL_TIME_NOTIFICATION_SETTING_INPUT extends Win32Struct {
 
     /**
      * The realtime notification broker event GUID for this transport ID.
-     * @type {Pointer}
+     * @type {Guid}
      */
     BrokerEventGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__BrokerEventGuid"))
+                this.__BrokerEventGuid := Guid(16, this)
+            return this.__BrokerEventGuid
+        }
     }
 }

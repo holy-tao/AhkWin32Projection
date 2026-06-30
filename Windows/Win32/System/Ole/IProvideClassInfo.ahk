@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include ..\Com\ITypeInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Provides access to the type information for an object's coclass entry in its type library.

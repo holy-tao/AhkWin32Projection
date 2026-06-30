@@ -1,8 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\DVASPECT.ahk
 #Include ..\..\..\System\Ole\IDropTarget.ahk
+#Include ..\..\..\Foundation\RECTL.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
+#Include ..\..\..\Foundation\SIZE.ahk
+#Include ..\..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\RECT.ahk
+#Include ..\..\..\Foundation\LRESULT.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\DVTARGETDEVICE.ahk
 
 /**
  * Extends the Text Object Model (TOM) to provide extra functionality for windowless operation.

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
 #Include .\WS_XML_DICTIONARY.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * A structure used to specify an XML name (of an element or an attribute) as a local name, namespace pair.

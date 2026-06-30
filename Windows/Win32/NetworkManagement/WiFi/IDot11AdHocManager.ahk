@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDot11AdHocNetwork.ahk
-#Include .\IEnumDot11AdHocNetworks.ahk
+#Include .\IDot11AdHocInterface.ahk
+#Include .\IDot11AdHocSecuritySettings.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IEnumDot11AdHocInterfaces.ahk
+#Include .\IEnumDot11AdHocNetworks.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDot11AdHocNetwork.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates and manages 802.11 ad hoc networks.

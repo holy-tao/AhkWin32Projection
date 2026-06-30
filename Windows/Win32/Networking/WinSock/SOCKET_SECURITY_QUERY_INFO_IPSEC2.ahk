@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\SOCKET_SECURITY_PROTOCOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
 class SOCKET_SECURITY_QUERY_INFO_IPSEC2 extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -67,10 +68,13 @@ class SOCKET_SECURITY_QUERY_INFO_IPSEC2 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     SaLookupContext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get {
+            if(!this.HasProp("__SaLookupContext"))
+                this.__SaLookupContext := Guid(44, this)
+            return this.__SaLookupContext
+        }
     }
 }

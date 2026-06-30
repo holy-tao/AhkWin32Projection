@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
 class SERVER_INFO_598 extends Win32Struct {
-    static sizeof => 176
+    static sizeof => 184
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -282,74 +284,77 @@ class SERVER_INFO_598 extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     sv598_serverguid {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get {
+            if(!this.HasProp("__sv598_serverguid"))
+                this.__sv598_serverguid := Guid(136, this)
+            return this.__sv598_serverguid
+        }
     }
 
     /**
      * @type {Integer}
      */
     sv598_ConnectionNoSessionsTimeout {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 152, "uint")
+        set => NumPut("uint", value, this, 152)
     }
 
     /**
      * @type {Integer}
      */
     sv598_IdleThreadTimeOut {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
+        get => NumGet(this, 156, "uint")
+        set => NumPut("uint", value, this, 156)
     }
 
     /**
      * @type {BOOL}
      */
     sv598_enableW9xsecuritysignature {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
+        get => NumGet(this, 160, "int")
+        set => NumPut("int", value, this, 160)
     }
 
     /**
      * @type {BOOL}
      */
     sv598_enforcekerberosreauthentication {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
+        get => NumGet(this, 164, "int")
+        set => NumPut("int", value, this, 164)
     }
 
     /**
      * @type {BOOL}
      */
     sv598_disabledos {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
+        get => NumGet(this, 168, "int")
+        set => NumPut("int", value, this, 168)
     }
 
     /**
      * @type {Integer}
      */
     sv598_lowdiskspaceminimum {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 172, "uint")
+        set => NumPut("uint", value, this, 172)
     }
 
     /**
      * @type {BOOL}
      */
     sv598_disablestrictnamechecking {
-        get => NumGet(this, 168, "int")
-        set => NumPut("int", value, this, 168)
+        get => NumGet(this, 176, "int")
+        set => NumPut("int", value, this, 176)
     }
 
     /**
      * @type {BOOL}
      */
     sv598_enableauthenticateusersharing {
-        get => NumGet(this, 172, "int")
-        set => NumPut("int", value, this, 172)
+        get => NumGet(this, 180, "int")
+        set => NumPut("int", value, this, 180)
     }
 }

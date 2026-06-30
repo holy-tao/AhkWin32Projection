@@ -1,5 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\WINHTTP_CURRENT_USER_IE_PROXY_CONFIG.ahk
+#Include .\WINHTTP_PROXY_INFO.ahk
+#Include .\WINHTTP_AUTOPROXY_OPTIONS.ahk
+#Include .\WINHTTP_PROXY_SETTINGS_PARAM.ahk
+#Include .\WINHTTP_EXTENDED_HEADER.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WINHTTP_PROXY_SETTINGS_TYPE.ahk
+#Include .\WINHTTP_OPEN_REQUEST_FLAGS.ahk
+#Include .\WINHTTP_PROXY_RESULT_EX.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\WINHTTP_WEB_SOCKET_BUFFER_TYPE.ahk
+#Include .\WINHTTP_ACCESS_TYPE.ahk
+#Include .\WIN_HTTP_CREATE_URL_FLAGS.ahk
+#Include .\WINHTTP_PROXY_SETTINGS.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\WINHTTP_HEADER_NAME.ahk
+#Include .\WINHTTP_QUERY_CONNECTION_GROUP_RESULT.ahk
+#Include .\WINHTTP_PROXY_RESULT.ahk
+#Include .\URL_COMPONENTS.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
@@ -7625,10 +7645,9 @@ class WinHttp {
     }
 
     /**
-     * Frees the data retrieved from a previous call to [WinHttpGetProxySettingsResultEx](nf-winhttp-winhttpgetproxysettingsresultex.md).
+     * 
      * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpfreeproxysettingsex
      */
     static WinHttpFreeProxySettings(pWinHttpProxySettings) {
         DllCall("WINHTTP.dll\WinHttpFreeProxySettings", "ptr", pWinHttpProxySettings)

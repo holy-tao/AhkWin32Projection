@@ -1,9 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IAMCopyCaptureFileProgress.ahk
 #Include .\IGraphBuilder.ahk
+#Include .\PIN_DIRECTION.ahk
 #Include .\IPin.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IFileSinkFilter.ahk
+#Include .\IBaseFilter.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ICaptureGraphBuilder2 interface builds capture graphs and other custom filter graphs.

@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICorProfilerInfo.ahk
-#Include .\ICorProfilerObjectEnum.ahk
-#Include .\COR_PRF_GC_GENERATION_RANGE.ahk
 #Include .\COR_PRF_EX_CLAUSE_INFO.ahk
+#Include .\COR_PRF_STATIC_TYPE.ahk
+#Include .\COR_PRF_CODE_INFO.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\ICorProfilerInfo.ahk
+#Include ..\..\WinRT\Metadata\COR_FIELD_OFFSET.ahk
+#Include .\COR_PRF_GC_GENERATION_RANGE.ahk
+#Include .\ICorProfilerObjectEnum.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling

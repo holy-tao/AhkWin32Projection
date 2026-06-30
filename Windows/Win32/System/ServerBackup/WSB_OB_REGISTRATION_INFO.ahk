@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information to register a cloud backup provider with Windows Server Backup.
@@ -7,7 +10,7 @@
  * @namespace Windows.Win32.System.ServerBackup
  */
 class WSB_OB_REGISTRATION_INFO extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -22,11 +25,14 @@ class WSB_OB_REGISTRATION_INFO extends Win32Struct {
 
     /**
      * The snap-in identifier of the cloud backup provider to be registered with Windows Server Backup.
-     * @type {Pointer}
+     * @type {Guid}
      */
     m_guidSnapinId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__m_guidSnapinId"))
+                this.__m_guidSnapinId := Guid(8, this)
+            return this.__m_guidSnapinId
+        }
     }
 
     /**
@@ -34,8 +40,8 @@ class WSB_OB_REGISTRATION_INFO extends Win32Struct {
      * @type {Integer}
      */
     m_dwProviderName {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -43,8 +49,8 @@ class WSB_OB_REGISTRATION_INFO extends Win32Struct {
      * @type {Integer}
      */
     m_dwProviderIcon {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -52,7 +58,7 @@ class WSB_OB_REGISTRATION_INFO extends Win32Struct {
      * @type {BOOLEAN}
      */
     m_bSupportsRemoting {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 }

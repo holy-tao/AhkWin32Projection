@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFMediaEventGenerator.ahk
-#Include .\IMFMediaSource.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFStreamDescriptor.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFMediaSource.ahk
 
 /**
  * Represents one stream in a media source.

@@ -1,22 +1,36 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWICBitmapDecoder.ahk
-#Include .\IWICComponentInfo.ahk
-#Include .\IWICBitmapEncoder.ahk
-#Include .\IWICPalette.ahk
-#Include .\IWICFormatConverter.ahk
-#Include .\IWICBitmapScaler.ahk
-#Include .\IWICBitmapClipper.ahk
-#Include .\IWICBitmapFlipRotator.ahk
-#Include .\IWICStream.ahk
-#Include .\IWICColorContext.ahk
+#Include ..\..\Foundation\GENERIC_ACCESS_RIGHTS.ahk
+#Include .\WICDecodeOptions.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IWICColorTransform.ahk
-#Include .\IWICBitmap.ahk
+#Include .\IWICBitmapFrameDecode.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\IWICBitmapClipper.ahk
 #Include ..\..\System\Com\IEnumUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IWICMetadataQueryReader.ahk
+#Include .\WICBitmapCreateCacheOption.ahk
+#Include .\IWICBitmapFlipRotator.ahk
+#Include .\WICBitmapAlphaChannelOption.ahk
 #Include .\IWICFastMetadataEncoder.ahk
+#Include .\IWICPalette.ahk
 #Include .\IWICMetadataQueryWriter.ahk
+#Include .\IWICBitmap.ahk
+#Include .\IWICFormatConverter.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Gdi\HBITMAP.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWICBitmapSource.ahk
+#Include .\IWICStream.ahk
+#Include .\IWICBitmapDecoder.ahk
+#Include .\IWICColorContext.ahk
+#Include .\IWICBitmapEncoder.ahk
+#Include .\IWICComponentInfo.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\Gdi\HPALETTE.ahk
+#Include .\IWICBitmapScaler.ahk
 
 /**
  * Exposes methods used to create components for the Windows Imaging Component (WIC) such as decoders, encoders and pixel format converters.

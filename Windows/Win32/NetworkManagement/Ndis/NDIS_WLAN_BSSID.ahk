@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDIS_802_11_CONFIGURATION.ahk
+#Include .\NDIS_802_11_NETWORK_INFRASTRUCTURE.ahk
+#Include .\NDIS_802_11_CONFIGURATION_FH.ahk
 #Include .\NDIS_802_11_SSID.ahk
 #Include .\NDIS_802_11_NETWORK_TYPE.ahk
-#Include .\NDIS_802_11_CONFIGURATION.ahk
-#Include .\NDIS_802_11_CONFIGURATION_FH.ahk
-#Include .\NDIS_802_11_NETWORK_INFRASTRUCTURE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis

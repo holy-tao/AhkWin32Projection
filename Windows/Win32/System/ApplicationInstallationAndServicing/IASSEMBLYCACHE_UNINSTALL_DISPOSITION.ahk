@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The assembly does not exist in the side-by-side store.
- * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycache-uninstallassembly
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
 class IASSEMBLYCACHE_UNINSTALL_DISPOSITION extends Win32Enum {

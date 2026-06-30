@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumPortableDeviceObjectIDs.ahk
-#Include .\IPortableDeviceProperties.ahk
-#Include .\IPortableDeviceResources.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include .\IPortableDevicePropVariantCollection.ahk
+#Include .\IPortableDeviceResources.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IPortableDeviceValues.ahk
+#Include .\IEnumPortableDeviceObjectIDs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\IPortableDeviceProperties.ahk
 
 /**
  * The IPortableDeviceContent interface provides methods to create, enumerate, examine, and delete content on a device. To get this interface, call IPortableDevice::Content.

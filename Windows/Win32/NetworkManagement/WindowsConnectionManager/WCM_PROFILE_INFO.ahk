@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WCM_MEDIA_TYPE.ahk
 
 /**
@@ -8,9 +9,9 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  */
 class WCM_PROFILE_INFO extends Win32Struct {
-    static sizeof => 528
+    static sizeof => 532
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>WCHAR[WCM_MAX_PROFILE_NAME]</b>
@@ -27,11 +28,14 @@ class WCM_PROFILE_INFO extends Win32Struct {
      * Type: <b>GUID</b>
      * 
      * The GUID of the adapter.
-     * @type {Pointer}
+     * @type {Guid}
      */
     AdapterGUID {
-        get => NumGet(this, 512, "ptr")
-        set => NumPut("ptr", value, this, 512)
+        get {
+            if(!this.HasProp("__AdapterGUID"))
+                this.__AdapterGUID := Guid(512, this)
+            return this.__AdapterGUID
+        }
     }
 
     /**
@@ -41,7 +45,7 @@ class WCM_PROFILE_INFO extends Win32Struct {
      * @type {WCM_MEDIA_TYPE}
      */
     Media {
-        get => NumGet(this, 520, "int")
-        set => NumPut("int", value, this, 520)
+        get => NumGet(this, 528, "int")
+        set => NumPut("int", value, this, 528)
     }
 }

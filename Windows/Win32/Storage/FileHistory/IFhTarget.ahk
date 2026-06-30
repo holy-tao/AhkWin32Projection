@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\FH_TARGET_PROPERTY_TYPE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IFhTarget interface allows client applications to read numeric and string properties of a File History backup target.
@@ -39,7 +41,7 @@ class IFhTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhtarget-getstringproperty
      */
     GetStringProperty(PropertyType) {
-        _PropertyValue := BSTR()
+        _PropertyValue := BSTR({Value: 0}, True)
         result := ComCall(3, this, "int", PropertyType, "ptr", _PropertyValue, "HRESULT")
         return _PropertyValue
     }

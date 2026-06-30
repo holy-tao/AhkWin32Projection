@@ -1,10 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include .\SYSTEM_POWER_CAPABILITIES.ahk
+#Include ..\Registry\REG_SAM_FLAGS.ahk
+#Include .\POWER_INFORMATION_LEVEL.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\Threading\REASON_CONTEXT.ahk
 #Include ..\..\Foundation\NTSTATUS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include .\MACHINE_PROCESSOR_POWER_POLICY.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\POWER_REQUEST_TYPE.ahk
 #Include .\HPOWERNOTIFY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\POWER_PLATFORM_ROLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\POWER_POLICY.ahk
+#Include .\ADMINISTRATOR_POWER_POLICY.ahk
+#Include .\GLOBAL_POWER_POLICY.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\SYSTEM_POWER_STATUS.ahk
+#Include .\THERMAL_EVENT.ahk
+#Include .\POWER_DATA_ACCESSOR.ahk
+#Include .\POWER_PLATFORM_ROLE_VERSION.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\UI\WindowsAndMessaging\REGISTER_NOTIFICATION_FLAGS.ahk
+#Include .\LATENCY_TIME.ahk
+#Include ..\Registry\HKEY.ahk
+#Include .\EXECUTION_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
@@ -219,8 +244,7 @@ class Power {
     static PROCESSOR_NUMBER_PKEY {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{5724c81d-d5af-4c1f-a103-a06e28f204c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{5724c81d-d5af-4c1f-a103-a06e28f204c6}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }

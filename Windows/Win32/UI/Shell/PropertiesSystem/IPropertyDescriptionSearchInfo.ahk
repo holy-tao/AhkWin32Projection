@@ -2,6 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IPropertyDescription.ahk
+#Include .\PROPDESC_COLUMNINDEX_TYPE.ahk
+#Include .\PROPDESC_SEARCHINFO_FLAGS.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Exposes search-related information for a property.

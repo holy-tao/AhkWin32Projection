@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\WTS_LICENSE_CAPABILITIES.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * IWTSProtocolLicenseConnection is no longer available. Instead, use IWRdsProtocolLicenseConnection.

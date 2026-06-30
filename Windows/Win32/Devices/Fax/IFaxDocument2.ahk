@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxDocument.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxServer.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IFaxDocument.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.
@@ -56,7 +58,7 @@ class IFaxDocument2 extends IFaxDocument {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-get_submissionid
      */
     get_SubmissionId() {
-        pbstrSubmissionId := BSTR()
+        pbstrSubmissionId := BSTR({Value: 0}, True)
         result := ComCall(41, this, "ptr", pbstrSubmissionId, "HRESULT")
         return pbstrSubmissionId
     }

@@ -1,22 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LATENCY_MONITOR_FEATURE_STATUS.ahk
 #Include .\ACTIVE_LATENCY_CONFIGURATION.ahk
-#Include .\BUCKET_COUNTER.ahk
-#Include .\LATENCY_STAMP.ahk
-#Include .\MEASURED_LATENCY.ahk
 #Include .\LATENCY_STAMP_UNITS.ahk
 #Include .\DEBUG_BIT_FIELD.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\BUCKET_COUNTER.ahk
+#Include .\LATENCY_MONITOR_FEATURE_STATUS.ahk
+#Include .\MEASURED_LATENCY.ahk
+#Include .\LATENCY_STAMP.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
 class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct {
-    static sizeof => 512
+    static sizeof => 520
 
     static packingSize => 8
 
-    class _DebugLogStampUnits_e__Union extends Win32Struct {
+    class _DebugLogStampUnits extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -368,12 +369,12 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct {
     }
 
     /**
-     * @type {_DebugLogStampUnits_e__Union}
+     * @type {_DebugLogStampUnits}
      */
     DebugLogStampUnits {
         get {
             if(!this.HasProp("__DebugLogStampUnits"))
-                this.__DebugLogStampUnits := NVME_OCP_DEVICE_LATENCY_MONITOR_LOG._DebugLogStampUnits_e__Union(468, this)
+                this.__DebugLogStampUnits := NVME_OCP_DEVICE_LATENCY_MONITOR_LOG._DebugLogStampUnits(468, this)
             return this.__DebugLogStampUnits
         }
     }
@@ -398,10 +399,13 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     LogPageGUID {
-        get => NumGet(this, 504, "ptr")
-        set => NumPut("ptr", value, this, 504)
+        get {
+            if(!this.HasProp("__LogPageGUID"))
+                this.__LogPageGUID := Guid(500, this)
+            return this.__LogPageGUID
+        }
     }
 }

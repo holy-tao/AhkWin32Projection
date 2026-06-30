@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionVirtualSurface.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\Dxgi\Common\DXGI_ALPHA_MODE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDCompositionSurface.ahk
-#Include .\IDCompositionVirtualSurface.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates surface and virtual surface objects associated with an application-provided rendering device.

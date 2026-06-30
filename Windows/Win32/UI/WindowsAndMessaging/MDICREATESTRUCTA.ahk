@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\WINDOW_STYLE.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about the class, title, owner, location, and size of a multiple-document interface (MDI) child window. (ANSI)

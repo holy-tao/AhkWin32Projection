@@ -2,7 +2,19 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Device.ahk
+#Include Common\D2D_MATRIX_3X2_F.ahk
+#Include ..\Dxgi\IDXGIDevice.ahk
+#Include .\D2D1_CREATION_PROPERTIES.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Dxgi\IDXGISurface.ahk
+#Include Common\D2D1_COLOR_F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 #Include .\ID2D1DeviceContext.ahk
+#Include Common\D2D_POINT_2F.ahk
+#Include .\D2D1_FACTORY_TYPE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\D2D1_FACTORY_OPTIONS.ahk
+#Include .\D2D1_COLOR_SPACE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D

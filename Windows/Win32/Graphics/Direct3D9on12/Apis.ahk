@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\Direct3D9\IDirect3D9Ex.ahk
+#Include .\D3D9ON12_ARGS.ahk
+#Include ..\Direct3D9\IDirect3D9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12

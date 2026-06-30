@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\AAAuthSchemes.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * This structure contains information about a connection event.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  */
 class AAAccountingData extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -111,11 +112,14 @@ class AAAccountingData extends Win32Struct {
 
     /**
      * A unique identifier assigned to the connection  by RD Gateway.
-     * @type {Pointer}
+     * @type {Guid}
      */
     mainSessionId {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__mainSessionId"))
+                this.__mainSessionId := Guid(64, this)
+            return this.__mainSessionId
+        }
     }
 
     /**
@@ -123,7 +127,7 @@ class AAAccountingData extends Win32Struct {
      * @type {Integer}
      */
     subSessionId {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 }

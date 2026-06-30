@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IADsMembers.ahk
+#Include .\IADs.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IADsUser interface is a dual interface that inherits from IADs.
@@ -556,7 +558,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_BadLoginAddress() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(20, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -611,7 +613,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Description() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(26, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -633,7 +635,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Division() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(28, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -655,7 +657,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Department() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(30, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -677,7 +679,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_EmployeeID() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(32, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -699,7 +701,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_FullName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(34, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -721,7 +723,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_FirstName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(36, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -743,7 +745,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_LastName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(38, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -765,7 +767,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_OtherName() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(40, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -787,7 +789,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_NamePrefix() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(42, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -809,7 +811,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_NameSuffix() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(44, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -831,7 +833,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Title() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(46, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -853,7 +855,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Manager() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(48, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -1304,7 +1306,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_EmailAddress() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(94, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -1326,7 +1328,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_HomeDirectory() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(96, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -1368,7 +1370,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_Profile() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(100, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -1390,7 +1392,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_LoginScript() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(102, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -1432,7 +1434,7 @@ class IADsUser extends IADs {
      * @returns {BSTR} 
      */
     get_HomePage() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(106, this, "ptr", retval, "HRESULT")
         return retval
     }

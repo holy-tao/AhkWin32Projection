@@ -1,9 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
+#Include .\GPMBackupType.ahk
+#Include .\IGPMSearchCriteria.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IGPMBackupDirEx interface supports methods that allow you to query GPMBackup, GPMBackupCollection, GPMStarterGPOBackup, and GPMStarterGPOBackupCollection objects when you are using the Group Policy Management Console (GPMC) interfaces.
@@ -56,7 +59,7 @@ class IGPMBackupDirEx extends IDispatch {
      * @returns {BSTR} 
      */
     get_BackupDir() {
-        pbstrBackupDir := BSTR()
+        pbstrBackupDir := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pbstrBackupDir, "HRESULT")
         return pbstrBackupDir
     }

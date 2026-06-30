@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DL_EUI64.ahk
-#Include .\DL_OUI.ahk
-#Include .\DL_EI64.ahk
-#Include .\DL_EI48.ahk
 #Include .\IN_ADDR.ahk
 #Include .\DL_EUI48.ahk
+#Include .\DL_EI48.ahk
+#Include .\DL_EI64.ahk
+#Include .\DL_EUI64.ahk
+#Include .\DL_OUI.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock

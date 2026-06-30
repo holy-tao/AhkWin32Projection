@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID3D12Debug4.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Adds to the debug layer the ability to configure the auto-naming of objects.

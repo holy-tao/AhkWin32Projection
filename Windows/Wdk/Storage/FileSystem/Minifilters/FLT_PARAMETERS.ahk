@@ -1,30 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\IO_SECURITY_CONTEXT.ahk
-#Include ..\..\..\Foundation\MDL.ahk
-#Include ..\FILE_INFORMATION_CLASS.ahk
-#Include ..\..\..\Foundation\FILE_OBJECT.ahk
-#Include ..\..\..\..\Win32\Foundation\HANDLE.ahk
-#Include ..\FS_INFORMATION_CLASS.ahk
-#Include ..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
-#Include ..\..\..\Foundation\VPB.ahk
-#Include ..\..\..\Foundation\DEVICE_OBJECT.ahk
-#Include ..\..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include ..\FILE_GET_QUOTA_INFORMATION.ahk
-#Include ..\..\..\System\SystemServices\CM_RESOURCE_LIST.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
-#Include ..\..\..\System\SystemServices\INTERFACE.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_CAPABILITIES.ahk
-#Include ..\..\..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk
-#Include ..\..\..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk
 #Include ..\..\..\System\SystemServices\DEVICE_TEXT_TYPE.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
+#Include ..\..\..\Foundation\PEPROCESS.ahk
+#Include ..\..\..\Foundation\FILE_OBJECT.ahk
+#Include ..\..\..\System\SystemServices\CM_RESOURCE_LIST.ahk
+#Include ..\FILE_GET_QUOTA_INFORMATION.ahk
+#Include ..\..\..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk
+#Include ..\..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Foundation\VPB.ahk
 #Include ..\FS_FILTER_SECTION_SYNC_TYPE.ahk
-#Include ..\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
-#Include ..\..\..\Foundation\ERESOURCE.ahk
+#Include ..\FS_INFORMATION_CLASS.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
+#Include ..\..\..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
+#Include ..\..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\..\..\Foundation\DEVICE_OBJECT.ahk
+#Include ..\..\..\Foundation\MDL.ahk
 #Include ..\..\..\Foundation\IRP.ahk
 #Include ..\FILE_NETWORK_OPEN_INFORMATION.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\FILE_INFORMATION_CLASS.ahk
+#Include ..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\..\Win32\Security\PSID.ahk
+#Include ..\..\..\Foundation\ERESOURCE.ahk
+#Include ..\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
+#Include ..\..\..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_CAPABILITIES.ahk
+#Include ..\..\..\System\SystemServices\INTERFACE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
@@ -516,7 +520,7 @@ class FLT_PARAMETERS extends Win32Struct {
         }
     }
 
-    class _DirectoryControl_e__Union extends Win32Struct {
+    class _DirectoryControl extends Win32Struct {
         static sizeof => 40
         static packingSize => 8
 
@@ -685,7 +689,7 @@ class FLT_PARAMETERS extends Win32Struct {
         QueryDirectory {
             get {
                 if(!this.HasProp("__QueryDirectory"))
-                    this.__QueryDirectory := FLT_PARAMETERS._DirectoryControl_e__Union._QueryDirectory(0, this)
+                    this.__QueryDirectory := FLT_PARAMETERS._DirectoryControl._QueryDirectory(0, this)
                 return this.__QueryDirectory
             }
         }
@@ -696,7 +700,7 @@ class FLT_PARAMETERS extends Win32Struct {
         NotifyDirectory {
             get {
                 if(!this.HasProp("__NotifyDirectory"))
-                    this.__NotifyDirectory := FLT_PARAMETERS._DirectoryControl_e__Union._NotifyDirectory(0, this)
+                    this.__NotifyDirectory := FLT_PARAMETERS._DirectoryControl._NotifyDirectory(0, this)
                 return this.__NotifyDirectory
             }
         }
@@ -707,13 +711,13 @@ class FLT_PARAMETERS extends Win32Struct {
         NotifyDirectoryEx {
             get {
                 if(!this.HasProp("__NotifyDirectoryEx"))
-                    this.__NotifyDirectoryEx := FLT_PARAMETERS._DirectoryControl_e__Union._NotifyDirectoryEx(0, this)
+                    this.__NotifyDirectoryEx := FLT_PARAMETERS._DirectoryControl._NotifyDirectoryEx(0, this)
                 return this.__NotifyDirectoryEx
             }
         }
     }
 
-    class _FileSystemControl_e__Union extends Win32Struct {
+    class _FileSystemControl extends Win32Struct {
         static sizeof => 40
         static packingSize => 8
 
@@ -916,7 +920,7 @@ class FLT_PARAMETERS extends Win32Struct {
         VerifyVolume {
             get {
                 if(!this.HasProp("__VerifyVolume"))
-                    this.__VerifyVolume := FLT_PARAMETERS._FileSystemControl_e__Union._VerifyVolume(0, this)
+                    this.__VerifyVolume := FLT_PARAMETERS._FileSystemControl._VerifyVolume(0, this)
                 return this.__VerifyVolume
             }
         }
@@ -927,7 +931,7 @@ class FLT_PARAMETERS extends Win32Struct {
         Common {
             get {
                 if(!this.HasProp("__Common"))
-                    this.__Common := FLT_PARAMETERS._FileSystemControl_e__Union._Common(0, this)
+                    this.__Common := FLT_PARAMETERS._FileSystemControl._Common(0, this)
                 return this.__Common
             }
         }
@@ -938,7 +942,7 @@ class FLT_PARAMETERS extends Win32Struct {
         Neither {
             get {
                 if(!this.HasProp("__Neither"))
-                    this.__Neither := FLT_PARAMETERS._FileSystemControl_e__Union._Neither(0, this)
+                    this.__Neither := FLT_PARAMETERS._FileSystemControl._Neither(0, this)
                 return this.__Neither
             }
         }
@@ -949,7 +953,7 @@ class FLT_PARAMETERS extends Win32Struct {
         Buffered {
             get {
                 if(!this.HasProp("__Buffered"))
-                    this.__Buffered := FLT_PARAMETERS._FileSystemControl_e__Union._Buffered(0, this)
+                    this.__Buffered := FLT_PARAMETERS._FileSystemControl._Buffered(0, this)
                 return this.__Buffered
             }
         }
@@ -960,13 +964,13 @@ class FLT_PARAMETERS extends Win32Struct {
         Direct {
             get {
                 if(!this.HasProp("__Direct"))
-                    this.__Direct := FLT_PARAMETERS._FileSystemControl_e__Union._Direct(0, this)
+                    this.__Direct := FLT_PARAMETERS._FileSystemControl._Direct(0, this)
                 return this.__Direct
             }
         }
     }
 
-    class _DeviceIoControl_e__Union extends Win32Struct {
+    class _DeviceIoControl extends Win32Struct {
         static sizeof => 40
         static packingSize => 8
 
@@ -1193,7 +1197,7 @@ class FLT_PARAMETERS extends Win32Struct {
         Common {
             get {
                 if(!this.HasProp("__Common"))
-                    this.__Common := FLT_PARAMETERS._DeviceIoControl_e__Union._Common(0, this)
+                    this.__Common := FLT_PARAMETERS._DeviceIoControl._Common(0, this)
                 return this.__Common
             }
         }
@@ -1204,7 +1208,7 @@ class FLT_PARAMETERS extends Win32Struct {
         Neither {
             get {
                 if(!this.HasProp("__Neither"))
-                    this.__Neither := FLT_PARAMETERS._DeviceIoControl_e__Union._Neither(0, this)
+                    this.__Neither := FLT_PARAMETERS._DeviceIoControl._Neither(0, this)
                 return this.__Neither
             }
         }
@@ -1215,7 +1219,7 @@ class FLT_PARAMETERS extends Win32Struct {
         Buffered {
             get {
                 if(!this.HasProp("__Buffered"))
-                    this.__Buffered := FLT_PARAMETERS._DeviceIoControl_e__Union._Buffered(0, this)
+                    this.__Buffered := FLT_PARAMETERS._DeviceIoControl._Buffered(0, this)
                 return this.__Buffered
             }
         }
@@ -1226,7 +1230,7 @@ class FLT_PARAMETERS extends Win32Struct {
         Direct {
             get {
                 if(!this.HasProp("__Direct"))
-                    this.__Direct := FLT_PARAMETERS._DeviceIoControl_e__Union._Direct(0, this)
+                    this.__Direct := FLT_PARAMETERS._DeviceIoControl._Direct(0, this)
                 return this.__Direct
             }
         }
@@ -1237,7 +1241,7 @@ class FLT_PARAMETERS extends Win32Struct {
         FastIo {
             get {
                 if(!this.HasProp("__FastIo"))
-                    this.__FastIo := FLT_PARAMETERS._DeviceIoControl_e__Union._FastIo(0, this)
+                    this.__FastIo := FLT_PARAMETERS._DeviceIoControl._FastIo(0, this)
                 return this.__FastIo
             }
         }
@@ -1476,7 +1480,7 @@ class FLT_PARAMETERS extends Win32Struct {
         }
     }
 
-    class _Pnp_e__Union extends Win32Struct {
+    class _Pnp extends Win32Struct {
         static sizeof => 32
         static packingSize => 8
 
@@ -1707,7 +1711,7 @@ class FLT_PARAMETERS extends Win32Struct {
         StartDevice {
             get {
                 if(!this.HasProp("__StartDevice"))
-                    this.__StartDevice := FLT_PARAMETERS._Pnp_e__Union._StartDevice(0, this)
+                    this.__StartDevice := FLT_PARAMETERS._Pnp._StartDevice(0, this)
                 return this.__StartDevice
             }
         }
@@ -1718,7 +1722,7 @@ class FLT_PARAMETERS extends Win32Struct {
         QueryDeviceRelations {
             get {
                 if(!this.HasProp("__QueryDeviceRelations"))
-                    this.__QueryDeviceRelations := FLT_PARAMETERS._Pnp_e__Union._QueryDeviceRelations(0, this)
+                    this.__QueryDeviceRelations := FLT_PARAMETERS._Pnp._QueryDeviceRelations(0, this)
                 return this.__QueryDeviceRelations
             }
         }
@@ -1729,7 +1733,7 @@ class FLT_PARAMETERS extends Win32Struct {
         QueryInterface {
             get {
                 if(!this.HasProp("__QueryInterface"))
-                    this.__QueryInterface := FLT_PARAMETERS._Pnp_e__Union._QueryInterface(0, this)
+                    this.__QueryInterface := FLT_PARAMETERS._Pnp._QueryInterface(0, this)
                 return this.__QueryInterface
             }
         }
@@ -1740,7 +1744,7 @@ class FLT_PARAMETERS extends Win32Struct {
         DeviceCapabilities {
             get {
                 if(!this.HasProp("__DeviceCapabilities"))
-                    this.__DeviceCapabilities := FLT_PARAMETERS._Pnp_e__Union._DeviceCapabilities(0, this)
+                    this.__DeviceCapabilities := FLT_PARAMETERS._Pnp._DeviceCapabilities(0, this)
                 return this.__DeviceCapabilities
             }
         }
@@ -1751,7 +1755,7 @@ class FLT_PARAMETERS extends Win32Struct {
         FilterResourceRequirements {
             get {
                 if(!this.HasProp("__FilterResourceRequirements"))
-                    this.__FilterResourceRequirements := FLT_PARAMETERS._Pnp_e__Union._FilterResourceRequirements(0, this)
+                    this.__FilterResourceRequirements := FLT_PARAMETERS._Pnp._FilterResourceRequirements(0, this)
                 return this.__FilterResourceRequirements
             }
         }
@@ -1762,7 +1766,7 @@ class FLT_PARAMETERS extends Win32Struct {
         ReadWriteConfig {
             get {
                 if(!this.HasProp("__ReadWriteConfig"))
-                    this.__ReadWriteConfig := FLT_PARAMETERS._Pnp_e__Union._ReadWriteConfig(0, this)
+                    this.__ReadWriteConfig := FLT_PARAMETERS._Pnp._ReadWriteConfig(0, this)
                 return this.__ReadWriteConfig
             }
         }
@@ -1773,7 +1777,7 @@ class FLT_PARAMETERS extends Win32Struct {
         SetLock {
             get {
                 if(!this.HasProp("__SetLock"))
-                    this.__SetLock := FLT_PARAMETERS._Pnp_e__Union._SetLock(0, this)
+                    this.__SetLock := FLT_PARAMETERS._Pnp._SetLock(0, this)
                 return this.__SetLock
             }
         }
@@ -1784,7 +1788,7 @@ class FLT_PARAMETERS extends Win32Struct {
         QueryId {
             get {
                 if(!this.HasProp("__QueryId"))
-                    this.__QueryId := FLT_PARAMETERS._Pnp_e__Union._QueryId(0, this)
+                    this.__QueryId := FLT_PARAMETERS._Pnp._QueryId(0, this)
                 return this.__QueryId
             }
         }
@@ -1795,7 +1799,7 @@ class FLT_PARAMETERS extends Win32Struct {
         QueryDeviceText {
             get {
                 if(!this.HasProp("__QueryDeviceText"))
-                    this.__QueryDeviceText := FLT_PARAMETERS._Pnp_e__Union._QueryDeviceText(0, this)
+                    this.__QueryDeviceText := FLT_PARAMETERS._Pnp._QueryDeviceText(0, this)
                 return this.__QueryDeviceText
             }
         }
@@ -1806,7 +1810,7 @@ class FLT_PARAMETERS extends Win32Struct {
         UsageNotification {
             get {
                 if(!this.HasProp("__UsageNotification"))
-                    this.__UsageNotification := FLT_PARAMETERS._Pnp_e__Union._UsageNotification(0, this)
+                    this.__UsageNotification := FLT_PARAMETERS._Pnp._UsageNotification(0, this)
                 return this.__UsageNotification
             }
         }
@@ -2282,34 +2286,34 @@ class FLT_PARAMETERS extends Win32Struct {
     }
 
     /**
-     * @type {_DirectoryControl_e__Union}
+     * @type {_DirectoryControl}
      */
     DirectoryControl {
         get {
             if(!this.HasProp("__DirectoryControl"))
-                this.__DirectoryControl := FLT_PARAMETERS._DirectoryControl_e__Union(0, this)
+                this.__DirectoryControl := FLT_PARAMETERS._DirectoryControl(0, this)
             return this.__DirectoryControl
         }
     }
 
     /**
-     * @type {_FileSystemControl_e__Union}
+     * @type {_FileSystemControl}
      */
     FileSystemControl {
         get {
             if(!this.HasProp("__FileSystemControl"))
-                this.__FileSystemControl := FLT_PARAMETERS._FileSystemControl_e__Union(0, this)
+                this.__FileSystemControl := FLT_PARAMETERS._FileSystemControl(0, this)
             return this.__FileSystemControl
         }
     }
 
     /**
-     * @type {_DeviceIoControl_e__Union}
+     * @type {_DeviceIoControl}
      */
     DeviceIoControl {
         get {
             if(!this.HasProp("__DeviceIoControl"))
-                this.__DeviceIoControl := FLT_PARAMETERS._DeviceIoControl_e__Union(0, this)
+                this.__DeviceIoControl := FLT_PARAMETERS._DeviceIoControl(0, this)
             return this.__DeviceIoControl
         }
     }
@@ -2381,12 +2385,12 @@ class FLT_PARAMETERS extends Win32Struct {
     }
 
     /**
-     * @type {_Pnp_e__Union}
+     * @type {_Pnp}
      */
     Pnp {
         get {
             if(!this.HasProp("__Pnp"))
-                this.__Pnp := FLT_PARAMETERS._Pnp_e__Union(0, this)
+                this.__Pnp := FLT_PARAMETERS._Pnp(0, this)
             return this.__Pnp
         }
     }

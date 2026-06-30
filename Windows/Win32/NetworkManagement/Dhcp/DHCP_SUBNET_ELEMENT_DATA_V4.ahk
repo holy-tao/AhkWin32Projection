@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_SUBNET_ELEMENT_TYPE.ahk
-#Include .\DHCP_IP_RANGE.ahk
 #Include .\DHCP_HOST_INFO.ahk
-#Include .\DHCP_IP_RESERVATION_V4.ahk
+#Include .\DHCP_SUBNET_ELEMENT_TYPE.ahk
 #Include .\DHCP_IP_CLUSTER.ahk
+#Include .\DHCP_IP_RANGE.ahk
+#Include .\DHCP_IP_RESERVATION_V4.ahk
 
 /**
  * Defines an element that describes a feature or restriction of a subnet. (DHCP_SUBNET_ELEMENT_DATA_V4)

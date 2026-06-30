@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\STORAGE_HW_FIRMWARE_SLOT_INFO.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * STORAGE_HW_FIRMWARE_INFO structure - This structure contains information about the device firmware.

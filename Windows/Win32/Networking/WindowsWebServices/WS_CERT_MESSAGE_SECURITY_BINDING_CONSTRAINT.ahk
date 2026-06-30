@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
 #Include .\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk
 #Include .\WS_MESSAGE_SECURITY_USAGE.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk
+#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
 
 /**
  * A security binding constraint that can be used with WS_XML_TOKEN_MESSAGE_SECURITY_BINDING.

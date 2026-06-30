@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
 class BDA_DEBUG_DATA extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -18,19 +19,22 @@ class BDA_DEBUG_DATA extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidDebugDataType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__uuidDebugDataType"))
+                this.__uuidDebugDataType := Guid(4, this)
+            return this.__uuidDebugDataType
+        }
     }
 
     /**
      * @type {Integer}
      */
     ulDataSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -39,7 +43,7 @@ class BDA_DEBUG_DATA extends Win32Struct {
     argbDebugData {
         get {
             if(!this.HasProp("__argbDebugDataProxyArray"))
-                this.__argbDebugDataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__argbDebugDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
             return this.__argbDebugDataProxyArray
         }
     }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IHeaderCtrl.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MMC_FILTERDATA.ahk
 
 /**
  * The IHeaderCtrl2 interface is introduced in MMC 1.2.

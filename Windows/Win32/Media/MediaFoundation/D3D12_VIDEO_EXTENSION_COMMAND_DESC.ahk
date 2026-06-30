@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Describes a video extension command. (D3D12_VIDEO_EXTENSION_COMMAND_DESC)
@@ -9,9 +10,9 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  */
 class D3D12_VIDEO_EXTENSION_COMMAND_DESC extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * For single GPU operation, set this to zero. If there are multiple GPU nodes, set a bit to identify the node (the device's physical adapter) to which the command queue applies. Each bit in the mask corresponds to a single node. Only 1 bit may be set.
@@ -24,10 +25,13 @@ class D3D12_VIDEO_EXTENSION_COMMAND_DESC extends Win32Struct {
 
     /**
      * The unique identifier for the video extension command.
-     * @type {Pointer}
+     * @type {Guid}
      */
     CommandId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__CommandId"))
+                this.__CommandId := Guid(4, this)
+            return this.__CommandId
+        }
     }
 }

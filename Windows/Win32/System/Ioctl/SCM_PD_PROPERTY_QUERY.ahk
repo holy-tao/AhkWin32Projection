@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCM_PD_PROPERTY_ID.ahk
 #Include .\SCM_PD_QUERY_TYPE.ahk
+#Include .\SCM_PD_PROPERTY_ID.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl

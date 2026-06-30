@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkRecognitionAlternate.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IInkStrokes.ahk
-#Include .\IInkRecognitionAlternate.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Contains the IInkRecognitionAlternate objects that represent possible word matches for segments of ink.

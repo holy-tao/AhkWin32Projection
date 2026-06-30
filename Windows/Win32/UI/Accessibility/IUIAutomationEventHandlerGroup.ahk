@@ -1,7 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\UIA_PROPERTY_ID.ahk
+#Include .\IUIAutomationNotificationEventHandler.ahk
+#Include .\IUIAutomationEventHandler.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include .\TreeScope.ahk
+#Include .\IUIAutomationPropertyChangedEventHandler.ahk
+#Include .\IUIAutomationStructureChangedEventHandler.ahk
+#Include .\UIA_EVENT_ID.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAutomationActiveTextPositionChangedEventHandler.ahk
+#Include .\IUIAutomationChangesEventHandler.ahk
+#Include .\IUIAutomationTextEditTextChangedEventHandler.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\TextEditChangeType.ahk
 
 /**
  * Exposes methods for adding one or more events to a collection for bulk registration through the CreateEventHandlerGroup and AddEventHandlerGroup methods defined in IUIAutomation6.

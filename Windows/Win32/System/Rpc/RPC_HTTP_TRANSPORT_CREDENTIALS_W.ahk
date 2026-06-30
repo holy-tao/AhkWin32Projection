@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SEC_WINNT_AUTH_IDENTITY_W.ahk
-#Include .\RPC_C_HTTP_FLAGS.ahk
 #Include .\RPC_C_HTTP_AUTHN_TARGET.ahk
+#Include .\RPC_C_HTTP_FLAGS.ahk
+#Include .\SEC_WINNT_AUTH_IDENTITY_W.ahk
 
 /**
  * The RPC_HTTP_TRANSPORT_CREDENTIALS structure defines additional credentials to authenticate to an RPC proxy server when using RPC/HTTP. (Unicode)

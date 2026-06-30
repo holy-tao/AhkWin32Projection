@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DBaseTexture9.ahk
+#Include .\D3DLOCKED_RECT.ahk
+#Include .\D3DCUBEMAP_FACES.ahk
+#Include .\D3DSURFACE_DESC.ahk
 #Include .\IDirect3DSurface9.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IDirect3DBaseTexture9.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * The IDirect3DCubeTexture9 (d3d9.h) interface applications use the methods of the IDirect3DCubeTexture9 interface to manipulate a cube texture resource.

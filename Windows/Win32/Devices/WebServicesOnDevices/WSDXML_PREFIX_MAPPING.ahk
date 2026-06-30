@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_PREFIX_MAPPING.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSDXML_NAMESPACE.ahk
+#Include .\WSDXML_PREFIX_MAPPING.ahk
 
 /**
  * Describes an XML namespace prefix.

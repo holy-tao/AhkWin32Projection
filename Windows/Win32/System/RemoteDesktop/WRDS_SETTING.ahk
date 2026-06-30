@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WRDS_SETTINGS_1.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\WRDS_SETTING_STATUS.ahk
 
 /**

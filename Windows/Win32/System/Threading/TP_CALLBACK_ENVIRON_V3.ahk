@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PTP_POOL.ahk
-#Include .\PTP_CLEANUP_GROUP.ahk
 #Include .\TP_CALLBACK_PRIORITY.ahk
+#Include .\PTP_CLEANUP_GROUP.ahk
+#Include .\PTP_POOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -12,7 +12,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 4
         static packingSize => 4
 
@@ -71,7 +71,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct {
         s {
             get {
                 if(!this.HasProp("__s"))
-                    this.__s := TP_CALLBACK_ENVIRON_V3._u_e__Union._s(0, this)
+                    this.__s := TP_CALLBACK_ENVIRON_V3._u._s(0, this)
                 return this.__s
             }
         }
@@ -140,12 +140,12 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := TP_CALLBACK_ENVIRON_V3._u_e__Union(56, this)
+                this.__u := TP_CALLBACK_ENVIRON_V3._u(56, this)
             return this.__u
         }
     }

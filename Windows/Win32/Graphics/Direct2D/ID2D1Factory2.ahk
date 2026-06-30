@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Factory1.ahk
 #Include .\ID2D1Device1.ahk
+#Include ..\Dxgi\IDXGIDevice.ahk
+#Include .\ID2D1Factory1.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Creates Direct2D resources. (ID2D1Factory2)

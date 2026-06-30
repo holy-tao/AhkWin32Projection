@@ -2,14 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\IStream.ahk
 #Include StructuredStorage\IStorage.ahk
+#Include .\IStream.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
 
 /**
- * The STGMEDIUM_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree
  * @namespace Windows.Win32.System.Com
  */
 class STGMEDIUM extends Win32Struct {
@@ -17,7 +16,7 @@ class STGMEDIUM extends Win32Struct {
 
     static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
+    class _u extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -96,12 +95,12 @@ class STGMEDIUM extends Win32Struct {
     }
 
     /**
-     * @type {_u_e__Union}
+     * @type {_u}
      */
     u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := STGMEDIUM._u_e__Union(8, this)
+                this.__u := STGMEDIUM._u(8, this)
             return this.__u
         }
     }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDiskQuotaUser.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Receives quota-related event notifications.

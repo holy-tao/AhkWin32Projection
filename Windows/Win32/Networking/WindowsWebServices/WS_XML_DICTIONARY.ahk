@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\WS_XML_STRING.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a set of unique strings. This information is used by the binary encoding to write a more compact xml document.
@@ -51,18 +53,21 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
 class WS_XML_DICTIONARY extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
      * A guid that uniquely identifies the set of strings represented by the dictionary.
      *           The guid is never transmitted or persisted, and needs to only be unique for the lifetime of the process.
-     * @type {Pointer}
+     * @type {Guid}
      */
     guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__guid"))
+                this.__guid := Guid(0, this)
+            return this.__guid
+        }
     }
 
     /**
@@ -70,8 +75,8 @@ class WS_XML_DICTIONARY extends Win32Struct {
      * @type {Pointer<WS_XML_STRING>}
      */
     strings {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -79,8 +84,8 @@ class WS_XML_DICTIONARY extends Win32Struct {
      * @type {Integer}
      */
     stringCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -92,7 +97,7 @@ class WS_XML_DICTIONARY extends Win32Struct {
      * @type {BOOL}
      */
     isConst {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

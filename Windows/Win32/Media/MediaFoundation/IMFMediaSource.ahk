@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEventGenerator.ahk
 #Include .\IMFPresentationDescriptor.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaEventGenerator.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Implemented by media source objects.

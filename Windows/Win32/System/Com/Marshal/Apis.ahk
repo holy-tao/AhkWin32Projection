@@ -1,8 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\UI\WindowsAndMessaging\HMENU.ahk
+#Include ..\..\..\UI\WindowsAndMessaging\HACCEL.ahk
+#Include ..\..\..\UI\WindowsAndMessaging\HICON.ahk
 #Include .\IMarshal.ahk
+#Include ..\..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\..\Foundation\HGLOBAL.ahk
+#Include ..\STGMEDIUM.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\SAFEARRAY.ahk
 #Include ..\IUnknown.ahk
 #Include ..\IStream.ahk
+#Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Marshal
@@ -1936,12 +1949,11 @@ class Marshal {
     }
 
     /**
-     * The HMENU_UserSize64 function (oleidl.h) calculates the wire size of the HMENU object and gets its handle and data.
+     * 
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usersize64
      */
     static HMENU_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"

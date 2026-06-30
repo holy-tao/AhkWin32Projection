@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SynchronizedInputType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enables Microsoft UI Automation client applications to direct the mouse or keyboard input to a specific UI element.

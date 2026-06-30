@@ -1,8 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1StrokeStyle.ahk
+#Include Common\D2D_MATRIX_3X2_F.ahk
 #Include .\ID2D1Resource.ahk
+#Include Common\ID2D1SimplifiedGeometrySink.ahk
+#Include .\D2D1_GEOMETRY_RELATION.ahk
 #Include Common\D2D_RECT_F.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include Common\D2D_POINT_2F.ahk
+#Include .\ID2D1TessellationSink.ahk
+#Include .\D2D1_COMBINE_MODE.ahk
+#Include .\D2D1_GEOMETRY_SIMPLIFICATION_OPTION.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a geometry resource and defines a set of helper methods for manipulating and measuring geometric shapes. Interfaces that inherit from ID2D1Geometry define specific shapes.

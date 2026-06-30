@@ -9,7 +9,7 @@ class NVME_DISCOVERY_HEADER extends Win32Struct {
 
     static packingSize => 8
 
-    class _DLPF_e__Union extends Win32Struct {
+    class _DLPF extends Win32Struct {
         static sizeof => 1
         static packingSize => 1
 
@@ -84,12 +84,12 @@ class NVME_DISCOVERY_HEADER extends Win32Struct {
     }
 
     /**
-     * @type {_DLPF_e__Union}
+     * @type {_DLPF}
      */
     DLPF {
         get {
             if(!this.HasProp("__DLPF"))
-                this.__DLPF := NVME_DISCOVERY_HEADER._DLPF_e__Union(18, this)
+                this.__DLPF := NVME_DISCOVERY_HEADER._DLPF(18, this)
             return this.__DLPF
         }
     }

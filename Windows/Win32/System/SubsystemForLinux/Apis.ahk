@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSL_DISTRIBUTION_FLAGS.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.SubsystemForLinux
@@ -144,7 +149,7 @@ class SubsystemForLinux {
         stdOut := stdOut is Win32Handle ? NumGet(stdOut, "ptr") : stdOut
         stdErr := stdErr is Win32Handle ? NumGet(stdErr, "ptr") : stdErr
 
-        process := HANDLE()
+        process := HANDLE({Value: 0}, True)
         result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "ptr", stdIn, "ptr", stdOut, "ptr", stdErr, "ptr", process, "HRESULT")
         return process
     }

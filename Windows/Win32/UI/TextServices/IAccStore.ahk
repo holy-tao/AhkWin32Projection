@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IEnumUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.TextServices
@@ -51,30 +55,9 @@ class IAccStore extends IUnknown {
     }
 
     /**
-     * Removes the active instance of an application from the recovery list.
-     * @remarks
-     * You do not need to call this function before exiting. You need to remove the registration only if you choose to not recover data.
+     * 
      * @param {IUnknown} punk 
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Internal error.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-unregisterapplicationrecoverycallback
+     * @returns {HRESULT} 
      */
     Unregister(punk) {
         result := ComCall(4, this, "ptr", punk, "HRESULT")

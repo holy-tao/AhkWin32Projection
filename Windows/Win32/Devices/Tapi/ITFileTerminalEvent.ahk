@@ -2,9 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITTerminal.ahk
-#Include .\ITFileTrack.ahk
 #Include .\ITCallInfo.ahk
+#Include .\TERMINAL_MEDIA_STATE.ahk
+#Include .\ITFileTrack.ahk
+#Include .\ITTerminal.ahk
+#Include .\FT_STATE_EVENT_CAUSE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The ITFileTerminalEvent interface contains methods that retrieve the description of file terminal events that have occurred.

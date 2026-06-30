@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENUM_SERVICE_TYPE.ahk
 #Include .\SERVICE_START_TYPE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\SERVICE_ERROR.ahk
+#Include .\ENUM_SERVICE_TYPE.ahk
 
 /**
  * Contains configuration information for an installed service. It is used by the QueryServiceConfig function. (ANSI)

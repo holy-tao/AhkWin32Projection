@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CLFS_NODE_ID.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\CLS_CONTAINER_INFORMATION.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The CLS_SCAN_CONTEXT structure contains information about the containers that are being scanned by ScanLogContainers.

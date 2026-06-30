@@ -1,17 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IGPMDomain.ahk
-#Include .\IGPMBackupDir.ahk
-#Include .\IGPMSitesContainer.ahk
-#Include .\IGPMRSOP.ahk
-#Include .\IGPMPermission.ahk
-#Include .\IGPMSearchCriteria.ahk
 #Include .\IGPMTrustee.ahk
-#Include .\IGPMCSECollection.ahk
+#Include .\IGPMSearchCriteria.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\IGPMConstants.ahk
+#Include .\IGPMCSECollection.ahk
+#Include .\IGPMBackupDir.ahk
+#Include .\IGPMPermission.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IGPMMigrationTable.ahk
+#Include .\IGPMSitesContainer.ahk
+#Include .\GPMPermissionType.ahk
+#Include .\GPMRSOPMode.ahk
+#Include .\IGPMDomain.ahk
+#Include .\IGPMRSOP.ahk
 
 /**
  * The IGPM interface provides methods that access other interfaces of the Group Policy Management Console (GPMC) and methods that create other objects on which various search operations can be performed.

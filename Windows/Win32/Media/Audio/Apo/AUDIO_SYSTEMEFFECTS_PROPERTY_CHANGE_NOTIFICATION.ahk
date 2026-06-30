@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\IMMDevice.ahk
 #Include ..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\IMMDevice.ahk
 #Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\..\Foundation\PROPERTYKEY.ahk
 
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.Audio.Apo
  */
 class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -28,11 +29,14 @@ class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct {
 
     /**
      * A GUID identifying the APO property store associated with the notification.
-     * @type {Pointer}
+     * @type {Guid}
      */
     propertyStoreContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__propertyStoreContext"))
+                this.__propertyStoreContext := Guid(8, this)
+            return this.__propertyStoreContext
+        }
     }
 
     /**
@@ -40,8 +44,8 @@ class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct {
      * @type {AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE}
      */
     propertyStoreType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -49,8 +53,8 @@ class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct {
      * @type {IPropertyStore}
      */
     propertyStore {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -60,7 +64,7 @@ class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct {
     propertyKey {
         get {
             if(!this.HasProp("__propertyKey"))
-                this.__propertyKey := PROPERTYKEY(32, this)
+                this.__propertyKey := PROPERTYKEY(40, this)
             return this.__propertyKey
         }
     }

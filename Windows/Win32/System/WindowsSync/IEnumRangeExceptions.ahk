@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IRangeException.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Enumerates range exceptions that are stored in a knowledge object.

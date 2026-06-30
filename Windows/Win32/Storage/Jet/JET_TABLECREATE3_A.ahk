@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_COLUMNCREATE_A.ahk
 #Include .\JET_INDEXCREATE2_A.ahk
+#Include .\JET_COLUMNCREATE_A.ahk
 #Include .\JET_SPACEHINTS.ahk
 #Include ..\StructuredStorage\JET_TABLEID.ahk
 

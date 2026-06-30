@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SIGNER_PRIVATE_KEY_CHOICE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies the cryptographic service provider (CSP) and private key information used to create a digital signature.

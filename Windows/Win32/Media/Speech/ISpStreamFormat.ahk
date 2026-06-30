@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -28,10 +31,9 @@ class ISpStreamFormat extends IStream {
     static VTableNames => ["GetFormat"]
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
+     * 
      * @param {Pointer<Guid>} pguidFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(pguidFormatId) {
         result := ComCall(14, this, "ptr", pguidFormatId, "ptr*", &ppCoMemWaveFormatEx := 0, "HRESULT")

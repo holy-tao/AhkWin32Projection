@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
 #Include .\AUTHZ_SECURITY_ATTRIBUTE_FLAGS.ahk
 #Include .\AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk
-#Include .\AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
 
 /**
  * Defines a security attribute that can be associated with an authorization context.
@@ -14,7 +15,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
 
     static packingSize => 8
 
-    class _Values_e__Union extends Win32Struct {
+    class _Values extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -203,12 +204,12 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
     }
 
     /**
-     * @type {_Values_e__Union}
+     * @type {_Values}
      */
     Values {
         get {
             if(!this.HasProp("__Values"))
-                this.__Values := AUTHZ_SECURITY_ATTRIBUTE_V1._Values_e__Union(24, this)
+                this.__Values := AUTHZ_SECURITY_ATTRIBUTE_V1._Values(24, this)
             return this.__Values
         }
     }

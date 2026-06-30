@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRL_DIST_POINT_NAME.ahk
 #Include .\CERT_ALT_NAME_INFO.ahk
-#Include .\CERT_ALT_NAME_ENTRY.ahk
+#Include .\CRL_DIST_POINT_NAME.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\CERT_ALT_NAME_ENTRY.ahk
 
 /**
  * Contains information about the kinds of certificates listed in a certificate revocation list (CRL).

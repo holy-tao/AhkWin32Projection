@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RESOURCE_BARRIER_TYPE.ahk
+#Include .\ID3D12Resource.ahk
 #Include .\D3D12_RESOURCE_BARRIER_FLAGS.ahk
 #Include .\D3D12_RESOURCE_TRANSITION_BARRIER.ahk
-#Include .\ID3D12Resource.ahk
+#Include .\D3D12_RESOURCE_UAV_BARRIER.ahk
 #Include .\D3D12_RESOURCE_STATES.ahk
 #Include .\D3D12_RESOURCE_ALIASING_BARRIER.ahk
-#Include .\D3D12_RESOURCE_UAV_BARRIER.ahk
+#Include .\D3D12_RESOURCE_BARRIER_TYPE.ahk
 
 /**
  * Describes a resource barrier (transition in resource use).

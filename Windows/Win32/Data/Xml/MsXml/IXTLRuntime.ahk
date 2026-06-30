@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IXMLDOMNode.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMNode.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -90,7 +92,7 @@ class IXTLRuntime extends IXMLDOMNode {
     formatIndex(lIndex, bstrFormat) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
-        pbstrFormattedString := BSTR()
+        pbstrFormattedString := BSTR({Value: 0}, True)
         result := ComCall(48, this, "int", lIndex, "ptr", bstrFormat, "ptr", pbstrFormattedString, "HRESULT")
         return pbstrFormattedString
     }
@@ -104,7 +106,7 @@ class IXTLRuntime extends IXMLDOMNode {
     formatNumber(dblNumber, bstrFormat) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
-        pbstrFormattedString := BSTR()
+        pbstrFormattedString := BSTR({Value: 0}, True)
         result := ComCall(49, this, "double", dblNumber, "ptr", bstrFormat, "ptr", pbstrFormattedString, "HRESULT")
         return pbstrFormattedString
     }
@@ -119,7 +121,7 @@ class IXTLRuntime extends IXMLDOMNode {
     formatDate(varDate, bstrFormat, varDestLocale) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
-        pbstrFormattedString := BSTR()
+        pbstrFormattedString := BSTR({Value: 0}, True)
         result := ComCall(50, this, "ptr", varDate, "ptr", bstrFormat, "ptr", varDestLocale, "ptr", pbstrFormattedString, "HRESULT")
         return pbstrFormattedString
     }
@@ -134,7 +136,7 @@ class IXTLRuntime extends IXMLDOMNode {
     formatTime(varTime, bstrFormat, varDestLocale) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
-        pbstrFormattedString := BSTR()
+        pbstrFormattedString := BSTR({Value: 0}, True)
         result := ComCall(51, this, "ptr", varTime, "ptr", bstrFormat, "ptr", varDestLocale, "ptr", pbstrFormattedString, "HRESULT")
         return pbstrFormattedString
     }

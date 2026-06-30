@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Brush.ahk
+#Include Common\D2D1_COLOR_F.ahk
 
 /**
  * Paints an area with a solid color.

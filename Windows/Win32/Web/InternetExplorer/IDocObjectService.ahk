@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\MsHtml\IHTMLElement.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\MsHtml\IHTMLWindow2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -106,7 +112,7 @@ class IDocObjectService extends IUnknown {
      * @returns {BSTR} 
      */
     GetPendingUrl() {
-        pbstrPendingUrl := BSTR()
+        pbstrPendingUrl := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pbstrPendingUrl, "HRESULT")
         return pbstrPendingUrl
     }
@@ -126,7 +132,7 @@ class IDocObjectService extends IUnknown {
      * @returns {BSTR} 
      */
     GetUrlSearchComponent() {
-        pbstrSearch := BSTR()
+        pbstrSearch := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pbstrSearch, "HRESULT")
         return pbstrSearch
     }

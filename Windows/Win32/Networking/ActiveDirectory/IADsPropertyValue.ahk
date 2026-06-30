@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used to represent the value of an IADsPropertyEntry object in a predefined data type.
@@ -163,7 +164,7 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_DNString() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(10, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -185,7 +186,7 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_CaseExactString() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -207,7 +208,7 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_CaseIgnoreString() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -229,7 +230,7 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_PrintableString() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(16, this, "ptr", retval, "HRESULT")
         return retval
     }
@@ -251,7 +252,7 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_NumericString() {
-        retval := BSTR()
+        retval := BSTR({Value: 0}, True)
         result := ComCall(18, this, "ptr", retval, "HRESULT")
         return retval
     }

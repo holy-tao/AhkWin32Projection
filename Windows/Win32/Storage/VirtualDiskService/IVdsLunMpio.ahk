@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_PATH_POLICY.ahk
+#Include .\VDS_LOADBALANCE_POLICY_ENUM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_PATH_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * The IVdsLunMpio interface (vdshwprv.h) provides methods for performing query and configuration operations on a LUN with MPIO extensions.

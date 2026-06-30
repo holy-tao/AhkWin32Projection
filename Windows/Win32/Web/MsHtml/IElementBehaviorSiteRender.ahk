@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -28,10 +30,9 @@ class IElementBehaviorSiteRender extends IUnknown {
     static VTableNames => ["Invalidate", "InvalidateRenderInfo", "InvalidateStyle"]
 
     /**
-     * Enables the user to remove a single name and all associated data from the name cache.
+     * 
      * @param {Pointer<RECT>} pRect 
-     * @returns {HRESULT} Returns <b>TRUE</b> if the name and associated data are removed from the name cache; otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-invalidatename
+     * @returns {HRESULT} 
      */
     Invalidate(pRect) {
         result := ComCall(3, this, "ptr", pRect, "HRESULT")

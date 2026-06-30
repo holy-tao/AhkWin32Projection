@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</see>, <see href="https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffileex">MapViewOfFileEx</see>, <see href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-mapviewoffileexnuma">MapViewOfFileExNuma</see>, <see href="https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffilefromapp">MapViewOfFileFromApp</see>.
  * @namespace Windows.Win32.System.Memory
  */
 class FILE_MAP extends Win32BitflagEnum {

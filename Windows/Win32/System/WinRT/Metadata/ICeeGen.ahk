@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\CeeSectionRelocType.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -43,10 +47,9 @@ class ICeeGen extends IUnknown {
     }
 
     /**
-     * Returns a string located at a given position within a BLOB.
+     * 
      * @param {Integer} RVA 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/getstringfromblob
      */
     GetString(RVA) {
         result := ComCall(4, this, "uint", RVA, "ptr*", &lpString := 0, "HRESULT")

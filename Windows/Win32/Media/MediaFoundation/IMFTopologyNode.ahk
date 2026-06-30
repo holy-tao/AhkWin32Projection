@@ -3,7 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MF_TOPOLOGY_TYPE.ahk
 #Include .\IMFMediaType.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a node in a topology.

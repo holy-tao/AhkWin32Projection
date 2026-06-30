@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_GRAPHICS_PREEMPTION_GRANULARITY.ahk
 #Include .\D3DKMDT_COMPUTE_PREEMPTION_GRANULARITY.ahk
+#Include .\D3DKMDT_GRAPHICS_PREEMPTION_GRANULARITY.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

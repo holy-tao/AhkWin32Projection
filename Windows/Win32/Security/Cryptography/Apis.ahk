@@ -1,16 +1,193 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CRYPT_PROVIDERS.ahk
+#Include .\CERT_REVOCATION_PARA.ahk
+#Include .\BCRYPT_SECRET_HANDLE.ahk
+#Include .\CRYPT_KEY_PARAM_ID.ahk
 #Include .\BCRYPT_ALG_HANDLE.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
+#Include .\CERT_OPEN_STORE_FLAGS.ahk
+#Include .\BCRYPT_INTERFACE.ahk
+#Include .\BCRYPT_SIGNATURE_FUNCTION_TABLE.ahk
+#Include .\CRYPT_TIMESTAMP_CONTEXT.ahk
+#Include .\CERT_SELECT_CHAIN_PARA.ahk
+#Include .\CRYPT_VERIFY_CERT_FLAGS.ahk
+#Include .\NCRYPT_SSL_FUNCTION_TABLE.ahk
+#Include .\CRYPT_XML_BLOB.ahk
+#Include .\NCryptProviderName.ahk
 #Include .\NCRYPT_PROV_HANDLE.ahk
+#Include .\CRYPT_GET_URL_FLAGS.ahk
+#Include .\CRYPT_HASH_MESSAGE_PARA.ahk
+#Include .\HCERTCHAINENGINE.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
-#Include .\NCRYPT_SECRET_HANDLE.ahk
-#Include .\HCERTSTORE.ahk
-#Include ..\NCRYPT_DESCRIPTOR_HANDLE.ahk
-#Include ..\NCRYPT_STREAM_HANDLE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CRYPT_ENCODE_OBJECT_FLAGS.ahk
 #Include .\BCRYPT_KEY_HANDLE.ahk
+#Include .\CERT_STORE_SAVE_AS.ahk
+#Include .\CRYPT_CONTEXT_FUNCTION_CONFIG.ahk
+#Include ..\..\System\Registry\REG_VALUE_TYPE.ahk
+#Include .\BCRYPT_TABLE.ahk
+#Include .\NCRYPT_SECRET_HANDLE.ahk
+#Include ..\NCRYPT_DESCRIPTOR_HANDLE.ahk
+#Include .\CRYPT_OID_FUNC_ENTRY.ahk
+#Include .\BCRYPT_MULTI_OPERATION_TYPE.ahk
+#Include .\CRYPT_SET_HASH_PARAM.ahk
+#Include .\NCRYPT_ALLOC_PARA.ahk
+#Include .\CRYPT_CONTEXT_CONFIG.ahk
+#Include .\NCRYPT_HANDLE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\CRYPT_IMPORT_PUBLIC_KEY_FLAGS.ahk
+#Include .\CERT_QUERY_CONTENT_TYPE_FLAGS.ahk
+#Include .\CRYPT_PKCS8_IMPORT_PARAMS.ahk
+#Include .\CRL_INFO.ahk
+#Include .\INFORMATIONCARD_CRYPTO_HANDLE.ahk
+#Include .\CERT_QUERY_CONTENT_TYPE.ahk
+#Include .\CRYPT_SIGN_MESSAGE_PARA.ahk
+#Include .\CERT_STORE_SAVE_TO.ahk
+#Include .\CRYPT_XML_PROPERTY.ahk
+#Include .\BCRYPT_KEY_DERIVATION_FUNCTION_TABLE.ahk
+#Include .\CRYPT_STRING.ahk
+#Include .\CRYPT_KEY_SIGN_MESSAGE_PARA.ahk
+#Include .\CTL_ENTRY.ahk
+#Include .\CRYPT_KEY_VERIFY_MESSAGE_PARA.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\HCRYPTASYNC.ahk
+#Include .\CRYPT_XML_KEYINFO_SPEC.ahk
+#Include ..\NCRYPT_STREAM_HANDLE.ahk
+#Include .\CRYPT_XML_SIGNATURE.ahk
+#Include .\BCRYPT_CIPHER_FUNCTION_TABLE.ahk
+#Include .\POLICY_ELEMENT.ahk
+#Include .\CRYPT_XML_DATA_PROVIDER.ahk
+#Include .\CTL_VERIFY_USAGE_STATUS.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
+#Include .\CERT_CONTROL_STORE_FLAGS.ahk
+#Include .\CRYPT_RETRIEVE_AUX_INFO.ahk
+#Include .\CERT_EXTENSION.ahk
+#Include .\CRYPT_ACQUIRE_FLAGS.ahk
+#Include .\CERT_CHAIN_ENGINE_CONFIG.ahk
+#Include .\CRYPT_DECODE_PARA.ahk
+#Include .\BCRYPT_HANDLE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\CERT_RDN_ATTR.ahk
+#Include .\BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE.ahk
+#Include .\CERT_PUBLIC_KEY_INFO.ahk
+#Include .\NCRYPT_PROTECT_STREAM_INFO_EX.ahk
+#Include .\CERT_CHAIN_POLICY_STATUS.ahk
+#Include .\Direction.ahk
+#Include .\CERT_SELECT_CRITERIA.ahk
+#Include .\CRYPT_XML_STATUS.ahk
+#Include .\CERT_INFO.ahk
+#Include .\CRYPT_XML_DOC_CTXT.ahk
+#Include .\CERT_CREATE_CONTEXT_PARA.ahk
+#Include .\CRYPT_CONTEXTS.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
+#Include .\CERT_QUERY_OBJECT_TYPE.ahk
+#Include .\NCRYPT_KEY_STORAGE_FUNCTION_TABLE.ahk
+#Include .\CRYPT_SET_PROV_PARAM_ID.ahk
+#Include .\BCRYPT_OPERATION.ahk
+#Include .\SIGNER_SIGN_FLAGS.ahk
+#Include .\SIGNER_SIGNATURE_INFO.ahk
+#Include .\CRYPT_XML_KEY_VALUE.ahk
+#Include .\CRYPT_FIND_FLAGS.ahk
+#Include .\CERT_CONTEXT.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
+#Include .\CERT_CHAIN_PARA.ahk
+#Include .\CTL_INFO.ahk
+#Include .\NCRYPT_SSL_ECC_CURVE.ahk
+#Include .\GENERIC_XML_TOKEN.ahk
+#Include .\CERT_NAME_INFO.ahk
+#Include .\CERT_CREATE_SELFSIGN_FLAGS.ahk
+#Include .\CRYPT_XML_ALGORITHM.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\CERT_FIND_CHAIN_IN_STORE_FLAGS.ahk
+#Include .\CRYPT_ENCODE_PARA.ahk
+#Include .\CERT_RDN.ahk
+#Include .\CTL_USAGE.ahk
+#Include .\CERT_REVOCATION_STATUS.ahk
+#Include ..\PSID.ahk
+#Include ..\OBJECT_SECURITY_INFORMATION.ahk
+#Include .\CRYPT_XML_ALGORITHM_INFO.ahk
 #Include .\NCRYPT_HASH_HANDLE.ahk
+#Include .\BCRYPT_HASH_HANDLE.ahk
+#Include .\CERT_CHAIN_POLICY_PARA.ahk
+#Include .\CRYPT_KEY_PROV_INFO.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE.ahk
+#Include .\CRYPT_ATTRIBUTES.ahk
+#Include .\BCryptBufferDesc.ahk
+#Include .\CERT_QUERY_ENCODING_TYPE.ahk
+#Include .\CRYPT_CONTEXT_FUNCTIONS.ahk
+#Include .\CRL_CONTEXT.ahk
+#Include .\CRYPT_XML_OBJECT.ahk
+#Include .\CRYPT_OID_INFO.ahk
+#Include .\CERT_SERVER_OCSP_RESPONSE_OPEN_PARA.ahk
+#Include .\BCRYPT_RESOLVE_PROVIDERS_FLAGS.ahk
+#Include .\CERT_CHAIN_CONTEXT.ahk
+#Include .\BCRYPT_RNG_FUNCTION_TABLE.ahk
+#Include .\CTL_VERIFY_USAGE_PARA.ahk
+#Include .\CERT_STRING_TYPE.ahk
+#Include .\CERT_FIND_FLAGS.ahk
+#Include .\CRYPT_DEFAULT_CONTEXT_FLAGS.ahk
+#Include .\CMSG_SIGNER_ENCODE_INFO.ahk
+#Include .\BCRYPTGENRANDOM_FLAGS.ahk
+#Include .\BCRYPT_PROVIDER_NAME.ahk
+#Include .\CRYPT_MSG_TYPE.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
+#Include .\CERT_SYSTEM_STORE_INFO.ahk
+#Include .\CERT_QUERY_FORMAT_TYPE.ahk
+#Include .\BCRYPT_OPEN_ALGORITHM_PROVIDER_FLAGS.ahk
+#Include .\PaddingMode.ahk
+#Include .\CRYPT_TIMESTAMP_PARA.ahk
+#Include .\CRYPT_PROVIDER_REFS.ahk
+#Include .\CRYPT_CREDENTIALS.ahk
+#Include .\SIGNER_PROVIDER_INFO.ahk
+#Include .\CRYPT_VERIFY_MESSAGE_PARA.ahk
+#Include .\CRYPT_XML_REFERENCE.ahk
+#Include .\NCRYPT_SSL_CIPHER_SUITE_EX.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\CMSG_STREAM_INFO.ahk
+#Include .\SIGNER_SUBJECT_INFO.ahk
+#Include .\CRYPT_DECRYPT_MESSAGE_PARA.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_KEY_SPEC.ahk
+#Include .\NCRYPT_SSL_CIPHER_SUITE.ahk
+#Include .\CERT_PHYSICAL_STORE_INFO.ahk
+#Include .\CERT_FIND_TYPE.ahk
+#Include .\NCryptAlgorithmName.ahk
+#Include .\CRL_ENTRY.ahk
+#Include .\CRYPT_PROVIDER_REG.ahk
+#Include .\NCryptKeyName.ahk
+#Include .\NCRYPT_PROTECT_STREAM_INFO.ahk
+#Include .\CRYPT_DEFAULT_CONTEXT_TYPE.ahk
+#Include .\CERT_STRONG_SIGN_PARA.ahk
+#Include .\SIGNER_CERT.ahk
+#Include .\SIGNER_CONTEXT.ahk
+#Include .\CERT_SERVER_OCSP_RESPONSE_CONTEXT.ahk
+#Include .\BCRYPT_QUERY_PROVIDER_MODE.ahk
+#Include .\CTL_CONTEXT.ahk
+#Include .\ALG_ID.ahk
+#Include .\SIGNER_TIMESTAMP_FLAGS.ahk
+#Include .\BCRYPT_HASH_FUNCTION_TABLE.ahk
+#Include .\CRYPT_KEY_FLAGS.ahk
+#Include .\CRYPT_ENCRYPT_MESSAGE_PARA.ahk
+#Include .\BCRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\NCRYPT_FLAGS.ahk
+#Include .\BCRYPT_FLAGS.ahk
+#Include .\CERT_EXTENSIONS.ahk
+#Include .\HCERTSTORE.ahk
+#Include .\HCRYPTPROV_OR_NCRYPT_KEY_HANDLE.ahk
+#Include .\SIGNER_DIGEST_SIGN_INFO.ahk
+#Include .\NCRYPT_OPERATION.ahk
+#Include .\CRYPT_XML_FLAGS.ahk
+#Include .\CRYPT_CONTEXT_FUNCTION_PROVIDERS.ahk
+#Include .\CERT_QUERY_FORMAT_TYPE_FLAGS.ahk
+#Include .\CRYPTPROTECT_PROMPTSTRUCT.ahk
+#Include .\CMSG_SIGNED_ENCODE_INFO.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\CRYPT_XML_TRANSFORM_CHAIN_CONFIG.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -28552,7 +28729,7 @@ class Cryptography {
     static NCryptOpenStorageProvider(pszProviderName, dwFlags) {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
 
-        phProvider := NCRYPT_PROV_HANDLE()
+        phProvider := NCRYPT_PROV_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\NCryptOpenStorageProvider", "ptr", phProvider, "ptr", pszProviderName, "uint", dwFlags, "HRESULT")
         return phProvider
     }
@@ -28959,7 +29136,7 @@ class Cryptography {
         _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-        phKey := NCRYPT_KEY_HANDLE()
+        phKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\NCryptOpenKey", "ptr", _hProvider, "ptr", phKey, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "HRESULT")
         return phKey
     }
@@ -28984,7 +29161,7 @@ class Cryptography {
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-        phKey := NCRYPT_KEY_HANDLE()
+        phKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\NCryptCreatePersistedKey", "ptr", _hProvider, "ptr", phKey, "ptr", pszAlgId, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "HRESULT")
         return phKey
     }
@@ -29320,7 +29497,7 @@ class Cryptography {
         hImportKey := hImportKey is Win32Handle ? NumGet(hImportKey, "ptr") : hImportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        phKey := NCRYPT_KEY_HANDLE()
+        phKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\NCryptImportKey", "ptr", _hProvider, "ptr", hImportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", phKey, "ptr", pbData, "uint", cbData, "uint", dwFlags, "HRESULT")
         return phKey
     }
@@ -51645,7 +51822,7 @@ class Cryptography {
      * @since windows6.1
      */
     static CryptXmlImportPublicKey(dwFlags, pKeyValue) {
-        phKey := BCRYPT_KEY_HANDLE()
+        phKey := BCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("CRYPTXML.dll\CryptXmlImportPublicKey", "uint", dwFlags, "ptr", pKeyValue, "ptr", phKey, "HRESULT")
         return phKey
     }
@@ -51798,16 +51975,12 @@ class Cryptography {
     }
 
     /**
-     * Retrieves a specified type of information about an access token. The calling process must have appropriate access rights to obtain the information.
+     * 
      * @param {Integer} cPolicyChain 
      * @param {Pointer<POLICY_ELEMENT>} pPolicyChain 
      * @param {Pointer<Pointer<GENERIC_XML_TOKEN>>} securityToken 
      * @param {Pointer<Pointer<INFORMATIONCARD_CRYPTO_HANDLE>>} phProofTokenCrypto 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-gettokeninformation
+     * @returns {HRESULT} 
      */
     static GetToken(cPolicyChain, pPolicyChain, securityToken, phProofTokenCrypto) {
         securityTokenMarshal := securityToken is VarRef ? "ptr*" : "ptr"
@@ -52393,7 +52566,7 @@ class Cryptography {
     static SslCreateEphemeralKey(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, dwKeyBitLen, pbParams, cbParams, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
 
-        phEphemeralKey := NCRYPT_KEY_HANDLE()
+        phEphemeralKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslCreateEphemeralKey", "ptr", hSslProvider, "ptr", phEphemeralKey, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwKeyType, "uint", dwKeyBitLen, "ptr", pbParams, "uint", cbParams, "uint", dwFlags, "HRESULT")
         return phEphemeralKey
     }
@@ -52862,7 +53035,7 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        phKey := NCRYPT_KEY_HANDLE()
+        phKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslImportKey", "ptr", hSslProvider, "ptr", phKey, "ptr", pszBlobType, "ptr", pbKeyBlob, "uint", cbKeyBlob, "uint", dwFlags, "HRESULT")
         return phKey
     }
@@ -52889,7 +53062,7 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hPrivateKey := hPrivateKey is Win32Handle ? NumGet(hPrivateKey, "ptr") : hPrivateKey
 
-        phMasterKey := NCRYPT_KEY_HANDLE()
+        phMasterKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslImportMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbEncryptedKey, "uint", cbEncryptedKey, "uint", dwFlags, "HRESULT")
         return phMasterKey
     }
@@ -52937,7 +53110,7 @@ class Cryptography {
     static SslOpenPrivateKey(hSslProvider, pCertContext, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
 
-        phPrivateKey := NCRYPT_KEY_HANDLE()
+        phPrivateKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslOpenPrivateKey", "ptr", hSslProvider, "ptr", phPrivateKey, "ptr", pCertContext, "uint", dwFlags, "HRESULT")
         return phPrivateKey
     }
@@ -52954,7 +53127,7 @@ class Cryptography {
     static SslOpenProvider(pszProviderName, dwFlags) {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
 
-        phSslProvider := NCRYPT_PROV_HANDLE()
+        phSslProvider := NCRYPT_PROV_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslOpenProvider", "ptr", phSslProvider, "ptr", pszProviderName, "uint", dwFlags, "HRESULT")
         return phSslProvider
     }
@@ -53191,7 +53364,7 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hPreSharedKey := hPreSharedKey is Win32Handle ? NumGet(hPreSharedKey, "ptr") : hPreSharedKey
 
-        phEarlyKey := NCRYPT_KEY_HANDLE()
+        phEarlyKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslExtractEarlyKey", "ptr", hSslProvider, "ptr", hPreSharedKey, "ptr", phEarlyKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "uint", dwFlags, "HRESULT")
         return phEarlyKey
     }
@@ -53212,7 +53385,7 @@ class Cryptography {
         hPublicKey := hPublicKey is Win32Handle ? NumGet(hPublicKey, "ptr") : hPublicKey
         hEarlyKey := hEarlyKey is Win32Handle ? NumGet(hEarlyKey, "ptr") : hEarlyKey
 
-        phHandshakeKey := NCRYPT_KEY_HANDLE()
+        phHandshakeKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslExtractHandshakeKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr", hEarlyKey, "ptr", phHandshakeKey, "ptr", pParameterList, "uint", dwFlags, "HRESULT")
         return phHandshakeKey
     }
@@ -53229,7 +53402,7 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hHandshakeKey := hHandshakeKey is Win32Handle ? NumGet(hHandshakeKey, "ptr") : hHandshakeKey
 
-        phMasterKey := NCRYPT_KEY_HANDLE()
+        phMasterKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslExtractMasterKey", "ptr", hSslProvider, "ptr", hHandshakeKey, "ptr", phMasterKey, "ptr", pParameterList, "uint", dwFlags, "HRESULT")
         return phMasterKey
     }
@@ -53266,7 +53439,7 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hBaseTrafficKey := hBaseTrafficKey is Win32Handle ? NumGet(hBaseTrafficKey, "ptr") : hBaseTrafficKey
 
-        phWriteKey := NCRYPT_KEY_HANDLE()
+        phWriteKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslExpandWriteKey", "ptr", hSslProvider, "ptr", hBaseTrafficKey, "ptr", phWriteKey, "ptr", pParameterList, "uint", dwFlags, "HRESULT")
         return phWriteKey
     }
@@ -53285,7 +53458,7 @@ class Cryptography {
         hBaseKey := hBaseKey is Win32Handle ? NumGet(hBaseKey, "ptr") : hBaseKey
         hHashValue := hHashValue is Win32Handle ? NumGet(hHashValue, "ptr") : hHashValue
 
-        phExporterMasterKey := NCRYPT_KEY_HANDLE()
+        phExporterMasterKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslExpandExporterMasterKey", "ptr", hSslProvider, "ptr", hBaseKey, "ptr", hHashValue, "ptr", phExporterMasterKey, "ptr", pParameterList, "uint", dwFlags, "HRESULT")
         return phExporterMasterKey
     }
@@ -53304,7 +53477,7 @@ class Cryptography {
         hMasterKey := hMasterKey is Win32Handle ? NumGet(hMasterKey, "ptr") : hMasterKey
         hHashValue := hHashValue is Win32Handle ? NumGet(hHashValue, "ptr") : hHashValue
 
-        phResumptionMasterKey := NCRYPT_KEY_HANDLE()
+        phResumptionMasterKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslExpandResumptionMasterKey", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", hHashValue, "ptr", phResumptionMasterKey, "ptr", pParameterList, "uint", dwFlags, "HRESULT")
         return phResumptionMasterKey
     }
@@ -53337,7 +53510,7 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hEarlyKey := hEarlyKey is Win32Handle ? NumGet(hEarlyKey, "ptr") : hEarlyKey
 
-        phBinderKey := NCRYPT_KEY_HANDLE()
+        phBinderKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslExpandBinderKey", "ptr", hSslProvider, "ptr", hEarlyKey, "ptr", phBinderKey, "ptr", pParameterList, "uint", dwFlags, "HRESULT")
         return phBinderKey
     }
@@ -53356,7 +53529,7 @@ class Cryptography {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hResumptionMasterKey := hResumptionMasterKey is Win32Handle ? NumGet(hResumptionMasterKey, "ptr") : hResumptionMasterKey
 
-        phPreSharedKey := NCRYPT_KEY_HANDLE()
+        phPreSharedKey := NCRYPT_KEY_HANDLE({Value: 0}, True)
         result := DllCall("ncrypt.dll\SslExpandPreSharedKey", "ptr", hSslProvider, "ptr", hResumptionMasterKey, "ptr", pbTicketNonce, "uint", cbTicketNonce, "ptr", phPreSharedKey, "ptr", pParameterList, "uint", dwFlags, "HRESULT")
         return phPreSharedKey
     }

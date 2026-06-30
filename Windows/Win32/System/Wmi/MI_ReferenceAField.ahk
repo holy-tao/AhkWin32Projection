@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_ReferenceA.ahk
 #Include .\MI_Instance.ahk
+#Include .\MI_ReferenceA.ahk
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_ReferenceAField)

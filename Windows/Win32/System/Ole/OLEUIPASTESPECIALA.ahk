@@ -1,13 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PASTE_SPECIAL_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
-#Include ..\Com\IDataObject.ahk
-#Include .\OLEUIPASTEENTRYA.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\Com\IDataObject.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HRSRC.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\OLEUIPASTEENTRYA.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Paste Special dialog box, as well as space for the library to return information when the dialog box is dismissed. (ANSI)

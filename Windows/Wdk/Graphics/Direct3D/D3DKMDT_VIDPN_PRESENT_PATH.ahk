@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3DKMDT_VIDPN_PRESENT_PATH_IMPORTANCE.ahk
-#Include .\D3DKMDT_COLOR_BASIS.ahk
 #Include .\D3DKMDT_VIDPN_PRESENT_PATH_CONTENT.ahk
+#Include .\D3DKMDT_COLOR_BASIS.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IDirectoryObject.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ADS_ATTR_INFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Used with the ADsPropGetInitInfo function to obtain object data that a display specifier applies to.

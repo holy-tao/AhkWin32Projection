@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SOUNDSENTRY_FLAGS.ahk
-#Include .\SOUNDSENTRY_TEXT_EFFECT.ahk
-#Include .\SOUND_SENTRY_GRAPHICS_EFFECT.ahk
 #Include .\SOUNDSENTRY_WINDOWS_EFFECT.ahk
+#Include .\SOUNDSENTRY_TEXT_EFFECT.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\SOUND_SENTRY_GRAPHICS_EFFECT.ahk
 
 /**
  * Contains information about the SoundSentry accessibility feature. When the SoundSentry feature is on, the computer displays a visual indication only when a sound is generated. (ANSI)

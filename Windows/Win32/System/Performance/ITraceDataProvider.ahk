@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\IValueMap.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\SAFEARRAY.ahk
 
 /**
  * Specifies a trace provider to enable in the trace session.
@@ -116,7 +119,7 @@ class ITraceDataProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_displayname
      */
     get_DisplayName() {
-        name := BSTR()
+        name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", name, "HRESULT")
         return name
     }
@@ -398,7 +401,7 @@ class ITraceDataProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-getsecurity
      */
     GetSecurity(SecurityInfo) {
-        Sddl := BSTR()
+        Sddl := BSTR({Value: 0}, True)
         result := ComCall(24, this, "uint", SecurityInfo, "ptr", Sddl, "HRESULT")
         return Sddl
     }

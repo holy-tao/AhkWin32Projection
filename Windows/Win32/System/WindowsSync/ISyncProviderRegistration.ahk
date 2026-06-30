@@ -1,13 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISyncProviderConfigUIInfo.ahk
-#Include .\IEnumSyncProviderConfigUIInfos.ahk
-#Include .\ISyncProviderInfo.ahk
 #Include .\IEnumSyncProviderInfos.ahk
-#Include .\IRegisteredSyncProvider.ahk
 #Include .\ISyncProviderConfigUI.ahk
+#Include .\ISyncProviderInfo.ahk
+#Include .\SyncProviderConfigUIConfiguration.ahk
+#Include .\SyncProviderConfiguration.ahk
+#Include .\ISyncProviderConfigUIInfo.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IRegisteredSyncProvider.ahk
+#Include .\IEnumSyncProviderConfigUIInfos.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ISyncRegistrationChange.ahk
 
 /**

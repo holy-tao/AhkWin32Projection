@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -8,7 +10,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
 class DS_REPL_VALUE_META_DATA extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -95,11 +97,14 @@ class DS_REPL_VALUE_META_DATA extends Win32Struct {
 
     /**
      * Contains the invocation identifier of the server on which the last change was made to this attribute. Replication of the change does not affect this value.
-     * @type {Pointer}
+     * @type {Guid}
      */
     uuidLastOriginatingDsaInvocationID {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get {
+            if(!this.HasProp("__uuidLastOriginatingDsaInvocationID"))
+                this.__uuidLastOriginatingDsaInvocationID := Guid(60, this)
+            return this.__uuidLastOriginatingDsaInvocationID
+        }
     }
 
     /**
@@ -107,8 +112,8 @@ class DS_REPL_VALUE_META_DATA extends Win32Struct {
      * @type {Integer}
      */
     usnOriginatingChange {
-        get => NumGet(this, 72, "int64")
-        set => NumPut("int64", value, this, 72)
+        get => NumGet(this, 80, "int64")
+        set => NumPut("int64", value, this, 80)
     }
 
     /**
@@ -116,7 +121,7 @@ class DS_REPL_VALUE_META_DATA extends Win32Struct {
      * @type {Integer}
      */
     usnLocalChange {
-        get => NumGet(this, 80, "int64")
-        set => NumPut("int64", value, this, 80)
+        get => NumGet(this, 88, "int64")
+        set => NumPut("int64", value, this, 88)
     }
 }

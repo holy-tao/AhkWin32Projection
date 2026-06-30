@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PSS_PROCESS_FLAGS.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
+#Include .\PSS_PROCESS_FLAGS.ahk
 
 /**
  * Holds process information returned by PssQuerySnapshot.

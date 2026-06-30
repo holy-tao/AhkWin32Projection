@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
+#Include .\D3D10_BLEND_DESC.ahk
 #Include .\ID3D10BlendState.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\ID3D10EffectVariable.ahk
 
 /**
  * The blend-variable interface accesses blend state.

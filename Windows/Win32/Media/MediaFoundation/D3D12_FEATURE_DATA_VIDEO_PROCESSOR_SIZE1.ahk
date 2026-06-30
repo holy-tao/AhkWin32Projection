@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk
 #Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation

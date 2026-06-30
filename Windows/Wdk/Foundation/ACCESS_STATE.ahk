@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\..\Win32\Foundation\BOOLEAN.ahk
 #Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
@@ -10,7 +11,7 @@ class ACCESS_STATE extends Win32Struct {
 
     static packingSize => 8
 
-    class _Privileges_e__Union extends Win32Struct {
+    class _Privileges extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
@@ -131,12 +132,12 @@ class ACCESS_STATE extends Win32Struct {
     }
 
     /**
-     * @type {_Privileges_e__Union}
+     * @type {_Privileges}
      */
     Privileges {
         get {
             if(!this.HasProp("__Privileges"))
-                this.__Privileges := ACCESS_STATE._Privileges_e__Union(56, this)
+                this.__Privileges := ACCESS_STATE._Privileges(56, this)
             return this.__Privileges
         }
     }

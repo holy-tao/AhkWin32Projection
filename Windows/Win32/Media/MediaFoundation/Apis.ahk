@@ -1,73 +1,121 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include .\IDXVAHD_Device.ahk
-#Include .\IOPMVideoOutput.ahk
-#Include .\IMFActivate.ahk
-#Include .\IMFMediaSession.ahk
-#Include .\IMFSourceResolver.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include .\IMFTopology.ahk
-#Include .\IMFTopologyNode.ahk
-#Include .\IMFMediaType.ahk
-#Include .\IMFPresentationClock.ahk
-#Include .\IMFPresentationTimeSource.ahk
-#Include .\IMFPresentationDescriptor.ahk
-#Include .\IMFStreamDescriptor.ahk
-#Include .\IMFMediaTypeHandler.ahk
-#Include .\IMFMediaSink.ahk
-#Include .\IMFTopoLoader.ahk
-#Include .\IMFQualityManager.ahk
-#Include .\IMFSequencerSource.ahk
-#Include .\IMFMediaSource.ahk
-#Include .\IMFNetCredentialCache.ahk
-#Include .\IMFNetProxyLocator.ahk
-#Include .\IMFPMPServer.ahk
-#Include .\IMFRemoteDesktopPlugin.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\INamedPropertyStore.ahk
-#Include .\IMFTransform.ahk
-#Include .\IMFTranscodeProfile.ahk
-#Include .\IMFCollection.ahk
-#Include .\IMFTrackedSample.ahk
-#Include .\IMFByteStream.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include .\IMFProtectedEnvironmentAccess.ahk
-#Include .\IMFSignedLibrary.ahk
-#Include .\IMFSystemId.ahk
-#Include .\IMFContentProtectionDevice.ahk
-#Include .\IMFContentDecryptorContext.ahk
-#Include .\IMFSensorGroup.ahk
-#Include .\IMFSensorStream.ahk
-#Include .\IMFSensorProfile.ahk
-#Include .\IMFSensorProfileCollection.ahk
-#Include .\IMFSensorActivityMonitor.ahk
-#Include .\IMFExtendedCameraIntrinsics.ahk
-#Include .\IMFExtendedCameraIntrinsicModel.ahk
-#Include .\IMFRelativePanelWatcher.ahk
-#Include .\IMFCameraOcclusionStateMonitor.ahk
-#Include .\IMFCameraControlMonitor.ahk
-#Include .\IMFASFContentInfo.ahk
-#Include .\IMFASFIndexer.ahk
-#Include .\IMFASFSplitter.ahk
-#Include .\IMFASFProfile.ahk
-#Include .\IMFASFMultiplexer.ahk
-#Include .\IMFASFStreamSelector.ahk
-#Include .\IMFAsyncResult.ahk
+#Include .\OPM_HDCP_TYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaBuffer.ahk
-#Include ..\DxMediaObjects\IMediaBuffer.ahk
-#Include .\IMFMediaEvent.ahk
-#Include .\IMFMediaEventQueue.ahk
-#Include .\IMFSample.ahk
-#Include .\IMFAttributes.ahk
-#Include .\IMFPluginControl.ahk
-#Include .\IMFVideoMediaType.ahk
-#Include .\IMFAudioMediaType.ahk
+#Include .\IMFTopology.ahk
+#Include .\IMFTranscodeProfile.ahk
+#Include .\IMFAsyncCallback.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IMFExtendedCameraIntrinsics.ahk
+#Include .\MF_DXGI_DEVICE_MANAGER_MODE.ahk
 #Include .\IMFSourceReader.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\MFP_CREATION_OPTIONS.ahk
+#Include .\AM_MEDIA_TYPE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\MFVIDEOFORMAT.ahk
+#Include .\MFVirtualCameraLifetime.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk
+#Include .\IMFMediaSession.ahk
+#Include .\IMFPMPServer.ahk
+#Include .\IMFMediaEvent.ahk
+#Include .\IMFNetCredentialCache.ahk
+#Include .\IMFActivate.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include .\IMFMediaEventQueue.ahk
+#Include .\IMFAttributes.ahk
+#Include .\MFVirtualCameraAccess.ahk
+#Include .\IMFSensorActivityMonitor.ahk
+#Include .\EAllocationType.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\IMFTransform.ahk
 #Include .\IMFSinkWriter.ahk
+#Include .\IMFSystemId.ahk
+#Include .\IMFQualityManager.ahk
+#Include .\MFVirtualCameraType.ahk
+#Include .\IMFVideoMediaType.ahk
+#Include .\IMFSequencerSource.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DDevice9Ex.ahk
+#Include .\IMFMediaType.ahk
+#Include .\IMFPMediaPlayerCallback.ahk
+#Include .\MFT_REGISTER_TYPE_INFO.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\INamedPropertyStore.ahk
+#Include .\IMFAudioMediaType.ahk
+#Include .\IMFASFSplitter.ahk
+#Include .\IMFStreamDescriptor.ahk
+#Include .\MFCameraIntrinsic_DistortionModelType.ahk
+#Include .\IMFPresentationTimeSource.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\OPM_HDCP_STATUS.ahk
+#Include .\IMFPresentationDescriptor.ahk
+#Include .\IMFTrackedSample.ahk
+#Include .\IMFASFMultiplexer.ahk
+#Include .\IMFByteStream.ahk
 #Include .\IMFPMediaPlayer.ahk
+#Include .\IMFSensorProfileCollection.ahk
+#Include .\IMFSourceResolver.ahk
+#Include .\DXVAHD_CONTENT_DESC.ahk
+#Include .\IMFTopoLoader.ahk
+#Include .\IDXVAHD_Device.ahk
+#Include .\IMFASFContentInfo.ahk
+#Include .\IMFSensorStream.ahk
+#Include .\MF_FILE_OPENMODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\IMFCameraOcclusionStateReportCallback.ahk
+#Include .\IMFPresentationClock.ahk
+#Include .\IMFCameraControlNotify.ahk
+#Include .\IMFSensorActivitiesReportCallback.ahk
+#Include .\IMFSample.ahk
+#Include .\IMFMediaSink.ahk
+#Include .\IMFASFStreamSelector.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\IMFCameraControlMonitor.ahk
+#Include .\IMFPluginControl.ahk
+#Include .\IMFSignedLibrary.ahk
+#Include .\IMFPMPHostApp.ahk
+#Include .\IMFSensorProfile.ahk
+#Include .\IMFASFIndexer.ahk
+#Include ..\DxMediaObjects\IMediaBuffer.ahk
+#Include .\IMFDXGIDeviceManager.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include .\MF_FILE_ACCESSMODE.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include .\IMFRemoteDesktopPlugin.ahk
+#Include .\IMFExtendedCameraIntrinsicModel.ahk
+#Include .\IMFASFProfile.ahk
+#Include .\IMFMediaSource.ahk
+#Include .\IMFMediaBuffer.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IMFProtectedEnvironmentAccess.ahk
+#Include .\IOPMVideoOutput.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Device.ahk
+#Include .\IMFRelativePanelWatcher.ahk
+#Include .\MFVideoInterlaceMode.ahk
+#Include .\IMFSampleGrabberSinkCallback.ahk
+#Include .\MFASYNC_WORKQUEUE_TYPE.ahk
+#Include .\IDirect3DDeviceManager9.ahk
+#Include .\OPM_VIDEO_OUTPUT_SEMANTICS.ahk
+#Include .\DXVAHD_DEVICE_USAGE.ahk
+#Include .\IMFCameraOcclusionStateMonitor.ahk
+#Include .\MF_FILE_FLAGS.ahk
+#Include .\IMFNetProxyLocator.ahk
+#Include .\IMFMediaTypeHandler.ahk
+#Include ..\..\System\Com\IClassFactory.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include .\MFStandardVideoFormat.ahk
 #Include .\IMFVirtualCamera.ahk
+#Include .\IMFContentDecryptorContext.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\IMFSensorGroup.ahk
+#Include .\MF_TOPOLOGY_TYPE.ahk
+#Include .\IMFContentProtectionDevice.ahk
+#Include .\IMFTopologyNode.ahk
+#Include .\IMFCollection.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFAsyncResult.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -7532,8 +7580,7 @@ class MediaFoundation {
     static DEVPKEY_DeviceInterface_IsVirtualCamera {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{6edc630d-c2e3-43b7-b2d1-20525a1af120}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{6edc630d-c2e3-43b7-b2d1-20525a1af120}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -7545,8 +7592,7 @@ class MediaFoundation {
     static DEVPKEY_DeviceInterface_IsWindowsCameraEffectAvailable {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{6edc630d-c2e3-43b7-b2d1-20525a1af120}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{6edc630d-c2e3-43b7-b2d1-20525a1af120}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -7558,8 +7604,7 @@ class MediaFoundation {
     static DEVPKEY_DeviceInterface_VirtualCameraAssociatedCameras {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{6edc630d-c2e3-43b7-b2d1-20525a1af120}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{6edc630d-c2e3-43b7-b2d1-20525a1af120}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }

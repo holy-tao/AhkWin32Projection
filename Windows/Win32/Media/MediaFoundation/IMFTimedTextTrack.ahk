@@ -1,9 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
 #Include .\IMFTimedTextCueList.ahk
+#Include .\MF_TIMED_TEXT_ERROR_CODE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\MF_TIMED_TEXT_TRACK_READY_STATE.ahk
+#Include .\MF_TIMED_TEXT_TRACK_KIND.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents a track of timed text.

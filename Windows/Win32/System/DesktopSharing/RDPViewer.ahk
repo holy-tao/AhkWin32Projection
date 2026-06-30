@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Returns an object implementing the IRDPSRAPIApplicationFilter interface. (IRDPSRAPIViewer.get_ApplicationFilter)
- * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiviewer-get_applicationfilter
  * @namespace Windows.Win32.System.DesktopSharing
  */
 class RDPViewer extends Win32Struct {

@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IAddrBook.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\IAddrBook.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Do not use. Structure passed to Import that gives information about importing .wab files.

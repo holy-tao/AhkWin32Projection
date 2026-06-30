@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_COLOR_SPACE_TYPE.ahk
 #Include .\D3DDDI_FLIPINTERVAL_TYPE.ahk
+#Include .\D3DDDI_HDR_METADATA_TYPE.ahk
 #Include .\D3DDDI_ROTATION.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\D3DDDI_HDR_METADATA_TYPE.ahk
-#Include .\D3DDDI_COLOR_SPACE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D

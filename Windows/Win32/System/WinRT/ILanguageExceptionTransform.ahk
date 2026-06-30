@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IRestrictedErrorInfo.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Allows language projections to make available to the system any and all context from an exception that gets thrown from the context of a catch handler that catches a different exception.

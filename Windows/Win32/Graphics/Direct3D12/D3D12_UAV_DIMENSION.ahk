@@ -61,4 +61,9 @@ class D3D12_UAV_DIMENSION extends Win32Enum {
      * @type {Integer (Int32)}
      */
     static D3D12_UAV_DIMENSION_TEXTURE3D => 8
+
+    /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_UAV_DIMENSION_BUFFER_BYTE_OFFSET => 9
 }

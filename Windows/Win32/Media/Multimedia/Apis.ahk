@@ -1,16 +1,41 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HTASK.ahk
-#Include .\HDRVR.ahk
-#Include ..\..\Foundation\HMODULE.ahk
-#Include .\HMMIO.ahk
-#Include .\HIC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
-#Include .\IAVIFile.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\COMPVARS.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\IGetFrame.ahk
 #Include .\IAVIStream.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DRAWDIBTIME.ahk
+#Include ..\..\UI\Controls\Dialogs\OPENFILENAMEA.ahk
+#Include .\ICINFO.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include .\JOYINFO.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\AVISTREAMINFOW.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include .\HDRVR.ahk
+#Include .\JOYINFOEX.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFO.ahk
+#Include .\IAVIFile.ahk
+#Include ..\..\Graphics\Gdi\PALETTEENTRY.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HTASK.ahk
+#Include .\HMMIO.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include .\MMIOINFO.ahk
+#Include .\AVICOMPRESSOPTIONS.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include .\HIC.ahk
+#Include ..\..\UI\Controls\Dialogs\OPENFILENAMEW.ahk
+#Include .\MMCKINFO.ahk
+#Include .\AVISTREAMINFOA.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia

@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include .\RASEAPINFO.ahk
 #Include .\RASDEVSPECIFICINFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras

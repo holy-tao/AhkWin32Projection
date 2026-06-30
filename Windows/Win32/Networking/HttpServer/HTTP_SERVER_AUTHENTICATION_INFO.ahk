@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_PROPERTY_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS.ahk
 #Include .\HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used to enable server-side authentication on a URL group or server session.

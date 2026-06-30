@@ -4,9 +4,12 @@
 #Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetFwRemoteAdminSettings.ahk
 #Include .\INetFwIcmpSettings.ahk
-#Include .\INetFwOpenPorts.ahk
-#Include .\INetFwServices.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include .\NET_FW_PROFILE_TYPE.ahk
 #Include .\INetFwAuthorizedApplications.ahk
+#Include .\INetFwServices.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\INetFwOpenPorts.ahk
 
 /**
  * The INetFwProfile interface provides access to the firewall settings profile.

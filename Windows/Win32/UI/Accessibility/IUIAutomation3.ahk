@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include .\TreeScope.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\IUIAutomationElement.ahk
 #Include .\IUIAutomation2.ahk
+#Include .\IUIAutomationTextEditTextChangedEventHandler.ahk
+#Include .\TextEditChangeType.ahk
 
 /**
  * Extends the IUIAutomation2 interface to expose additional methods for controlling Microsoft UI Automation functionality.

@@ -1,7 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include .\DEVQUERYPRINT_INFO.ahk
+#Include .\PROPSHEETUI_INFO.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\Gdi\DEVMODEA.ahk
 #Include .\IPrintOemCommon.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\OEMCUIPPARAM.ahk
+#Include .\PRINTER_HANDLE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\OEMUIOBJ.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing

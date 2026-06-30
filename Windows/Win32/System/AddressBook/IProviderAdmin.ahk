@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IMAPITable.ahk
-#Include .\MAPIUID.ahk
 #Include .\IProfSect.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\MAPIUID.ahk
+#Include .\SPropValue.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\MAPIERROR.ahk
 
 /**
  * Describes the properties and vtable order of members for IProviderAdmin IUnknown, which works with service providers in a message service.

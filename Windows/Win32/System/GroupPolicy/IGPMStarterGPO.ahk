@@ -1,10 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMResult.ahk
 #Include .\IGPMSecurityInfo.ahk
+#Include .\GPMStarterGPOType.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+#Include .\IGPMResult.ahk
+#Include .\GPMReportType.ahk
 
 /**
  * The IGPMStarterGPO interface supports methods that enable you to manage Starter Group Policy Objects (GPOs) in the directory service.
@@ -129,7 +134,7 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayName() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -151,7 +156,7 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_Description() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -173,7 +178,7 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_Author() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -183,7 +188,7 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_Product() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -202,7 +207,7 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_ID() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(14, this, "ptr", pVal, "HRESULT")
         return pVal
     }
@@ -248,7 +253,7 @@ class IGPMStarterGPO extends IDispatch {
      * @returns {BSTR} 
      */
     get_StarterGPOVersion() {
-        pVal := BSTR()
+        pVal := BSTR({Value: 0}, True)
         result := ComCall(19, this, "ptr", pVal, "HRESULT")
         return pVal
     }

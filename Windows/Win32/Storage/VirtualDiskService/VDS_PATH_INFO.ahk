@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_PATH_ID.ahk
-#Include .\VDS_HWPROVIDER_TYPE.ahk
 #Include .\VDS_PATH_STATUS.ahk
-#Include .\VDS_HBAPORT_PROP.ahk
 #Include .\VDS_IPADDRESS.ahk
+#Include .\VDS_PATH_ID.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\VDS_HBAPORT_PROP.ahk
+#Include .\VDS_HWPROVIDER_TYPE.ahk
 
 /**
  * The VDS_PATH_INFO structure (vdshwprv.h) defines the information for a LUN path and is returned in the ppPaths parameter of the IVdsLunMpio::GetPathInfo method.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
 class VDS_PATH_INFO extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -48,50 +49,62 @@ class VDS_PATH_INFO extends Win32Struct {
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     controllerPortId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__controllerPortId"))
+                this.__controllerPortId := Guid(24, this)
+            return this.__controllerPortId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     targetPortalId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__targetPortalId"))
+                this.__targetPortalId := Guid(24, this)
+            return this.__targetPortalId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     hbaPortId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__hbaPortId"))
+                this.__hbaPortId := Guid(40, this)
+            return this.__hbaPortId
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {Guid}
      */
     initiatorAdapterId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get {
+            if(!this.HasProp("__initiatorAdapterId"))
+                this.__initiatorAdapterId := Guid(40, this)
+            return this.__initiatorAdapterId
+        }
     }
 
     /**
      * @type {Pointer<VDS_HBAPORT_PROP>}
      */
     pHbaPortProp {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<VDS_IPADDRESS>}
      */
     pInitiatorPortalIpAddr {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

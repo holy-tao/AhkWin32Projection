@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDWriteBitmapRenderTarget.ahk
+#Include .\DWRITE_TEXT_ANTIALIAS_MODE.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * Encapsulates a 32-bit device independent bitmap and device context, which you can use for rendering glyphs.

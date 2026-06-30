@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PCI_HARDWARE_INTERFACE.ahk
 #Include .\PCI_BUS_WIDTH.ahk
+#Include ..\..\..\Win32\Foundation\BOOLEAN.ahk
+#Include .\PCI_HARDWARE_INTERFACE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices

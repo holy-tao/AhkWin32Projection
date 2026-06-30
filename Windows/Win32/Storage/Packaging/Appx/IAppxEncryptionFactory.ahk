@@ -1,11 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxEncryptedPackageWriter.ahk
-#Include .\IAppxPackageReader.ahk
-#Include .\IAppxEncryptedBundleWriter.ahk
+#Include .\APPX_ENCRYPTED_PACKAGE_SETTINGS.ahk
 #Include .\IAppxBundleReader.ahk
+#Include .\IAppxPackageReader.ahk
+#Include .\APPX_KEY_INFO.ahk
+#Include .\IAppxEncryptedBundleWriter.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
+#Include .\APPX_ENCRYPTED_EXEMPTIONS.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 
 /**
  * Creates objects for encrypting, decrypting, reading, and writing packages and bundles.

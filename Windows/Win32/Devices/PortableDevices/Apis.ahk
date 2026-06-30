@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
@@ -18,8 +20,7 @@ class PortableDevices {
     static DEVPKEY_MTPBTH_IsConnected {
         get {
             value := DEVPROPKEY()
-            static fmtid_guid := Guid("{ea1237fa-589d-4472-84e4-0abe36fd62ef}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ea1237fa-589d-4472-84e4-0abe36fd62ef}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -466,8 +467,7 @@ class PortableDevices {
     static WPD_PROPERTY_NULL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{00000000-0000-0000-0000-000000000000}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{00000000-0000-0000-0000-000000000000}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -484,8 +484,7 @@ class PortableDevices {
     static WPD_OBJECT_CONTENT_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -497,8 +496,7 @@ class PortableDevices {
     static WPD_OBJECT_REFERENCES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -510,8 +508,7 @@ class PortableDevices {
     static WPD_OBJECT_CONTAINER_FUNCTIONAL_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 23
             return value
         }
@@ -523,8 +520,7 @@ class PortableDevices {
     static WPD_OBJECT_GENERATE_THUMBNAIL_FROM_RESOURCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 24
             return value
         }
@@ -536,8 +532,7 @@ class PortableDevices {
     static WPD_OBJECT_HINT_LOCATION_DISPLAY_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 25
             return value
         }
@@ -554,8 +549,7 @@ class PortableDevices {
     static WPD_OBJECT_SUPPORTED_UNITS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0373cd3d-4a46-40d7-b4d8-73e8da74e775}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0373cd3d-4a46-40d7-b4d8-73e8da74e775}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -572,8 +566,7 @@ class PortableDevices {
     static WPD_FUNCTIONAL_OBJECT_CATEGORY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{8f052d93-abca-4fc5-a5ac-b01df4dbe598}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{8f052d93-abca-4fc5-a5ac-b01df4dbe598}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -590,8 +583,7 @@ class PortableDevices {
     static WPD_STORAGE_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -603,8 +595,7 @@ class PortableDevices {
     static WPD_STORAGE_FILE_SYSTEM_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -616,8 +607,7 @@ class PortableDevices {
     static WPD_STORAGE_CAPACITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -629,8 +619,7 @@ class PortableDevices {
     static WPD_STORAGE_FREE_SPACE_IN_BYTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -642,8 +631,7 @@ class PortableDevices {
     static WPD_STORAGE_FREE_SPACE_IN_OBJECTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -655,8 +643,7 @@ class PortableDevices {
     static WPD_STORAGE_DESCRIPTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -668,8 +655,7 @@ class PortableDevices {
     static WPD_STORAGE_SERIAL_NUMBER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -681,8 +667,7 @@ class PortableDevices {
     static WPD_STORAGE_MAX_OBJECT_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -694,8 +679,7 @@ class PortableDevices {
     static WPD_STORAGE_CAPACITY_IN_OBJECTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -707,8 +691,7 @@ class PortableDevices {
     static WPD_STORAGE_ACCESS_CAPABILITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{01a3057a-74d6-4e80-bea7-dc4c212ce50a}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -725,8 +708,7 @@ class PortableDevices {
     static WPD_NETWORK_ASSOCIATION_HOST_NETWORK_IDENTIFIERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e4c93c1f-b203-43f1-a100-5a07d11b0274}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e4c93c1f-b203-43f1-a100-5a07d11b0274}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -738,8 +720,7 @@ class PortableDevices {
     static WPD_NETWORK_ASSOCIATION_X509V3SEQUENCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e4c93c1f-b203-43f1-a100-5a07d11b0274}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e4c93c1f-b203-43f1-a100-5a07d11b0274}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -756,8 +737,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_CAPTURE_RESOLUTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -769,8 +749,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_CAPTURE_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -782,8 +761,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_COMPRESSION_SETTING {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -795,8 +773,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_WHITE_BALANCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -808,8 +785,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_RGB_GAIN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -821,8 +797,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_FNUMBER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -834,8 +809,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_FOCAL_LENGTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -847,8 +821,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_FOCUS_DISTANCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -860,8 +833,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_FOCUS_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -873,8 +845,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_EXPOSURE_METERING_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -886,8 +857,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_FLASH_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -899,8 +869,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_EXPOSURE_TIME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -912,8 +881,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_EXPOSURE_PROGRAM_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -925,8 +893,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_EXPOSURE_INDEX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -938,8 +905,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_EXPOSURE_BIAS_COMPENSATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -951,8 +917,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_CAPTURE_DELAY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -964,8 +929,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_CAPTURE_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -977,8 +941,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_CONTRAST {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 19
             return value
         }
@@ -990,8 +953,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_SHARPNESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 20
             return value
         }
@@ -1003,8 +965,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_DIGITAL_ZOOM {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 21
             return value
         }
@@ -1016,8 +977,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_EFFECT_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 22
             return value
         }
@@ -1029,8 +989,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_BURST_NUMBER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 23
             return value
         }
@@ -1042,8 +1001,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_BURST_INTERVAL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 24
             return value
         }
@@ -1055,8 +1013,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_TIMELAPSE_NUMBER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 25
             return value
         }
@@ -1068,8 +1025,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_TIMELAPSE_INTERVAL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 26
             return value
         }
@@ -1081,8 +1037,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_FOCUS_METERING_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 27
             return value
         }
@@ -1094,8 +1049,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_UPLOAD_URL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 28
             return value
         }
@@ -1107,8 +1061,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_ARTIST {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 29
             return value
         }
@@ -1120,8 +1073,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_CAMERA_MODEL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 30
             return value
         }
@@ -1133,8 +1085,7 @@ class PortableDevices {
     static WPD_STILL_IMAGE_CAMERA_MANUFACTURER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{58c571ec-1bcb-42a7-8ac5-bb291573a260}").CopyTo(value.fmtid.ptr)
             value.pid := 31
             return value
         }
@@ -1151,8 +1102,7 @@ class PortableDevices {
     static WPD_RENDERING_INFORMATION_PROFILES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{c53d039f-ee23-4a31-8590-7639879870b4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{c53d039f-ee23-4a31-8590-7639879870b4}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1164,8 +1114,7 @@ class PortableDevices {
     static WPD_RENDERING_INFORMATION_PROFILE_ENTRY_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{c53d039f-ee23-4a31-8590-7639879870b4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{c53d039f-ee23-4a31-8590-7639879870b4}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1177,8 +1126,7 @@ class PortableDevices {
     static WPD_RENDERING_INFORMATION_PROFILE_ENTRY_CREATABLE_RESOURCES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{c53d039f-ee23-4a31-8590-7639879870b4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{c53d039f-ee23-4a31-8590-7639879870b4}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1195,8 +1143,7 @@ class PortableDevices {
     static WPD_CLIENT_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1208,8 +1155,7 @@ class PortableDevices {
     static WPD_CLIENT_MAJOR_VERSION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1221,8 +1167,7 @@ class PortableDevices {
     static WPD_CLIENT_MINOR_VERSION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1234,8 +1179,7 @@ class PortableDevices {
     static WPD_CLIENT_REVISION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -1247,8 +1191,7 @@ class PortableDevices {
     static WPD_CLIENT_WMDRM_APPLICATION_PRIVATE_KEY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -1260,8 +1203,7 @@ class PortableDevices {
     static WPD_CLIENT_WMDRM_APPLICATION_CERTIFICATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -1273,8 +1215,7 @@ class PortableDevices {
     static WPD_CLIENT_SECURITY_QUALITY_OF_SERVICE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -1286,8 +1227,7 @@ class PortableDevices {
     static WPD_CLIENT_DESIRED_ACCESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -1299,8 +1239,7 @@ class PortableDevices {
     static WPD_CLIENT_SHARE_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -1312,8 +1251,7 @@ class PortableDevices {
     static WPD_CLIENT_EVENT_COOKIE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -1325,8 +1263,7 @@ class PortableDevices {
     static WPD_CLIENT_MINIMUM_RESULTS_BUFFER_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -1338,8 +1275,7 @@ class PortableDevices {
     static WPD_CLIENT_MANUAL_CLOSE_ON_DISCONNECT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{204d9f0c-2292-4080-9f42-40664e70f859}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{204d9f0c-2292-4080-9f42-40664e70f859}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -1356,8 +1292,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_FORM {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1369,8 +1304,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_CAN_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1382,8 +1316,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_CAN_WRITE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1395,8 +1328,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_CAN_DELETE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -1408,8 +1340,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_DEFAULT_VALUE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -1421,8 +1352,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_FAST_PROPERTY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -1434,8 +1364,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_RANGE_MIN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -1447,8 +1376,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_RANGE_MAX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -1460,8 +1388,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_RANGE_STEP {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -1473,8 +1400,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_ENUMERATION_ELEMENTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -1486,8 +1412,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_REGULAR_EXPRESSION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -1499,8 +1424,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_MAX_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ab7943d8-6332-445f-a00d-8d5ef1e96f37}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -1517,8 +1441,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{5d9da160-74ae-43cc-85a9-fe555a80798e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{5d9da160-74ae-43cc-85a9-fe555a80798e}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1530,8 +1453,7 @@ class PortableDevices {
     static WPD_PROPERTY_ATTRIBUTE_VARTYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{5d9da160-74ae-43cc-85a9-fe555a80798e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{5d9da160-74ae-43cc-85a9-fe555a80798e}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1548,8 +1470,7 @@ class PortableDevices {
     static WPD_CLASS_EXTENSION_OPTIONS_SUPPORTED_CONTENT_TYPES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1561,8 +1482,7 @@ class PortableDevices {
     static WPD_CLASS_EXTENSION_OPTIONS_DONT_REGISTER_WPD_DEVICE_INTERFACE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1574,8 +1494,7 @@ class PortableDevices {
     static WPD_CLASS_EXTENSION_OPTIONS_REGISTER_WPD_PRIVATE_DEVICE_INTERFACE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{6309ffef-a87c-4ca7-8434-797576e40a96}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1592,8 +1511,7 @@ class PortableDevices {
     static WPD_CLASS_EXTENSION_OPTIONS_MULTITRANSPORT_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1605,8 +1523,7 @@ class PortableDevices {
     static WPD_CLASS_EXTENSION_OPTIONS_DEVICE_IDENTIFICATION_VALUES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1618,8 +1535,7 @@ class PortableDevices {
     static WPD_CLASS_EXTENSION_OPTIONS_TRANSPORT_BANDWIDTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3e3595da-4d71-49fe-a0b4-d4406c3ae93f}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1636,8 +1552,7 @@ class PortableDevices {
     static WPD_CLASS_EXTENSION_OPTIONS_SILENCE_AUTOPLAY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{65c160f8-1367-4ce2-939d-8310839f0d30}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{65c160f8-1367-4ce2-939d-8310839f0d30}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1654,8 +1569,7 @@ class PortableDevices {
     static WPD_RESOURCE_ATTRIBUTE_TOTAL_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1667,8 +1581,7 @@ class PortableDevices {
     static WPD_RESOURCE_ATTRIBUTE_CAN_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1680,8 +1593,7 @@ class PortableDevices {
     static WPD_RESOURCE_ATTRIBUTE_CAN_WRITE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1693,8 +1605,7 @@ class PortableDevices {
     static WPD_RESOURCE_ATTRIBUTE_CAN_DELETE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -1706,8 +1617,7 @@ class PortableDevices {
     static WPD_RESOURCE_ATTRIBUTE_OPTIMAL_READ_BUFFER_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -1719,8 +1629,7 @@ class PortableDevices {
     static WPD_RESOURCE_ATTRIBUTE_OPTIMAL_WRITE_BUFFER_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -1732,8 +1641,7 @@ class PortableDevices {
     static WPD_RESOURCE_ATTRIBUTE_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -1745,8 +1653,7 @@ class PortableDevices {
     static WPD_RESOURCE_ATTRIBUTE_RESOURCE_KEY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{1eb6f604-9278-429f-93cc-5bb8c06656b6}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -1763,8 +1670,7 @@ class PortableDevices {
     static WPD_DEVICE_SYNC_PARTNER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1776,8 +1682,7 @@ class PortableDevices {
     static WPD_DEVICE_FIRMWARE_VERSION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1789,8 +1694,7 @@ class PortableDevices {
     static WPD_DEVICE_POWER_LEVEL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -1802,8 +1706,7 @@ class PortableDevices {
     static WPD_DEVICE_POWER_SOURCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -1815,8 +1718,7 @@ class PortableDevices {
     static WPD_DEVICE_PROTOCOL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -1828,8 +1730,7 @@ class PortableDevices {
     static WPD_DEVICE_MANUFACTURER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -1841,8 +1742,7 @@ class PortableDevices {
     static WPD_DEVICE_MODEL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -1854,8 +1754,7 @@ class PortableDevices {
     static WPD_DEVICE_SERIAL_NUMBER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -1867,8 +1766,7 @@ class PortableDevices {
     static WPD_DEVICE_SUPPORTS_NON_CONSUMABLE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -1880,8 +1778,7 @@ class PortableDevices {
     static WPD_DEVICE_DATETIME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -1893,8 +1790,7 @@ class PortableDevices {
     static WPD_DEVICE_FRIENDLY_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -1906,8 +1802,7 @@ class PortableDevices {
     static WPD_DEVICE_SUPPORTED_DRM_SCHEMES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -1919,8 +1814,7 @@ class PortableDevices {
     static WPD_DEVICE_SUPPORTED_FORMATS_ARE_ORDERED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -1932,8 +1826,7 @@ class PortableDevices {
     static WPD_DEVICE_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -1945,8 +1838,7 @@ class PortableDevices {
     static WPD_DEVICE_NETWORK_IDENTIFIER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{26d4979a-e643-4626-9e2b-736dc0c92fdc}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -1963,8 +1855,7 @@ class PortableDevices {
     static WPD_DEVICE_FUNCTIONAL_UNIQUE_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -1976,8 +1867,7 @@ class PortableDevices {
     static WPD_DEVICE_MODEL_UNIQUE_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -1989,8 +1879,7 @@ class PortableDevices {
     static WPD_DEVICE_TRANSPORT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -2002,8 +1891,7 @@ class PortableDevices {
     static WPD_DEVICE_USE_DEVICE_STAGE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{463dd662-7fc4-4291-911c-7f4c9cca9799}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -2020,8 +1908,7 @@ class PortableDevices {
     static WPD_DEVICE_EDP_IDENTITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{6c2b878c-c2ec-490d-b425-d7a75e23e5ed}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{6c2b878c-c2ec-490d-b425-d7a75e23e5ed}").CopyTo(value.fmtid.ptr)
             value.pid := 1
             return value
         }
@@ -2038,8 +1925,7 @@ class PortableDevices {
     static WPD_SERVICE_VERSION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7510698a-cb54-481c-b8db-0d75c93f1c06}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7510698a-cb54-481c-b8db-0d75c93f1c06}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2056,8 +1942,7 @@ class PortableDevices {
     static WPD_EVENT_PARAMETER_PNP_DEVICE_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2069,8 +1954,7 @@ class PortableDevices {
     static WPD_EVENT_PARAMETER_EVENT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2082,8 +1966,7 @@ class PortableDevices {
     static WPD_EVENT_PARAMETER_OPERATION_STATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -2095,8 +1978,7 @@ class PortableDevices {
     static WPD_EVENT_PARAMETER_OPERATION_PROGRESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -2108,8 +1990,7 @@ class PortableDevices {
     static WPD_EVENT_PARAMETER_OBJECT_PARENT_PERSISTENT_UNIQUE_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -2121,8 +2002,7 @@ class PortableDevices {
     static WPD_EVENT_PARAMETER_OBJECT_CREATION_COOKIE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -2134,8 +2014,7 @@ class PortableDevices {
     static WPD_EVENT_PARAMETER_CHILD_HIERARCHY_CHANGED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{15ab1953-f817-4fef-a921-5676e838f6e0}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -2152,8 +2031,7 @@ class PortableDevices {
     static WPD_EVENT_PARAMETER_SERVICE_METHOD_CONTEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{52807b8a-4914-4323-9b9a-74f654b2b846}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{52807b8a-4914-4323-9b9a-74f654b2b846}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2170,8 +2048,7 @@ class PortableDevices {
     static WPD_EVENT_OPTION_IS_BROADCAST_EVENT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3d8dad7-a361-4b83-8a48-5b02ce10713b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3d8dad7-a361-4b83-8a48-5b02ce10713b}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2183,8 +2060,7 @@ class PortableDevices {
     static WPD_EVENT_OPTION_IS_AUTOPLAY_EVENT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3d8dad7-a361-4b83-8a48-5b02ce10713b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3d8dad7-a361-4b83-8a48-5b02ce10713b}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2201,8 +2077,7 @@ class PortableDevices {
     static WPD_EVENT_ATTRIBUTE_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2214,8 +2089,7 @@ class PortableDevices {
     static WPD_EVENT_ATTRIBUTE_PARAMETERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2227,8 +2101,7 @@ class PortableDevices {
     static WPD_EVENT_ATTRIBUTE_OPTIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{10c96578-2e81-4111-adde-e08ca6138f6d}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -2245,8 +2118,7 @@ class PortableDevices {
     static WPD_API_OPTION_USE_CLEAR_DATA_STREAM {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{10e54a3e-052d-4777-a13c-de7614be2bc4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{10e54a3e-052d-4777-a13c-de7614be2bc4}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2258,8 +2130,7 @@ class PortableDevices {
     static WPD_API_OPTION_IOCTL_ACCESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{10e54a3e-052d-4777-a13c-de7614be2bc4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{10e54a3e-052d-4777-a13c-de7614be2bc4}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2276,8 +2147,7 @@ class PortableDevices {
     static WPD_FORMAT_ATTRIBUTE_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{a0a02000-bcaf-4be8-b3f5-233f231cf58f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{a0a02000-bcaf-4be8-b3f5-233f231cf58f}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2289,8 +2159,7 @@ class PortableDevices {
     static WPD_FORMAT_ATTRIBUTE_MIMETYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{a0a02000-bcaf-4be8-b3f5-233f231cf58f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{a0a02000-bcaf-4be8-b3f5-233f231cf58f}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2307,8 +2176,7 @@ class PortableDevices {
     static WPD_METHOD_ATTRIBUTE_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f17a5071-f039-44af-8efe-432cf32e432a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f17a5071-f039-44af-8efe-432cf32e432a}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2320,8 +2188,7 @@ class PortableDevices {
     static WPD_METHOD_ATTRIBUTE_ASSOCIATED_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f17a5071-f039-44af-8efe-432cf32e432a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f17a5071-f039-44af-8efe-432cf32e432a}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2333,8 +2200,7 @@ class PortableDevices {
     static WPD_METHOD_ATTRIBUTE_ACCESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f17a5071-f039-44af-8efe-432cf32e432a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f17a5071-f039-44af-8efe-432cf32e432a}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -2346,8 +2212,7 @@ class PortableDevices {
     static WPD_METHOD_ATTRIBUTE_PARAMETERS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f17a5071-f039-44af-8efe-432cf32e432a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f17a5071-f039-44af-8efe-432cf32e432a}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -2364,8 +2229,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_ORDER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2377,8 +2241,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_USAGE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2390,8 +2253,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_FORM {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -2403,8 +2265,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_DEFAULT_VALUE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -2416,8 +2277,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_RANGE_MIN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -2429,8 +2289,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_RANGE_MAX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -2442,8 +2301,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_RANGE_STEP {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -2455,8 +2313,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_ENUMERATION_ELEMENTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -2468,8 +2325,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_REGULAR_EXPRESSION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -2481,8 +2337,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_MAX_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -2494,8 +2349,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_VARTYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -2507,8 +2361,7 @@ class PortableDevices {
     static WPD_PARAMETER_ATTRIBUTE_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e6864dd7-f325-45ea-a1d5-97cf73b6ca58}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -2525,8 +2378,7 @@ class PortableDevices {
     static WPD_COMMAND_COMMON_RESET_DEVICE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2538,8 +2390,7 @@ class PortableDevices {
     static WPD_COMMAND_COMMON_GET_OBJECT_IDS_FROM_PERSISTENT_UNIQUE_IDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2551,8 +2402,7 @@ class PortableDevices {
     static WPD_COMMAND_COMMON_SAVE_CLIENT_INFORMATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -2564,8 +2414,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_COMMAND_CATEGORY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -2577,8 +2426,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_COMMAND_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -2590,8 +2438,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_HRESULT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -2603,8 +2450,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_DRIVER_ERROR_CODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -2616,8 +2462,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_COMMAND_TARGET {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1006
             return value
         }
@@ -2629,8 +2474,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_PERSISTENT_UNIQUE_IDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1007
             return value
         }
@@ -2642,8 +2486,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_OBJECT_IDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1008
             return value
         }
@@ -2655,8 +2498,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_CLIENT_INFORMATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1009
             return value
         }
@@ -2668,8 +2510,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_CLIENT_INFORMATION_CONTEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1010
             return value
         }
@@ -2681,8 +2522,7 @@ class PortableDevices {
     static WPD_PROPERTY_COMMON_ACTIVITY_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 1011
             return value
         }
@@ -2694,8 +2534,7 @@ class PortableDevices {
     static WPD_OPTION_VALID_OBJECT_IDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f0422a9c-5dc8-4440-b5bd-5df28835658a}").CopyTo(value.fmtid.ptr)
             value.pid := 5001
             return value
         }
@@ -2712,8 +2551,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_ENUMERATION_START_FIND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2725,8 +2563,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_ENUMERATION_FIND_NEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2738,8 +2575,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_ENUMERATION_END_FIND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -2751,8 +2587,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_ENUMERATION_PARENT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -2764,8 +2599,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_ENUMERATION_FILTER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -2777,8 +2611,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_ENUMERATION_OBJECT_IDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -2790,8 +2623,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_ENUMERATION_CONTEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -2803,8 +2635,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_ENUMERATION_NUM_OBJECTS_REQUESTED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b7474e91-e7f8-4ad9-b400-ad1a4b58eeec}").CopyTo(value.fmtid.ptr)
             value.pid := 1005
             return value
         }
@@ -2821,8 +2652,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_GET_SUPPORTED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2834,8 +2664,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_GET_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -2847,8 +2676,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_GET {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -2860,8 +2688,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_SET {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -2873,8 +2700,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_GET_ALL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -2886,8 +2712,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_DELETE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -2899,8 +2724,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -2912,8 +2736,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_KEYS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -2925,8 +2748,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -2938,8 +2760,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_VALUES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -2951,8 +2772,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_WRITE_RESULTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 1005
             return value
         }
@@ -2964,8 +2784,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_PROPERTY_DELETE_RESULTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{9e5582e4-0814-44e6-981a-b2998d583804}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{9e5582e4-0814-44e6-981a-b2998d583804}").CopyTo(value.fmtid.ptr)
             value.pid := 1006
             return value
         }
@@ -2982,8 +2801,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_START {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -2995,8 +2813,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_NEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -3008,8 +2825,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_LIST_END {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -3021,8 +2837,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_START {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -3034,8 +2849,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_NEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -3047,8 +2861,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_BULK_GET_VALUES_BY_OBJECT_FORMAT_END {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -3060,8 +2873,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_START {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -3073,8 +2885,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_NEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -3086,8 +2897,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_PROPERTIES_BULK_SET_VALUES_BY_OBJECT_LIST_END {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -3099,8 +2909,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_OBJECT_IDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -3112,8 +2921,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_CONTEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -3125,8 +2933,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_VALUES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -3138,8 +2945,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_PROPERTY_KEYS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -3151,8 +2957,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_DEPTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 1005
             return value
         }
@@ -3164,8 +2969,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_PARENT_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 1006
             return value
         }
@@ -3177,8 +2981,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_OBJECT_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 1007
             return value
         }
@@ -3190,8 +2993,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_PROPERTIES_BULK_WRITE_RESULTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{11c824dd-04cd-4e4e-8c7b-f6efb794d84e}").CopyTo(value.fmtid.ptr)
             value.pid := 1008
             return value
         }
@@ -3208,8 +3010,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_GET_SUPPORTED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -3221,8 +3022,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_GET_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -3234,8 +3034,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_OPEN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -3247,8 +3046,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -3260,8 +3058,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_WRITE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -3273,8 +3070,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_CLOSE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -3286,8 +3082,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_DELETE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -3299,8 +3094,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_CREATE_RESOURCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -3312,8 +3106,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_REVERT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -3325,8 +3118,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_SEEK {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -3338,8 +3130,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_COMMIT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -3351,8 +3142,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_RESOURCES_SEEK_IN_UNITS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -3364,8 +3154,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -3377,8 +3166,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_ACCESS_MODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -3390,8 +3178,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_RESOURCE_KEYS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -3403,8 +3190,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_RESOURCE_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -3416,8 +3202,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_CONTEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1005
             return value
         }
@@ -3429,8 +3214,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_TO_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1006
             return value
         }
@@ -3442,8 +3226,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1007
             return value
         }
@@ -3455,8 +3238,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_TO_WRITE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1008
             return value
         }
@@ -3468,8 +3250,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_NUM_BYTES_WRITTEN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1009
             return value
         }
@@ -3481,8 +3262,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_DATA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1010
             return value
         }
@@ -3494,8 +3274,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_OPTIMAL_TRANSFER_BUFFER_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1011
             return value
         }
@@ -3507,8 +3286,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_SEEK_OFFSET {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1012
             return value
         }
@@ -3520,8 +3298,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_SEEK_ORIGIN_FLAG {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1013
             return value
         }
@@ -3533,8 +3310,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_POSITION_FROM_START {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1014
             return value
         }
@@ -3546,8 +3322,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_SUPPORTS_UNITS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1015
             return value
         }
@@ -3559,8 +3334,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_RESOURCES_STREAM_UNITS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 1016
             return value
         }
@@ -3572,8 +3346,7 @@ class PortableDevices {
     static WPD_OPTION_OBJECT_RESOURCES_SEEK_ON_READ_SUPPORTED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 5001
             return value
         }
@@ -3585,8 +3358,7 @@ class PortableDevices {
     static WPD_OPTION_OBJECT_RESOURCES_SEEK_ON_WRITE_SUPPORTED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 5002
             return value
         }
@@ -3598,8 +3370,7 @@ class PortableDevices {
     static WPD_OPTION_OBJECT_RESOURCES_NO_INPUT_BUFFER_ON_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b3a2b22d-a595-4108-be0a-fc3c965f3d4a}").CopyTo(value.fmtid.ptr)
             value.pid := 5003
             return value
         }
@@ -3616,8 +3387,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_MANAGEMENT_CREATE_OBJECT_WITH_PROPERTIES_ONLY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -3629,8 +3399,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_MANAGEMENT_CREATE_OBJECT_WITH_PROPERTIES_AND_DATA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -3642,8 +3411,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_MANAGEMENT_WRITE_OBJECT_DATA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -3655,8 +3423,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_MANAGEMENT_COMMIT_OBJECT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -3668,8 +3435,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_MANAGEMENT_REVERT_OBJECT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -3681,8 +3447,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_MANAGEMENT_DELETE_OBJECTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -3694,8 +3459,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_MANAGEMENT_MOVE_OBJECTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -3707,8 +3471,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_MANAGEMENT_COPY_OBJECTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -3720,8 +3483,7 @@ class PortableDevices {
     static WPD_COMMAND_OBJECT_MANAGEMENT_UPDATE_OBJECT_WITH_PROPERTIES_AND_DATA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -3733,8 +3495,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_CREATION_PROPERTIES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -3746,8 +3507,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_CONTEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -3759,8 +3519,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_NUM_BYTES_TO_WRITE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -3772,8 +3531,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_NUM_BYTES_WRITTEN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -3785,8 +3543,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_DATA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1005
             return value
         }
@@ -3798,8 +3555,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1006
             return value
         }
@@ -3811,8 +3567,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_DELETE_OPTIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1007
             return value
         }
@@ -3824,8 +3579,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_OPTIMAL_TRANSFER_BUFFER_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1008
             return value
         }
@@ -3837,8 +3591,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_IDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1009
             return value
         }
@@ -3850,8 +3603,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_DELETE_RESULTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1010
             return value
         }
@@ -3863,8 +3615,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_DESTINATION_FOLDER_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1011
             return value
         }
@@ -3876,8 +3627,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_MOVE_RESULTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1012
             return value
         }
@@ -3889,8 +3639,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_COPY_RESULTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1013
             return value
         }
@@ -3902,8 +3651,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_UPDATE_PROPERTIES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1014
             return value
         }
@@ -3915,8 +3663,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_PROPERTY_KEYS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1015
             return value
         }
@@ -3928,8 +3675,7 @@ class PortableDevices {
     static WPD_PROPERTY_OBJECT_MANAGEMENT_OBJECT_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 1016
             return value
         }
@@ -3941,8 +3687,7 @@ class PortableDevices {
     static WPD_OPTION_OBJECT_MANAGEMENT_RECURSIVE_DELETE_SUPPORTED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef1e43dd-a9ed-4341-8bcc-186192aea089}").CopyTo(value.fmtid.ptr)
             value.pid := 5001
             return value
         }
@@ -3959,8 +3704,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_COMMANDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -3972,8 +3716,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_COMMAND_OPTIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -3985,8 +3728,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FUNCTIONAL_CATEGORIES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -3998,8 +3740,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_FUNCTIONAL_OBJECTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -4011,8 +3752,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_CONTENT_TYPES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -4024,8 +3764,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FORMATS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -4037,8 +3776,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_FORMAT_PROPERTIES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -4050,8 +3788,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_FIXED_PROPERTY_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -4063,8 +3800,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_SUPPORTED_EVENTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -4076,8 +3812,7 @@ class PortableDevices {
     static WPD_COMMAND_CAPABILITIES_GET_EVENT_OPTIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -4089,8 +3824,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_SUPPORTED_COMMANDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -4102,8 +3836,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_COMMAND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -4115,8 +3848,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_COMMAND_OPTIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -4128,8 +3860,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_CATEGORIES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -4141,8 +3872,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_CATEGORY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1005
             return value
         }
@@ -4154,8 +3884,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_FUNCTIONAL_OBJECTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1006
             return value
         }
@@ -4167,8 +3896,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_CONTENT_TYPES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1007
             return value
         }
@@ -4180,8 +3908,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_CONTENT_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1008
             return value
         }
@@ -4193,8 +3920,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_FORMATS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1009
             return value
         }
@@ -4206,8 +3932,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1010
             return value
         }
@@ -4219,8 +3944,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_PROPERTY_KEYS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1011
             return value
         }
@@ -4232,8 +3956,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_PROPERTY_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1012
             return value
         }
@@ -4245,8 +3968,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_SUPPORTED_EVENTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1013
             return value
         }
@@ -4258,8 +3980,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_EVENT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1014
             return value
         }
@@ -4271,8 +3992,7 @@ class PortableDevices {
     static WPD_PROPERTY_CAPABILITIES_EVENT_OPTIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0cabec78-6b74-41c6-9216-2639d1fce356}").CopyTo(value.fmtid.ptr)
             value.pid := 1015
             return value
         }
@@ -4289,8 +4009,7 @@ class PortableDevices {
     static WPD_COMMAND_STORAGE_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4302,8 +4021,7 @@ class PortableDevices {
     static WPD_COMMAND_STORAGE_EJECT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -4315,8 +4033,7 @@ class PortableDevices {
     static WPD_PROPERTY_STORAGE_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -4328,8 +4045,7 @@ class PortableDevices {
     static WPD_PROPERTY_STORAGE_DESTINATION_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{d8f907a6-34cc-45fa-97fb-d007fa47ec94}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -4346,8 +4062,7 @@ class PortableDevices {
     static WPD_COMMAND_SMS_SEND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4359,8 +4074,7 @@ class PortableDevices {
     static WPD_PROPERTY_SMS_RECIPIENT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -4372,8 +4086,7 @@ class PortableDevices {
     static WPD_PROPERTY_SMS_MESSAGE_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -4385,8 +4098,7 @@ class PortableDevices {
     static WPD_PROPERTY_SMS_TEXT_MESSAGE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -4398,8 +4110,7 @@ class PortableDevices {
     static WPD_PROPERTY_SMS_BINARY_MESSAGE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -4411,8 +4122,7 @@ class PortableDevices {
     static WPD_OPTION_SMS_BINARY_MESSAGE_SUPPORTED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{afc25d66-fe0d-4114-9097-970c93e920d1}").CopyTo(value.fmtid.ptr)
             value.pid := 5001
             return value
         }
@@ -4429,8 +4139,7 @@ class PortableDevices {
     static WPD_COMMAND_STILL_IMAGE_CAPTURE_INITIATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4fcd6982-22a2-4b05-a48b-62d38bf27b32}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4fcd6982-22a2-4b05-a48b-62d38bf27b32}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4447,8 +4156,7 @@ class PortableDevices {
     static WPD_COMMAND_MEDIA_CAPTURE_START {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4460,8 +4168,7 @@ class PortableDevices {
     static WPD_COMMAND_MEDIA_CAPTURE_STOP {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -4473,8 +4180,7 @@ class PortableDevices {
     static WPD_COMMAND_MEDIA_CAPTURE_PAUSE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{59b433ba-fe44-4d8d-808c-6bcb9b0f15e8}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -4491,8 +4197,7 @@ class PortableDevices {
     static WPD_COMMAND_DEVICE_HINTS_GET_CONTENT_LOCATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4504,8 +4209,7 @@ class PortableDevices {
     static WPD_PROPERTY_DEVICE_HINTS_CONTENT_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -4517,8 +4221,7 @@ class PortableDevices {
     static WPD_PROPERTY_DEVICE_HINTS_CONTENT_LOCATIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{0d5fb92b-cb46-4c4f-8343-0bc3d3f17c84}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -4535,8 +4238,7 @@ class PortableDevices {
     static WPD_COMMAND_CLASS_EXTENSION_WRITE_DEVICE_INFORMATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4548,8 +4250,7 @@ class PortableDevices {
     static WPD_PROPERTY_CLASS_EXTENSION_DEVICE_INFORMATION_VALUES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -4561,8 +4262,7 @@ class PortableDevices {
     static WPD_PROPERTY_CLASS_EXTENSION_DEVICE_INFORMATION_WRITE_RESULTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{33fb0d11-64a3-4fac-b4c7-3dfeaa99b051}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -4579,8 +4279,7 @@ class PortableDevices {
     static WPD_COMMAND_CLASS_EXTENSION_REGISTER_SERVICE_INTERFACES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4592,8 +4291,7 @@ class PortableDevices {
     static WPD_COMMAND_CLASS_EXTENSION_UNREGISTER_SERVICE_INTERFACES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -4605,8 +4303,7 @@ class PortableDevices {
     static WPD_PROPERTY_CLASS_EXTENSION_SERVICE_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -4618,8 +4315,7 @@ class PortableDevices {
     static WPD_PROPERTY_CLASS_EXTENSION_SERVICE_INTERFACES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -4631,8 +4327,7 @@ class PortableDevices {
     static WPD_PROPERTY_CLASS_EXTENSION_SERVICE_REGISTRATION_RESULTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7f0779b5-fa2b-4766-9cb2-f73ba30b6758}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -4649,8 +4344,7 @@ class PortableDevices {
     static WPD_COMMAND_GENERATE_KEYPAIR {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4662,8 +4356,7 @@ class PortableDevices {
     static WPD_COMMAND_COMMIT_KEYPAIR {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -4675,8 +4368,7 @@ class PortableDevices {
     static WPD_COMMAND_PROCESS_WIRELESS_PROFILE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -4688,8 +4380,7 @@ class PortableDevices {
     static WPD_PROPERTY_PUBLIC_KEY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{78f9c6fc-79b8-473c-9060-6bd23dd072c4}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -4706,8 +4397,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_COMMON_GET_SERVICE_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{322f071d-36ef-477f-b4b5-6f52d734baee}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{322f071d-36ef-477f-b4b5-6f52d734baee}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4719,8 +4409,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{322f071d-36ef-477f-b4b5-6f52d734baee}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{322f071d-36ef-477f-b4b5-6f52d734baee}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -4737,8 +4426,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_METHODS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -4750,8 +4438,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_METHODS_BY_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -4763,8 +4450,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_METHOD_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -4776,8 +4462,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_METHOD_PARAMETER_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -4789,8 +4474,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_FORMATS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -4802,8 +4486,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -4815,8 +4498,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_FORMAT_PROPERTIES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -4828,8 +4510,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_PROPERTY_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -4841,8 +4522,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_EVENTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -4854,8 +4534,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_EVENT_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -4867,8 +4546,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_EVENT_PARAMETER_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -4880,8 +4558,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_INHERITED_SERVICES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -4893,8 +4570,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_FORMAT_RENDERING_PROFILES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -4906,8 +4582,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_SUPPORTED_COMMANDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -4919,8 +4594,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_CAPABILITIES_GET_COMMAND_OPTIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -4932,8 +4606,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_METHODS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -4945,8 +4618,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -4958,8 +4630,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_METHOD {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -4971,8 +4642,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_METHOD_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -4984,8 +4654,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_PARAMETER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1005
             return value
         }
@@ -4997,8 +4666,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_PARAMETER_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1006
             return value
         }
@@ -5010,8 +4678,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_FORMATS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1007
             return value
         }
@@ -5023,8 +4690,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_FORMAT_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1008
             return value
         }
@@ -5036,8 +4702,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_PROPERTY_KEYS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1009
             return value
         }
@@ -5049,8 +4714,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_PROPERTY_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1010
             return value
         }
@@ -5062,8 +4726,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_EVENTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1011
             return value
         }
@@ -5075,8 +4738,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_EVENT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1012
             return value
         }
@@ -5088,8 +4750,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_EVENT_ATTRIBUTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1013
             return value
         }
@@ -5101,8 +4762,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_INHERITANCE_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1014
             return value
         }
@@ -5114,8 +4774,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_INHERITED_SERVICES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1015
             return value
         }
@@ -5127,8 +4786,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_RENDERING_PROFILES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1016
             return value
         }
@@ -5140,8 +4798,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_SUPPORTED_COMMANDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1017
             return value
         }
@@ -5153,8 +4810,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_COMMAND {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1018
             return value
         }
@@ -5166,8 +4822,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_CAPABILITIES_COMMAND_OPTIONS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{24457e74-2e9f-44f9-8c57-1d1bcb170b89}").CopyTo(value.fmtid.ptr)
             value.pid := 1019
             return value
         }
@@ -5184,8 +4839,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_METHODS_START_INVOKE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -5197,8 +4851,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_METHODS_CANCEL_INVOKE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -5210,8 +4863,7 @@ class PortableDevices {
     static WPD_COMMAND_SERVICE_METHODS_END_INVOKE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -5223,8 +4875,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_METHOD {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -5236,8 +4887,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_METHOD_PARAMETER_VALUES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -5249,8 +4899,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_METHOD_RESULT_VALUES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -5262,8 +4911,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_METHOD_CONTEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -5275,8 +4923,7 @@ class PortableDevices {
     static WPD_PROPERTY_SERVICE_METHOD_HRESULT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2d521ca8-c1b0-4268-a342-cf19321569bc}").CopyTo(value.fmtid.ptr)
             value.pid := 1005
             return value
         }
@@ -5288,8 +4935,7 @@ class PortableDevices {
     static WPD_RESOURCE_DEFAULT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e81e79be-34f0-41bf-b53f-f1a06ae87842}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e81e79be-34f0-41bf-b53f-f1a06ae87842}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -5301,8 +4947,7 @@ class PortableDevices {
     static WPD_RESOURCE_CONTACT_PHOTO {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2c4d6803-80ea-4580-af9a-5be1a23eddcb}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2c4d6803-80ea-4580-af9a-5be1a23eddcb}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -5314,8 +4959,7 @@ class PortableDevices {
     static WPD_RESOURCE_THUMBNAIL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{c7c407ba-98fa-46b5-9960-23fec124cfde}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{c7c407ba-98fa-46b5-9960-23fec124cfde}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -5327,8 +4971,7 @@ class PortableDevices {
     static WPD_RESOURCE_ICON {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f195fed8-aa28-4ee3-b153-e182dd5edc39}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f195fed8-aa28-4ee3-b153-e182dd5edc39}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -5340,8 +4983,7 @@ class PortableDevices {
     static WPD_RESOURCE_AUDIO_CLIP {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{3bc13982-85b1-48e0-95a6-8d3ad06be117}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{3bc13982-85b1-48e0-95a6-8d3ad06be117}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -5353,8 +4995,7 @@ class PortableDevices {
     static WPD_RESOURCE_ALBUM_ART {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f02aa354-2300-4e2d-a1b9-3b6730f7fa21}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f02aa354-2300-4e2d-a1b9-3b6730f7fa21}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -5366,8 +5007,7 @@ class PortableDevices {
     static WPD_RESOURCE_GENERIC {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b9b9f515-ba70-4647-94dc-fa4925e95a07}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b9b9f515-ba70-4647-94dc-fa4925e95a07}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -5379,8 +5019,7 @@ class PortableDevices {
     static WPD_RESOURCE_VIDEO_CLIP {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b566ee42-6368-4290-8662-70182fb79f20}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b566ee42-6368-4290-8662-70182fb79f20}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -5392,8 +5031,7 @@ class PortableDevices {
     static WPD_RESOURCE_BRANDING_ART {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b633b1ae-6caf-4a87-9589-22ded6dd5899}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b633b1ae-6caf-4a87-9589-22ded6dd5899}").CopyTo(value.fmtid.ptr)
             value.pid := 0
             return value
         }
@@ -5720,8 +5358,7 @@ class PortableDevices {
     static WPD_OBJECT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -5733,8 +5370,7 @@ class PortableDevices {
     static WPD_OBJECT_PARENT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -5746,8 +5382,7 @@ class PortableDevices {
     static WPD_OBJECT_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -5759,8 +5394,7 @@ class PortableDevices {
     static WPD_OBJECT_PERSISTENT_UNIQUE_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -5772,8 +5406,7 @@ class PortableDevices {
     static WPD_OBJECT_FORMAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -5785,8 +5418,7 @@ class PortableDevices {
     static WPD_OBJECT_ISHIDDEN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -5798,8 +5430,7 @@ class PortableDevices {
     static WPD_OBJECT_ISSYSTEM {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -5811,8 +5442,7 @@ class PortableDevices {
     static WPD_OBJECT_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -5824,8 +5454,7 @@ class PortableDevices {
     static WPD_OBJECT_ORIGINAL_FILE_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -5837,8 +5466,7 @@ class PortableDevices {
     static WPD_OBJECT_NON_CONSUMABLE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -5850,8 +5478,7 @@ class PortableDevices {
     static WPD_OBJECT_KEYWORDS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -5863,8 +5490,7 @@ class PortableDevices {
     static WPD_OBJECT_SYNC_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -5876,8 +5502,7 @@ class PortableDevices {
     static WPD_OBJECT_IS_DRM_PROTECTED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -5889,8 +5514,7 @@ class PortableDevices {
     static WPD_OBJECT_DATE_CREATED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -5902,8 +5526,7 @@ class PortableDevices {
     static WPD_OBJECT_DATE_MODIFIED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 19
             return value
         }
@@ -5915,8 +5538,7 @@ class PortableDevices {
     static WPD_OBJECT_DATE_AUTHORED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 20
             return value
         }
@@ -5928,8 +5550,7 @@ class PortableDevices {
     static WPD_OBJECT_BACK_REFERENCES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 21
             return value
         }
@@ -5941,8 +5562,7 @@ class PortableDevices {
     static WPD_OBJECT_CAN_DELETE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 26
             return value
         }
@@ -5954,8 +5574,7 @@ class PortableDevices {
     static WPD_OBJECT_LANGUAGE_LOCALE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{ef6b490d-5cd8-437a-affc-da8b60ee4a3c}").CopyTo(value.fmtid.ptr)
             value.pid := 27
             return value
         }
@@ -5972,8 +5591,7 @@ class PortableDevices {
     static WPD_FOLDER_CONTENT_TYPES_ALLOWED {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7e9a7abf-e568-4b34-aa2f-13bb12ab177d}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7e9a7abf-e568-4b34-aa2f-13bb12ab177d}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -5990,8 +5608,7 @@ class PortableDevices {
     static WPD_IMAGE_BITDEPTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{63d64908-9fa1-479f-85ba-9952216447db}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -6003,8 +5620,7 @@ class PortableDevices {
     static WPD_IMAGE_CROPPED_STATUS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{63d64908-9fa1-479f-85ba-9952216447db}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -6016,8 +5632,7 @@ class PortableDevices {
     static WPD_IMAGE_COLOR_CORRECTED_STATUS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{63d64908-9fa1-479f-85ba-9952216447db}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -6029,8 +5644,7 @@ class PortableDevices {
     static WPD_IMAGE_FNUMBER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{63d64908-9fa1-479f-85ba-9952216447db}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -6042,8 +5656,7 @@ class PortableDevices {
     static WPD_IMAGE_EXPOSURE_TIME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{63d64908-9fa1-479f-85ba-9952216447db}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -6055,8 +5668,7 @@ class PortableDevices {
     static WPD_IMAGE_EXPOSURE_INDEX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{63d64908-9fa1-479f-85ba-9952216447db}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -6068,8 +5680,7 @@ class PortableDevices {
     static WPD_IMAGE_HORIZONTAL_RESOLUTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{63d64908-9fa1-479f-85ba-9952216447db}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -6081,8 +5692,7 @@ class PortableDevices {
     static WPD_IMAGE_VERTICAL_RESOLUTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{63d64908-9fa1-479f-85ba-9952216447db}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{63d64908-9fa1-479f-85ba-9952216447db}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -6104,8 +5714,7 @@ class PortableDevices {
     static WPD_MEDIA_TOTAL_BITRATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -6117,8 +5726,7 @@ class PortableDevices {
     static WPD_MEDIA_BITRATE_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -6130,8 +5738,7 @@ class PortableDevices {
     static WPD_MEDIA_COPYRIGHT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -6143,8 +5750,7 @@ class PortableDevices {
     static WPD_MEDIA_SUBSCRIPTION_CONTENT_ID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -6156,8 +5762,7 @@ class PortableDevices {
     static WPD_MEDIA_USE_COUNT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -6169,8 +5774,7 @@ class PortableDevices {
     static WPD_MEDIA_SKIP_COUNT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -6182,8 +5786,7 @@ class PortableDevices {
     static WPD_MEDIA_LAST_ACCESSED_TIME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -6195,8 +5798,7 @@ class PortableDevices {
     static WPD_MEDIA_PARENTAL_RATING {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -6208,8 +5810,7 @@ class PortableDevices {
     static WPD_MEDIA_META_GENRE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -6221,8 +5822,7 @@ class PortableDevices {
     static WPD_MEDIA_COMPOSER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -6234,8 +5834,7 @@ class PortableDevices {
     static WPD_MEDIA_EFFECTIVE_RATING {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -6247,8 +5846,7 @@ class PortableDevices {
     static WPD_MEDIA_SUB_TITLE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -6260,8 +5858,7 @@ class PortableDevices {
     static WPD_MEDIA_RELEASE_DATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -6273,8 +5870,7 @@ class PortableDevices {
     static WPD_MEDIA_SAMPLE_RATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -6286,8 +5882,7 @@ class PortableDevices {
     static WPD_MEDIA_STAR_RATING {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -6299,8 +5894,7 @@ class PortableDevices {
     static WPD_MEDIA_USER_EFFECTIVE_RATING {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -6312,8 +5906,7 @@ class PortableDevices {
     static WPD_MEDIA_TITLE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -6325,8 +5918,7 @@ class PortableDevices {
     static WPD_MEDIA_DURATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 19
             return value
         }
@@ -6338,8 +5930,7 @@ class PortableDevices {
     static WPD_MEDIA_BUY_NOW {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 20
             return value
         }
@@ -6351,8 +5942,7 @@ class PortableDevices {
     static WPD_MEDIA_ENCODING_PROFILE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 21
             return value
         }
@@ -6364,8 +5954,7 @@ class PortableDevices {
     static WPD_MEDIA_WIDTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 22
             return value
         }
@@ -6377,8 +5966,7 @@ class PortableDevices {
     static WPD_MEDIA_HEIGHT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 23
             return value
         }
@@ -6390,8 +5978,7 @@ class PortableDevices {
     static WPD_MEDIA_ARTIST {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 24
             return value
         }
@@ -6403,8 +5990,7 @@ class PortableDevices {
     static WPD_MEDIA_ALBUM_ARTIST {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 25
             return value
         }
@@ -6416,8 +6002,7 @@ class PortableDevices {
     static WPD_MEDIA_OWNER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 26
             return value
         }
@@ -6429,8 +6014,7 @@ class PortableDevices {
     static WPD_MEDIA_MANAGING_EDITOR {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 27
             return value
         }
@@ -6442,8 +6026,7 @@ class PortableDevices {
     static WPD_MEDIA_WEBMASTER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 28
             return value
         }
@@ -6455,8 +6038,7 @@ class PortableDevices {
     static WPD_MEDIA_SOURCE_URL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 29
             return value
         }
@@ -6468,8 +6050,7 @@ class PortableDevices {
     static WPD_MEDIA_DESTINATION_URL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 30
             return value
         }
@@ -6481,8 +6062,7 @@ class PortableDevices {
     static WPD_MEDIA_DESCRIPTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 31
             return value
         }
@@ -6494,8 +6074,7 @@ class PortableDevices {
     static WPD_MEDIA_GENRE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 32
             return value
         }
@@ -6507,8 +6086,7 @@ class PortableDevices {
     static WPD_MEDIA_TIME_BOOKMARK {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 33
             return value
         }
@@ -6520,8 +6098,7 @@ class PortableDevices {
     static WPD_MEDIA_OBJECT_BOOKMARK {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 34
             return value
         }
@@ -6533,8 +6110,7 @@ class PortableDevices {
     static WPD_MEDIA_LAST_BUILD_DATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 35
             return value
         }
@@ -6546,8 +6122,7 @@ class PortableDevices {
     static WPD_MEDIA_BYTE_BOOKMARK {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 36
             return value
         }
@@ -6559,8 +6134,7 @@ class PortableDevices {
     static WPD_MEDIA_TIME_TO_LIVE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 37
             return value
         }
@@ -6572,8 +6146,7 @@ class PortableDevices {
     static WPD_MEDIA_GUID {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 38
             return value
         }
@@ -6585,8 +6158,7 @@ class PortableDevices {
     static WPD_MEDIA_SUB_DESCRIPTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 39
             return value
         }
@@ -6598,8 +6170,7 @@ class PortableDevices {
     static WPD_MEDIA_AUDIO_ENCODING_PROFILE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{2ed8ba05-0ad3-42dc-b0d0-bc95ac396ac8}").CopyTo(value.fmtid.ptr)
             value.pid := 49
             return value
         }
@@ -6616,8 +6187,7 @@ class PortableDevices {
     static WPD_CONTACT_DISPLAY_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -6629,8 +6199,7 @@ class PortableDevices {
     static WPD_CONTACT_FIRST_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -6642,8 +6211,7 @@ class PortableDevices {
     static WPD_CONTACT_MIDDLE_NAMES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -6655,8 +6223,7 @@ class PortableDevices {
     static WPD_CONTACT_LAST_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -6668,8 +6235,7 @@ class PortableDevices {
     static WPD_CONTACT_PREFIX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -6681,8 +6247,7 @@ class PortableDevices {
     static WPD_CONTACT_SUFFIX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -6694,8 +6259,7 @@ class PortableDevices {
     static WPD_CONTACT_PHONETIC_FIRST_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -6707,8 +6271,7 @@ class PortableDevices {
     static WPD_CONTACT_PHONETIC_LAST_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -6720,8 +6283,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_FULL_POSTAL_ADDRESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -6733,8 +6295,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_LINE1 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -6746,8 +6307,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_LINE2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -6759,8 +6319,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_CITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -6772,8 +6331,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_REGION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -6785,8 +6343,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_POSTAL_CODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -6798,8 +6355,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_POSTAL_ADDRESS_COUNTRY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -6811,8 +6367,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_FULL_POSTAL_ADDRESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -6824,8 +6379,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_LINE1 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -6837,8 +6391,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_LINE2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 19
             return value
         }
@@ -6850,8 +6403,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_CITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 20
             return value
         }
@@ -6863,8 +6415,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_REGION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 21
             return value
         }
@@ -6876,8 +6427,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_POSTAL_CODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 22
             return value
         }
@@ -6889,8 +6439,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_POSTAL_ADDRESS_COUNTRY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 23
             return value
         }
@@ -6902,8 +6451,7 @@ class PortableDevices {
     static WPD_CONTACT_OTHER_FULL_POSTAL_ADDRESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 24
             return value
         }
@@ -6915,8 +6463,7 @@ class PortableDevices {
     static WPD_CONTACT_OTHER_POSTAL_ADDRESS_LINE1 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 25
             return value
         }
@@ -6928,8 +6475,7 @@ class PortableDevices {
     static WPD_CONTACT_OTHER_POSTAL_ADDRESS_LINE2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 26
             return value
         }
@@ -6941,8 +6487,7 @@ class PortableDevices {
     static WPD_CONTACT_OTHER_POSTAL_ADDRESS_CITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 27
             return value
         }
@@ -6954,8 +6499,7 @@ class PortableDevices {
     static WPD_CONTACT_OTHER_POSTAL_ADDRESS_REGION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 28
             return value
         }
@@ -6967,8 +6511,7 @@ class PortableDevices {
     static WPD_CONTACT_OTHER_POSTAL_ADDRESS_POSTAL_CODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 29
             return value
         }
@@ -6980,8 +6523,7 @@ class PortableDevices {
     static WPD_CONTACT_OTHER_POSTAL_ADDRESS_POSTAL_COUNTRY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 30
             return value
         }
@@ -6993,8 +6535,7 @@ class PortableDevices {
     static WPD_CONTACT_PRIMARY_EMAIL_ADDRESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 31
             return value
         }
@@ -7006,8 +6547,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_EMAIL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 32
             return value
         }
@@ -7019,8 +6559,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_EMAIL2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 33
             return value
         }
@@ -7032,8 +6571,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_EMAIL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 34
             return value
         }
@@ -7045,8 +6583,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_EMAIL2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 35
             return value
         }
@@ -7058,8 +6595,7 @@ class PortableDevices {
     static WPD_CONTACT_OTHER_EMAILS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 36
             return value
         }
@@ -7071,8 +6607,7 @@ class PortableDevices {
     static WPD_CONTACT_PRIMARY_PHONE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 37
             return value
         }
@@ -7084,8 +6619,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_PHONE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 38
             return value
         }
@@ -7097,8 +6631,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_PHONE2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 39
             return value
         }
@@ -7110,8 +6643,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_PHONE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 40
             return value
         }
@@ -7123,8 +6655,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_PHONE2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 41
             return value
         }
@@ -7136,8 +6667,7 @@ class PortableDevices {
     static WPD_CONTACT_MOBILE_PHONE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 42
             return value
         }
@@ -7149,8 +6679,7 @@ class PortableDevices {
     static WPD_CONTACT_MOBILE_PHONE2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 43
             return value
         }
@@ -7162,8 +6691,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_FAX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 44
             return value
         }
@@ -7175,8 +6703,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_FAX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 45
             return value
         }
@@ -7188,8 +6715,7 @@ class PortableDevices {
     static WPD_CONTACT_PAGER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 46
             return value
         }
@@ -7201,8 +6727,7 @@ class PortableDevices {
     static WPD_CONTACT_OTHER_PHONES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 47
             return value
         }
@@ -7214,8 +6739,7 @@ class PortableDevices {
     static WPD_CONTACT_PRIMARY_WEB_ADDRESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 48
             return value
         }
@@ -7227,8 +6751,7 @@ class PortableDevices {
     static WPD_CONTACT_PERSONAL_WEB_ADDRESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 49
             return value
         }
@@ -7240,8 +6763,7 @@ class PortableDevices {
     static WPD_CONTACT_BUSINESS_WEB_ADDRESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 50
             return value
         }
@@ -7253,8 +6775,7 @@ class PortableDevices {
     static WPD_CONTACT_INSTANT_MESSENGER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 51
             return value
         }
@@ -7266,8 +6787,7 @@ class PortableDevices {
     static WPD_CONTACT_INSTANT_MESSENGER2 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 52
             return value
         }
@@ -7279,8 +6799,7 @@ class PortableDevices {
     static WPD_CONTACT_INSTANT_MESSENGER3 {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 53
             return value
         }
@@ -7292,8 +6811,7 @@ class PortableDevices {
     static WPD_CONTACT_COMPANY_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 54
             return value
         }
@@ -7305,8 +6823,7 @@ class PortableDevices {
     static WPD_CONTACT_PHONETIC_COMPANY_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 55
             return value
         }
@@ -7318,8 +6835,7 @@ class PortableDevices {
     static WPD_CONTACT_ROLE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 56
             return value
         }
@@ -7331,8 +6847,7 @@ class PortableDevices {
     static WPD_CONTACT_BIRTHDATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 57
             return value
         }
@@ -7344,8 +6859,7 @@ class PortableDevices {
     static WPD_CONTACT_PRIMARY_FAX {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 58
             return value
         }
@@ -7357,8 +6871,7 @@ class PortableDevices {
     static WPD_CONTACT_SPOUSE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 59
             return value
         }
@@ -7370,8 +6883,7 @@ class PortableDevices {
     static WPD_CONTACT_CHILDREN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 60
             return value
         }
@@ -7383,8 +6895,7 @@ class PortableDevices {
     static WPD_CONTACT_ASSISTANT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 61
             return value
         }
@@ -7396,8 +6907,7 @@ class PortableDevices {
     static WPD_CONTACT_ANNIVERSARY_DATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 62
             return value
         }
@@ -7409,8 +6919,7 @@ class PortableDevices {
     static WPD_CONTACT_RINGTONE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{fbd4fdab-987d-4777-b3f9-726185a9312b}").CopyTo(value.fmtid.ptr)
             value.pid := 63
             return value
         }
@@ -7427,8 +6936,7 @@ class PortableDevices {
     static WPD_MUSIC_ALBUM {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -7440,8 +6948,7 @@ class PortableDevices {
     static WPD_MUSIC_TRACK {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -7453,8 +6960,7 @@ class PortableDevices {
     static WPD_MUSIC_LYRICS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -7466,8 +6972,7 @@ class PortableDevices {
     static WPD_MUSIC_MOOD {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -7479,8 +6984,7 @@ class PortableDevices {
     static WPD_AUDIO_BITRATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -7492,8 +6996,7 @@ class PortableDevices {
     static WPD_AUDIO_CHANNEL_COUNT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -7505,8 +7008,7 @@ class PortableDevices {
     static WPD_AUDIO_FORMAT_CODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -7518,8 +7020,7 @@ class PortableDevices {
     static WPD_AUDIO_BIT_DEPTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -7531,8 +7032,7 @@ class PortableDevices {
     static WPD_AUDIO_BLOCK_ALIGNMENT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b324f56a-dc5d-46e5-b6df-d2ea414888c6}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -7549,8 +7049,7 @@ class PortableDevices {
     static WPD_VIDEO_AUTHOR {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -7562,8 +7061,7 @@ class PortableDevices {
     static WPD_VIDEO_RECORDEDTV_STATION_NAME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -7575,8 +7073,7 @@ class PortableDevices {
     static WPD_VIDEO_RECORDEDTV_CHANNEL_NUMBER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -7588,8 +7085,7 @@ class PortableDevices {
     static WPD_VIDEO_RECORDEDTV_REPEAT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -7601,8 +7097,7 @@ class PortableDevices {
     static WPD_VIDEO_BUFFER_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -7614,8 +7109,7 @@ class PortableDevices {
     static WPD_VIDEO_CREDITS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -7627,8 +7121,7 @@ class PortableDevices {
     static WPD_VIDEO_KEY_FRAME_DISTANCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -7640,8 +7133,7 @@ class PortableDevices {
     static WPD_VIDEO_QUALITY_SETTING {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -7653,8 +7145,7 @@ class PortableDevices {
     static WPD_VIDEO_SCAN_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -7666,8 +7157,7 @@ class PortableDevices {
     static WPD_VIDEO_BITRATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -7679,8 +7169,7 @@ class PortableDevices {
     static WPD_VIDEO_FOURCC_CODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -7692,8 +7181,7 @@ class PortableDevices {
     static WPD_VIDEO_FRAMERATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{346f2163-f998-4146-8b01-d19b4c00de9a}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -7710,8 +7198,7 @@ class PortableDevices {
     static WPD_COMMON_INFORMATION_SUBJECT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -7723,8 +7210,7 @@ class PortableDevices {
     static WPD_COMMON_INFORMATION_BODY_TEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -7736,8 +7222,7 @@ class PortableDevices {
     static WPD_COMMON_INFORMATION_PRIORITY {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -7749,8 +7234,7 @@ class PortableDevices {
     static WPD_COMMON_INFORMATION_START_DATETIME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -7762,8 +7246,7 @@ class PortableDevices {
     static WPD_COMMON_INFORMATION_END_DATETIME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -7775,8 +7258,7 @@ class PortableDevices {
     static WPD_COMMON_INFORMATION_NOTES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{b28ae94b-05a4-4e8e-be01-72cc7e099d8f}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -7798,8 +7280,7 @@ class PortableDevices {
     static WPD_EMAIL_TO_LINE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -7811,8 +7292,7 @@ class PortableDevices {
     static WPD_EMAIL_CC_LINE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -7824,8 +7304,7 @@ class PortableDevices {
     static WPD_EMAIL_BCC_LINE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -7837,8 +7316,7 @@ class PortableDevices {
     static WPD_EMAIL_HAS_BEEN_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -7850,8 +7328,7 @@ class PortableDevices {
     static WPD_EMAIL_RECEIVED_TIME {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -7863,8 +7340,7 @@ class PortableDevices {
     static WPD_EMAIL_HAS_ATTACHMENTS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -7876,8 +7352,7 @@ class PortableDevices {
     static WPD_EMAIL_SENDER_ADDRESS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{41f8f65a-5484-4782-b13d-4740dd7c37c5}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -7894,8 +7369,7 @@ class PortableDevices {
     static WPD_APPOINTMENT_LOCATION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -7907,8 +7381,7 @@ class PortableDevices {
     static WPD_APPOINTMENT_TYPE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -7920,8 +7393,7 @@ class PortableDevices {
     static WPD_APPOINTMENT_REQUIRED_ATTENDEES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -7933,8 +7405,7 @@ class PortableDevices {
     static WPD_APPOINTMENT_OPTIONAL_ATTENDEES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}").CopyTo(value.fmtid.ptr)
             value.pid := 9
             return value
         }
@@ -7946,8 +7417,7 @@ class PortableDevices {
     static WPD_APPOINTMENT_ACCEPTED_ATTENDEES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -7959,8 +7429,7 @@ class PortableDevices {
     static WPD_APPOINTMENT_RESOURCES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -7972,8 +7441,7 @@ class PortableDevices {
     static WPD_APPOINTMENT_TENTATIVE_ATTENDEES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -7985,8 +7453,7 @@ class PortableDevices {
     static WPD_APPOINTMENT_DECLINED_ATTENDEES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{f99efd03-431d-40d8-a1c9-4e220d9c88d3}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -8003,8 +7470,7 @@ class PortableDevices {
     static WPD_TASK_STATUS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -8016,8 +7482,7 @@ class PortableDevices {
     static WPD_TASK_PERCENT_COMPLETE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}").CopyTo(value.fmtid.ptr)
             value.pid := 8
             return value
         }
@@ -8029,8 +7494,7 @@ class PortableDevices {
     static WPD_TASK_REMINDER_DATE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}").CopyTo(value.fmtid.ptr)
             value.pid := 10
             return value
         }
@@ -8042,8 +7506,7 @@ class PortableDevices {
     static WPD_TASK_OWNER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{e354e95e-d8a0-4637-a03a-0cb26838dbc7}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -8060,8 +7523,7 @@ class PortableDevices {
     static WPD_SMS_PROVIDER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -8073,8 +7535,7 @@ class PortableDevices {
     static WPD_SMS_TIMEOUT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -8086,8 +7547,7 @@ class PortableDevices {
     static WPD_SMS_MAX_PAYLOAD {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -8099,8 +7559,7 @@ class PortableDevices {
     static WPD_SMS_ENCODING {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{7e1074cc-50ff-4dd1-a742-53be6f093a0d}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -8117,8 +7576,7 @@ class PortableDevices {
     static WPD_SECTION_DATA_OFFSET {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -8130,8 +7588,7 @@ class PortableDevices {
     static WPD_SECTION_DATA_LENGTH {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -8143,8 +7600,7 @@ class PortableDevices {
     static WPD_SECTION_DATA_UNITS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -8156,8 +7612,7 @@ class PortableDevices {
     static WPD_SECTION_DATA_REFERENCED_OBJECT_RESOURCE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{516afd2b-c64e-44f0-98dc-bee1c88f7d66}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -9704,8 +9159,7 @@ class PortableDevices {
     static WPD_COMMAND_MTP_EXT_GET_SUPPORTED_VENDOR_OPCODES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 11
             return value
         }
@@ -9717,8 +9171,7 @@ class PortableDevices {
     static WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITHOUT_DATA_PHASE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 12
             return value
         }
@@ -9730,8 +9183,7 @@ class PortableDevices {
     static WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITH_DATA_TO_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 13
             return value
         }
@@ -9743,8 +9195,7 @@ class PortableDevices {
     static WPD_COMMAND_MTP_EXT_EXECUTE_COMMAND_WITH_DATA_TO_WRITE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 14
             return value
         }
@@ -9756,8 +9207,7 @@ class PortableDevices {
     static WPD_COMMAND_MTP_EXT_READ_DATA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 15
             return value
         }
@@ -9769,8 +9219,7 @@ class PortableDevices {
     static WPD_COMMAND_MTP_EXT_WRITE_DATA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 16
             return value
         }
@@ -9782,8 +9231,7 @@ class PortableDevices {
     static WPD_COMMAND_MTP_EXT_END_DATA_TRANSFER {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 17
             return value
         }
@@ -9795,8 +9243,7 @@ class PortableDevices {
     static WPD_COMMAND_MTP_EXT_GET_VENDOR_EXTENSION_DESCRIPTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 18
             return value
         }
@@ -9808,8 +9255,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_OPERATION_CODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1001
             return value
         }
@@ -9821,8 +9267,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_OPERATION_PARAMS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1002
             return value
         }
@@ -9834,8 +9279,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_RESPONSE_CODE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1003
             return value
         }
@@ -9847,8 +9291,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_RESPONSE_PARAMS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1004
             return value
         }
@@ -9860,8 +9303,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_VENDOR_OPERATION_CODES {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1005
             return value
         }
@@ -9873,8 +9315,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_TRANSFER_CONTEXT {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1006
             return value
         }
@@ -9886,8 +9327,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_TRANSFER_TOTAL_DATA_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1007
             return value
         }
@@ -9899,8 +9339,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_TO_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1008
             return value
         }
@@ -9912,8 +9351,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_READ {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1009
             return value
         }
@@ -9925,8 +9363,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_TO_WRITE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1010
             return value
         }
@@ -9938,8 +9375,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_TRANSFER_NUM_BYTES_WRITTEN {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1011
             return value
         }
@@ -9951,8 +9387,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_TRANSFER_DATA {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1012
             return value
         }
@@ -9964,8 +9399,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_OPTIMAL_TRANSFER_BUFFER_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1013
             return value
         }
@@ -9977,8 +9411,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_VENDOR_EXTENSION_DESCRIPTION {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-1a2e-4106-a357-771e0819fc56}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-1a2e-4106-a357-771e0819fc56}").CopyTo(value.fmtid.ptr)
             value.pid := 1014
             return value
         }
@@ -10005,8 +9438,7 @@ class PortableDevices {
     static WPD_PROPERTY_MTP_EXT_EVENT_PARAMS {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{4d545058-ef88-4e4d-95c3-4f327f728a96}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{4d545058-ef88-4e4d-95c3-4f327f728a96}").CopyTo(value.fmtid.ptr)
             value.pid := 1011
             return value
         }
@@ -10028,8 +9460,7 @@ class PortableDevices {
     static WPDNSE_OBJECT_HAS_CONTACT_PHOTO {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}").CopyTo(value.fmtid.ptr)
             value.pid := 2
             return value
         }
@@ -10041,8 +9472,7 @@ class PortableDevices {
     static WPDNSE_OBJECT_HAS_THUMBNAIL {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}").CopyTo(value.fmtid.ptr)
             value.pid := 3
             return value
         }
@@ -10054,8 +9484,7 @@ class PortableDevices {
     static WPDNSE_OBJECT_HAS_ICON {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}").CopyTo(value.fmtid.ptr)
             value.pid := 4
             return value
         }
@@ -10067,8 +9496,7 @@ class PortableDevices {
     static WPDNSE_OBJECT_HAS_AUDIO_CLIP {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}").CopyTo(value.fmtid.ptr)
             value.pid := 5
             return value
         }
@@ -10080,8 +9508,7 @@ class PortableDevices {
     static WPDNSE_OBJECT_HAS_ALBUM_ART {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}").CopyTo(value.fmtid.ptr)
             value.pid := 6
             return value
         }
@@ -10093,8 +9520,7 @@ class PortableDevices {
     static WPDNSE_OBJECT_OPTIMAL_READ_BLOCK_SIZE {
         get {
             value := PROPERTYKEY()
-            static fmtid_guid := Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}")
-            value.fmtid := fmtid_guid.ptr
+            Guid("{34d71409-4b47-4d80-aaac-3a28a4a3b3e6}").CopyTo(value.fmtid.ptr)
             value.pid := 7
             return value
         }
@@ -10709,7 +10135,7 @@ class PortableDevices {
 
         rgszAllowedCspNodesMarshal := rgszAllowedCspNodes is VarRef ? "ptr*" : "ptr"
 
-        pbstrXmlOut := BSTR()
+        pbstrXmlOut := BSTR({Value: 0}, True)
         result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, rgszAllowedCspNodesMarshal, rgszAllowedCspNodes, "uint", dwNumAllowedCspNodes, "ptr", pbstrXmlOut, "HRESULT")
         return pbstrXmlOut
     }

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuneRequest.ahk
 #Include ..\..\..\System\Com\IEnumGUID.ahk
 #Include ..\..\..\System\Com\IEnumMoniker.ahk
+#Include .\ITuneRequest.ahk
 #Include .\IComponentTypes.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 #Include .\ILocator.ahk
 
 /**
@@ -115,7 +116,7 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_uniquename
      */
     get_UniqueName() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(7, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -143,7 +144,7 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_friendlyname
      */
     get_FriendlyName() {
-        Name := BSTR()
+        Name := BSTR({Value: 0}, True)
         result := ComCall(9, this, "ptr", Name, "HRESULT")
         return Name
     }
@@ -171,7 +172,7 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_clsid
      */
     get_CLSID() {
-        SpaceCLSID := BSTR()
+        SpaceCLSID := BSTR({Value: 0}, True)
         result := ComCall(11, this, "ptr", SpaceCLSID, "HRESULT")
         return SpaceCLSID
     }
@@ -184,7 +185,7 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_networktype
      */
     get_NetworkType() {
-        NetworkTypeGuid := BSTR()
+        NetworkTypeGuid := BSTR({Value: 0}, True)
         result := ComCall(12, this, "ptr", NetworkTypeGuid, "HRESULT")
         return NetworkTypeGuid
     }
@@ -295,7 +296,7 @@ class ITuningSpace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspace-get_frequencymapping
      */
     get_FrequencyMapping() {
-        pMapping := BSTR()
+        pMapping := BSTR({Value: 0}, True)
         result := ComCall(21, this, "ptr", pMapping, "HRESULT")
         return pMapping
     }

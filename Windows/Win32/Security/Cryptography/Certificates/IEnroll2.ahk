@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\IEnroll.ahk
+#Include ..\HCERTSTORE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll2)

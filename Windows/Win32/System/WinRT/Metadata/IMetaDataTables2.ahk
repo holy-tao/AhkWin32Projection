@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include .\IMetaDataTables.ahk
+#Include ..\..\..\Foundation\HRESULT.ahk
 
 /**
  * Extends IMetaDataTables to include methods for working with metadata streams.

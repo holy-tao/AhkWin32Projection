@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\FW_DYNAMIC_KEYWORD_ADDRESS0.ahk
-#Include .\FW_DYNAMIC_KEYWORD_ADDRESS_DATA0.ahk
 #Include .\FW_DYNAMIC_KEYWORD_ORIGIN_TYPE.ahk
+#Include .\FW_DYNAMIC_KEYWORD_ADDRESS_DATA0.ahk
 
 /**
  * Holds the data returned to the client when the **Enumeration** APIs are called.
@@ -10,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
 class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -35,8 +37,8 @@ class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 extends Win32Struct {
      * @type {Pointer<FW_DYNAMIC_KEYWORD_ADDRESS_DATA0>}
      */
     next {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -46,8 +48,8 @@ class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 extends Win32Struct {
      * @type {Integer}
      */
     schemaVersion {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
     }
 
     /**
@@ -57,7 +59,7 @@ class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 extends Win32Struct {
      * @type {FW_DYNAMIC_KEYWORD_ORIGIN_TYPE}
      */
     originType {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 }

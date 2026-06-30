@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ID3D10Device.ahk
+#Include ..\..\Foundation\HRESULT.ahk
 
 /**
  * A state-block interface encapsulates render states.

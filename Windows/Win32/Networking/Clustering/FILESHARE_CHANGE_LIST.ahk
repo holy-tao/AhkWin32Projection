@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILESHARE_CHANGE.ahk
 #Include .\FILESHARE_CHANGE_ENUM.ahk
+#Include .\FILESHARE_CHANGE.ahk
 
 /**
  * Describes an event notification list for file shares managed by the File Server resource.

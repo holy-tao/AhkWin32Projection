@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents summary information about a COM+ component hosted in a particular process. It can also represent a Services Without Components (SWC) context.
@@ -7,44 +9,56 @@
  * @namespace Windows.Win32.System.ComponentServices
  */
 class ComponentSummary extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 80
 
     static packingSize => 8
 
     /**
      * The application instance GUID that uniquely identifies the process that hosts the component.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ApplicationInstanceId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get {
+            if(!this.HasProp("__ApplicationInstanceId"))
+                this.__ApplicationInstanceId := Guid(0, this)
+            return this.__ApplicationInstanceId
+        }
     }
 
     /**
      * The partition ID of the component.
-     * @type {Pointer}
+     * @type {Guid}
      */
     PartitionId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get {
+            if(!this.HasProp("__PartitionId"))
+                this.__PartitionId := Guid(16, this)
+            return this.__PartitionId
+        }
     }
 
     /**
      * The application ID of the component. The special value {84ac4168-6fe5-4308-a2ed-03688a023c7a} indicates that this is an SWC context.
-     * @type {Pointer}
+     * @type {Guid}
      */
     ApplicationId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get {
+            if(!this.HasProp("__ApplicationId"))
+                this.__ApplicationId := Guid(32, this)
+            return this.__ApplicationId
+        }
     }
 
     /**
      * The CLSID of the component.
-     * @type {Pointer}
+     * @type {Guid}
      */
     Clsid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get {
+            if(!this.HasProp("__Clsid"))
+                this.__Clsid := Guid(48, this)
+            return this.__Clsid
+        }
     }
 
     /**
@@ -52,8 +66,8 @@ class ComponentSummary extends Win32Struct {
      * @type {PWSTR}
      */
     ClassName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -61,7 +75,7 @@ class ComponentSummary extends Win32Struct {
      * @type {PWSTR}
      */
     ApplicationName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

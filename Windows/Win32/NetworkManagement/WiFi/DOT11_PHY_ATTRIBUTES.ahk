@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\DOT11_ERP_PHY_ATTRIBUTES.ahk
 #Include .\DOT11_PHY_TYPE.ahk
 #Include .\DOT11_TEMP_TYPE.ahk
-#Include .\DOT11_DIVERSITY_SUPPORT.ahk
-#Include .\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk
-#Include .\DOT11_OFDM_PHY_ATTRIBUTES.ahk
-#Include .\DOT11_ERP_PHY_ATTRIBUTES.ahk
-#Include .\DOT11_DATA_RATE_MAPPING_ENTRY.ahk
 #Include .\DOT11_SUPPORTED_DATA_RATES_VALUE_V2.ahk
+#Include .\DOT11_DATA_RATE_MAPPING_ENTRY.ahk
+#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include .\DOT11_DIVERSITY_SUPPORT.ahk
+#Include .\DOT11_OFDM_PHY_ATTRIBUTES.ahk
+#Include .\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -18,7 +19,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct {
 
     static packingSize => 4
 
-    class _PhySpecificAttributes_e__Union extends Win32Struct {
+    class _PhySpecificAttributes extends Win32Struct {
         static sizeof => 12
         static packingSize => 4
 
@@ -124,12 +125,12 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct {
     }
 
     /**
-     * @type {_PhySpecificAttributes_e__Union}
+     * @type {_PhySpecificAttributes}
      */
     PhySpecificAttributes {
         get {
             if(!this.HasProp("__PhySpecificAttributes"))
-                this.__PhySpecificAttributes := DOT11_PHY_ATTRIBUTES._PhySpecificAttributes_e__Union(24, this)
+                this.__PhySpecificAttributes := DOT11_PHY_ATTRIBUTES._PhySpecificAttributes(24, this)
             return this.__PhySpecificAttributes
         }
     }

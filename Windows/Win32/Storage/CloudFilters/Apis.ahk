@@ -1,7 +1,42 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\CF_CONNECTION_KEY.ahk
+#Include .\CF_PLACEHOLDER_RANGE_INFO_CLASS.ahk
+#Include ..\..\System\IO\OVERLAPPED.ahk
+#Include .\CF_UPDATE_FLAGS.ahk
+#Include ..\FileSystem\WIN32_FIND_DATAA.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\CF_SYNC_REGISTRATION.ahk
+#Include .\CF_DEHYDRATE_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\CF_PLACEHOLDER_INFO_CLASS.ahk
+#Include .\CF_HYDRATE_FLAGS.ahk
+#Include ..\..\Foundation\HRESULT.ahk
+#Include .\CF_CREATE_FLAGS.ahk
+#Include .\CF_REGISTER_FLAGS.ahk
+#Include .\CF_SET_IN_SYNC_FLAGS.ahk
+#Include .\CF_OPERATION_INFO.ahk
+#Include .\CF_SYNC_ROOT_INFO_CLASS.ahk
+#Include .\CF_PLACEHOLDER_STATE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk
+#Include .\CF_FILE_RANGE.ahk
+#Include .\CF_CONNECTION_KEY.ahk
+#Include .\CF_CALLBACK_REGISTRATION.ahk
+#Include ..\FileSystem\FILE_INFO_BY_HANDLE_CLASS.ahk
+#Include .\CF_CONVERT_FLAGS.ahk
+#Include .\CF_OPERATION_PARAMETERS.ahk
+#Include .\CF_PLATFORM_INFO.ahk
+#Include .\CF_REVERT_FLAGS.ahk
+#Include .\CF_PLACEHOLDER_CREATE_INFO.ahk
+#Include .\CF_SET_PIN_FLAGS.ahk
+#Include .\CF_PIN_STATE.ahk
+#Include .\CF_OPEN_FILE_FLAGS.ahk
+#Include .\CF_CONNECT_FLAGS.ahk
+#Include .\CF_SYNC_STATUS.ahk
+#Include .\CF_SYNC_POLICIES.ahk
+#Include .\CF_IN_SYNC_STATE.ahk
+#Include .\CF_SYNC_PROVIDER_STATUS.ahk
+#Include .\CF_FS_METADATA.ahk
 
 /**
  * @namespace Windows.Win32.Storage.CloudFilters
@@ -213,7 +248,7 @@ class CloudFilters {
 
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-        ConnectionKey := CF_CONNECTION_KEY()
+        ConnectionKey := CF_CONNECTION_KEY({Value: 0}, True)
         result := DllCall("cldapi.dll\CfConnectSyncRoot", "ptr", SyncRootPath, "ptr", CallbackTable, CallbackContextMarshal, CallbackContext, "int", ConnectFlags, "ptr", ConnectionKey, "HRESULT")
         return ConnectionKey
     }
@@ -409,7 +444,8 @@ class CloudFilters {
     static CfOpenFileWithOplock(FilePath, Flags) {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
-        ProtectedHandle := HANDLE()
+        ProtectedHandle := HANDLE({Value: 0}, True)
+        ProtectedHandle.DefineProp("Free", { Call: (self) => CloudFilters.CfCloseHandle(self.Value) })
         result := DllCall("cldapi.dll\CfOpenFileWithOplock", "ptr", FilePath, "int", Flags, "ptr", ProtectedHandle, "HRESULT")
         return ProtectedHandle
     }
