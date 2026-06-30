@@ -36,7 +36,12 @@ class Guid extends Win32Struct {
      *          are not modified. If a string, a new Buffer is allocated and populated based on the
      *          contents of the string
      */
-    __New(ptrOrGuidString := 0){
+    __New(ptrOrGuidString := 0, parent := ""){
+        ; Embedded in another struct: ptrOrGuidString is an offset into parent's memory
+        if(IsObject(parent)){
+            super.__New(ptrOrGuidString, parent)
+            return
+        }
         if(IsInteger(ptrOrGuidString)){
             super.__New(ptrOrGuidString)
             return
