@@ -17,6 +17,7 @@
 #Import "./generator-extensions/NTSTATUSExtensions.test.ahk" { NTSTATUSExtensionTests }
 
 #Import "./HandleOwnership.test.ahk" { HandleOwnershipTests }
+#Import "./GeneratedDelegateSmoke.test.ahk" { GeneratedDelegateSmokeTests }
 
 #Import "./Vector.test.ahk" { VectorTests }
 
@@ -32,6 +33,7 @@ Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
     StringUtilExtensionTests,
     NTSTATUSExtensionTests,
     HandleOwnershipTests,
+    GeneratedDelegateSmokeTests,
     VectorTests
 )
 

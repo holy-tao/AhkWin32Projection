@@ -143,7 +143,7 @@ class GeneratedApiSmokeTests {
          */
         AltName_EntryPoint_Works(){
             testBuf := Buffer(8, 0)
-            result := RtlGenRandom(testBuf, testBuf.size)
+            result := RtlGenRandom(testBuf.ptr, testBuf.size)
 
             Yunit.Assert(result == true)
             Yunit.Assert(NumGet(testBuf, "Int") != 0)
